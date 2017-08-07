@@ -1,0 +1,138 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+_arc = `getconf LONG_BIT`
+
+# define package name
+COMMON_PKG=scangearmp2
+
+CFLAGS = -Wall -g
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+
+TYPE_ARCH = "$(shell dpkg-architecture -qDEB_HOST_MULTIARCH 2>/dev/null)/"
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	# Add here commands to configure the package.
+
+	### configure common package
+	@echo "######## configure scangearmp2"; \
+	cd ./scangearmp2; ./autogen.sh --prefix=/usr LDFLAGS="-L`pwd`/../com/libs_bin${_arc}"
+
+	touch configure-stamp
+
+
+build: build-stamp
+
+build-stamp: configure-stamp 
+	dh_testdir
+
+	# Add here commands to compile the package.
+	#$(MAKE)
+
+	### build common package
+	@echo "######## compile scangearmp2"; \
+	cd ./scangearmp2; make
+
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+
+	# Add here commands to clean up after the build process.
+	#-$(MAKE) clean
+	-cd ./scangearmp2; make clean
+
+	dh_clean 
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	### install common package
+	cd ./scangearmp2; make install DESTDIR=$(CURDIR)/debian/${COMMON_PKG}
+	### remove .la .a
+	rm -f $(CURDIR)/debian/${COMMON_PKG}/usr/lib/*.la $(CURDIR)/debian/${COMMON_PKG}/usr/lib/*.a
+
+	### copy common libraries
+	dh_install -s
+	mkdir -p $(CURDIR)/debian/${COMMON_PKG}/usr/lib
+	install -c -s -m 755 ./com/libs_bin${_arc}/*.so.* $(CURDIR)/debian/${COMMON_PKG}/usr/lib
+	
+	### copy udev rules file
+	dh_install -s
+	mkdir -p $(CURDIR)/debian/${COMMON_PKG}/etc/udev/rules.d
+	install -c -m 644 ./scangearmp2/etc/*.rules $(CURDIR)/debian/${COMMON_PKG}/etc/udev/rules.d
+
+	### copy sane libraries
+	dh_install -s
+	mkdir -p $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane
+	install -c -s -m 755 ./scangearmp2/src/.libs/libsane-canon_pixma.a $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane
+	install -c -s -m 755 ./scangearmp2/src/.libs/libsane-canon_pixma.so.1.0.0 $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane
+	cp -f ./scangearmp2/src/libsane-canon_pixma.la $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane
+	chmod 0755 $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.la 
+	ln -s /usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so.1.0.0 $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so.1
+	ln -s /usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so.1.0.0 $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so
+
+	### copy ini file
+	dh_install -s
+	mkdir -p $(CURDIR)/debian/${COMMON_PKG}/usr/lib/bjlib
+	install -c -m 666 ./com/ini/canon_mfp2_net.ini $(CURDIR)/debian/${COMMON_PKG}/usr/lib/bjlib
+
+	touch $@
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs 
+	dh_installdocs
+	dh_installexamples
+#	dh_install
+#	dh_installmenu
+#	dh_installdebconf	
+#	dh_installlogrotate
+#	dh_installemacsen
+#	dh_installpam
+#	dh_installmime
+#	dh_python
+#	dh_installinit
+#	dh_installcron
+#	dh_installinfo
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress -X.txt
+	dh_fixperms --exclude=canon_mfp2_net.ini
+#	dh_perl
+#	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

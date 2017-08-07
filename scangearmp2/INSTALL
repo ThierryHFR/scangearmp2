@@ -1,0 +1,19 @@
+To build and install scangearmp2:
+
+        ./autogen.sh
+        make
+        make install
+
+Appendix:
+
+        * You can also set the following path.
+           --prefix
+                scangearmp2                     : default ... /usr/local
+           --enable-libpath
+                bjlib/*.conf(ex.canon_mfp2.conf)      : default ... /usr/lib
+
+       Example:
+
+           ./autogen.sh --enable-libpath=/usr/lib
+           make
+           make install

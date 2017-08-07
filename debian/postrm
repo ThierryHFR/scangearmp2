@@ -1,0 +1,11 @@
+#!/bin/sh
+
+for LIBS in libcncpmslld2 libcncpnet2 libcncpnet20 libcncpnet30
+do
+	if [ -h /usr/lib/${LIBS}.so ]; then
+		rm -f /usr/lib/${LIBS}.so
+	fi	
+done
+
+# remove sgmp_setting files
+rm -f /var/tmp/canon_sgmp2_setting*.*

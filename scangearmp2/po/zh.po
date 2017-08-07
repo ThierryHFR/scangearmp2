@@ -1,0 +1,373 @@
+# ScanGear MP for Linux
+# Copyright CANON INC. 2014
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scangearmp2 3.00\n"
+"POT-Creation-Date: 2014-04-14 18:30+0900\n"
+"PO-Revision-Date: 2014-04-14 19:49+0900\n"
+"Last-Translator: CANON INC.\n"
+"Language-Team: CANON INC.\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n."
+
+
+
+#. STR_CNMS_LS_001_01
+#: src/cnmsstrings.h:38 scangearmp2.glade.h:24
+msgid "Scanner"
+msgstr "扫描仪"
+
+#. STR_CNMS_LS_001_02
+#: src/cnmsstrings.h:40 scangearmp2.glade.h:22
+msgid "Scan Mode:"
+msgstr "扫描模式:"
+
+#. STR_CNMS_LS_001_03
+#: src/cnmsstrings.h:42 scangearmp2.glade.h:28
+msgid "Select Source:"
+msgstr "选择来源:"
+
+#. STR_CNMS_LS_001_04
+#: src/cnmsstrings.h:44 scangearmp2.glade.h:6
+msgid "Color Mode:"
+msgstr "色彩模式:"
+
+#. STR_CNMS_LS_001_05
+#: src/cnmsstrings.h:46 scangearmp2.glade.h:12
+msgid "Paper Size:"
+msgstr "纸张尺寸:"
+
+#. STR_CNMS_LS_001_06
+#: src/cnmsstrings.h:48 scangearmp2.glade.h:18
+msgid "Scan (JPEG)"
+msgstr "扫描(JPEG)"
+
+#. STR_CNMS_LS_001_07
+#: src/cnmsstrings.h:50 scangearmp2.glade.h:20
+msgid "Scan (PDF)"
+msgstr "扫描(PDF)"
+
+#. STR_CNMS_LS_001_08
+#: src/cnmsstrings.h:52 scangearmp2.glade.h:4
+msgid "Close"
+msgstr "关闭"
+
+#. STR_CNMS_LS_001_09
+#: src/cnmsstrings.h:54 scangearmp2.glade.h:32
+msgid "Version"
+msgstr "版本"
+
+#. STR_CNMS_LS_002_01
+#: src/cnmsstrings.h:56
+msgid "Platen"
+msgstr "稿台"
+
+#. STR_CNMS_LS_002_02
+#: src/cnmsstrings.h:58
+msgid "ADF Simplex"
+msgstr "自动输稿器单面"
+
+#. STR_CNMS_LS_002_03
+#: src/cnmsstrings.h:60
+msgid "ADF Duplex (Long-side Binding)"
+msgstr "自动输稿器双面(长边装订)"
+
+#. STR_CNMS_LS_002_04
+#: src/cnmsstrings.h:62
+msgid "ADF Duplex (Short-side Binding)"
+msgstr "自动输稿器双面(短边装订)"
+
+#. STR_CNMS_LS_003_01
+#: src/cnmsstrings.h:64
+msgid "Document"
+msgstr "文档"
+
+#. STR_CNMS_LS_003_02
+#: src/cnmsstrings.h:66
+msgid "Photo"
+msgstr "照片"
+
+#. STR_CNMS_LS_004_01
+#: src/cnmsstrings.h:68
+msgid "Color"
+msgstr "彩色"
+
+#. STR_CNMS_LS_004_02
+#: src/cnmsstrings.h:70
+msgid "Grayscale"
+msgstr "灰度"
+
+#. STR_CNMS_LS_005_01
+#: src/cnmsstrings.h:72
+msgid "Card"
+msgstr "Card"
+
+#. STR_CNMS_LS_005_02
+#: src/cnmsstrings.h:74
+msgid "L Landscape"
+msgstr "L 横向"
+
+#. STR_CNMS_LS_005_03
+#: src/cnmsstrings.h:76
+msgid "L Portrait"
+msgstr "L 纵向"
+
+#. STR_CNMS_LS_005_04
+#: src/cnmsstrings.h:78
+msgid "4\" x 6\" Landscape"
+msgstr "4\" x 6\" 横向"
+
+#. STR_CNMS_LS_005_05
+#: src/cnmsstrings.h:80
+msgid "4\" x 6\" Portrait"
+msgstr "4\" x 6\" 纵向"
+
+#. STR_CNMS_LS_005_06
+#: src/cnmsstrings.h:82
+msgid "Hagaki Landscape"
+msgstr "Hagaki 横向"
+
+#. STR_CNMS_LS_005_07
+#: src/cnmsstrings.h:84
+msgid "Hagaki Portrait"
+msgstr "Hagaki 纵向"
+
+#. STR_CNMS_LS_005_08
+#: src/cnmsstrings.h:86
+msgid "2L Landscape"
+msgstr "2L 横向"
+
+#. STR_CNMS_LS_005_09
+#: src/cnmsstrings.h:88
+msgid "2L Portrait"
+msgstr "2L 纵向"
+
+#. STR_CNMS_LS_005_10
+#: src/cnmsstrings.h:90
+msgid "A5"
+msgstr "A5"
+
+#. STR_CNMS_LS_005_11
+#: src/cnmsstrings.h:92
+msgid "B5"
+msgstr "B5"
+
+#. STR_CNMS_LS_005_12
+#: src/cnmsstrings.h:94
+msgid "A4"
+msgstr "A4"
+
+#. STR_CNMS_LS_005_13
+#: src/cnmsstrings.h:96
+msgid "Letter"
+msgstr "Letter"
+
+#. STR_CNMS_LS_007_03
+#: src/cnmsstrings.h:102
+#, c-format
+msgid "Version %s"
+msgstr "版本 %s"
+
+#. STR_CNMS_LS_007_04
+#: src/cnmsstrings.h:104
+#, c-format
+msgid "Copyright CANON INC. %s-%s"
+msgstr "版权所有 CANON INC. %s-%s"
+
+#. STR_CNMS_LS_008_01
+#: src/cnmsstrings.h:106 scangearmp2.glade.h:16
+msgid "Save Scan Image"
+msgstr "保存扫描图像"
+
+#. STR_CNMS_LS_008_02
+#: src/cnmsstrings.h:108 scangearmp2.glade.h:14
+msgid "Save"
+msgstr "保存"
+
+#. STR_CNMS_LS_008_03
+#: src/cnmsstrings.h:110
+msgid "The file name is not specified."
+msgstr "未指定文件名称。"
+
+#. STR_CNMS_LS_008_04
+#: src/cnmsstrings.h:112
+msgid ""
+"The same file name already exists.\n"
+"Are you sure to overwrite it?"
+msgstr ""
+"相同的文件名称已经存在。\n"
+"您确定要覆盖它吗？"
+
+#. STR_CNMS_LS_008_05
+#: src/cnmsstrings.h:114
+msgid ""
+"You do not have permission to access the specified file.\n"
+"Specify another file name or save the file in another directory."
+msgstr ""
+"您没有权限存取指定的文件。\n"
+"请指定其他的文件名称或者保存此文件至其他目录。"
+
+#. STR_CNMS_LS_008_06
+#: src/cnmsstrings.h:116
+msgid ""
+"The specified directory does not exist or you do not have permission to "
+"access the directory.\n"
+"Save the file in another directory."
+msgstr ""
+"指定的目录不存在或者您没有权限访问此目录。\n"
+"请保存此文件至其他目录。"
+
+#. STR_CNMS_LS_008_07
+#: src/cnmsstrings.h:118
+msgid ""
+"The specified file name is invalid.\n"
+"Specify another file name."
+msgstr ""
+"指定的文件名称无效。\n"
+"请指定其他的文件名称。"
+
+#. STR_CNMS_LS_009_01
+#: src/cnmsstrings.h:120
+msgid "Scanning..."
+msgstr "正在扫描..."
+
+#. STR_CNMS_LS_009_02
+#: src/cnmsstrings.h:122
+msgid "Saving..."
+msgstr "正在保存..."
+
+#. STR_CNMS_LS_009_03
+#: src/cnmsstrings.h:124
+msgid "Saved the scan result."
+msgstr "已保存扫描结果。"
+
+#. STR_CNMS_LS_009_04
+#: src/cnmsstrings.h:126
+#, c-format
+msgid "%d page(s)"
+msgstr "%d 页"
+
+#. STR_CNMS_LS_009_05
+#: src/cnmsstrings.h:128
+msgid "Canceling..."
+msgstr "正在取消..."
+
+#. STR_CNMS_LS_010_01
+#: src/cnmsstrings.h:130
+msgid "Scan has been canceled."
+msgstr "扫描已取消。"
+
+#. STR_CNMS_LS_010_02
+#: src/cnmsstrings.h:132
+msgid "Scan has been canceled. Check the printer."
+msgstr "扫描已取消。检查打印机。"
+
+#. STR_CNMS_LS_010_03
+#: src/cnmsstrings.h:134
+msgid ""
+"The printer is in operation. Check the printer.\n"
+"Scanner driver will be closed."
+msgstr ""
+"打印机正在操作。检查打印机。\n"
+"扫描仪驱动程序将被关闭。"
+
+#. STR_CNMS_LS_010_04
+#: src/cnmsstrings.h:136
+msgid ""
+"An error has occurred while scanning. Check the printer.\n"
+"Scanner driver will be closed."
+msgstr ""
+"扫描时发生错误。检查打印机。\n"
+"扫描仪驱动程序将被关闭。"
+
+#. STR_CNMS_LS_010_05
+#: src/cnmsstrings.h:138
+msgid ""
+"Cannot communicate with scanner.\n"
+"Scanner driver will be closed."
+msgstr ""
+"无法与扫描仪通讯。\n"
+"扫描仪驱动程序将被关闭。"
+
+#. STR_CNMS_LS_010_06
+#: src/cnmsstrings.h:140
+msgid ""
+"There is not enough free disk space to complete the scan.\n"
+"Scanner driver will be closed."
+msgstr ""
+"没有足够的完成扫描所需的可用磁盘空间。\n"
+"扫描仪驱动程序将被关闭。"
+
+#. STR_CNMS_LS_010_07
+#: src/cnmsstrings.h:142
+msgid ""
+"Cannot find available scanners.\n"
+"\n"
+"Cable may be disconnected or scanner may be turned off.\n"
+"Check the scanner status, and then try again."
+msgstr ""
+"无法找到可用的扫描仪。\n"
+"\n"
+"电缆可能已断开连接，或扫描仪可能已被关闭。\n"
+"请检查扫描仪状态，然后重试。"
+
+#. STR_CNMS_LS_010_08
+#: src/cnmsstrings.h:144
+msgid ""
+"The ADF (Auto Document Feeder) is empty. \n"
+"Place paper in the ADF."
+msgstr ""
+"ADF(自动输稿器)空着。\n"
+"请放入纸张。"
+
+#. STR_CNMS_LS_010_09
+#: src/cnmsstrings.h:146
+msgid ""
+"Internal Error occurred.\n"
+"Scanner driver will be closed."
+msgstr ""
+"发生内部错误。\n"
+"扫描仪驱动程序将被关闭。"
+
+#. STR_CNMS_LS_011_01
+#: src/cnmsstrings.h:148 scangearmp2.glade.h:26
+msgid "Select Scanner"
+msgstr "选择扫描仪"
+
+#. STR_CNMS_LS_011_02
+#: src/cnmsstrings.h:150 scangearmp2.glade.h:8
+msgid "No scanners detected."
+msgstr "未检测到扫描仪。"
+
+#. STR_CNMS_LS_011_03
+#: src/cnmsstrings.h:152 scangearmp2.glade.h:30
+msgid "Update Scanner List"
+msgstr "更新扫描仪列表"
+
+#. STR_CNMS_LS_011_04
+#: src/cnmsstrings.h:154 scangearmp2.glade.h:10
+msgid "OK"
+msgstr "确定"
+
+#. STR_CNMS_LS_011_05
+#: src/cnmsstrings.h:156 scangearmp2.glade.h:2
+msgid "Cancel"
+msgstr "取消"
+
+#. STR_CNMS_LS_012_01
+#: src/cnmsstrings.h:158
+msgid "Searching..."
+msgstr "搜索中..."
+
+#. STR_CNMS_LS_012_02
+#: src/cnmsstrings.h:160
+msgid "Searching for scanners."
+msgstr "正在搜索扫描仪。"
+
+#. STR_CNMS_LS_012_03
+#: src/cnmsstrings.h:162
+msgid "Updating the scanner list."
+msgstr "正在更新扫描仪列表。"
+

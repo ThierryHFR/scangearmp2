@@ -1,0 +1,72 @@
+# 80-canon_mfp2.rules
+
+ACTION!="add", GOTO="canon_mfp_end"
+SUBSYSTEM=="usb_device", GOTO="canon_mfp_start"
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", GOTO="canon_mfp_start"
+GOTO="canon_mfp_end"
+
+LABEL="canon_mfp_start"
+
+#MG7500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="177c", MODE="666"
+#MG6600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="177e", MODE="666"
+#MG5600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="177f", MODE="666"
+#MG2900 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1780", MODE="666"
+#MB2000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1778", MODE="666"
+#MB2300 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1779", MODE="666"
+#MB5000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1776", MODE="666"
+#MB5300 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1777", MODE="666"
+#E460 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1788", MODE="666"
+
+#MX490 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1787", MODE="666"
+#E480 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1789", MODE="666"
+
+#MG7700 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="178b", MODE="666"
+#MG6900 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="178c", MODE="666"
+#MG6800 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="178d", MODE="666"
+#MG5700 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="178e", MODE="666"
+#MG3600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="178a", MODE="666"
+
+#G3000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1794", MODE="666"
+
+#TS9000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="179f", MODE="666"
+#TS8000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1800", MODE="666"
+#TS6000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1801", MODE="666"
+#TS5000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1802", MODE="666"
+#MG3000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="180b", MODE="666"
+#E470 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="180c", MODE="666"
+#G4000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="181d", MODE="666"
+
+#MB2100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1793", MODE="666"
+#MB2700 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1792", MODE="666"
+#MB5100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1790", MODE="666"
+#MB5400 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="178f", MODE="666"
+
+LABEL="canon_mfp_end"

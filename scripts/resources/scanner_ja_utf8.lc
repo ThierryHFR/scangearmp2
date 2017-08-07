@@ -1,0 +1,39 @@
+##############################################################################
+##
+##  ScanGear MP for Linux
+##  Copyright CANON INC. 2007-2014
+##
+##  This program is free software; you can redistribute it and/or modify
+##  it under the terms of the GNU General Public License as published by
+##  the Free Software Foundation; version 2 of the License.
+##
+##  This program is distributed in the hope that it will be useful,
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##  GNU General Public License for more details.
+##
+##  You should have received a copy of the GNU General Public License
+##  along with this program; if not, write to the Free Software
+##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307, USA.
+##
+##############################################################################
+
+L_INST_SCN_00_01="ScanGear MP"
+L_INST_SCN_00_02="Version %s"
+L_INST_SCN_00_03="Copyright CANON INC. %s-%s"
+
+
+L_INST_COM_01_01="実行コマンド = %s\n"
+
+L_INST_COM_01_02="エラーが発生しました。パッケージ管理システムが特定できません。\n"
+L_INST_COM_01_03="エラーが発生しました。必要なパッケージが正しい場所にありません。\n"
+L_INST_COM_01_04="インストールが完了しました。\n"
+L_INST_COM_01_05="エラーが発生しました。ご使用になっている環境が32ビットか64ビットかの判別ができません。\n以下のコマンドを使用して、インストールをやり直してください。\n"
+L_INST_COM_01_06="エラーが発生しました。指定された環境は、ご使用になっている環境と異なります。\n以下のコマンドを使用して、インストールをやり直してください。\n"
+
+L_INST_COM_02_01="使用方法: %s\n"
+
+L_INST_COM_02_02="アンインストールが完了しました。\n"
+
+L_INST_COM_03_01="[パッケージ]\n"
+
