@@ -1,39 +1,38 @@
-This project is a sane backend for the following CANON scanners :
-linux-beta/8cd9c2e4-536f-4151-9af2-53f526d1d0f2
-18:05
-#MG7500 series
-#MG6600 series
-#MG5600 series
-#MG2900 series
-#MB2000 series
-#MB2300 series
-#MB5000 series
-#MB5300 series
-#E460 series
-
-#MX490 series
-#E480 series
-
-#MG7700 series
-#MG6900 series
-#MG6800 series
-#MG5700 series
-#MG3600 series
-
-#G3000 series
-
-#TS9000 series
-#TS8000 series
-#TS6000 series
-#TS5000 series
-#MG3000 series
-#E470 series
-#G4000 series
-
-#MB2100 series
-#MB2700 series
-#MB5100 series
-#MB5400 series
-
-It reuse the source code of scangearmp2, with some little changes
+This project is a sane backend for the following CANON scanners :</br>
+</br>
+#MG7500 series</br>
+#MG6600 series</br>
+#MG5600 series</br>
+#MG2900 series</br>
+#MB2000 series</br>
+#MB2300 series</br>
+#MB5000 series</br>
+#MB5300 series</br>
+#E460 series</br>
+</br>
+#MX490 series</br>
+#E480 series</br>
+</br>
+#MG7700 series</br>
+#MG6900 series</br>
+#MG6800 series</br>
+#MG5700 series</br>
+#MG3600 series</br>
+</br>
+#G3000 series</br>
+</br>
+#TS9000 series</br>
+#TS8000 series</br>
+#TS6000 series</br>
+#TS5000 series</br>
+#MG3000 series</br>
+#E470 series</br>
+#G4000 series</br>
+</br>
+#MB2100 series</br>
+#MB2700 series</br>
+#MB5100 series</br>
+#MB5400 series</br>
+</br>
+It reuse the source code of scangearmp2, with some little changes</br>
 to define an interface allowing the soft-ware using 
