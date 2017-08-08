@@ -10,6 +10,7 @@ debian/scangearmp2.debhelper.log
 debian/scangearmp2.substvars
 debian/files
 debian/scangearmp2/
+debian/source/format
 
 scangearmp2/aclocal.m4
 scangearmp2/compile

@@ -16,53 +16,52 @@ DESCRIPTION
 	The concerned scanner are :
 </br>
 </br>
-	#E460 series</br>
-	#E470 series</br>
-	#E480 series</br>
+#MG7500 series</br>
+#MG6600 series</br>
+#MG5600 series</br>
+#MG2900 series</br>
+#MB2000 series</br>
+#MB2300 series</br>
+#MB5000 series</br>
+#MB5300 series</br>
+#E460 series</br>
 </br>
-	#G3000 series</br>
-	#G4000 series</br>
+#MX490 series</br>
+#E480 series</br>
 </br>
-	#MB2000 series</br>
-	#MB2100 series</br>
-	#MB2300 series</br>
-	#MB2700 series</br>
+#MG7700 series</br>
+#MG6900 series</br>
+#MG6800 series</br>
+#MG5700 series</br>
+#MG3600 series</br>
 </br>
-	#MB5000 series</br>
-	#MB5100 series</br>
-	#MB5300 series</br>
-	#MB5400 series</br>
+#G3000 series</br>
 </br>
-	#MG2900 series</br>
+#TS9000 series</br>
+#TS8000 series</br>
+#TS6000 series</br>
+#TS5000 series</br>
+#MG3000 series</br>
+#E470 series</br>
+#G4000 series</br>
 </br>
-	#MG3000 series</br>
-	#MG3600 series</br>
+#MB2100 series</br>
+#MB2700 series</br>
+#MB5100 series</br>
+#MB5400 series</br>
 </br>
-	#MG5600 series</br>
-	#MG5700 series</br>
-</br>
-	#MG6600 series</br>
-	#MG6800 series</br>
-	#MG6900 series</br>
-</br>
-	#MG7500 series</br>
-	#MG7700 series</br>
-</br>
-	#MX490 series</br>
-</br>
-	#TS5000 series</br>
-	#TS6000 series</br>
-	#TS8000 series</br>
-	#TS9000 series</br>
-</br>
+
 STATE
 </br>
+</br>
+	Tested with sane 1.0.27 (may not work for lower versions)
 	Currently the backend allow image in A4 format.
 	The scan works in color or in gray map(must be change in the code).
 	The options are not well handled, so they might not works.
 </br>
 </br>
 KNOWN BUGS
+</br>
 </br>
 	*Cancelling a scan cause : 
 </br>
@@ -79,20 +78,39 @@ KNOWN BUGS
 </br>
 REQUIREMENTS
 </br>
+</br>
 	requirements for scangearmp2 in : scangearmp2/README.md
+</br>
+</br>
+INSTALLATION
+</br>
+</br>
+	for debian systems : 
+</br>
+		git clone https://github.com/Ordissimo/scangearmp2.git
+</br>
+		cp -a scangearmp2 scangearmp2-3.40
+</br>
+		rm -rf scangearmp2-3.40/.git scangearmp2-3.40/debian/
+</br>
+		tar cJvf scangearmp2_3.40.orig.tar.xz scangearmp2-3.40
+</br>
+		cd scangearmp2
+</br>
+		debuild -tc
+</br>
+		dpkg -i ../scangearmp2_3.40-1_amd64.deb
 </br>
 </br>
 LICENSE
 </br>
-   	licence of scangearmp2 in : scangearmp2/COPYING
+</br>
+   	licence of scangearmp2 in : scangearmp2/README.md
+	the following files are licensed under the terms of the GNU General
+	Public License. (See the file scangearmp2/COPYING.) :
+	-  debian/patches/libsane-canon_pixma.patch
+	-  debian/patches/series
+	-  debian/source/format
 </br>
 </br>
-EXCEPTION
-</br>
-    * As a special exception, these programs are permissible to link with the
-    libraries released as the binary modules, including the librarie "libcncp*".
-</br>
-    * If you write modifications of your own for these programs, it is your
-     choice whether to permit this exception to apply to your modifications.
-     If you do not wish that, delete this exception.
 	
