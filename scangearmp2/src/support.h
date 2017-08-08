@@ -172,27 +172,6 @@ typedef struct
 	int			last_error_quit;
 }SGMP_Data;
 
-typedef struct
-{
-	/* scan parameters */
-	int			scan_scanmode;
-	int			scan_source;
-	int			scan_color;
-	int			scan_size;
-	
-	int			scan_format;
-	
-	int			scan_result;
-	int			scanning_page;
-	char		file_path[ PATH_MAX ];
-	
-	int			scan_w;
-	int			scan_h;
-	int			scan_res;
-	/* error */
-	int			last_error_quit;
-}SGMP_Data_Lite;
-
 
 /*
  	Public enum.
