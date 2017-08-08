@@ -5,13 +5,15 @@ DESCRIPTION
 </br>
 </br>
 	Because of changes in CANON's network communication protocols,some of CANON's scanner 
-	became unsuported by sane.
+	became unsuported by sane.</br>
 </br>
 	This backend is for making the CANON's scanners, using the new communication protocol,
 	to be supported by sane and any of the frontends implementing sane. It reuse the code 
 	of the scangearmp2 program to access to the scanners functionalities and implementing 
-	the sane functions.
+	the sane functions.</br>
 </br>
+	It has been done as a patch to have a minimun impact on the orginal scangearmp2 source
+	code.</br>
 </br>
 	The concerned scanner are :
 </br>
@@ -54,11 +56,10 @@ DESCRIPTION
 STATE
 </br>
 </br>
-	Tested with sane 1.0.27 (may not work for lower versions)
-	Currently the backend allow image in A4 format.
-	The scan works in color or in gray map(must be change in the code).
-	The options are not well handled, so they might not works.
-</br>
+	Tested with sane 1.0.27 (may not work for lower versions)</br>
+	Currently the backend allow image in A4 format.</br>
+	The scan works in color or in gray map(must be change in the code).</br>
+	The options are not well handled, so they might not work.</br>
 </br>
 KNOWN BUGS
 </br>
@@ -68,7 +69,7 @@ KNOWN BUGS
 		-If the scanner is in usb the operation stay blocked and seems to
 		do nothing.
 </br>
-		-If the scanner is in network the operation stay blocked and will
+		-If the scanner is in network the operation stays blocked and will
 		loop on writing an message.
 	
 </br>
@@ -104,13 +105,16 @@ INSTALLATION
 </br>
 LICENSE
 </br>
-</br>
    	licence of scangearmp2 in : scangearmp2/README.md
-	the following files are licensed under the terms of the GNU General
-	Public License. (See the file scangearmp2/COPYING.) :
+</br>
+	The following files are licensed under the terms of the GNU General Public License. (See the file scangearmp2/COPYING.) :
+</br>
 	-  debian/patches/libsane-canon_pixma.patch
+</br>
 	-  debian/patches/series
+</br>
 	-  debian/source/format
+</br>
 </br>
 </br>
 	
