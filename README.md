@@ -1,4 +1,4 @@
-				---Sane backend for CANON's scanners---
+			---Sane backend for CANON's scanners---
 </br>
 </br>
 DESCRIPTION
@@ -50,41 +50,4 @@ DESCRIPTION
 	#MB5100 series</br>
 	#MB5400 series</br>
 </br>
-STATE
-</br>
-	Currently the backend allow image in A4 format.
-	The scan works in color or in gray map,(must be change in the code).
-	The options are not well handled, so they might not works.
-</br>
-KNOWN BUGS
-</br>
-	*Cancelling a scan cause : 
-</br>
-		-If the scanner is in usb the operation stay blocked and seems to
-		do nothing
-		-If the scanner is in network the operation stay blocked and will
-		loop on writing an message.
-	
-</br>
-	*Do a scan after a abnormal end will, if the device is connected in usb,
-		fail in the function sane_start with an IO error.
-</br>
-</br>
-REQUIREMENTS
-	requirements for scangearmp2 in : scangearmp2/README.md
-</br>
-LICENSE
-</br>
-   	licence of scangearmp2 in : scangearmp2/COPYING
-</br>
-</br>
-EXCEPTION
-</br>
-    * As a special exception, these programs are permissible to link with the
-    libraries released as the binary modules, including the above libraries
-    "libcncp*".
-</br>
-    * If you write modifications of your own for these programs, it is your
-     choice whether to permit this exception to apply to your modifications.
-     If you do not wish that, delete this exception.
 	
