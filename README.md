@@ -16,44 +16,39 @@ DESCRIPTION
 	The concerned scanner are :
 </br>
 </br>
-	#E460 series</br>
-	#E470 series</br>
-	#E480 series</br>
-</br>
-	#G3000 series</br>
-	#G4000 series</br>
-</br>
-	#MB2000 series</br>
-	#MB2100 series</br>
-	#MB2300 series</br>
-	#MB2700 series</br>
-</br>
-	#MB5000 series</br>
-	#MB5100 series</br>
-	#MB5300 series</br>
-	#MB5400 series</br>
-</br>
-	#MG2900 series</br>
-</br>
-	#MG3000 series</br>
-	#MG3600 series</br>
-</br>
-	#MG5600 series</br>
-	#MG5700 series</br>
-</br>
-	#MG6600 series</br>
-	#MG6800 series</br>
-	#MG6900 series</br>
-</br>
 	#MG7500 series</br>
-	#MG7700 series</br>
+	#MG6600 series</br>
+	#MG5600 series</br>
+	#MG2900 series</br>
+	#MB2000 series</br>
+	#MB2300 series</br>
+	#MB5000 series</br>
+	#MB5300 series</br>
+	#E460 series</br>
 </br>
 	#MX490 series</br>
+	#E480 series</br>
 </br>
-	#TS5000 series</br>
-	#TS6000 series</br>
-	#TS8000 series</br>
+	#MG7700 series</br>
+	#MG6900 series</br>
+	#MG6800 series</br>
+	#MG5700 series</br>
+	#MG3600 series</br>
+</br>
+	#G3000 series</br>
+</br>
 	#TS9000 series</br>
+	#TS8000 series</br>
+	#TS6000 series</br>
+	#TS5000 series</br>
+	#MG3000 series</br>
+	#E470 series</br>
+	#G4000 series</br>
+</br>
+	#MB2100 series</br>
+	#MB2700 series</br>
+	#MB5100 series</br>
+	#MB5400 series</br>
 </br>
 STATE
 </br>
@@ -61,14 +56,12 @@ STATE
 	The scan works in color or in gray map,(must be change in the code).
 	The options are not well handled, so they might not works.
 </br>
-</br>
 KNOWN BUGS
 </br>
 	*Cancelling a scan cause : 
 </br>
 		-If the scanner is in usb the operation stay blocked and seems to
-		do nothing.
-</br>
+		do nothing
 		-If the scanner is in network the operation stay blocked and will
 		loop on writing an message.
 	
@@ -78,7 +71,6 @@ KNOWN BUGS
 </br>
 </br>
 REQUIREMENTS
-</br>
 	requirements for scangearmp2 in : scangearmp2/README.md
 </br>
 LICENSE
