@@ -20,8 +20,10 @@ Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
 Last-Update: <YYYY-MM-DD>
 
---- scangearmp2-3.40.orig/scangearmp2/configure.in
-+++ scangearmp2-3.40/scangearmp2/configure.in
+Index: scangearmp2/scangearmp2/configure.in
+===================================================================
+--- scangearmp2.orig/scangearmp2/configure.in	2017-08-09 11:28:10.909567979 +0200
++++ scangearmp2/scangearmp2/configure.in	2017-08-09 11:28:34.000000000 +0200
 @@ -1,6 +1,8 @@
  dnl Process this file with autoconf to produce a configure script.
  
@@ -32,7 +34,7 @@ Last-Update: <YYYY-MM-DD>
  
  AC_ARG_ENABLE(libpath)
  if test "${enable_libpath}" = ""; then
-@@ -12,8 +14,10 @@ AC_SUBST(CNMSLIBPATH)
+@@ -12,8 +14,10 @@
  
  AC_SUBST(enable_libpath)
  
@@ -44,15 +46,17 @@ Last-Update: <YYYY-MM-DD>
  AM_PROG_LIBTOOL
  AC_PROG_LIBTOOL
  AM_MAINTAINER_MODE
---- scangearmp2-3.40.orig/scangearmp2/src/Makefile.am
-+++ scangearmp2-3.40/scangearmp2/src/Makefile.am
+Index: scangearmp2/scangearmp2/src/Makefile.am
+===================================================================
+--- scangearmp2.orig/scangearmp2/src/Makefile.am	2017-08-09 11:28:10.913567979 +0200
++++ scangearmp2/scangearmp2/src/Makefile.am	2017-08-09 11:28:34.000000000 +0200
 @@ -1,4 +1,5 @@
  ## Process this file with automake to produce Makefile.in
 +# SUBDIRS = sane
  
  INCLUDES = \
  	-I$(top_srcdir)/include \
-@@ -34,6 +35,33 @@ scangearmp2_CFLAGS = \
+@@ -34,6 +35,33 @@
  	-DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" \
  	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
  
@@ -86,32 +90,420 @@ Last-Update: <YYYY-MM-DD>
  install-data-am:
  	if test ! -d $(DESTDIR)$(enable_libpath)/bjlib; then mkdir -p $(DESTDIR)$(enable_libpath)/bjlib ; fi ; \
  	$(INSTALL_DATA) canon_mfp2.conf $(DESTDIR)$(enable_libpath)/bjlib
---- scangearmp2-3.40.orig/scangearmp2/src/canon_mfp_io.c
-+++ scangearmp2-3.40/scangearmp2/src/canon_mfp_io.c
-@@ -609,7 +609,95 @@ CMT_Status CIJSC_open(
+Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
+===================================================================
+--- scangearmp2.orig/scangearmp2/src/canon_mfp_io.c	2017-08-09 11:28:10.913567979 +0200
++++ scangearmp2/scangearmp2/src/canon_mfp_io.c	2017-08-09 11:33:05.225555851 +0200
+@@ -73,11 +73,11 @@
+ 
+     size_t		bytes_to_read;
+     int			scanning;
+-    
++
+     /* add Ver.1.30 */
+     int			scanMethod;
+     int			CIJSC_start_status;
+-    
++
+     int		scanFinished;
+   }
+ CANON_Scanner;
+@@ -109,7 +109,7 @@
+ 			return status;
+ 		}
+ 		CANON_fd = fd;
+-		
++
+ 		return CMT_STATUS_GOOD;
+ 	}
+ 	else { /* already open. */
+@@ -132,16 +132,16 @@
+ {
+ 	unsigned long n = size;
+ 	CMT_Status status;
+-	
++
+ 	if ( CANON_fd < 0 ) {
+ 		return -1; /* error */
+ 	}
+ 	status = cmt_libusb_bulk_write ( CANON_fd, buffer, &n );
+-	
++
+ 	if ( status != CMT_STATUS_GOOD ) {
+ 		return -1; /* error */
+ 	}
+-	
++
+ 	if ( size != n ) {
+ 		return n; /* error */
+ 	}
+@@ -152,18 +152,18 @@
+ {
+ 	unsigned long n = *size;
+ 	CMT_Status status;
+-	
++
+ 	if ( CANON_fd < 0 ) {
+ 		return -1; /* error */
+ 	}
+ 	status = cmt_libusb_bulk_read ( CANON_fd, buffer, &n );
+-		
++
+ 	if ( status != CMT_STATUS_GOOD ) {
+ 		return -1; /* error */
+ 	}
+-	
++
+ 	*size = n;
+-	
++
+ 	if ( *size != n ) {
+ 		return n; /* error */
+ 	}
+@@ -177,7 +177,7 @@
+ {
+ 	CMT_Status status;
+ 	CNNLHANDLE handle = NULL;
+-	
++
+ 	if ( CANON_hnd == NULL ) {
+ 		if ( ( status = cmt_network_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
+ 			return status;
+@@ -206,16 +206,16 @@
+ {
+ 	unsigned long n = size;
+ 	CMT_Status status;
+-	
++
+ 	if ( CANON_hnd == NULL ) {
+ 		return -1; /* error */
+ 	}
+ 	status = cmt_network_write ( CANON_hnd, buffer, &n );
+-	
++
+ 	if ( status != CMT_STATUS_GOOD ) {
+ 		return -1; /* error */
+ 	}
+-	
++
+ 	if ( size != n ) {
+ 		return n; /* error */
+ 	}
+@@ -226,18 +226,18 @@
+ {
+ 	unsigned long n = *size;
+ 	CMT_Status status;
+-	
++
+ 	if ( CANON_hnd == NULL ) {
+ 		return -1; /* error */
+ 	}
+ 	status = cmt_network_read ( CANON_hnd, buffer, &n );
+-		
++
+ 	if ( status != CMT_STATUS_GOOD ) {
+ 		return -1; /* error */
+ 	}
+-	
++
+ 	*size = n;
+-	
++
+ 	if ( *size != n ) {
+ 		return n; /* error */
+ 	}
+@@ -251,7 +251,7 @@
+ {
+ 	CMT_Status status;
+ 	HCNNET3 handle = NULL;
+-	
++
+ 	if ( CANON_hnd2 == NULL ) {
+ 		if ( ( status = cmt_network2_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
+ 			return status;
+@@ -280,16 +280,16 @@
+ {
+ 	unsigned long n = size;
+ 	CMT_Status status;
+-	
++
+ 	if ( CANON_hnd2 == NULL ) {
+ 		return -1; /* error */
+ 	}
+ 	status = cmt_network2_write ( CANON_hnd2, buffer, &n );
+-	
++
+ 	if ( status != CMT_STATUS_GOOD ) {
+ 		return -1; /* error */
+ 	}
+-	
++
+ 	if ( size != n ) {
+ 		return n; /* error */
+ 	}
+@@ -300,18 +300,18 @@
+ {
+ 	unsigned long n = *size;
+ 	CMT_Status status;
+-	
++
+ 	if ( CANON_hnd2 == NULL ) {
+ 		return -1; /* error */
+ 	}
+ 	status = cmt_network2_read ( CANON_hnd2, buffer, &n );
+-		
++
+ 	if ( status != CMT_STATUS_GOOD ) {
+ 		return -1; /* error */
+ 	}
+-	
++
+ 	*size = n;
+-	
++
+ 	if ( *size != n ) {
+ 		return n; /* error */
+ 	}
+@@ -356,27 +356,27 @@
+ 	int				vendor;
+ 	int				product;
+ 	int				speed = 2;
+-	
++
+ 	int				usb_opend = 0;
+ 	int				flag_usb = 0, i = 0;
+ 
+ 	if( strncmp( name, "libusb:", 7 ) >= 0 ){
+ 		flag_usb = 1;
+ 	}
+-	
++
+ 	for (dev = *first; dev; dev = dev->next) {
+ 		if ( strcmp(dev->name, name) == 0 ) {
+ 			return (CMT_STATUS_GOOD);		/* already exists. */
+ 		}
+ 	}
+-	
++
+ 	dev = malloc( sizeof( CANON_Device ) );
+ 	if ( !dev ) {
+ 		status = CMT_STATUS_NO_MEM;
+ 		goto _ERROR;
+ 	}
+ 	memset( dev, 0, sizeof(*dev) );
+-	
++
+ 	if(flag_usb){
+ 		/* open succeed -> append to list */
+ 		if ( ( status = canon_usb_open(name) ) != CMT_STATUS_GOOD )
+@@ -396,7 +396,7 @@
+ 		speed = attach_dev->speed;
+ 		product = attach_dev->product_id;
+ 	}
+-	
++
+ 	/* set name */
+ 	dev->name = strdup( name );
+ 	/* set model */
+@@ -404,12 +404,12 @@
+ 	/* set full name */
+ 	snprintf( dev_fullname, sizeof(dev_fullname), "Canon %s (%s)", dev->model, dev->name );
+ 	dev->fullname = strdup( dev_fullname );
+-	
++
+ 	if(flag_usb){
+ 		canon_usb_close();
+ 		usb_opend = 0;
+ 	}
+-	
++
+ 	dev->product_id = product;
+ 	dev->type = attach_dev->type;
+ 	dev->speed = speed;
+@@ -429,12 +429,12 @@
+ 			}
+ 		}
+ 	}
+-	
++
+ 	return status;
+ 
+ _ERROR:
+ 	dispose_canon_dev( dev );
+-	
++
+ 	if(flag_usb){
+ 		if ( usb_opend ) {
+ 			canon_usb_close();
+@@ -450,38 +450,38 @@
+ CMT_Status CIJSC_init( void *cnnl_callback )
+ {
+ 	CMT_Status status = CMT_STATUS_GOOD;
+-	
++
+ 	FILE *fp = NULL;
+ 	CANON_Device	*first_usb = NULL, *first_net = NULL, *first_net2 = NULL, *tmp_dev;
+ 	CANON_Device	c_dev;
+ 	int		i;
+-	
++
+ 	num_devices = 0;
+-	
++
+ 	/* initialize libUSB */
+ 	cmt_libusb_init();
+-	
++
+ 	/* initialize Network */
+ 	cmt_network_init( cnnl_callback );
+-	
++
+ 	/* initialize Network2 */
+ 	cmt_network2_init( cnnl_callback );
+-	
++
+ 	/*--- read Configuration file. ---*/
+ 	fp = cmt_conf_file_open( CANON_CONFIG_FILE );
+-	
++
+ 	if ( fp ) {
+ 		char line[PATH_MAX];
+ 		int len, ret;
+ 		char *dev;
+ 		int index_usb, index_net, index_net2;
+-		
++
+ 		/* Set USB/Network device list */
+ 		while ( ( len = cmt_conf_file_read_line( line, sizeof(line), fp ) ) >= 0 ) {
+ 			index_usb = 0;
+ 			index_net = 0;
+ 			index_net2 = 0;
+-			
++
+ 			if ( ( ret = cmt_get_device_info( line, len, &c_dev ) ) < 0 ) {
+ 				continue;	/* next */
+ 			}
+@@ -561,12 +561,12 @@
+ 		dispose_canon_dev( dev );
+ 	}
+ 	first_dev = NULL;
+-	
++
+ 	if( devlist ){
+ 		free( devlist );
+ 	}
+ 	devlist = NULL;
+-	
++
+ 	num_devices = 0;
+ 	cmt_libusb_exit();
+ 	cmt_network_exit();
+@@ -586,7 +586,7 @@
+ 	if( devlist ){
+ 		free( devlist );
+ 	}
+-	
++
+ 	devlist = malloc( ( num_devices + 1 ) * sizeof( CANON_Device * ) );
+ 	if( !devlist ) {
+ 		return (CMT_STATUS_NO_MEM);
+@@ -594,7 +594,7 @@
+ 	for( dev = first_dev, devlisttemp = devlist; dev; dev = dev->next ) {
+ 		*devlisttemp++ = dev;
+ 	}
+-	
++
+ 	*devlisttemp = NULL;
+ 	*device_list = devlist;
+ 
+@@ -609,25 +609,25 @@
  {
  	CMT_Status status;
  	CANON_Device *dev;
 -	int i;
 +//	int i;
+ 	CANON_Scanner *s = &canon_device;
+-	
++
+ 	if ( opened_handle ) {
+ 		DBGMSG("ERROR : Another CANON MFP Deviece has opened already.\n");
+ 		return (CMT_STATUS_INVAL);
+ 	}
+-	
++
+ 	if ( !name ) {
+ 		return (CMT_STATUS_INVAL);
+ 	}
+-	
++
+ 	if ( name[0] != '\0' ) {
+ 		for (dev = first_dev; dev; dev = dev->next) {
+ 			if (strcmp (dev->name, name) == 0) {
+ 				break;
+ 			}
+ 		}
+-		
++
+ 		if (!dev) {
+ 			return (CMT_STATUS_INVAL);
+ 		}
+@@ -635,7 +635,7 @@
+ 	else {
+ 		dev = first_dev;
+ 	}
+-	
++
+ 	DBGMSG(" dev->speed = %d \n" ,dev->speed);
+ 	if ( dev->speed == -1 ){	/* NET */
+ 		if( ( status = canon_network_open ( name ) ) != CMT_STATUS_GOOD ){
+@@ -676,20 +676,108 @@
+ 			}
+ 		}
+ 	}
+-	
++
+ 	/* set product id. */
+ 	DBGMSG("p_canon_init_scanner() product = %X\n", dev->product_id);
+ 	if ( canon_init_scanner( dev->product_id, dev->speed, NULL ) < 0 ) {
+ 		DBGMSG("ERROR : p_canon_init_scanner() product = %d\n", dev->product_id);
+ 		return (CMT_STATUS_INVAL);
+ 	}
+-	
++
+ 	opened_handle = dev;
+ 	memset(&canon_device, 0, sizeof(canon_device));
+-	
++
+ 	s->scanMethod = 0;
+ 	s->CIJSC_start_status = CMT_STATUS_NO_DOCS;
+-	
++
++	return CMT_STATUS_GOOD;
++}
++
++CMT_Status CIJSC_open2(
++	const char *name,CANON_Device *dev )	/* libusb:00X:00Y or MAC address */
++{
++	CMT_Status status;
++//	int i;
 +	CANON_Scanner *s = &canon_device;
-+	
++
 +	if ( opened_handle ) {
 +		DBGMSG("ERROR : Another CANON MFP Deviece has opened already.\n");
 +		return (CMT_STATUS_INVAL);
 +	}
-+	
++
 +	if ( !name ) {
 +		return (CMT_STATUS_INVAL);
 +	}
-+	
++
 +	if ( name[0] != '\0' ) {
 +		for (dev = first_dev; dev; dev = dev->next) {
 +			if (strcmp (dev->name, name) == 0) {
 +				break;
 +			}
 +		}
-+		
++
 +		if (!dev) {
 +			return (CMT_STATUS_INVAL);
 +		}
@@ -119,7 +511,7 @@ Last-Update: <YYYY-MM-DD>
 +	else {
 +		dev = first_dev;
 +	}
-+	
++
 +	DBGMSG(" dev->speed = %d \n" ,dev->speed);
 +	if ( dev->speed == -1 ){	/* NET */
 +		if( ( status = canon_network_open ( name ) ) != CMT_STATUS_GOOD ){
@@ -160,34 +552,182 @@ Last-Update: <YYYY-MM-DD>
 +			}
 +		}
 +	}
-+	
++
 +	/* set product id. */
 +	DBGMSG("p_canon_init_scanner() product = %X\n", dev->product_id);
 +	if ( canon_init_scanner( dev->product_id, dev->speed, NULL ) < 0 ) {
 +		DBGMSG("ERROR : p_canon_init_scanner() product = %d\n", dev->product_id);
 +		return (CMT_STATUS_INVAL);
 +	}
-+	
++
 +	opened_handle = dev;
 +	memset(&canon_device, 0, sizeof(canon_device));
-+	
++
 +	s->scanMethod = 0;
 +	s->CIJSC_start_status = CMT_STATUS_NO_DOCS;
-+	
-+	return CMT_STATUS_GOOD;
-+}
 +
-+CMT_Status CIJSC_open2(
-+	const char *name,CANON_Device *dev )	/* libusb:00X:00Y or MAC address */
-+{
-+	CMT_Status status;
-+//	int i;
+ 	return CMT_STATUS_GOOD;
+ }
+ 
+@@ -699,7 +787,7 @@
+ void CIJSC_close( void )
+ {
+ 	canon_terminate_scanner();
+-	
++
+ 	canon_usb_close ();
+ 	canon_network_close();
+ 	canon_network2_close();
+@@ -717,30 +805,30 @@
+ 	int status;
  	CANON_Scanner *s = &canon_device;
- 	
- 	if ( opened_handle ) {
---- scangearmp2-3.40.orig/scangearmp2/src/canon_mfp_tools.h
-+++ scangearmp2-3.40/scangearmp2/src/canon_mfp_tools.h
-@@ -156,6 +156,7 @@ CMT_Status CIJSC_init( void *cnnl_callba
+ 	CANON_SCANDATA	scandata;
+-	
++
+ 	DBGMSG("\n");
+-	
++
+ 	if ( s->CIJSC_start_status == CMT_STATUS_NO_DOCS ) {
+ 		cmt_network_mutex_lock();
+ 	}
+-	
++
+ 	s->scanning = TRUE;
+ 	s->scanFinished = FALSE;
+-	
++
+ 	s->xres = param->XRes;
+ 	s->yres = param->YRes;
+-	
++
+ 	/* use pixels */
+ 	s->ulx = ( param->Left * CANONMUD ) / s->xres;
+ 	s->uly = ( param->Top  * CANONMUD ) / s->yres;
+-	
++
+ 	s->width  = ( ( param->Right  - param->Left ) * CANONMUD ) / s->xres;
+ 	s->length = ( ( param->Bottom - param->Top  ) * CANONMUD ) / s->yres;
+-	
++
+ 	s->bpp = 8;
+-	
++
+ 	s->scanMethod = param->ScanMethod;
+-	
++
+ 	status = canon_set_parameter_ex(
+ 		s->xres,			/* XRes */
+ 		s->yres,			/* YRes */
+@@ -755,7 +843,7 @@
+ 		&scandata,			/* CANON_SCANDATA */
+ 		&(param->opts)	/* CANON_SCANOPTS */
+ 	);
+-	
++
+ 	if ( status < 0 ) {
+ 		DBGMSG("error in canon_set_parameter/canon_set_parameter_ex()\n");
+ 		status = CMT_STATUS_INVAL;
+@@ -767,18 +855,18 @@
+ 		cmt_network_mutex_unlock();
+ 		goto _EXIT;
+ 	}
+-	
++
+ 	if ( canon_start_scan() < 0 ) {
+ 		DBGMSG("error in canon_start_scan()\n");
+ 		status = CMT_STATUS_INVAL;
+ 		goto _EXIT;
+ 	}
+-	
++
+ 	status = CMT_STATUS_GOOD;
+ 
+ _EXIT:
+ 	s->CIJSC_start_status = status;
+-	
++
+ 	return status;
+ }
+ 
+@@ -788,7 +876,7 @@
+ CMT_Status CIJSC_get_parameters( void *callback )
+ {
+ 	CANON_SCANDATA		scandata;
+-	
++
+ 	if ( canon_get_parameters( &scandata, callback ) < 0 ) {
+ 		return CMT_STATUS_INVAL;
+ 	}
+@@ -816,11 +904,11 @@
+ 	CMT_Status status;
+ 	int nread;
+ 	CANON_Scanner *s = &canon_device;
+-	
++
+ 	if ( s->scanFinished ) {
+ 		s->scanning = FALSE;
+ 		status = canon_end_scan();
+-		
++
+ 		status = CMT_STATUS_EOF;
+ 		goto _EXIT;
+ 	}
+@@ -830,18 +918,18 @@
+ 		goto _EXIT;
+ 	}
+ 	nread = ( *len * 32 ) / 32;
+-	
++
+ 	if ( ( *len = canon_read_scan ( buf, nread ) ) < 0 ) {
+ 		status = CMT_STATUS_IO_ERROR;
+ 		goto _EXIT;
+ 	}
+-	
++
+ 	if ( *len == 0 ) {
+ 		s->scanFinished = TRUE;
+ 		status = CMT_STATUS_EOF;
+ 		goto _EXIT;
+ 	}
+-	
++
+ 	status = CMT_STATUS_GOOD;
+ 
+ _EXIT:
+@@ -855,11 +943,11 @@
+ {
+ 	CANON_Scanner *s = &canon_device;
+ 	int			skip_unlock = 0;
+-	
++
+ 	DBGMSG("\n");
+-	
++
+ 	s->scanning = FALSE;
+-	
++
+ 	if ( s->scanFinished ) {
+ 		/* end scan */
+ 		if ( s->scanMethod ) {	/* ADF */
+@@ -880,11 +968,11 @@
+ 		/* user cancel */
+ 		canon_do_cancel();
+ 	}
+-	
++
+ 	if( !skip_unlock ) {
+ 		cmt_network_mutex_unlock();
+ 	}
+-	
++
+ 	/* for next CIJSC_start */
+ 	s->CIJSC_start_status = CMT_STATUS_NO_DOCS;
+ }
+Index: scangearmp2/scangearmp2/src/canon_mfp_tools.h
+===================================================================
+--- scangearmp2.orig/scangearmp2/src/canon_mfp_tools.h	2017-08-09 11:28:10.917567978 +0200
++++ scangearmp2/scangearmp2/src/canon_mfp_tools.h	2017-08-09 11:28:34.000000000 +0200
+@@ -156,6 +156,7 @@
  void CIJSC_exit(void);
  CMT_Status CIJSC_get_devices( const CANON_Device ***device_list );
  CMT_Status CIJSC_open( const char *name );
@@ -195,8 +735,10 @@ Last-Update: <YYYY-MM-DD>
  void CIJSC_close( void );
  
  CMT_Status CIJSC_start( CANON_ScanParam *param );
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/canon_pixma.c
+Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/canon_pixma.c	2017-08-09 11:38:22.345542783 +0200
 @@ -0,0 +1,1005 @@
 +/*******************************************************************
 + ** SANE API
@@ -227,7 +769,7 @@ Last-Update: <YYYY-MM-DD>
 +
 +static const char vendor_str[] = "CANON";
 +static const char type_str[] = "multi-function peripheral";
-+        
++
 +static const SANE_Device **dev_list = NULL;
 +
 +
@@ -240,7 +782,7 @@ Last-Update: <YYYY-MM-DD>
 +	Option_Value val[NUM_OPTIONS];
 +	SANE_Range x_range;
 +	SANE_Range y_range;
-+	
++
 +	unsigned char * img_data;
 +	long img_size;
 +	long img_read;
@@ -249,7 +791,7 @@ Last-Update: <YYYY-MM-DD>
 +	SANE_Bool write_scan_data;
 +	SANE_Bool decompress_scan_data;
 +	SANE_Bool end_read;
-+}  canon_sane_t;    
++}  canon_sane_t;
 +
 +typedef struct {
 +	int			id;
@@ -303,7 +845,7 @@ Last-Update: <YYYY-MM-DD>
 +	sdev = calloc(1, sizeof(SANE_Device));
 +	sdev->name = cdev->name;
 +	sdev->model = cdev->model;
-+	sdev->vendor = "CANON"; 
++	sdev->vendor = "CANON";
 +	sdev->type = "flatbed scanner";
 +	return sdev;
 +}
@@ -487,7 +1029,7 @@ Last-Update: <YYYY-MM-DD>
 +	unsigned char * surface = NULL;
 +	struct my_error_mgr jerr;
 +	FILE * src = NULL;
-+	int lineSize;	
++	int lineSize;
 +	src = fopen(filename,"rb");
 +	start = ftell(src);
 +
@@ -530,7 +1072,7 @@ Last-Update: <YYYY-MM-DD>
 +		fprintf(stderr,"Out of memory");
 +		return CMT_STATUS_NO_MEM;
 +	}
-+	
++
 +	lineSize = cinfo.output_width * 3;
 +	/* Decompress the image */
 +	jpeg_start_decompress(&cinfo);
@@ -549,7 +1091,7 @@ Last-Update: <YYYY-MM-DD>
 +}
 +
 +void backend_error(SGMP_Data_Lite * data ,int *errCode){
-+	// set backend error code. 
++	// set backend error code.
 +	*errCode = 0;
 +	CIJSC_get_backend_error_code(errCode );
 +	if( *errCode ) {
@@ -558,18 +1100,18 @@ Last-Update: <YYYY-MM-DD>
 +	}
 +
 +	CIJSC_cancel();
-+	// delete scanned file. 
++	// delete scanned file.
 +}
 +
 +CMT_Status canon_sane_read(canon_sane_t * handled){
-+	
++
 +	CMT_Status status = CMT_STATUS_GOOD;
 +	unsigned char* buf  = NULL;
 +	int readBytes = JPEGSCANBUFSIZE;
 +	int len = 0;
 +	FILE * file = NULL;
 +	int total =0;
-+	buf = (unsigned char *)calloc(JPEGSCANBUFSIZE,1);	
++	buf = (unsigned char *)calloc(JPEGSCANBUFSIZE,1);
 +	if(!buf){
 +		return CMT_STATUS_NO_MEM;
 +	}
@@ -615,7 +1157,7 @@ Last-Update: <YYYY-MM-DD>
 +		/* show error dialog. */
 +		CIJSC_exit();
 +		fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
-+		return SANE_STATUS_INVAL; 
++		return SANE_STATUS_INVAL;
 +	}
 +
 +	fprintf(stderr,"Fin %s, %s ,%d [%d]\n ",__FILE__,__FUNCTION__,__LINE__, status);
@@ -636,7 +1178,7 @@ Last-Update: <YYYY-MM-DD>
 +	const CANON_Device **select_device_list = NULL;
 +	int i = 0;
 +	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
-+	 
++
 +	*status = CIJSC_get_devices( &select_device_list );
 +	if ( *status != CMT_STATUS_GOOD ) {
 +		CIJSC_exit();
@@ -646,7 +1188,7 @@ Last-Update: <YYYY-MM-DD>
 +	}
 +
 +	//nombre de scanner
-+	for(i=0; ; i++ ){	
++	for(i=0; ; i++ ){
 +		if( select_device_list[i] == NULL ){
 +			break;
 +		}
@@ -654,7 +1196,7 @@ Last-Update: <YYYY-MM-DD>
 +
 +	*num_scan = i;
 +	if(i == 0){
-+		
++
 +	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return NULL;
 +	}
@@ -668,7 +1210,7 @@ Last-Update: <YYYY-MM-DD>
 +	UNUSED (local_only);
 +	fprintf(stderr,"%s, %s ,%d\n",__FILE__,__FUNCTION__,__LINE__);
 +	int num_scan = 0;
-+	const CANON_Device ** canon_list = NULL; 
++	const CANON_Device ** canon_list = NULL;
 +	CMT_Status status;
 +	if (!device_list){
 +	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -712,7 +1254,7 @@ Last-Update: <YYYY-MM-DD>
 +	data->scan_source = CIJSC_SOURCE_DOCUMENT;
 +	data->scan_color = CIJSC_COLOR_COLOR;
 +	data->scan_format = CIJSC_FORMAT_JPEG;
-+	data->scan_size = CIJSC_SIZE_A4;       
++	data->scan_size = CIJSC_SIZE_A4;
 +	data->scan_result = CIJSC_SCANMAIN_SCAN_FINISHED;
 +
 +	for ( i = 0; i < sizeof( sourceSize ) / sizeof( CIJSC_SIZE_TABLE ) ; i++ ) {
@@ -731,7 +1273,7 @@ Last-Update: <YYYY-MM-DD>
 +//	data->scan_h = 877;//sourceSize[i].bottom;
 +	data->scanning_page = 1;
 +	data->last_error_quit = CIJSC_ERROR_DLG_QUIT_FALSE;
-+	
++
 +	handled->sgmp= *data;
 +	SANE_Range x_range = {0,0,0},y_range = {0,0,0};
 +	x_range.min = 0;
@@ -891,14 +1433,14 @@ Last-Update: <YYYY-MM-DD>
 +	}
 +
 +	handled->dev = dev;
-+	handled->cancel = SANE_FALSE;	
++	handled->cancel = SANE_FALSE;
 +	handled->write_scan_data = SANE_FALSE;
 +	handled->decompress_scan_data = SANE_FALSE;
 +	handled->end_read = SANE_FALSE;
 +	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	*h = handled;
 +	return SANE_STATUS_GOOD;
-+	
++
 +}
 +
 +void sane_cancel(SANE_Handle h){
@@ -924,7 +1466,6 @@ Last-Update: <YYYY-MM-DD>
 +const SANE_Option_Descriptor *
 +sane_get_option_descriptor(SANE_Handle h, SANE_Int n){
 +	canon_sane_t *s = h;
-+	fprintf(stderr,"NUM_OPTIONS %d\n",NUM_OPTIONS);
 +	if ((unsigned) n >= NUM_OPTIONS)
 +		return NULL;
 +	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -947,7 +1488,7 @@ Last-Update: <YYYY-MM-DD>
 +	if(a == SANE_ACTION_GET_VALUE){
 +
 +		switch(n){
-+			case OPT_NUM_OPTS: 
++			case OPT_NUM_OPTS:
 +			case OPT_MODE_GROUP:
 +			case OPT_MODE:
 +			case OPT_RESOLUTION:
@@ -961,14 +1502,14 @@ Last-Update: <YYYY-MM-DD>
 +				return SANE_STATUS_GOOD;
 +			default:break;
 +		}
-+		fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
++		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return SANE_STATUS_GOOD;
 +	}
 +
 +	if(a == SANE_ACTION_SET_VALUE){
 +
 +		switch(n){
-+			case OPT_NUM_OPTS: 
++			case OPT_NUM_OPTS:
 +			case OPT_MODE_GROUP:
 +			case OPT_MODE:
 +			case OPT_RESOLUTION:
@@ -977,14 +1518,15 @@ Last-Update: <YYYY-MM-DD>
 +			case OPT_BR_X:
 +			case OPT_BR_Y:
 +			case OPT_PREVIEW:
-+				handled->val[n].w = *(SANE_Word *) v; 
++				handled->val[n].w = *(SANE_Word *) v;
 +				fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +				return SANE_STATUS_GOOD;
 +			default:break;
 +		}
-+		fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
++		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return SANE_STATUS_GOOD;
 +	}
++	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	return SANE_STATUS_GOOD;
 +}
 +
@@ -1023,7 +1565,7 @@ Last-Update: <YYYY-MM-DD>
 +
 +	/* scan start*/
 +
-+	status = CIJSC_start( &param ); 
++	status = CIJSC_start( &param );
 +	if(status  != CMT_STATUS_GOOD ){
 +		handled->sgmp.last_error_quit = status;
 +		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -1091,7 +1633,7 @@ Last-Update: <YYYY-MM-DD>
 +	ps.bytes_per_line = handled->sgmp.scan_color == CIJSC_COLOR_COLOR ? scandata->bytes_per_line : scandata->bytes_per_line*3;
 +	ps.lines = scandata->lines;//-1;
 +	//	ps.lines = -1;
-+	
++
 +	fprintf(stderr,"ps.pixels_per_line = %d, ps.bytes_per_line = %d, ps.lines = %d\n",ps.pixels_per_line, ps.bytes_per_line, ps.lines);
 +
 +	ps.depth = 8;//8
@@ -1100,7 +1642,7 @@ Last-Update: <YYYY-MM-DD>
 +	fprintf(stderr,"mode : %s\n",val);
 +	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +
-+	if(!strcmp (val, SANE_VALUE_SCAN_MODE_COLOR)){ 
++	if(!strcmp (val, SANE_VALUE_SCAN_MODE_COLOR)){
 +		fprintf(stderr,"================================================ >scan couleur \n");
 +
 +		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -1123,11 +1665,10 @@ Last-Update: <YYYY-MM-DD>
 +
 +
 +SANE_Status
-+sane_read (SANE_Handle h, SANE_Byte * buf, SANE_Int maxlen, SANE_Int * len){	
++sane_read (SANE_Handle h, SANE_Byte * buf, SANE_Int maxlen, SANE_Int * len){
 +	canon_sane_t * handled = h;
 +	SANE_Status status = SANE_STATUS_GOOD;
 +	long readbyte;
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	if(!handled|!buf|!len){
 +		return SANE_STATUS_INVAL;
 +		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -1136,6 +1677,7 @@ Last-Update: <YYYY-MM-DD>
 +		return SANE_STATUS_CANCELLED;
 +	//lire toute les donnée du scanner les placé dans un fichier tmp
 +	if(!handled->write_scan_data){
++		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		status = (SANE_Status)canon_sane_read(handled);
 +		if(status != SANE_STATUS_GOOD){
 +			fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -1151,17 +1693,16 @@ Last-Update: <YYYY-MM-DD>
 +		if(status != SANE_STATUS_GOOD){
 +			fprintf(stderr,"erreur : %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +			return status;
-+			}
++		}
 +		handled->decompress_scan_data = SANE_TRUE;
 +		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	}
 +	if(handled->img_data == NULL){
-+		
++
 +		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return SANE_STATUS_INVAL;
 +	}
 +	if(!handled->end_read){
-+		fprintf(stderr,"%s, %s ,%ld, %ld\n ",__FILE__,__FUNCTION__,handled->img_size,handled->img_read);
 +		readbyte = min((handled->img_size - handled->img_read), maxlen);
 +		memcpy(buf,handled->img_data+handled->img_read,readbyte);
 +		handled->img_read += readbyte;
@@ -1170,7 +1711,8 @@ Last-Update: <YYYY-MM-DD>
 +			handled->end_read = SANE_TRUE;
 +		}
 +		else if(handled->img_read > handled->img_size){
-+			*len = 0;			
++			fprintf(stderr,"%s, %s ,%ld, %ld\n ",__FILE__,__FUNCTION__,handled->img_size,handled->img_read);
++			*len = 0;
 +			handled->end_read = SANE_TRUE;
 +			free(handled->img_data);
 +			handled->img_data = NULL;
@@ -1203,8 +1745,10 @@ Last-Update: <YYYY-MM-DD>
 +	return SANE_STATUS_UNSUPPORTED;
 +}
 +
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/canon_pixma.h
+Index: scangearmp2/scangearmp2/src/sane/canon_pixma.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/canon_pixma.h	2017-08-09 11:33:56.413553741 +0200
 @@ -0,0 +1,39 @@
 +#ifndef __CANON_PIXMA_H__
 +#define __CANON_PIXMA_H__
@@ -1243,10 +1787,12 @@ Last-Update: <YYYY-MM-DD>
 +	/* must come last: */
 +	NUM_OPTIONS
 +};
-+  
++
 +#endif // __CANON_PIXMA_H__
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/errordlg.c
+Index: scangearmp2/scangearmp2/src/sane/errordlg.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/errordlg.c	2017-08-09 11:34:18.713552822 +0200
 @@ -0,0 +1,191 @@
 +/*
 + *  ScanGear MP for Linux
@@ -1370,7 +1916,7 @@ Last-Update: <YYYY-MM-DD>
 +	{ BERRCODE_SCANNER_LOCKED,					CIJSC_ERROR_DEVICE_OTHER },
 +	{ BERRCODE_SCANNER_CONNECT_FAILED_USB,		CIJSC_ERROR_CONNECT_FAILED },
 +	{ BERRCODE_SCANNER_CONNECT_FAILED_LAN,		CIJSC_ERROR_CONNECT_FAILED },
-+	
++
 +	{ BERRCODE_SAVE_NO_FILE_NAME,		CIJSC_ERROR_SAVE_NO_FILE_NAME },
 +	{ BERRCODE_SAVE_OVERWRITE,			CIJSC_ERROR_SAVE_OVERWRITE },
 +	{ BERRCODE_SAVE_NO_ACCESS,			CIJSC_ERROR_SAVE_NO_ACCESS },
@@ -1385,9 +1931,9 @@ Last-Update: <YYYY-MM-DD>
 +	int		index_id, index_mes;
 +	int		ret = -1;
 +	int		errorCode = 0;
-+	
++
 +	DBGMSG("->\n");
-+	
++
 +	if ( lastIOErrCode ) {
 +		errorCode = -lastIOErrCode;
 +		if( errorCode != ERR_CODE_ENOSPC ) {
@@ -1402,7 +1948,7 @@ Last-Update: <YYYY-MM-DD>
 +	}
 +	DBGMSG("errorCode = %d\n", errorCode );
 +	data->last_error_quit = CIJSC_ERROR_DLG_QUIT_FALSE;
-+	
++
 +	/* error occurred. */
 +	if ( errorCode ) {
 +	/* get error id. */
@@ -1425,22 +1971,24 @@ Last-Update: <YYYY-MM-DD>
 +		if ( error_msg_table[index_mes].id < 0 ) {
 +			goto _EXIT;
 +		}
-+	
++
 +		ret = error_msg_table[index_mes].quit;
 +		data->last_error_quit = ret;
 +
 +	}
 +_EXIT:
 +	lastBackendErrCode = 0;
-+	
++
 +	return ret;
 +}
 +
 +
 +#endif	/* _ERRORDLG_C_ */
 +
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/errordlg.h
+Index: scangearmp2/scangearmp2/src/sane/errordlg.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/errordlg.h	2017-08-09 11:28:34.000000000 +0200
 @@ -0,0 +1,43 @@
 +/*
 + *  ScanGear MP for Linux
@@ -1485,8 +2033,10 @@ Last-Update: <YYYY-MM-DD>
 +
 +
 +
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/sane.h
+Index: scangearmp2/scangearmp2/src/sane/sane.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/sane.h	2017-08-09 11:28:34.000000000 +0200
 @@ -0,0 +1,213 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1997-1999 David Mosberger-Tang and Andreas Beck
@@ -1701,8 +2251,10 @@ Last-Update: <YYYY-MM-DD>
 +extern SANE_String_Const sane_strstatus (SANE_Status status);
 +
 +#endif /* sane_h */
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/sanei.h
+Index: scangearmp2/scangearmp2/src/sane/sanei.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/sanei.h	2017-08-09 11:34:45.793551706 +0200
 @@ -0,0 +1,170 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996 David Mosberger-Tang and Andreas Beck
@@ -1726,24 +2278,24 @@ Last-Update: <YYYY-MM-DD>
 +
 +   As a special exception, the authors of SANE give permission for
 +   additional uses of the libraries contained in this release of SANE.
-+   
++
 +   The exception is that, if you link a SANE library with other files
 +   to produce an executable, this does not by itself cause the
 +   resulting executable to be covered by the GNU General Public
 +   License.  Your use of that executable is in no way restricted on
 +   account of linking the SANE library code into it.
-+   
++
 +   This exception does not, however, invalidate any other reasons why
 +   the executable file might be covered by the GNU General Public
 +   License.
-+   
++
 +   If you submit changes to SANE to the maintainers to be included in
 +   a subsequent release, you agree by submitting the changes that
 +   those changes may be distributed with this exception intact.
-+   
++
 +   If you write modifications of your own for SANE, it is your choice
 +   whether to permit this exception to apply to your modifications.
-+   If you do not wish that, delete this exception notice. 
++   If you do not wish that, delete this exception notice.
 +*/
 +
 +/** @file sanei.h
@@ -1764,29 +2316,29 @@ Last-Update: <YYYY-MM-DD>
 + * to be platform-independent to avoid lots of \#ifdef code in the backends.
 + * Please use the SANEI functions wherever possible.
 + *
-+ * This documentation was created by the use of doxygen, the 
++ * This documentation was created by the use of doxygen, the
 + * doc/doxygen-sanei.conf configuration file and dcoumentation in the sanei_*.h
 + * files.
 + *
 + * This documenation is far from complete. Any help is appreciated.
 + *
 + * @section additional Additional documentation
-+ * - The SANE standard can be found at <a 
++ * - The SANE standard can be found at <a
 + *   href="http://www.sane-project.org/html/">the SANE webserver</a>.
 + * - Information on how to write a backend: <a
 + *   href="../backend-writing.txt">backend-writing.txt</a>.
 + * - General SANE documentation is on <a
 + *   href="http://www.sane-project.org/docs.html>the SANE documentation
 + *   page</a>.
-+ * 
-+ * @section contact Contact 
++ *
++ * @section contact Contact
 + *
 + * The common way to contact the developers of SANE is the sane-devel
 + * mailing list. See the <a
 + * href="http://www.sane-project.org/mailing-lists.html">mailing list webpage</a>
 + * for details. That's the place to ask questions, report bugs, or announce
 + * a new backend.
-+ * 
++ *
 + */
 +
 +#ifndef sanei_h
@@ -1815,7 +2367,7 @@ Last-Update: <YYYY-MM-DD>
 + * @param opt   option to check
 + * @param value value of the option
 + *
-+ * @return 
++ * @return
 + * - SANE_STATUS_GOOD     - on success
 + * - SANE_STATUS_INVAL    - if the value doesn't fit inside the constraint
 + *   or any other error occured
@@ -1832,7 +2384,7 @@ Last-Update: <YYYY-MM-DD>
 + * @param value value of the option
 + * @param info  info is set to SANE_INFO_INEXACT if value was changed
 + *
-+ * @return 
++ * @return
 + * - SANE_STATUS_GOOD     - on success
 + * - SANE_STATUS_INVAL    - if the function wasn't able to fit value into the
 + *   constraint or any other error occured
@@ -1874,8 +2426,10 @@ Last-Update: <YYYY-MM-DD>
 +
 +
 +#endif /* sanei_h */
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/sanei_backend.h
+Index: scangearmp2/scangearmp2/src/sane/sanei_backend.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/sanei_backend.h	2017-08-09 11:28:34.000000000 +0200
 @@ -0,0 +1,175 @@
 +/** @file sanei_backend.h
 + * Compatibility header file for backends
@@ -2052,8 +2606,10 @@ Last-Update: <YYYY-MM-DD>
 +Option_Value;
 +#define SANE_OPTION 1
 +#endif
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/sanei_debug.h
+Index: scangearmp2/scangearmp2/src/sane/sanei_debug.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/sanei_debug.h	2017-08-09 11:34:45.801551706 +0200
 @@ -0,0 +1,176 @@
 +/** @file sanei_debug.h
 + * Support for printing debug messages.
@@ -2073,14 +2629,14 @@ Last-Update: <YYYY-MM-DD>
 + * Before including sanei_debug.h, the following macros must be set:
 + *
 + * - BACKEND_NAME - The name of your backend without double-quotes (must be set in any case)
-+ * - STUBS - If this is defined, no macros will be included. Used in 
++ * - STUBS - If this is defined, no macros will be included. Used in
 + *   backends consisting of more than one .c file.
-+ * - DEBUG_DECLARE_ONLY - Generates prototypes instead of functions. Used in 
++ * - DEBUG_DECLARE_ONLY - Generates prototypes instead of functions. Used in
 + *   backends consisting of more than one .c file.
 + * - DEBUG_NOT_STATIC - Doesn't generate static functions. Used in header files if
 + *   they are include in more than one .c file.
 + *
-+ * @{ 
++ * @{
 + */
 +
 +/** @def DBG_INIT()
@@ -2101,7 +2657,7 @@ Last-Update: <YYYY-MM-DD>
 +/** @def IF_DBG(x)
 + * Compile code only if debugging is enabled.
 + *
-+ * Expands to x if debug support is enabled at compile-time. If NDEBUG is 
++ * Expands to x if debug support is enabled at compile-time. If NDEBUG is
 + * defined at compile-time this macro expands to nothing.
 + *
 + * @param x code to expand when debugging is enabled
@@ -2109,7 +2665,7 @@ Last-Update: <YYYY-MM-DD>
 +
 +/**
 + * @def DBG_LEVEL
-+ * Current debug level. 
++ * Current debug level.
 + *
 + * You can only read this "variable".
 + */
@@ -2150,16 +2706,16 @@ Last-Update: <YYYY-MM-DD>
 +#define ENTRY(name)     PASTE(PASTE(PASTE(sane_,BACKEND_NAME),_),name)
 +
 +#ifdef NDEBUG
-+  
++
 +extern void sanei_debug_ndebug (int level, const char *msg, ...);
-+	
++
 +# define DBG_LEVEL	(0)
 +# define DBG_INIT()
 +# define DBG		sanei_debug_ndebug
 +# define IF_DBG(x)
-+	
++
 +#else /* !NDEBUG */
-+	
++
 +                                  /** @hideinitializer*/
 +# define DBG_LEVEL      PASTE(sanei_debug_,BACKEND_NAME)
 +
@@ -2183,7 +2739,7 @@ Last-Update: <YYYY-MM-DD>
 +
 +#  ifdef DEBUG_DECLARE_ONLY
 +
-+extern void DBG_LOCAL (int level, const char *msg, ...) 
++extern void DBG_LOCAL (int level, const char *msg, ...)
 +#ifdef __GNUC__
 +__attribute__ ((format (printf, 2, 3)))
 +#endif
@@ -2192,8 +2748,8 @@ Last-Update: <YYYY-MM-DD>
 +#  else /* !DEBUG_DECLARE_ONLY */
 +
 +#   include <stdarg.h>
-+	
-+extern void sanei_debug_msg 
++
++extern void sanei_debug_msg
 +  (int level, int max_level, const char *be, const char *fmt, va_list ap);
 +
 +#ifdef __GNUC__
@@ -2224,15 +2780,17 @@ Last-Update: <YYYY-MM-DD>
 +# define DBG            DBG_LOCAL
 +
 +extern void sanei_init_debug (const char * backend, int * debug_level_var);
-+  
++
 +                                  /** @hideinitializer*/
 +# define IF_DBG(x)      x
 +
 +#endif /* NDEBUG */
 +
 +#endif /* _SANEI_DEBUG_H */
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/sanei_init_debug.c
+Index: scangearmp2/scangearmp2/src/sane/sanei_init_debug.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/sanei_init_debug.c	2017-08-09 11:34:45.801551706 +0200
 @@ -0,0 +1,109 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996, 1997 David Mosberger-Tang and Andreas Beck
@@ -2298,7 +2856,7 @@ Last-Update: <YYYY-MM-DD>
 +#define BACKEND_NAME sanei_debug
 +#include "sanei_debug.h"
 +
-+void 
++void
 +sanei_init_debug (const char * backend, int * var)
 +{
 +  char ch, buf[256] = "SANE_DEBUG_";
@@ -2343,8 +2901,10 @@ Last-Update: <YYYY-MM-DD>
 +  /* this function is never called */
 +}
 +#endif
---- /dev/null
-+++ scangearmp2-3.40/scangearmp2/src/sane/saneopts.h
+Index: scangearmp2/scangearmp2/src/sane/saneopts.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ scangearmp2/scangearmp2/src/sane/saneopts.h	2017-08-09 11:28:34.000000000 +0200
 @@ -0,0 +1,397 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996, 1997 David Mosberger-Tang and Andreas Beck
@@ -2743,9 +3303,100 @@ Last-Update: <YYYY-MM-DD>
 +#define SANE_VALUE_SCAN_MODE_LINEART		SANE_I18N("Lineart")
 +
 +#endif /* saneopts_h */
---- scangearmp2-3.40.orig/scangearmp2/src/support.h
-+++ scangearmp2-3.40/scangearmp2/src/support.h
-@@ -172,6 +172,27 @@ typedef struct
+Index: scangearmp2/scangearmp2/src/support.h
+===================================================================
+--- scangearmp2.orig/scangearmp2/src/support.h	2017-08-09 11:28:10.921567978 +0200
++++ scangearmp2/scangearmp2/src/support.h	2017-08-09 11:34:45.809551706 +0200
+@@ -90,7 +90,7 @@
+ {
+ 	GtkBuilder	*builder;
+ 	gboolean	ignore_combobox_changed;
+-	
++
+ 	/* main window */
+ 	GtkWidget	*window_main;
+ 	GtkWidget	*combobox_scanmode;
+@@ -100,13 +100,13 @@
+ 	gboolean	window_main_sensitive;
+ 	gint		window_main_value;
+ 	int			prev_scanmode;
+-	
++
+ 	GtkWidget	*button_scanjpeg;
+ 	GtkWidget	*button_scanpdf;
+ 	GtkWidget	*button_version;
+ 	GtkWidget	*button_close;
+ 	GtkWidget	*label_devname;
+-	
++
+ 	/* select device dialog */
+ 	GtkWidget	*dialog_select;
+ 	GtkWidget	*combobox_select_devlist;
+@@ -116,7 +116,7 @@
+ 	GtkWidget	*button_select_ok;
+ 	gboolean	dialog_select_sensitive;
+ 	gint		dialog_select_value;
+-	
++
+ 	/* save dialog */
+ 	GtkWidget	*dialog_save;
+ 	GtkWidget	*filechooserwidget_save;
+@@ -124,7 +124,7 @@
+ 	GtkWidget	*button_save_save;
+ 	gboolean	dialog_save_sensitive;
+ 	gint		dialog_save_value;
+-	
++
+ 	/* version dialog */
+ 	GtkWidget	*dialog_version;
+ 	GtkWidget	*label_version_app;
+@@ -132,11 +132,11 @@
+ 	GtkWidget	*label_version_cpy;
+ 	GtkWidget	*button_version_ok;
+ 	gint		dialog_version_value;
+-	
++
+ 	/* notify dialog */
+ 	GtkWidget	*dialog_notify;
+ 	GtkWidget	*label_notify_save;
+-	
++
+ 	/* progress bar dialog */
+ 	GtkWidget	*dialog_progress;
+ 	GtkWidget	*progressbar_prog;
+@@ -145,26 +145,26 @@
+ 	GtkWidget	*label_prog_pages;
+ 	GtkWidget	*button_prog_cancel;
+ 	gint		dialog_progress_value;
+-	
++
+ 	/* error dialog */
+ 	GtkWidget	*dialog_error;
+ 	GtkWidget	*label_error_msg;
+ 	GtkWidget	*button_error_cancel;
+ 	GtkWidget	*button_error_ok;
+ 	gint		dialog_error_value;
+-	
++
+ 	/* scan parameters */
+ 	int			scan_scanmode;
+ 	int			scan_source;
+ 	int			scan_color;
+ 	int			scan_size;
+-	
++
+ 	int			scan_format;
+-	
++
+ 	int			scan_result;
+ 	int			scanning_page;
+ 	char		file_path[ PATH_MAX ];
+-	
++
+ 	int			scan_w;
+ 	int			scan_h;
+ 	int			scan_res;
+@@ -172,6 +172,27 @@
  	int			last_error_quit;
  }SGMP_Data;
  
@@ -2756,13 +3407,13 @@ Last-Update: <YYYY-MM-DD>
 +	int			scan_source;
 +	int			scan_color;
 +	int			scan_size;
-+	
++
 +	int			scan_format;
-+	
++
 +	int			scan_result;
 +	int			scanning_page;
 +	char		file_path[ PATH_MAX ];
-+	
++
 +	int			scan_w;
 +	int			scan_h;
 +	int			scan_res;
