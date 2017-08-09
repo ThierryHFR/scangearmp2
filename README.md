@@ -15,7 +15,7 @@ DESCRIPTION
 	It has been done as a patch to have a minimun impact on the orginal scangearmp2 source
 	code.</br>
 </br>
-	The concerned scanner are :
+	The scanner supported by this backend are :
 </br>
 </br>
 #MG7500 series</br>
@@ -101,6 +101,8 @@ INSTALLATION
 		debuild -tc
 </br>
 		dpkg -i ../scangearmp2_3.40-1_amd64.deb
+</br>
+		echo "canon_pixma"  >> /etc/sane.d/dll.conf # for activate the backend in sane
 </br>
 </br>
 LICENSE
