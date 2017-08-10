@@ -56,7 +56,7 @@ DESCRIPTION
 STATE
 </br>
 </br>
-	Tested with sane 1.0.27 (may not work for lower versions)</br>
+	Tested with sane 1.0.25 and 1.0.27 (may not work for lower versions)</br>
 	Currently the backend allow image in A4 format.</br>
 	The scan works in color or in gray map(must be change in the code).</br>
 	The options are not well handled, so they might not work.</br>
