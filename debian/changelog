@@ -1,3 +1,10 @@
+scangearmp2 (3.40-2) stable; urgency=medium
+
+  * This project is a sane backend for the canon's scanner,
+    based on the source code of scangearmp2. 
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Wed, 09 Aug 2017 16:06:15 +0200
+
 scangearmp2 (3.40-1) stable; urgency=low
 
   * Initial Release.

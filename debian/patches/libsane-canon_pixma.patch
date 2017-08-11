@@ -22,8 +22,8 @@ Last-Update: <YYYY-MM-DD>
 
 Index: scangearmp2/scangearmp2/configure.in
 ===================================================================
---- scangearmp2.orig/scangearmp2/configure.in	2017-08-09 11:28:10.909567979 +0200
-+++ scangearmp2/scangearmp2/configure.in	2017-08-09 11:28:34.000000000 +0200
+--- scangearmp2.orig/scangearmp2/configure.in
++++ scangearmp2/scangearmp2/configure.in
 @@ -1,6 +1,8 @@
  dnl Process this file with autoconf to produce a configure script.
  
@@ -34,7 +34,7 @@ Index: scangearmp2/scangearmp2/configure.in
  
  AC_ARG_ENABLE(libpath)
  if test "${enable_libpath}" = ""; then
-@@ -12,8 +14,10 @@
+@@ -12,8 +14,10 @@ AC_SUBST(CNMSLIBPATH)
  
  AC_SUBST(enable_libpath)
  
@@ -48,15 +48,15 @@ Index: scangearmp2/scangearmp2/configure.in
  AM_MAINTAINER_MODE
 Index: scangearmp2/scangearmp2/src/Makefile.am
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/Makefile.am	2017-08-09 11:28:10.913567979 +0200
-+++ scangearmp2/scangearmp2/src/Makefile.am	2017-08-09 11:28:34.000000000 +0200
+--- scangearmp2.orig/scangearmp2/src/Makefile.am
++++ scangearmp2/scangearmp2/src/Makefile.am
 @@ -1,4 +1,5 @@
  ## Process this file with automake to produce Makefile.in
 +# SUBDIRS = sane
  
  INCLUDES = \
  	-I$(top_srcdir)/include \
-@@ -34,6 +35,33 @@
+@@ -34,6 +35,33 @@ scangearmp2_CFLAGS = \
  	-DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" \
  	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
  
@@ -92,9 +92,9 @@ Index: scangearmp2/scangearmp2/src/Makefile.am
  	$(INSTALL_DATA) canon_mfp2.conf $(DESTDIR)$(enable_libpath)/bjlib
 Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/canon_mfp_io.c	2017-08-09 11:28:10.913567979 +0200
-+++ scangearmp2/scangearmp2/src/canon_mfp_io.c	2017-08-09 11:33:05.225555851 +0200
-@@ -73,11 +73,11 @@
+--- scangearmp2.orig/scangearmp2/src/canon_mfp_io.c
++++ scangearmp2/scangearmp2/src/canon_mfp_io.c
+@@ -73,11 +73,11 @@ typedef struct CANON_Scanner
  
      size_t		bytes_to_read;
      int			scanning;
@@ -108,7 +108,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
      int		scanFinished;
    }
  CANON_Scanner;
-@@ -109,7 +109,7 @@
+@@ -109,7 +109,7 @@ static CMT_Status canon_usb_open( const
  			return status;
  		}
  		CANON_fd = fd;
@@ -117,7 +117,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  		return CMT_STATUS_GOOD;
  	}
  	else { /* already open. */
-@@ -132,16 +132,16 @@
+@@ -132,16 +132,16 @@ static int canon_usb_write( unsigned cha
  {
  	unsigned long n = size;
  	CMT_Status status;
@@ -137,7 +137,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( size != n ) {
  		return n; /* error */
  	}
-@@ -152,18 +152,18 @@
+@@ -152,18 +152,18 @@ static int canon_usb_read( unsigned char
  {
  	unsigned long n = *size;
  	CMT_Status status;
@@ -160,7 +160,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( *size != n ) {
  		return n; /* error */
  	}
-@@ -177,7 +177,7 @@
+@@ -177,7 +177,7 @@ static CMT_Status canon_network_open( co
  {
  	CMT_Status status;
  	CNNLHANDLE handle = NULL;
@@ -169,7 +169,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( CANON_hnd == NULL ) {
  		if ( ( status = cmt_network_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
  			return status;
-@@ -206,16 +206,16 @@
+@@ -206,16 +206,16 @@ static int canon_network_write( unsigned
  {
  	unsigned long n = size;
  	CMT_Status status;
@@ -189,7 +189,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( size != n ) {
  		return n; /* error */
  	}
-@@ -226,18 +226,18 @@
+@@ -226,18 +226,18 @@ static int canon_network_read( unsigned
  {
  	unsigned long n = *size;
  	CMT_Status status;
@@ -212,7 +212,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( *size != n ) {
  		return n; /* error */
  	}
-@@ -251,7 +251,7 @@
+@@ -251,7 +251,7 @@ static CMT_Status canon_network2_open( c
  {
  	CMT_Status status;
  	HCNNET3 handle = NULL;
@@ -221,7 +221,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( CANON_hnd2 == NULL ) {
  		if ( ( status = cmt_network2_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
  			return status;
-@@ -280,16 +280,16 @@
+@@ -280,16 +280,16 @@ static int canon_network2_write( unsigne
  {
  	unsigned long n = size;
  	CMT_Status status;
@@ -241,7 +241,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( size != n ) {
  		return n; /* error */
  	}
-@@ -300,18 +300,18 @@
+@@ -300,18 +300,18 @@ static int canon_network2_read( unsigned
  {
  	unsigned long n = *size;
  	CMT_Status status;
@@ -264,7 +264,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( *size != n ) {
  		return n; /* error */
  	}
-@@ -356,27 +356,27 @@
+@@ -356,27 +356,27 @@ static CMT_Status attach(
  	int				vendor;
  	int				product;
  	int				speed = 2;
@@ -296,7 +296,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if(flag_usb){
  		/* open succeed -> append to list */
  		if ( ( status = canon_usb_open(name) ) != CMT_STATUS_GOOD )
-@@ -396,7 +396,7 @@
+@@ -396,7 +396,7 @@ static CMT_Status attach(
  		speed = attach_dev->speed;
  		product = attach_dev->product_id;
  	}
@@ -305,7 +305,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	/* set name */
  	dev->name = strdup( name );
  	/* set model */
-@@ -404,12 +404,12 @@
+@@ -404,12 +404,12 @@ static CMT_Status attach(
  	/* set full name */
  	snprintf( dev_fullname, sizeof(dev_fullname), "Canon %s (%s)", dev->model, dev->name );
  	dev->fullname = strdup( dev_fullname );
@@ -320,7 +320,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	dev->product_id = product;
  	dev->type = attach_dev->type;
  	dev->speed = speed;
-@@ -429,12 +429,12 @@
+@@ -429,12 +429,12 @@ static CMT_Status attach(
  			}
  		}
  	}
@@ -335,7 +335,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if(flag_usb){
  		if ( usb_opend ) {
  			canon_usb_close();
-@@ -450,38 +450,38 @@
+@@ -450,38 +450,38 @@ _ERROR:
  CMT_Status CIJSC_init( void *cnnl_callback )
  {
  	CMT_Status status = CMT_STATUS_GOOD;
@@ -383,7 +383,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  			if ( ( ret = cmt_get_device_info( line, len, &c_dev ) ) < 0 ) {
  				continue;	/* next */
  			}
-@@ -561,12 +561,12 @@
+@@ -561,12 +561,12 @@ void CIJSC_exit(void)
  		dispose_canon_dev( dev );
  	}
  	first_dev = NULL;
@@ -398,7 +398,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	num_devices = 0;
  	cmt_libusb_exit();
  	cmt_network_exit();
-@@ -586,7 +586,7 @@
+@@ -586,7 +586,7 @@ CMT_Status CIJSC_get_devices(
  	if( devlist ){
  		free( devlist );
  	}
@@ -407,7 +407,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	devlist = malloc( ( num_devices + 1 ) * sizeof( CANON_Device * ) );
  	if( !devlist ) {
  		return (CMT_STATUS_NO_MEM);
-@@ -594,7 +594,7 @@
+@@ -594,7 +594,7 @@ CMT_Status CIJSC_get_devices(
  	for( dev = first_dev, devlisttemp = devlist; dev; dev = dev->next ) {
  		*devlisttemp++ = dev;
  	}
@@ -416,7 +416,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	*devlisttemp = NULL;
  	*device_list = devlist;
  
-@@ -609,25 +609,25 @@
+@@ -609,25 +609,25 @@ CMT_Status CIJSC_open(
  {
  	CMT_Status status;
  	CANON_Device *dev;
@@ -447,7 +447,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  		if (!dev) {
  			return (CMT_STATUS_INVAL);
  		}
-@@ -635,7 +635,7 @@
+@@ -635,7 +635,7 @@ CMT_Status CIJSC_open(
  	else {
  		dev = first_dev;
  	}
@@ -456,7 +456,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	DBGMSG(" dev->speed = %d \n" ,dev->speed);
  	if ( dev->speed == -1 ){	/* NET */
  		if( ( status = canon_network_open ( name ) ) != CMT_STATUS_GOOD ){
-@@ -676,20 +676,108 @@
+@@ -676,20 +676,108 @@ CMT_Status CIJSC_open(
  			}
  		}
  	}
@@ -569,7 +569,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	return CMT_STATUS_GOOD;
  }
  
-@@ -699,7 +787,7 @@
+@@ -699,7 +787,7 @@ CMT_Status CIJSC_open(
  void CIJSC_close( void )
  {
  	canon_terminate_scanner();
@@ -578,7 +578,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	canon_usb_close ();
  	canon_network_close();
  	canon_network2_close();
-@@ -717,30 +805,30 @@
+@@ -717,30 +805,30 @@ CMT_Status CIJSC_start( CANON_ScanParam
  	int status;
  	CANON_Scanner *s = &canon_device;
  	CANON_SCANDATA	scandata;
@@ -618,7 +618,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	status = canon_set_parameter_ex(
  		s->xres,			/* XRes */
  		s->yres,			/* YRes */
-@@ -755,7 +843,7 @@
+@@ -755,7 +843,7 @@ CMT_Status CIJSC_start( CANON_ScanParam
  		&scandata,			/* CANON_SCANDATA */
  		&(param->opts)	/* CANON_SCANOPTS */
  	);
@@ -627,7 +627,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( status < 0 ) {
  		DBGMSG("error in canon_set_parameter/canon_set_parameter_ex()\n");
  		status = CMT_STATUS_INVAL;
-@@ -767,18 +855,18 @@
+@@ -767,18 +855,18 @@ CMT_Status CIJSC_start( CANON_ScanParam
  		cmt_network_mutex_unlock();
  		goto _EXIT;
  	}
@@ -649,7 +649,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	return status;
  }
  
-@@ -788,7 +876,7 @@
+@@ -788,7 +876,7 @@ _EXIT:
  CMT_Status CIJSC_get_parameters( void *callback )
  {
  	CANON_SCANDATA		scandata;
@@ -658,7 +658,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( canon_get_parameters( &scandata, callback ) < 0 ) {
  		return CMT_STATUS_INVAL;
  	}
-@@ -816,11 +904,11 @@
+@@ -816,11 +904,11 @@ CMT_Status CIJSC_read(
  	CMT_Status status;
  	int nread;
  	CANON_Scanner *s = &canon_device;
@@ -672,7 +672,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  		status = CMT_STATUS_EOF;
  		goto _EXIT;
  	}
-@@ -830,18 +918,18 @@
+@@ -830,18 +918,18 @@ CMT_Status CIJSC_read(
  		goto _EXIT;
  	}
  	nread = ( *len * 32 ) / 32;
@@ -694,7 +694,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	status = CMT_STATUS_GOOD;
  
  _EXIT:
-@@ -855,11 +943,11 @@
+@@ -855,11 +943,11 @@ void CIJSC_cancel( void )
  {
  	CANON_Scanner *s = &canon_device;
  	int			skip_unlock = 0;
@@ -709,7 +709,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( s->scanFinished ) {
  		/* end scan */
  		if ( s->scanMethod ) {	/* ADF */
-@@ -880,11 +968,11 @@
+@@ -880,11 +968,11 @@ void CIJSC_cancel( void )
  		/* user cancel */
  		canon_do_cancel();
  	}
@@ -725,9 +725,9 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  }
 Index: scangearmp2/scangearmp2/src/canon_mfp_tools.h
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/canon_mfp_tools.h	2017-08-09 11:28:10.917567978 +0200
-+++ scangearmp2/scangearmp2/src/canon_mfp_tools.h	2017-08-09 11:28:34.000000000 +0200
-@@ -156,6 +156,7 @@
+--- scangearmp2.orig/scangearmp2/src/canon_mfp_tools.h
++++ scangearmp2/scangearmp2/src/canon_mfp_tools.h
+@@ -156,6 +156,7 @@ CMT_Status CIJSC_init( void *cnnl_callba
  void CIJSC_exit(void);
  CMT_Status CIJSC_get_devices( const CANON_Device ***device_list );
  CMT_Status CIJSC_open( const char *name );
@@ -737,9 +737,9 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_tools.h
  CMT_Status CIJSC_start( CANON_ScanParam *param );
 Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/canon_pixma.c	2017-08-09 11:38:22.345542783 +0200
-@@ -0,0 +1,1005 @@
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/canon_pixma.c
+@@ -0,0 +1,1027 @@
 +/*******************************************************************
 + ** SANE API
 + *******************************************************************/
@@ -841,7 +841,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 + SANE_Device*  convertFromCanonDev(const CANON_Device* cdev){
 +	SANE_Device* sdev = NULL;
-+	fprintf(stderr,"%s, %s ,%d ",__FILE__,__FUNCTION__,__LINE__);
 +	sdev = calloc(1, sizeof(SANE_Device));
 +	sdev->name = cdev->name;
 +	sdev->model = cdev->model;
@@ -1021,7 +1020,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	/* do nothing */
 +}
 +/* Load a JPEG type image from an SDL datasource */
-+CMT_Status IMG_LoadJPG_RW(canon_sane_t * handled,const char * filename)
++CMT_Status canon_sane_decompress(canon_sane_t * handled,const char * filename)
 +{
 +	int start;
 +	struct jpeg_decompress_struct cinfo;
@@ -1031,6 +1030,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	FILE * src = NULL;
 +	int lineSize;
 +	src = fopen(filename,"rb");
++	unlink(filename);
 +	start = ftell(src);
 +
 +
@@ -1054,7 +1054,14 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 +
 +		/* Set 24-bit RGB output */
-+		cinfo.out_color_space = JCS_RGB;
++//		if(handled->sgmp.scan_color = CIJSC_COLOR_COLOR){
++			cinfo.out_color_space =  JCS_RGB;
++//		}
++	/*
++		if(handled->sgmp.scan_color = CIJSC_COLOR_GRAY){
++			cinfo.out_color_space =  JCS_GRAYSCALE;
++		}
++*/
 +		cinfo.quantize_colors = FALSE;
 +#ifdef FAST_JPEG
 +		cinfo.scale_num   = 1;
@@ -1063,9 +1070,10 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		cinfo.do_fancy_upsampling = FALSE;
 +#endif
 +		jpeg_calc_output_dimensions(&cinfo);
-+
++		fprintf(stderr,"cinfo.output_components =  %d\n",cinfo.output_components);
 +		/* Allocate an output surface to hold the image */
-+		surface = malloc(cinfo.output_width * cinfo.output_height * 3);
++		surface = malloc(cinfo.output_width * cinfo.output_height * cinfo.output_components);
++		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	if ( surface == NULL ) {
 +		jpeg_destroy_decompress(&cinfo);
 +		fseek(src, start, SEEK_SET);
@@ -1073,7 +1081,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		return CMT_STATUS_NO_MEM;
 +	}
 +
-+	lineSize = cinfo.output_width * 3;
++	lineSize = cinfo.output_width * cinfo.output_components;
 +	/* Decompress the image */
 +	jpeg_start_decompress(&cinfo);
 +	while ( cinfo.output_scanline < cinfo.output_height ) {
@@ -1081,11 +1089,13 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		jpeg_read_scanlines(&cinfo, rowptr, (JDIMENSION) 1);
 +	}
 +
++	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	handled->img_data = surface;
 +	handled->img_size = lineSize*cinfo.output_height;
 +	handled->img_read = 0;
 +	jpeg_finish_decompress(&cinfo);
 +	jpeg_destroy_decompress(&cinfo);
++	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	fclose(src);
 +	return CMT_STATUS_GOOD ;
 +}
@@ -1113,10 +1123,12 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	int total =0;
 +	buf = (unsigned char *)calloc(JPEGSCANBUFSIZE,1);
 +	if(!buf){
++	fprintf(stderr,"total =  %d\n ",total);
 +		return CMT_STATUS_NO_MEM;
 +	}
 +	file = fopen(canonJpegDataTmp,"wb");
 +	if(file == NULL){
++	fprintf(stderr,"total =  %d\n ",total);
 +	return CMT_STATUS_INVAL;
 +	}
 +	while(status == CMT_STATUS_GOOD && !handled->cancel){
@@ -1126,9 +1138,11 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		len = fwrite(buf,1,readBytes,file);
 +		total += len;
 +	}
-+	if(handled->cancel)
++	if(handled->cancel){
++
++		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		status = CMT_STATUS_CANCELLED;
-+	fprintf(stderr,"total =  %d\n ",total);
++	}
 +	fclose(file);
 +	return status == CMT_STATUS_EOF ? CMT_STATUS_GOOD : status;
 +}
@@ -1136,7 +1150,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +SANE_Status
 +sane_init (SANE_Int * version_code, SANE_Auth_Callback authorize)
 +{
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	CMT_Status status;
 +	CNMSInt32 cnms_status = CNMS_NO_ERR;
 +
@@ -1147,6 +1160,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	status = CIJSC_init((void*)NULL);
 +	if (status != CMT_STATUS_GOOD)
 +	{
++	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		show_canon_cmt_error(status);
 +		return (SANE_Status)status;
 +	}
@@ -1160,7 +1174,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		return SANE_STATUS_INVAL;
 +	}
 +
-+	fprintf(stderr,"Fin %s, %s ,%d [%d]\n ",__FILE__,__FUNCTION__,__LINE__, status);
 +	return SANE_STATUS_GOOD;//status;
 +}
 +
@@ -1168,16 +1181,13 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 +void
 +sane_exit (void){
-+	fprintf(stderr," %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	CIJSC_exit();
-+	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +}
 +
 +
 +const CANON_Device ** canon_get_device(int* num_scan,CMT_Status* status){
 +	const CANON_Device **select_device_list = NULL;
 +	int i = 0;
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +
 +	*status = CIJSC_get_devices( &select_device_list );
 +	if ( *status != CMT_STATUS_GOOD ) {
@@ -1200,7 +1210,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return NULL;
 +	}
-+	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	return select_device_list;
 +}
 +
@@ -1208,7 +1217,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +sane_get_devices (const SANE_Device *** device_list, SANE_Bool local_only)
 +{
 +	UNUSED (local_only);
-+	fprintf(stderr,"%s, %s ,%d\n",__FILE__,__FUNCTION__,__LINE__);
 +	int num_scan = 0;
 +	const CANON_Device ** canon_list = NULL;
 +	CMT_Status status;
@@ -1237,7 +1245,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	}
 +
 +	*device_list = dev_list;
-+	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	return (dev_list) ? SANE_STATUS_GOOD : SANE_STATUS_NO_MEM;
 +
 +}
@@ -1263,6 +1270,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		}
 +	}
 +	if ( i == ( sizeof( sourceSize ) / sizeof( CIJSC_SIZE_TABLE ) ) ) {
++	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return CMT_STATUS_INVAL;
 +	}
 +
@@ -1305,6 +1313,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 +	status = init_canon_options(s);
 +	if(status != CMT_STATUS_GOOD){
++	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return status;
 +	}
 +
@@ -1401,7 +1410,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 +SANE_Status
 +sane_open (SANE_String_Const name, SANE_Handle * h){
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +
 +	canon_sane_t *  handled = NULL;
 +	CANON_Device dev;
@@ -1437,7 +1445,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	handled->write_scan_data = SANE_FALSE;
 +	handled->decompress_scan_data = SANE_FALSE;
 +	handled->end_read = SANE_FALSE;
-+	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	*h = handled;
 +	return SANE_STATUS_GOOD;
 +
@@ -1452,14 +1459,12 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +void
 +sane_close (SANE_Handle h){
 +
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	CIJSC_close( );
 +	if(h){
 +		free(h);
 +		h = NULL;
 +	}
 +	KeepSettingCommonClose();
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	UNUSED(h);
 +}
 +
@@ -1468,7 +1473,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	canon_sane_t *s = h;
 +	if ((unsigned) n >= NUM_OPTIONS)
 +		return NULL;
-+	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	return s->opt + n;
 +}
 +
@@ -1476,14 +1480,15 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +sane_control_option (SANE_Handle h, SANE_Int n,
 +		     SANE_Action a, void *v, SANE_Int * i)
 +{
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	canon_sane_t * handled = h;
 +
 +	if (i)
 +		*i = 0;
 +
-+	if (n >= NUM_OPTIONS || n < 0)
++	if (n >= NUM_OPTIONS || n < 0){
++	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return SANE_STATUS_INVAL;
++	}
 +
 +	if(a == SANE_ACTION_GET_VALUE){
 +
@@ -1498,35 +1503,57 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +			case OPT_BR_Y:
 +			case OPT_PREVIEW:
 +				*(SANE_Word *) v = handled->val[n].w;
-+				fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +				return SANE_STATUS_GOOD;
 +			default:break;
 +		}
-+		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return SANE_STATUS_GOOD;
 +	}
 +
 +	if(a == SANE_ACTION_SET_VALUE){
 +
-+		switch(n){
-+			case OPT_NUM_OPTS:
-+			case OPT_MODE_GROUP:
-+			case OPT_MODE:
-+			case OPT_RESOLUTION:
-+			case OPT_TL_X:
-+			case OPT_TL_Y:
-+			case OPT_BR_X:
-+			case OPT_BR_Y:
-+			case OPT_PREVIEW:
-+				handled->val[n].w = *(SANE_Word *) v;
++		if(!SANE_OPTION_IS_SETTABLE(handled->opt[n].cap)){
 +				fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
++				return SANE_STATUS_INVAL;
++				}
++
++				switch(n){
++				case OPT_RESOLUTION:
++				case OPT_TL_X:
++				case OPT_TL_Y:
++				case OPT_BR_X:
++				case OPT_BR_Y:
++				case OPT_PREVIEW:
++				handled->val[n].w = *(SANE_Word *) v;
++
++				if(i){
++				*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
++				}
++
 +				return SANE_STATUS_GOOD;
-+			default:break;
-+		}
-+		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
-+		return SANE_STATUS_GOOD;
++				case OPT_MODE:
++				if(handled->val[n].s){
++					free(handled->val[n].s);
++					handled->val[n].s = NULL;
++				}
++				handled->val[n].s = strdup(v);
++				if(!strncasecmp(v,SANE_VALUE_SCAN_MODE_GRAY,3)){
++				//		handled->val[n].s = strdup(mode_list[0]);
++						handled->sgmp.scan_color = CIJSC_COLOR_GRAY;
++				}
++				else if(!strncasecmp(v,SANE_VALUE_SCAN_MODE_COLOR,3)){
++				//	handled->val[n].s = strdup(mode_list[1]);
++					handled->sgmp.scan_color = CIJSC_COLOR_COLOR;
++				}
++				else{
++					return SANE_STATUS_INVAL;
++				}
++				fprintf(stderr,"cijsc color = % d\n",(handled->sgmp.scan_color == CIJSC_COLOR_COLOR));
++				return SANE_STATUS_GOOD;
++				default:break;
++				}
++				return SANE_STATUS_GOOD;
 +	}
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
++
 +	return SANE_STATUS_GOOD;
 +}
 +
@@ -1539,9 +1566,9 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	canon_sane_t* handled = h;
 +	CMT_Status status = CMT_STATUS_INVAL;
 +	CANON_ScanParam param;
++	//int first_start = 1;
 +	memset( &param, 0, sizeof(param) );
 +
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +
 +	param.XRes			= handled->sgmp.scan_res;
 +	param.YRes			= handled->sgmp.scan_res;
@@ -1593,16 +1620,23 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +				fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +				DBGMSG("CIJSC_cancel->\n");
 +				CIJSC_cancel();
++				CIJSC_close();
++				CIJSC_open(handled->dev.name);
 +				return SANE_STATUS_CANCELLED;
 +			}
 +		}
++/*		if(first_start){
++			first_start = 0;
++
++
++			goto SCAN_START;
++		}*/
 +		DBGMSG("Error in CIJSC_start \n");
 +		backend_error(&(handled->sgmp),&errCode);
 +		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return SANE_STATUS_CANCELLED;
 +	}
 +
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	return SANE_STATUS_GOOD;
 +
 +}
@@ -1619,8 +1653,6 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	CMT_Status status = CMT_STATUS_GOOD;
 +
 +	int errCode = 0;
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
-+	fprintf(stderr,"w = %d, h = %d\n",handled->sgmp.scan_w, handled->sgmp.scan_h);
 +	/* get parameters */
 +
 +	if(canon_get_parameters( scandata, (void *)NULL ) < 0){
@@ -1630,40 +1662,31 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	}
 +
 +	ps.pixels_per_line = scandata->pixels_per_line;
-+	ps.bytes_per_line = handled->sgmp.scan_color == CIJSC_COLOR_COLOR ? scandata->bytes_per_line : scandata->bytes_per_line*3;
++	ps.bytes_per_line = handled->sgmp.scan_color == CIJSC_COLOR_COLOR ? scandata->bytes_per_line : scandata->bytes_per_line * 3;
++//	ps.bytes_per_line = scandata->bytes_per_line;
 +	ps.lines = scandata->lines;//-1;
 +	//	ps.lines = -1;
 +
-+	fprintf(stderr,"ps.pixels_per_line = %d, ps.bytes_per_line = %d, ps.lines = %d\n",ps.pixels_per_line, ps.bytes_per_line, ps.lines);
 +
 +	ps.depth = 8;//8
 +	ps.last_frame = SANE_TRUE;
 +
-+	fprintf(stderr,"mode : %s\n",val);
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +
-+	if(!strcmp (val, SANE_VALUE_SCAN_MODE_COLOR)){
-+		fprintf(stderr,"================================================ >scan couleur \n");
++	ps.format = SANE_FRAME_RGB;
++/*	if(!strcmp (val, SANE_VALUE_SCAN_MODE_COLOR)){
 +
-+		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		ps.format = SANE_FRAME_RGB;
 +	}
 +	else{//SANE_VALUE_SCAN_MODE_GRAY,
-+		fprintf(stderr,"================================================ >scan noir et blanc \n");
 +
-+		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		ps.format = SANE_FRAME_GRAY;
-+	}
++	}*/
 +	*p = ps;
-+	fprintf(stderr,"p->format = %d, ps.format = %d\n",p->format,ps.format);
 +
-+
-+	fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	return SANE_STATUS_GOOD;
 +}
 +
-+
-+
++int line = 0;
 +SANE_Status
 +sane_read (SANE_Handle h, SANE_Byte * buf, SANE_Int maxlen, SANE_Int * len){
 +	canon_sane_t * handled = h;
@@ -1673,11 +1696,13 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		return SANE_STATUS_INVAL;
 +		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	}
-+	if(handled->cancel)
++	if(handled->cancel){
++		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
++
 +		return SANE_STATUS_CANCELLED;
++	}
 +	//lire toute les donnée du scanner les placé dans un fichier tmp
 +	if(!handled->write_scan_data){
-+		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		status = (SANE_Status)canon_sane_read(handled);
 +		if(status != SANE_STATUS_GOOD){
 +			fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -1689,17 +1714,14 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	}
 +
 +	if(!handled->decompress_scan_data){
-+		status = (SANE_Status)IMG_LoadJPG_RW(handled, canonJpegDataTmp);
++		status = (SANE_Status)canon_sane_decompress(handled, canonJpegDataTmp);
 +		if(status != SANE_STATUS_GOOD){
 +			fprintf(stderr,"erreur : %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +			return status;
 +		}
 +		handled->decompress_scan_data = SANE_TRUE;
-+		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +	}
 +	if(handled->img_data == NULL){
-+
-+		fprintf(stderr,"%s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +		return SANE_STATUS_INVAL;
 +	}
 +	if(!handled->end_read){
@@ -1709,14 +1731,14 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +		*len = readbyte;
 +		if(handled->img_read == handled->img_size){
 +			handled->end_read = SANE_TRUE;
++			line ++;
++			fprintf(stderr,"line = %d\n",line);
 +		}
 +		else if(handled->img_read > handled->img_size){
-+			fprintf(stderr,"%s, %s ,%ld, %ld\n ",__FILE__,__FUNCTION__,handled->img_size,handled->img_read);
 +			*len = 0;
 +			handled->end_read = SANE_TRUE;
 +			free(handled->img_data);
 +			handled->img_data = NULL;
-+			fprintf(stderr," %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 +			return SANE_STATUS_INVAL;
 +		}
 +	}
@@ -1747,8 +1769,8 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 Index: scangearmp2/scangearmp2/src/sane/canon_pixma.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/canon_pixma.h	2017-08-09 11:33:56.413553741 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/canon_pixma.h
 @@ -0,0 +1,39 @@
 +#ifndef __CANON_PIXMA_H__
 +#define __CANON_PIXMA_H__
@@ -1791,8 +1813,8 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.h
 +#endif // __CANON_PIXMA_H__
 Index: scangearmp2/scangearmp2/src/sane/errordlg.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/errordlg.c	2017-08-09 11:34:18.713552822 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/errordlg.c
 @@ -0,0 +1,191 @@
 +/*
 + *  ScanGear MP for Linux
@@ -1987,8 +2009,8 @@ Index: scangearmp2/scangearmp2/src/sane/errordlg.c
 +
 Index: scangearmp2/scangearmp2/src/sane/errordlg.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/errordlg.h	2017-08-09 11:28:34.000000000 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/errordlg.h
 @@ -0,0 +1,43 @@
 +/*
 + *  ScanGear MP for Linux
@@ -2035,8 +2057,8 @@ Index: scangearmp2/scangearmp2/src/sane/errordlg.h
 +
 Index: scangearmp2/scangearmp2/src/sane/sane.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sane.h	2017-08-09 11:28:34.000000000 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sane.h
 @@ -0,0 +1,213 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1997-1999 David Mosberger-Tang and Andreas Beck
@@ -2253,8 +2275,8 @@ Index: scangearmp2/scangearmp2/src/sane/sane.h
 +#endif /* sane_h */
 Index: scangearmp2/scangearmp2/src/sane/sanei.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei.h	2017-08-09 11:34:45.793551706 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei.h
 @@ -0,0 +1,170 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996 David Mosberger-Tang and Andreas Beck
@@ -2428,8 +2450,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei.h
 +#endif /* sanei_h */
 Index: scangearmp2/scangearmp2/src/sane/sanei_backend.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei_backend.h	2017-08-09 11:28:34.000000000 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei_backend.h
 @@ -0,0 +1,175 @@
 +/** @file sanei_backend.h
 + * Compatibility header file for backends
@@ -2608,8 +2630,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei_backend.h
 +#endif
 Index: scangearmp2/scangearmp2/src/sane/sanei_debug.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei_debug.h	2017-08-09 11:34:45.801551706 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei_debug.h
 @@ -0,0 +1,176 @@
 +/** @file sanei_debug.h
 + * Support for printing debug messages.
@@ -2789,8 +2811,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei_debug.h
 +#endif /* _SANEI_DEBUG_H */
 Index: scangearmp2/scangearmp2/src/sane/sanei_init_debug.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei_init_debug.c	2017-08-09 11:34:45.801551706 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei_init_debug.c
 @@ -0,0 +1,109 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996, 1997 David Mosberger-Tang and Andreas Beck
@@ -2903,8 +2925,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei_init_debug.c
 +#endif
 Index: scangearmp2/scangearmp2/src/sane/saneopts.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/saneopts.h	2017-08-09 11:28:34.000000000 +0200
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/saneopts.h
 @@ -0,0 +1,397 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996, 1997 David Mosberger-Tang and Andreas Beck
@@ -3305,9 +3327,9 @@ Index: scangearmp2/scangearmp2/src/sane/saneopts.h
 +#endif /* saneopts_h */
 Index: scangearmp2/scangearmp2/src/support.h
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/support.h	2017-08-09 11:28:10.921567978 +0200
-+++ scangearmp2/scangearmp2/src/support.h	2017-08-09 11:34:45.809551706 +0200
-@@ -90,7 +90,7 @@
+--- scangearmp2.orig/scangearmp2/src/support.h
++++ scangearmp2/scangearmp2/src/support.h
+@@ -90,7 +90,7 @@ typedef struct
  {
  	GtkBuilder	*builder;
  	gboolean	ignore_combobox_changed;
@@ -3316,7 +3338,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* main window */
  	GtkWidget	*window_main;
  	GtkWidget	*combobox_scanmode;
-@@ -100,13 +100,13 @@
+@@ -100,13 +100,13 @@ typedef struct
  	gboolean	window_main_sensitive;
  	gint		window_main_value;
  	int			prev_scanmode;
@@ -3332,7 +3354,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* select device dialog */
  	GtkWidget	*dialog_select;
  	GtkWidget	*combobox_select_devlist;
-@@ -116,7 +116,7 @@
+@@ -116,7 +116,7 @@ typedef struct
  	GtkWidget	*button_select_ok;
  	gboolean	dialog_select_sensitive;
  	gint		dialog_select_value;
@@ -3341,7 +3363,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* save dialog */
  	GtkWidget	*dialog_save;
  	GtkWidget	*filechooserwidget_save;
-@@ -124,7 +124,7 @@
+@@ -124,7 +124,7 @@ typedef struct
  	GtkWidget	*button_save_save;
  	gboolean	dialog_save_sensitive;
  	gint		dialog_save_value;
@@ -3350,7 +3372,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* version dialog */
  	GtkWidget	*dialog_version;
  	GtkWidget	*label_version_app;
-@@ -132,11 +132,11 @@
+@@ -132,11 +132,11 @@ typedef struct
  	GtkWidget	*label_version_cpy;
  	GtkWidget	*button_version_ok;
  	gint		dialog_version_value;
@@ -3364,7 +3386,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* progress bar dialog */
  	GtkWidget	*dialog_progress;
  	GtkWidget	*progressbar_prog;
-@@ -145,26 +145,26 @@
+@@ -145,26 +145,26 @@ typedef struct
  	GtkWidget	*label_prog_pages;
  	GtkWidget	*button_prog_cancel;
  	gint		dialog_progress_value;
@@ -3396,7 +3418,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	int			scan_w;
  	int			scan_h;
  	int			scan_res;
-@@ -172,6 +172,27 @@
+@@ -172,6 +172,27 @@ typedef struct
  	int			last_error_quit;
  }SGMP_Data;
  
