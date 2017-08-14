@@ -22,24 +22,22 @@ Last-Update: <YYYY-MM-DD>
 
 Index: scangearmp2/scangearmp2/configure.in
 ===================================================================
---- scangearmp2.orig/scangearmp2/configure.in	2017-08-12 09:04:50.000000000 +0000
-+++ scangearmp2/scangearmp2/configure.in	2017-08-13 11:16:25.000000000 +0000
-@@ -1,6 +1,8 @@
+--- scangearmp2.orig/scangearmp2/configure.in
++++ scangearmp2/scangearmp2/configure.in
+@@ -1,6 +1,7 @@
  dnl Process this file with autoconf to produce a configure script.
  
 -AC_INIT(configure.in)
 +AC_PREREQ(2.61)
-+AC_INIT([scangearmp2],[3.40-1])
-+# AC_INIT(configure.in)
++AC_INIT([scangearmp2],[3.40-2])
  
  AC_ARG_ENABLE(libpath)
  if test "${enable_libpath}" = ""; then
-@@ -12,8 +14,10 @@
+@@ -12,8 +13,9 @@ AC_SUBST(CNMSLIBPATH)
  
  AC_SUBST(enable_libpath)
  
 -AM_INIT_AUTOMAKE(scangearmp2, 3.40-1)
-+# AM_INIT_AUTOMAKE(scangearmp2, 3.40-1)
 +AM_INIT_AUTOMAKE([subdir-objects])
  AM_CONFIG_HEADER(config.h)
 +
@@ -48,15 +46,15 @@ Index: scangearmp2/scangearmp2/configure.in
  AM_MAINTAINER_MODE
 Index: scangearmp2/scangearmp2/src/Makefile.am
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/Makefile.am	2017-08-12 09:04:50.000000000 +0000
-+++ scangearmp2/scangearmp2/src/Makefile.am	2017-08-13 11:27:00.867717810 +0000
+--- scangearmp2.orig/scangearmp2/src/Makefile.am
++++ scangearmp2/scangearmp2/src/Makefile.am
 @@ -1,4 +1,5 @@
  ## Process this file with automake to produce Makefile.in
 +# SUBDIRS = sane
  
  INCLUDES = \
  	-I$(top_srcdir)/include \
-@@ -34,6 +35,33 @@
+@@ -34,6 +35,33 @@ scangearmp2_CFLAGS = \
  	-DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" \
  	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
  
@@ -92,9 +90,9 @@ Index: scangearmp2/scangearmp2/src/Makefile.am
  	$(INSTALL_DATA) canon_mfp2.conf $(DESTDIR)$(enable_libpath)/bjlib
 Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/canon_mfp_io.c	2017-08-12 09:04:50.000000000 +0000
-+++ scangearmp2/scangearmp2/src/canon_mfp_io.c	2017-08-13 11:16:25.000000000 +0000
-@@ -73,11 +73,11 @@
+--- scangearmp2.orig/scangearmp2/src/canon_mfp_io.c
++++ scangearmp2/scangearmp2/src/canon_mfp_io.c
+@@ -73,11 +73,11 @@ typedef struct CANON_Scanner
  
      size_t		bytes_to_read;
      int			scanning;
@@ -108,7 +106,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
      int		scanFinished;
    }
  CANON_Scanner;
-@@ -109,7 +109,7 @@
+@@ -109,7 +109,7 @@ static CMT_Status canon_usb_open( const
  			return status;
  		}
  		CANON_fd = fd;
@@ -117,7 +115,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  		return CMT_STATUS_GOOD;
  	}
  	else { /* already open. */
-@@ -132,16 +132,16 @@
+@@ -132,16 +132,16 @@ static int canon_usb_write( unsigned cha
  {
  	unsigned long n = size;
  	CMT_Status status;
@@ -137,7 +135,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( size != n ) {
  		return n; /* error */
  	}
-@@ -152,18 +152,18 @@
+@@ -152,18 +152,18 @@ static int canon_usb_read( unsigned char
  {
  	unsigned long n = *size;
  	CMT_Status status;
@@ -160,7 +158,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( *size != n ) {
  		return n; /* error */
  	}
-@@ -177,7 +177,7 @@
+@@ -177,7 +177,7 @@ static CMT_Status canon_network_open( co
  {
  	CMT_Status status;
  	CNNLHANDLE handle = NULL;
@@ -169,7 +167,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( CANON_hnd == NULL ) {
  		if ( ( status = cmt_network_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
  			return status;
-@@ -206,16 +206,16 @@
+@@ -206,16 +206,16 @@ static int canon_network_write( unsigned
  {
  	unsigned long n = size;
  	CMT_Status status;
@@ -189,7 +187,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( size != n ) {
  		return n; /* error */
  	}
-@@ -226,18 +226,18 @@
+@@ -226,18 +226,18 @@ static int canon_network_read( unsigned
  {
  	unsigned long n = *size;
  	CMT_Status status;
@@ -212,7 +210,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( *size != n ) {
  		return n; /* error */
  	}
-@@ -251,7 +251,7 @@
+@@ -251,7 +251,7 @@ static CMT_Status canon_network2_open( c
  {
  	CMT_Status status;
  	HCNNET3 handle = NULL;
@@ -221,7 +219,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( CANON_hnd2 == NULL ) {
  		if ( ( status = cmt_network2_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
  			return status;
-@@ -280,16 +280,16 @@
+@@ -280,16 +280,16 @@ static int canon_network2_write( unsigne
  {
  	unsigned long n = size;
  	CMT_Status status;
@@ -241,7 +239,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( size != n ) {
  		return n; /* error */
  	}
-@@ -300,18 +300,18 @@
+@@ -300,18 +300,18 @@ static int canon_network2_read( unsigned
  {
  	unsigned long n = *size;
  	CMT_Status status;
@@ -264,7 +262,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( *size != n ) {
  		return n; /* error */
  	}
-@@ -356,27 +356,27 @@
+@@ -356,27 +356,27 @@ static CMT_Status attach(
  	int				vendor;
  	int				product;
  	int				speed = 2;
@@ -296,7 +294,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if(flag_usb){
  		/* open succeed -> append to list */
  		if ( ( status = canon_usb_open(name) ) != CMT_STATUS_GOOD )
-@@ -396,7 +396,7 @@
+@@ -396,7 +396,7 @@ static CMT_Status attach(
  		speed = attach_dev->speed;
  		product = attach_dev->product_id;
  	}
@@ -305,7 +303,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	/* set name */
  	dev->name = strdup( name );
  	/* set model */
-@@ -404,12 +404,12 @@
+@@ -404,12 +404,12 @@ static CMT_Status attach(
  	/* set full name */
  	snprintf( dev_fullname, sizeof(dev_fullname), "Canon %s (%s)", dev->model, dev->name );
  	dev->fullname = strdup( dev_fullname );
@@ -320,7 +318,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	dev->product_id = product;
  	dev->type = attach_dev->type;
  	dev->speed = speed;
-@@ -429,12 +429,12 @@
+@@ -429,12 +429,12 @@ static CMT_Status attach(
  			}
  		}
  	}
@@ -335,7 +333,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if(flag_usb){
  		if ( usb_opend ) {
  			canon_usb_close();
-@@ -450,38 +450,38 @@
+@@ -450,38 +450,38 @@ _ERROR:
  CMT_Status CIJSC_init( void *cnnl_callback )
  {
  	CMT_Status status = CMT_STATUS_GOOD;
@@ -383,7 +381,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  			if ( ( ret = cmt_get_device_info( line, len, &c_dev ) ) < 0 ) {
  				continue;	/* next */
  			}
-@@ -561,12 +561,12 @@
+@@ -561,12 +561,12 @@ void CIJSC_exit(void)
  		dispose_canon_dev( dev );
  	}
  	first_dev = NULL;
@@ -398,7 +396,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	num_devices = 0;
  	cmt_libusb_exit();
  	cmt_network_exit();
-@@ -586,7 +586,7 @@
+@@ -586,7 +586,7 @@ CMT_Status CIJSC_get_devices(
  	if( devlist ){
  		free( devlist );
  	}
@@ -407,7 +405,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	devlist = malloc( ( num_devices + 1 ) * sizeof( CANON_Device * ) );
  	if( !devlist ) {
  		return (CMT_STATUS_NO_MEM);
-@@ -594,7 +594,7 @@
+@@ -594,7 +594,7 @@ CMT_Status CIJSC_get_devices(
  	for( dev = first_dev, devlisttemp = devlist; dev; dev = dev->next ) {
  		*devlisttemp++ = dev;
  	}
@@ -416,7 +414,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	*devlisttemp = NULL;
  	*device_list = devlist;
  
-@@ -609,25 +609,25 @@
+@@ -609,25 +609,25 @@ CMT_Status CIJSC_open(
  {
  	CMT_Status status;
  	CANON_Device *dev;
@@ -447,7 +445,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  		if (!dev) {
  			return (CMT_STATUS_INVAL);
  		}
-@@ -635,7 +635,7 @@
+@@ -635,7 +635,7 @@ CMT_Status CIJSC_open(
  	else {
  		dev = first_dev;
  	}
@@ -456,7 +454,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	DBGMSG(" dev->speed = %d \n" ,dev->speed);
  	if ( dev->speed == -1 ){	/* NET */
  		if( ( status = canon_network_open ( name ) ) != CMT_STATUS_GOOD ){
-@@ -676,20 +676,108 @@
+@@ -676,20 +676,108 @@ CMT_Status CIJSC_open(
  			}
  		}
  	}
@@ -569,7 +567,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	return CMT_STATUS_GOOD;
  }
  
-@@ -699,7 +787,7 @@
+@@ -699,7 +787,7 @@ CMT_Status CIJSC_open(
  void CIJSC_close( void )
  {
  	canon_terminate_scanner();
@@ -578,7 +576,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	canon_usb_close ();
  	canon_network_close();
  	canon_network2_close();
-@@ -717,30 +805,30 @@
+@@ -717,30 +805,30 @@ CMT_Status CIJSC_start( CANON_ScanParam
  	int status;
  	CANON_Scanner *s = &canon_device;
  	CANON_SCANDATA	scandata;
@@ -618,7 +616,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	status = canon_set_parameter_ex(
  		s->xres,			/* XRes */
  		s->yres,			/* YRes */
-@@ -755,7 +843,7 @@
+@@ -755,7 +843,7 @@ CMT_Status CIJSC_start( CANON_ScanParam
  		&scandata,			/* CANON_SCANDATA */
  		&(param->opts)	/* CANON_SCANOPTS */
  	);
@@ -627,7 +625,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( status < 0 ) {
  		DBGMSG("error in canon_set_parameter/canon_set_parameter_ex()\n");
  		status = CMT_STATUS_INVAL;
-@@ -767,18 +855,18 @@
+@@ -767,18 +855,18 @@ CMT_Status CIJSC_start( CANON_ScanParam
  		cmt_network_mutex_unlock();
  		goto _EXIT;
  	}
@@ -649,7 +647,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	return status;
  }
  
-@@ -788,7 +876,7 @@
+@@ -788,7 +876,7 @@ _EXIT:
  CMT_Status CIJSC_get_parameters( void *callback )
  {
  	CANON_SCANDATA		scandata;
@@ -658,7 +656,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( canon_get_parameters( &scandata, callback ) < 0 ) {
  		return CMT_STATUS_INVAL;
  	}
-@@ -816,11 +904,11 @@
+@@ -816,11 +904,11 @@ CMT_Status CIJSC_read(
  	CMT_Status status;
  	int nread;
  	CANON_Scanner *s = &canon_device;
@@ -672,7 +670,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  		status = CMT_STATUS_EOF;
  		goto _EXIT;
  	}
-@@ -830,18 +918,18 @@
+@@ -830,18 +918,18 @@ CMT_Status CIJSC_read(
  		goto _EXIT;
  	}
  	nread = ( *len * 32 ) / 32;
@@ -694,7 +692,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	status = CMT_STATUS_GOOD;
  
  _EXIT:
-@@ -855,11 +943,11 @@
+@@ -855,11 +943,11 @@ void CIJSC_cancel( void )
  {
  	CANON_Scanner *s = &canon_device;
  	int			skip_unlock = 0;
@@ -709,7 +707,7 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  	if ( s->scanFinished ) {
  		/* end scan */
  		if ( s->scanMethod ) {	/* ADF */
-@@ -880,11 +968,11 @@
+@@ -880,11 +968,11 @@ void CIJSC_cancel( void )
  		/* user cancel */
  		canon_do_cancel();
  	}
@@ -725,9 +723,9 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_io.c
  }
 Index: scangearmp2/scangearmp2/src/canon_mfp_tools.h
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/canon_mfp_tools.h	2017-08-12 09:04:50.000000000 +0000
-+++ scangearmp2/scangearmp2/src/canon_mfp_tools.h	2017-08-13 11:16:25.000000000 +0000
-@@ -156,6 +156,7 @@
+--- scangearmp2.orig/scangearmp2/src/canon_mfp_tools.h
++++ scangearmp2/scangearmp2/src/canon_mfp_tools.h
+@@ -156,6 +156,7 @@ CMT_Status CIJSC_init( void *cnnl_callba
  void CIJSC_exit(void);
  CMT_Status CIJSC_get_devices( const CANON_Device ***device_list );
  CMT_Status CIJSC_open( const char *name );
@@ -737,9 +735,9 @@ Index: scangearmp2/scangearmp2/src/canon_mfp_tools.h
  CMT_Status CIJSC_start( CANON_ScanParam *param );
 Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/canon_pixma.c	2017-08-13 11:16:25.000000000 +0000
-@@ -0,0 +1,986 @@
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/canon_pixma.c
+@@ -0,0 +1,999 @@
 +/*******************************************************************
 + ** SANE API
 + *******************************************************************/
@@ -1237,7 +1235,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	}
 +
 +	data->scan_scanmode = CIJSC_SCANMODE_PLATEN;
-+	data->scan_source = CIJSC_SOURCE_DOCUMENT;
++	data->scan_source = CIJSC_SOURCE_PHOTO;//DOCUMENT;
 +	data->scan_color = CIJSC_COLOR_COLOR;
 +	data->scan_format = CIJSC_FORMAT_JPEG;
 +	data->scan_size = CIJSC_SIZE_A4;
@@ -1490,19 +1488,32 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +	if(a == SANE_ACTION_SET_VALUE){
 +
 +			switch(n){
-+				case OPT_RESOLUTION:
 +				case OPT_TL_X:
 +				case OPT_TL_Y:
 +				case OPT_BR_X:
 +				case OPT_BR_Y:
 +				case OPT_PREVIEW:
 +				handled->val[n].w = *(SANE_Word *) v;
-+
 +				if(i){
 +				*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 +				}
 +				break;
++				case OPT_RESOLUTION: {
++				     int v1 = (int)*(SANE_Word*)v;
++				     handled->val[n].w = *(SANE_Word *) v;
++				     if(v1 > 100){
++					     handled->sgmp.scan_source = CIJSC_SOURCE_DOCUMENT;
++				     }
++				     else{
++					     handled->sgmp.scan_source = CIJSC_SOURCE_PHOTO;
++				     }
++				     if(i){
++					     *i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
++				     }
++			     }
++				break;
 +				case OPT_MODE:
++				handled->val[n].s = v;//(SANE_Word *)strdup((char *)v);
 +				if(!strncasecmp(v,SANE_VALUE_SCAN_MODE_GRAY,3)){
 +						handled->sgmp.scan_color = CIJSC_COLOR_GRAY;
 +				}
@@ -1607,7 +1618,7 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 +	int errCode = 0;
 +	/* get parameters */
-+
++	fprintf(stderr,"resolution doc : %d\n",handled->sgmp.scan_source == CIJSC_SOURCE_DOCUMENT);
 +	if(canon_get_parameters( scandata, (void *)NULL ) < 0){
 +		backend_error(&(handled->sgmp),&errCode);
 +		fprintf(stderr,"scan cancelled : %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
@@ -1728,8 +1739,8 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.c
 +
 Index: scangearmp2/scangearmp2/src/sane/canon_pixma.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/canon_pixma.h	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/canon_pixma.h
 @@ -0,0 +1,39 @@
 +#ifndef __CANON_PIXMA_H__
 +#define __CANON_PIXMA_H__
@@ -1772,8 +1783,8 @@ Index: scangearmp2/scangearmp2/src/sane/canon_pixma.h
 +#endif // __CANON_PIXMA_H__
 Index: scangearmp2/scangearmp2/src/sane/errordlg.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/errordlg.c	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/errordlg.c
 @@ -0,0 +1,191 @@
 +/*
 + *  ScanGear MP for Linux
@@ -1968,8 +1979,8 @@ Index: scangearmp2/scangearmp2/src/sane/errordlg.c
 +
 Index: scangearmp2/scangearmp2/src/sane/errordlg.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/errordlg.h	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/errordlg.h
 @@ -0,0 +1,43 @@
 +/*
 + *  ScanGear MP for Linux
@@ -2016,8 +2027,8 @@ Index: scangearmp2/scangearmp2/src/sane/errordlg.h
 +
 Index: scangearmp2/scangearmp2/src/sane/sane.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sane.h	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sane.h
 @@ -0,0 +1,213 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1997-1999 David Mosberger-Tang and Andreas Beck
@@ -2234,8 +2245,8 @@ Index: scangearmp2/scangearmp2/src/sane/sane.h
 +#endif /* sane_h */
 Index: scangearmp2/scangearmp2/src/sane/sanei.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei.h	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei.h
 @@ -0,0 +1,170 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996 David Mosberger-Tang and Andreas Beck
@@ -2409,8 +2420,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei.h
 +#endif /* sanei_h */
 Index: scangearmp2/scangearmp2/src/sane/sanei_backend.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei_backend.h	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei_backend.h
 @@ -0,0 +1,175 @@
 +/** @file sanei_backend.h
 + * Compatibility header file for backends
@@ -2589,8 +2600,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei_backend.h
 +#endif
 Index: scangearmp2/scangearmp2/src/sane/sanei_debug.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei_debug.h	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei_debug.h
 @@ -0,0 +1,176 @@
 +/** @file sanei_debug.h
 + * Support for printing debug messages.
@@ -2770,8 +2781,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei_debug.h
 +#endif /* _SANEI_DEBUG_H */
 Index: scangearmp2/scangearmp2/src/sane/sanei_init_debug.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/sanei_init_debug.c	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/sanei_init_debug.c
 @@ -0,0 +1,109 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996, 1997 David Mosberger-Tang and Andreas Beck
@@ -2884,8 +2895,8 @@ Index: scangearmp2/scangearmp2/src/sane/sanei_init_debug.c
 +#endif
 Index: scangearmp2/scangearmp2/src/sane/saneopts.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ scangearmp2/scangearmp2/src/sane/saneopts.h	2017-08-13 11:16:25.000000000 +0000
+--- /dev/null
++++ scangearmp2/scangearmp2/src/sane/saneopts.h
 @@ -0,0 +1,397 @@
 +/* sane - Scanner Access Now Easy.
 +   Copyright (C) 1996, 1997 David Mosberger-Tang and Andreas Beck
@@ -3286,9 +3297,9 @@ Index: scangearmp2/scangearmp2/src/sane/saneopts.h
 +#endif /* saneopts_h */
 Index: scangearmp2/scangearmp2/src/support.h
 ===================================================================
---- scangearmp2.orig/scangearmp2/src/support.h	2017-08-12 09:04:50.000000000 +0000
-+++ scangearmp2/scangearmp2/src/support.h	2017-08-13 11:16:25.000000000 +0000
-@@ -90,7 +90,7 @@
+--- scangearmp2.orig/scangearmp2/src/support.h
++++ scangearmp2/scangearmp2/src/support.h
+@@ -90,7 +90,7 @@ typedef struct
  {
  	GtkBuilder	*builder;
  	gboolean	ignore_combobox_changed;
@@ -3297,7 +3308,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* main window */
  	GtkWidget	*window_main;
  	GtkWidget	*combobox_scanmode;
-@@ -100,13 +100,13 @@
+@@ -100,13 +100,13 @@ typedef struct
  	gboolean	window_main_sensitive;
  	gint		window_main_value;
  	int			prev_scanmode;
@@ -3313,7 +3324,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* select device dialog */
  	GtkWidget	*dialog_select;
  	GtkWidget	*combobox_select_devlist;
-@@ -116,7 +116,7 @@
+@@ -116,7 +116,7 @@ typedef struct
  	GtkWidget	*button_select_ok;
  	gboolean	dialog_select_sensitive;
  	gint		dialog_select_value;
@@ -3322,7 +3333,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* save dialog */
  	GtkWidget	*dialog_save;
  	GtkWidget	*filechooserwidget_save;
-@@ -124,7 +124,7 @@
+@@ -124,7 +124,7 @@ typedef struct
  	GtkWidget	*button_save_save;
  	gboolean	dialog_save_sensitive;
  	gint		dialog_save_value;
@@ -3331,7 +3342,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* version dialog */
  	GtkWidget	*dialog_version;
  	GtkWidget	*label_version_app;
-@@ -132,11 +132,11 @@
+@@ -132,11 +132,11 @@ typedef struct
  	GtkWidget	*label_version_cpy;
  	GtkWidget	*button_version_ok;
  	gint		dialog_version_value;
@@ -3345,7 +3356,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	/* progress bar dialog */
  	GtkWidget	*dialog_progress;
  	GtkWidget	*progressbar_prog;
-@@ -145,26 +145,26 @@
+@@ -145,26 +145,26 @@ typedef struct
  	GtkWidget	*label_prog_pages;
  	GtkWidget	*button_prog_cancel;
  	gint		dialog_progress_value;
@@ -3377,7 +3388,7 @@ Index: scangearmp2/scangearmp2/src/support.h
  	int			scan_w;
  	int			scan_h;
  	int			scan_res;
-@@ -172,6 +172,27 @@
+@@ -172,6 +172,27 @@ typedef struct
  	int			last_error_quit;
  }SGMP_Data;
  

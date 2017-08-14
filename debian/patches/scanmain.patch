@@ -1,0 +1,31 @@
+Index: scangearmp2/scangearmp2/src/scanmain.c
+===================================================================
+--- scangearmp2.orig/scangearmp2/src/scanmain.c
++++ scangearmp2/scangearmp2/src/scanmain.c
+@@ -386,7 +386,7 @@ SCAN_START:
+ 		}
+ 		
+ 		if ( buf ) {
+-			free( buf );
++			// free( buf );
+ 			buf = NULL;
+ 		}
+ 		buf = (unsigned char *)malloc( JPEGSCANBUFSIZE );
+@@ -462,7 +462,7 @@ FINISHED_WITH_NO_DOCS:	/* ADF scan finis
+ 	
+ EXIT_FREE_BUF:
+ 	if ( buf ) {
+-		free( buf );
++		// free( buf );
+ 		buf = NULL;
+ 	}
+ 	
+@@ -621,7 +621,7 @@ void CIJSC_UI_save_button_save_clicked(
+ 		DBGMSG( " filename = %s\n", filename );
+ 		CnmsStrCopy( filename, data->file_path, sizeof( data->file_path ) );
+ 		DBGMSG( "  data->file_path = %s\n",  data->file_path );
+-		g_free( filename );
++		// g_free( filename );
+ 	}
+ 	else {
+ 		DBGMSG( " filename = NULL\n" );
