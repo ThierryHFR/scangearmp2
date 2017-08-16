@@ -298,7 +298,7 @@ static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 	int					i;
 	int					ret = -1;
 	int					status;
-	char				*buf;
+	char				*buf = NULL;
 	int					errCode;
 	int					readBytes = 0;
 	int					result = CIJSC_SCANMAIN_SCAN_FINISHED;
