@@ -37,8 +37,7 @@ scangearmp2_CFLAGS = \
 
 # UNAME = `shell uname -m`
 
-# libsane_canon_pixmadir = /usr/lib/x86_64-linux-gnu/sane
-libsane_canon_pixmadir = /usr/lib/$(dpkg-architecture | grep -F 'DEB_BUILD_MULTIARCH' | cut -d'=' -f2)/sane
+libsane_canon_pixmadir = /usr/lib/sane
 libsane_canon_pixma_LTLIBRARIES = libsane-canon_pixma.la
 libsane_canon_pixma_la_SOURCES = sane/saneopts.h sane/sane.h sane/sanei_debug.h \
 	sane/sanei.h sane/sanei_init_debug.c sane/sanei_backend.h \
