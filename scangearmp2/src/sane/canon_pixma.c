@@ -890,7 +890,7 @@ sane_get_parameters (SANE_Handle h, SANE_Parameters * p)//voir avec CIJSC_get_pa
 	 *We will allways have an image with 3 RGB components,
 	 *so the number of bytes per lines is allways 3 * pixels_per_line
 	 */
-	ps.bytes_per_line = handled->sgmp.scan_color == scandata->pixels_per_line*3;
+	ps.bytes_per_line = scandata->pixels_per_line*3;
 	ps.lines = scandata->lines;//this value is equals to the image height.
 
 	ps.depth = 8;//8
