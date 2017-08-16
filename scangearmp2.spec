@@ -1,5 +1,5 @@
 %define VERSION 3.40
-%define RELEASE 1
+%define RELEASE 2
 
 %define _arc  %(getconf LONG_BIT)
 %define _is64 %(if [ `getconf LONG_BIT` = "64" ] ; then  printf "64";  fi)
@@ -17,10 +17,10 @@ Release: %{RELEASE}
 License: See the LICENSE*.txt file.
 Vendor: CANON INC.
 Group: Applications/Graphics
-Source0: scangearmp2-source-%{version}-%{release}.tar.gz
+Source0: scangearmp2_%{version}.orig.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
-Requires: gtk2
-BuildRequires: gtk2-devel
+Requires: gtk2, libusb, libjpeg-devel
+BuildRequires: gtk2-devel, libusb-devel, libjpeg-devel, gettext-devel, libtool, automake, autoconf
 
 
 %description
@@ -29,7 +29,7 @@ This ScanGear MP provides scanning functions for Canon Multifunction Inkjet Prin
 
 
 %prep
-%setup -q -n scangearmp2-source-%{version}-%{release}
+%setup -q -n scangearmp2-%{version}
 
 
 %build
@@ -40,6 +40,7 @@ This ScanGear MP provides scanning functions for Canon Multifunction Inkjet Prin
 # make install directory
 mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
 mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/bjlib
+mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/sane
 mkdir -p ${RPM_BUILD_ROOT}/etc/udev/rules.d/
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/doc/scangearmp2-%{version}
 
@@ -57,10 +58,15 @@ pushd scangearmp2
 	./autogen.sh --prefix=%{_prefix} --enable-libpath=%{_libdir} LDFLAGS="-L`pwd`/../com/libs_bin%{_arc}"
 	make clean
 	make
-    make install DESTDIR=${RPM_BUILD_ROOT} 
+	make install DESTDIR=${RPM_BUILD_ROOT} 
 	# remove .la .a
 	rm -f ${RPM_BUILD_ROOT}%{_libdir}/*.la ${RPM_BUILD_ROOT}%{_libdir}/*.a
 popd
+	install -c -m 666 scangearmp2/src/libsane-canon_pixma.la ${RPM_BUILD_ROOT}%{_libdir}/sane
+	install -c -m 666 scangearmp2/src/.libs/libsane-canon_pixma.a ${RPM_BUILD_ROOT}%{_libdir}/sane
+	install -c -m 666 scangearmp2/src/.libs/libsane-canon_pixma.so.1.0.0 ${RPM_BUILD_ROOT}%{_libdir}/sane
+	ln -sf %{_libdir}/sane/libsane-canon_pixma.so.1.0.0 ${RPM_BUILD_ROOT}%{_libdir}/sane/libsane-canon_pixma.so
+	ln -sf %{_libdir}/sane/libsane-canon_pixma.so.1.0.0 ${RPM_BUILD_ROOT}%{_libdir}/sane/libsane-canon_pixma.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -110,6 +116,7 @@ fi
 
 %{_bindir}/scangearmp2
 %{_libdir}/bjlib/canon_mfp2.conf
+%{_libdir}/sane/*
 %{_prefix}/share/locale/*/LC_MESSAGES/scangearmp2.mo
 %{_prefix}/share/scangearmp2/*
 
