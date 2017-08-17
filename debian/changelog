@@ -1,3 +1,28 @@
+scangearmp2 (3.40.2+ubuntu.xenial) stable; urgency=medium
+
+  * New release for xenial 
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Wed, 16 Aug 2017 14:59:04 +0000
+
+scangearmp2 (3.40.2+ubuntu.trusty) stable; urgency=medium
+
+  * New release for trusty 
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Wed, 16 Aug 2017 14:01:54 +0000
+
+scangearmp2 (3.40.2+debian.stretch) stable; urgency=medium
+
+  * New release for stretch
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Wed, 16 Aug 2017 13:17:18 +0000
+
+scangearmp2 (3.40.2+debian.jessie) stable; urgency=medium
+
+  * This project is a sane backend for the canon's scanner,
+    based on the source code of scangearmp2. 
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Wed, 16 Aug 2017 10:19:31 +0000
+
 scangearmp2 (3.40-2) stable; urgency=medium
 
   * This project is a sane backend for the canon's scanner,
