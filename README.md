@@ -1,8 +1,6 @@
-				---Sane backend for CANON's scanners---
+				---Sane backend for CANON's scanners---</br>
 </br>
-</br>
-DESCRIPTION
-</br>
+DESCRIPTION</br>
 </br>
 	Because of changes in CANON's network communication protocols,some of CANON's scanner 
 	became unsuported by sane.</br>
@@ -12,11 +10,11 @@ DESCRIPTION
 	of the scangearmp2 program to access to the scanners functionalities and implementing 
 	the sane functions.</br>
 </br>
-	It has been done as a patch to have a minimun impact on the orginal scangearmp2 source
-	code.</br>
+	It was done as a patch to have a minimun impact on the orginal scangearmp2 source code,
+	but currently we choose to abandon this idea because it was difficult to make the 
+	releases and had not that much interrest for the developement.</br>
 </br>
-	The scanner supported by this backend are :
-</br>
+	The scanner supported by this backend are :</br>
 </br>
 #MG7500 series</br>
 #MG6600 series</br>
@@ -53,16 +51,16 @@ DESCRIPTION
 #MB5400 series</br>
 </br>
 
-STATE
-</br>
+STATE</br>
 </br>
 	Tested with sane 1.0.25 and 1.0.27 (may not work for lower versions)</br>
 	Currently the backend allow image in A4 format.</br>
-	The scan works in color or in gray map(must be change in the code).</br>
+	The scan works in color or in gray map.</br>
 	The options are not well handled, so they might not work.</br>
+	The color option allow to chose between color or graymap modes.</br>
+	The resolution option allow to have a hight or low qualiti for the output.</br>
 </br>
-KNOWN BUGS
-</br>
+KNOWN BUGS</br>
 </br>
 	*Cancelling a scan cause : 
 </br>
@@ -74,49 +72,61 @@ KNOWN BUGS
 	
 </br>
 	*Do a scan after a abnormal end will, if the device is connected in usb,
-		fail in the function sane_start with an IO error.
+		fail in the function sane_start with an IO error.</br>
+</br>
+REQUIREMENTS</br>
+</br>
+	requirements for scangearmp2 in : scangearmp2/README.md</br>
+</br>
+INSTALLATION</br>
+</br>
+	for debian systems : </br>
+</br>
+		git clone https://github.com/Ordissimo/scangearmp2.git</br>
+		cp -a scangearmp2 scangearmp2-3.40</br>
+		rm -rf scangearmp2-3.40/.git scangearmp2-3.40/debian/</br>
+		tar cJvf scangearmp2_3.40.orig.tar.xz scangearmp2-3.40</br>
+		cd scangearmp2</br>
+		debuild -tc</br>
+		dpkg -i ../scangearmp2_3.40-1_amd64.deb</br>
+		echo "canon_pixma"  >> /etc/sane.d/dll.conf # for activate the backend in sane</br>
+</br>
+	for redhat systems : </br>
+</br>
+		#Get developement environnement :</br>
+		yum install gtk2-devel</br>
+		yum install libusb-devel </br>
+		yum install libjpeg-devel</br>
+		yum install gettext-devel</br>
+		yum install libtool</br>
+		yum install automake</br>
+		yum install autoconf</br>
+		yum install rpm-build</br>
+
+</br>
+		#Get sources :</br>
+		wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2.spec</br>
+		wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2_3.40.orig.tar.gz</br>
+		cp ~/rpmbuild/SOURCES/scangearmp2_3.40.orig.tar.gz</br>
+
+</br>
+		#Build Sources :</br>
+		rpmbuild -bp scangearmp2.spec</br>
+		rpmbuild -bc --short-circuit scangearmp2.spec</br>
+		rpmbuild -bi --short-circuit scangearmp2.spec</br>
+		rpmbuild -ba scangearmp2.spec</br>
+</br>
+		#Install :
+		rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.40-2.x86_64.rpm</br>
 </br>
 </br>
-REQUIREMENTS
+LICENSE</br>
 </br>
-</br>
-	requirements for scangearmp2 in : scangearmp2/README.md
-</br>
-</br>
-INSTALLATION
-</br>
-</br>
-	for debian systems : 
-</br>
-		git clone https://github.com/Ordissimo/scangearmp2.git
-</br>
-		cp -a scangearmp2 scangearmp2-3.40
-</br>
-		rm -rf scangearmp2-3.40/.git scangearmp2-3.40/debian/
-</br>
-		tar cJvf scangearmp2_3.40.orig.tar.xz scangearmp2-3.40
-</br>
-		cd scangearmp2
-</br>
-		debuild -tc
-</br>
-		dpkg -i ../scangearmp2_3.40-1_amd64.deb
-</br>
-		echo "canon_pixma"  >> /etc/sane.d/dll.conf # for activate the backend in sane
-</br>
-</br>
-LICENSE
-</br>
-   	licence of scangearmp2 in : scangearmp2/README.md
-</br>
-	The following files are licensed under the terms of the GNU General Public License. (See the file scangearmp2/COPYING.) :
-</br>
-	-  debian/patches/libsane-canon_pixma.patch
-</br>
-	-  debian/patches/series
-</br>
-	-  debian/source/format
-</br>
+   	licence of scangearmp2 in : scangearmp2/README.md</br>
+	The following files are licensed under the terms of the GNU General Public License. (See the file scangearmp2/COPYING.) :</br>
+	-  debian/patches/libsane-canon_pixma.patch</br>
+	-  debian/patches/series</br>
+	-  debian/source/format</br>
 </br>
 </br>
 	
