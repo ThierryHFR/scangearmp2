@@ -296,7 +296,7 @@ CMT_Status canon_sane_decompress(canon_sane_t * handled,const char * filename)
 		if ( surface != NULL ) {
 			free(surface);
 		}
-		fprintf(stderr,"JPEG loading error");
+		fprintf(stderr,"JPEG loading error\n");
 		return CMT_STATUS_INVAL;
 	}
 
@@ -311,10 +311,12 @@ CMT_Status canon_sane_decompress(canon_sane_t * handled,const char * filename)
 		jpeg_calc_output_dimensions(&cinfo);
 		/* Allocate an output surface to hold the image */
 		surface = malloc(cinfo.output_width * cinfo.output_height * cinfo.output_components);
+
+		fprintf(stderr," cinfo.output_width %d, cinfo.output_height %d, cinfo.output_components %d\n",cinfo.output_width,cinfo.output_height,cinfo.output_components);
 	if ( surface == NULL ) {
 		jpeg_destroy_decompress(&cinfo);
 		fseek(src, start, SEEK_SET);
-		fprintf(stderr,"Out of memory");
+		fprintf(stderr,"Out of memory\n");
 		return CMT_STATUS_NO_MEM;
 	}
 
@@ -489,6 +491,7 @@ sane_get_devices (const SANE_Device *** device_list, SANE_Bool local_only)
 static CMT_Status init_canon_options(canon_sane_t * handled){
 	unsigned long i;
 	SGMP_Data_Lite * data = NULL;
+	fprintf(stdout,"init_canon_option \n");
 	data = (SGMP_Data_Lite*)calloc(1,sizeof(SGMP_Data_Lite));
 	if(!data){
 		return show_canon_cmt_error(CMT_STATUS_NO_MEM);
@@ -500,9 +503,11 @@ static CMT_Status init_canon_options(canon_sane_t * handled){
 	data->scan_format = CIJSC_FORMAT_JPEG;
 	data->scan_size = CIJSC_SIZE_A4;
 	data->scan_result = CIJSC_SCANMAIN_SCAN_FINISHED;
-
+/*
 	for ( i = 0; i < sizeof( sourceSize ) / sizeof( CIJSC_SIZE_TABLE ) ; i++ ) {
 		if ( sourceSize[i].id == data->scan_size ) {
+	fprintf(stderr,"VAL i [%d] ==> [%dx%d]\n ",i, sourceSize[i].right, sourceSize[i].bottom);
+		
 			break;
 		}
 	}
@@ -510,10 +515,10 @@ static CMT_Status init_canon_options(canon_sane_t * handled){
 	fprintf(stderr,"FIN %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
 		return show_canon_cmt_error(CMT_STATUS_INVAL);
 	}
-
+*/
 	data->scan_res = resbit_list[5];
-	data->scan_w = sourceSize[i].right;
-	data->scan_h = sourceSize[i].bottom;
+	data->scan_w = 2480; //sourceSize[i].right;
+	data->scan_h = 3507; //sourceSize[i].bottom;
 	data->scanning_page = 1;
 	data->last_error_quit = CIJSC_ERROR_DLG_QUIT_FALSE;
 
@@ -627,7 +632,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_BR_X].unit = SANE_UNIT_MM;
 	s->opt[OPT_BR_X].constraint_type = SANE_CONSTRAINT_RANGE;
 	s->opt[OPT_BR_X].constraint.range = &s->x_range;
-	s->val[OPT_BR_X].w =s->sgmp.scan_res;
+	s->val[OPT_BR_X].w =2480;//s->sgmp.scan_res;
 
 	/* bottom-right y */
 	s->opt[OPT_BR_Y].name = SANE_NAME_SCAN_BR_Y;
@@ -637,7 +642,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_BR_Y].unit = SANE_UNIT_MM;
 	s->opt[OPT_BR_Y].constraint_type = SANE_CONSTRAINT_RANGE;
 	s->opt[OPT_BR_Y].constraint.range = &s->y_range;
-	s->val[OPT_BR_Y].w = s->sgmp.scan_res;
+	s->val[OPT_BR_Y].w =3507;// s->sgmp.scan_res;
 
 	return status == CMT_STATUS_GOOD ? status : show_canon_cmt_error(status);
 
@@ -693,7 +698,7 @@ void sane_cancel(SANE_Handle h){
 
 void
 sane_close (SANE_Handle h){
-
+	
 	CIJSC_close( );
 	if(h){
 		free(h);
@@ -818,11 +823,17 @@ sane_start (SANE_Handle h){
 	param.opts.p6_1		= 1;
 
 	handled->param = param;
+	
+	fprintf(stderr,"%s, %s ,%d [%d X %d]\n ",__FILE__,__FUNCTION__,__LINE__,param.Right,param.Bottom);
+
+	handled->cancel = SANE_FALSE;
+	handled->write_scan_data = SANE_FALSE;
+	handled->decompress_scan_data = SANE_FALSE;
+	handled->end_read = SANE_FALSE;
+	handled->img_read = 0 ;
 
 SCAN_START:
-
-	/* scan start*/
-
+		/* scan start*/
 	status = CIJSC_start( &param );
 	if(status  != CMT_STATUS_GOOD ){
 		handled->sgmp.last_error_quit = status;
@@ -880,11 +891,21 @@ sane_get_parameters (SANE_Handle h, SANE_Parameters * p)//voir avec CIJSC_get_pa
 	/* get parameters */
 	fprintf(stderr,"resolution doc : %d\n",handled->sgmp.scan_source == CIJSC_SOURCE_DOCUMENT);
 	if(canon_get_parameters( scandata, (void *)NULL ) < 0){
-		backend_error(&(handled->sgmp),&errCode);
-		fprintf(stderr,"scan cancelled : %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
-		return SANE_STATUS_CANCELLED;
-	}
+		//backend_error(&(handled->sgmp),&errCode);
+		//fprintf(stderr,"scan cancelled : %s, %s ,%d\n ",__FILE__,__FUNCTION__,__LINE__);
+		//return SANE_STATUS_CANCELLED;
+		ps.pixels_per_line = 2480; // handled->sgmp.scan_w;
+		ps.bytes_per_line = ps.pixels_per_line*3;
+		ps.lines = 3507;//handled->sgmp.scan_h;//scandata->lines;//this value is equals to the image height.
 
+		ps.depth = 8;//8
+		ps.last_frame = SANE_TRUE;
+		ps.format = SANE_FRAME_RGB;
+		*p = ps;
+		return status;
+	}
+	
+	fprintf(stderr,"pix : %d,lines : %d\n",scandata->pixels_per_line,scandata->lines);
 	ps.pixels_per_line = scandata->pixels_per_line;
 	/*
 	 *We will allways have an image with 3 RGB components,
@@ -922,7 +943,6 @@ sane_read (SANE_Handle h, SANE_Byte * buf, SANE_Int maxlen, SANE_Int * len){
 		 *the image always has 3 components.
 		 *it will gray if the choosen mode is grayscale
 		 */
-
 		fprintf(stderr,"read data from scanner...\n ");
 		status = (SANE_Status)canon_sane_read(handled);
 		if(status != SANE_STATUS_GOOD){
