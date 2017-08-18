@@ -53,7 +53,7 @@ DESCRIPTION</br>
 </br>
 ADVANTAGES
 </br>
-Better image quality than pixma backend (with an output image size of 2480x3507 pixels) </br>
+Better image quality than 'pixma' backend (with an output image size of 2480x3507 pixels) </br>
 Usable in Wi-fi.</br>
 </br>
 </br>
@@ -65,7 +65,7 @@ STATE</br>
 	The scan works in color or in gray map.</br>
 	The options are not well handled, so they might not work.</br>
 	The color option allow to chose between color or graymap modes.</br>
-	The resolution option allow to have a hight or low qualiti for the output.</br>
+	The resolution option allow to have a hight or low quality for the output.</br>
 </br>
 KNOWN PROBLEMS</br>
 </br>
@@ -74,7 +74,7 @@ KNOWN PROBLEMS</br>
 </br>
 REQUIREMENTS</br>
 </br>
-	requirements for scangearmp2 in : scangearmp2/README.md</br>
+	Requirements for scangearmp2 in : scangearmp2/README.md</br>
 </br>
 INSTALLATION</br>
 </br>
@@ -124,6 +124,7 @@ LICENSE</br>
 </br>
    	licence of scangearmp2 in : scangearmp2/README.md</br>
 	The following files are licensed under the terms of the GNU General Public License. (See the file scangearmp2/COPYING.) :</br>
+	-  scangearmp2/src/sane</br>
 	-  debian/patches/series</br>
 	-  debian/source/format</br>
 </br>
