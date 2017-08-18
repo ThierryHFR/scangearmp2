@@ -1,4 +1,28 @@
-scangearmp2 (3.40.3) stable; urgency=medium
+scangearmp2 (3.40.3+ubuntu.zesty) stable; urgency=medium
+
+  * New release for zesty
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Fri, 18 Aug 2017 18:01:37 +0000
+
+scangearmp2 (3.40.3+ubuntu.xenial) stable; urgency=medium
+
+  * New release for xenial
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Fri, 18 Aug 2017 17:51:26 +0000
+
+scangearmp2 (3.40.3+ubuntu.trusty) stable; urgency=medium
+
+  * New release for trusty
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Fri, 18 Aug 2017 17:43:03 +0000
+
+scangearmp2 (3.40.3+debian.stretch) stable; urgency=medium
+
+  * New release for stretch 
+
+ -- Bertie Brousse <bertie95@hotmail.fr>  Fri, 18 Aug 2017 17:37:50 +0000
+
+scangearmp2 (3.40.3+debian.jessie) stable; urgency=medium
 
   * Now works with xsane 
 
