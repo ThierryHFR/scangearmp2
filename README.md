@@ -1,4 +1,4 @@
-				---Sane backend for CANON's scanners---</br>
+				---Sane backend 'canon_pixma' for CANON's scanners---</br>
 </br>
 DESCRIPTION</br>
 </br>
@@ -50,6 +50,13 @@ DESCRIPTION</br>
 #MB5100 series</br>
 #MB5400 series</br>
 </br>
+</br>
+ADVANTAGES
+</br>
+Better image quality than pixma backend (with an output image size of 2480x3507 pixels) </br>
+Usable in Wi-fi.</br>
+</br>
+</br>
 
 STATE</br>
 </br>
@@ -60,19 +67,10 @@ STATE</br>
 	The color option allow to chose between color or graymap modes.</br>
 	The resolution option allow to have a hight or low qualiti for the output.</br>
 </br>
-KNOWN BUGS</br>
+KNOWN PROBLEMS</br>
 </br>
-	*Cancelling a scan cause : 
-</br>
-		-If the scanner is in usb the operation stay blocked and seems to
-		do nothing.
-</br>
-		-If the scanner is in network the operation stays blocked and will
-		loop on writing an message.
-	
-</br>
-	*Do a scan after a abnormal end will, if the device is connected in usb,
-		fail in the function sane_start with an IO error.</br>
+	When using xsane :</br>
+	bug with the display of the selected color option </br>
 </br>
 REQUIREMENTS</br>
 </br>
@@ -80,7 +78,7 @@ REQUIREMENTS</br>
 </br>
 INSTALLATION</br>
 </br>
-	for debian systems : </br>
+	For debian systems : </br>
 </br>
 		git clone https://github.com/Ordissimo/scangearmp2.git</br>
 		cp -a scangearmp2 scangearmp2-3.40</br>
@@ -89,9 +87,8 @@ INSTALLATION</br>
 		cd scangearmp2</br>
 		debuild -tc</br>
 		dpkg -i ../scangearmp2_3.40-1_amd64.deb</br>
-		echo "canon_pixma"  >> /etc/sane.d/dll.conf # for activate the backend in sane</br>
 </br>
-	for redhat systems : </br>
+	For redhat systems : </br>
 </br>
 		#Get developement environnement :</br>
 		yum install gtk2-devel</br>
@@ -102,13 +99,11 @@ INSTALLATION</br>
 		yum install automake</br>
 		yum install autoconf</br>
 		yum install rpm-build</br>
-
 </br>
 		#Get sources :</br>
 		wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2.spec</br>
 		wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2_3.40.orig.tar.gz</br>
 		cp ~/rpmbuild/SOURCES/scangearmp2_3.40.orig.tar.gz</br>
-
 </br>
 		#Build Sources :</br>
 		rpmbuild -bp scangearmp2.spec</br>
@@ -120,11 +115,15 @@ INSTALLATION</br>
 		rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.40-2.x86_64.rpm</br>
 </br>
 </br>
+		For all distributions you need to activate the backend </br>
+		echo "canon_pixma"  >> /etc/sane.d/dll.conf # for activate the backend in sane</br>
+
+</br>
+</br>
 LICENSE</br>
 </br>
    	licence of scangearmp2 in : scangearmp2/README.md</br>
 	The following files are licensed under the terms of the GNU General Public License. (See the file scangearmp2/COPYING.) :</br>
-	-  debian/patches/libsane-canon_pixma.patch</br>
 	-  debian/patches/series</br>
 	-  debian/source/format</br>
 </br>
