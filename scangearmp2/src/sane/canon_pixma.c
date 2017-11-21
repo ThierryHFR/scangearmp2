@@ -78,7 +78,7 @@ static const CIJSC_SIZE_TABLE sourceSize[] = {
 };
 
 static const SANE_String_Const mode_list[] = {
-  SANE_VALUE_SCAN_MODE_GRAY, SANE_VALUE_SCAN_MODE_COLOR,
+  SANE_VALUE_SCAN_MODE_COLOR, SANE_VALUE_SCAN_MODE_GRAY,
   0
 };
 
@@ -575,7 +575,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_MODE].unit = SANE_UNIT_NONE;
 	s->opt[OPT_MODE].constraint_type = SANE_CONSTRAINT_STRING_LIST;
 	s->opt[OPT_MODE].constraint.string_list = mode_list;
-	s->val[OPT_MODE].s = strdup (mode_list[1]);
+	s->val[OPT_MODE].s = strdup (mode_list[0]);
     s->opt[OPT_MODE].size = max_string_size(mode_list);
 	//s->sgmp.scan_color = s->val[OPT_MODE].s == SANE_VALUE_SCAN_MODE_COLOR ? CIJSC_COLOR_COLOR : CIJSC_COLOR_GRAY;
 
