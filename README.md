@@ -72,7 +72,7 @@ The resolution option allow to have a hight or low quality for the output.</br>
 KNOWN PROBLEMS</br>
 </br>
 When using xsane :</br>
-bug with the display of the selected color option </br>
+bug with the display of the selected color option (Fixed in #1e94116a91c2166631da32bb94da3f33aa273c47 )</br> 
 </br>
 REQUIREMENTS</br>
 </br>
