@@ -53,6 +53,8 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1800", MODE="666"
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1801", MODE="666"
 #TS5000 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1802", MODE="666"
+#TS3100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1827", MODE="666"
 #MG3000 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="180b", MODE="666"
 #E470 series
