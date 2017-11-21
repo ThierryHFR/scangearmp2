@@ -89,7 +89,19 @@ static const SANE_Int resbit_list[] =
 
 const char *canonJpegDataTmp = "/tmp/jpeg_canon.tmp";
 
- SANE_Device*  convertFromCanonDev(const CANON_Device* cdev){
+static inline size_t max_string_size(const SANE_String_Const strings[])
+{
+    size_t max_size = 0;
+    for (int i = 0; strings[i]; ++i)
+    {
+        size_t size = strlen (strings[i]);
+        if (size > max_size)
+            max_size = size;
+    }
+    return max_size + 1;
+}
+
+SANE_Device*  convertFromCanonDev(const CANON_Device* cdev){
 	SANE_Device* sdev = NULL;
 	sdev = calloc(1, sizeof(SANE_Device));
 	sdev->name = cdev->name;
@@ -564,6 +576,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_MODE].constraint_type = SANE_CONSTRAINT_STRING_LIST;
 	s->opt[OPT_MODE].constraint.string_list = mode_list;
 	s->val[OPT_MODE].s = strdup (mode_list[1]);
+    s->opt[OPT_MODE].size = max_string_size(mode_list);
 	//s->sgmp.scan_color = s->val[OPT_MODE].s == SANE_VALUE_SCAN_MODE_COLOR ? CIJSC_COLOR_COLOR : CIJSC_COLOR_GRAY;
 
 	s->opt[OPT_RESOLUTION].name = SANE_NAME_SCAN_RESOLUTION;
@@ -595,7 +608,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_TL_X].title = SANE_TITLE_SCAN_TL_X;
 	s->opt[OPT_TL_X].desc = SANE_DESC_SCAN_TL_X;
 	s->opt[OPT_TL_X].type = SANE_TYPE_FIXED;
-	s->opt[OPT_TL_X].unit = SANE_UNIT_MM;
+	s->opt[OPT_TL_X].unit = SANE_UNIT_PIXEL;
 	s->opt[OPT_TL_X].constraint_type = SANE_CONSTRAINT_RANGE;
 	s->opt[OPT_TL_X].constraint.range = &s->x_range;
 	s->val[OPT_TL_X].w = 0;
@@ -605,7 +618,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_TL_Y].title = SANE_TITLE_SCAN_TL_Y;
 	s->opt[OPT_TL_Y].desc = SANE_DESC_SCAN_TL_Y;
 	s->opt[OPT_TL_Y].type = SANE_TYPE_FIXED;
-	s->opt[OPT_TL_Y].unit = SANE_UNIT_MM;
+	s->opt[OPT_TL_Y].unit = SANE_UNIT_PIXEL;
 	s->opt[OPT_TL_Y].constraint_type = SANE_CONSTRAINT_RANGE;
 	s->opt[OPT_TL_Y].constraint.range = &s->y_range;
 	s->val[OPT_TL_Y].w = 0;
@@ -615,7 +628,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_BR_X].title = SANE_TITLE_SCAN_BR_X;
 	s->opt[OPT_BR_X].desc = SANE_DESC_SCAN_BR_X;
 	s->opt[OPT_BR_X].type = SANE_TYPE_FIXED;
-	s->opt[OPT_BR_X].unit = SANE_UNIT_MM;
+	s->opt[OPT_BR_X].unit = SANE_UNIT_PIXEL;
 	s->opt[OPT_BR_X].constraint_type = SANE_CONSTRAINT_RANGE;
 	s->opt[OPT_BR_X].constraint.range = &s->x_range;
 	s->val[OPT_BR_X].w =2480;//s->sgmp.scan_res;
@@ -625,7 +638,7 @@ init_options (canon_sane_t * s)
 	s->opt[OPT_BR_Y].title = SANE_TITLE_SCAN_BR_Y;
 	s->opt[OPT_BR_Y].desc = SANE_DESC_SCAN_BR_Y;
 	s->opt[OPT_BR_Y].type = SANE_TYPE_FIXED;
-	s->opt[OPT_BR_Y].unit = SANE_UNIT_MM;
+	s->opt[OPT_BR_Y].unit = SANE_UNIT_PIXEL;
 	s->opt[OPT_BR_Y].constraint_type = SANE_CONSTRAINT_RANGE;
 	s->opt[OPT_BR_Y].constraint.range = &s->y_range;
 	s->val[OPT_BR_Y].w =3507;// s->sgmp.scan_res;
@@ -716,8 +729,6 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 
 		switch(n){
 			case OPT_NUM_OPTS:
-			case OPT_MODE_GROUP:
-			case OPT_MODE:
 			case OPT_RESOLUTION:
 			case OPT_TL_X:
 			case OPT_TL_Y:
@@ -726,7 +737,13 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 			case OPT_PREVIEW:
 				*(SANE_Word *) v = handled->val[n].w;
 			break;
-			default:break;
+            case OPT_MODE:
+                strcpy (v, handled->val[n].s);
+              break;
+            case OPT_MODE_GROUP:
+                DBGMSG("unexpected get option, ignore");
+			default:
+                break;
 		}
 		return SANE_STATUS_GOOD;
 	}
@@ -740,9 +757,10 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 				case OPT_BR_Y:
 				case OPT_PREVIEW:
 				handled->val[n].w = *(SANE_Word *) v;
-				if(i){
+				if(i && handled->val[n].w != *(SANE_Word *) v){
 				*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 				}
+                handled->val[n].w = *(SANE_Word *) v;
 				break;
 				case OPT_RESOLUTION: {
 				     int v1 = (int)*(SANE_Word*)v;
@@ -850,6 +868,11 @@ SCAN_START:
 		return SANE_STATUS_CANCELLED;
 	}
 
+    /* get parameters */
+    if((status = CIJSC_get_parameters(NULL)) != CMT_STATUS_GOOD){
+      return SANE_STATUS_UNSUPPORTED;
+    }
+       
 	return SANE_STATUS_GOOD;
 
 }
@@ -867,24 +890,9 @@ sane_get_parameters (SANE_Handle h, SANE_Parameters * p)//voir avec CIJSC_get_pa
 	ps.depth = 8;//8
 	ps.last_frame = SANE_TRUE;
 	ps.format = SANE_FRAME_RGB;
-
-	/* get parameters */
-	if(canon_get_parameters( scandata, (void *)NULL ) < 0){
-		ps.pixels_per_line = handled->sgmp.scan_w;
-		ps.lines = handled->sgmp.scan_h;
-		ps.bytes_per_line = ps.pixels_per_line*3;
-		*p = ps;
-		return SANE_STATUS_GOOD;
-	}
-
-	ps.pixels_per_line = scandata->pixels_per_line;
-
-	/*
-	 *We will allways have an image with 3 RGB components,
-	 *so the number of bytes per lines is allways 3 * pixels_per_line
-	 */
-	ps.bytes_per_line = scandata->pixels_per_line*3;
-	ps.lines = scandata->lines;//this value is equals to the image height.
+    ps.pixels_per_line = handled->sgmp.scan_w;
+    ps.lines = handled->sgmp.scan_h;
+    ps.bytes_per_line = ps.pixels_per_line*3;
 	*p = ps;
 
 	return SANE_STATUS_GOOD;
