@@ -124,8 +124,10 @@ yum install rpm-build</br>
 </br>
 #Get sources :</br>
 wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2.spec</br>
-wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2_3.50.orig.tar.gz</br>
-cp ~/rpmbuild/SOURCES/scangearmp2_3.50.orig.tar.gz</br>
+wget https://github.com/Ordissimo/scangearmp2/releases/download/3.50-2/scangearmp2_3.50-2ubuntu.artful.tar.xz</br>
+tar xvf scangearmp2_3.50-2ubuntu.artful.tar.xz</br>
+tar czvf scangearmp2_3.50.orig.tar.gz scangearmp2</br>
+mv scangearmp2_3.50.orig.tar.gz ~/rpmbuild/SOURCES/</br>
 </br>
 #Build Sources :</br>
 rpmbuild -bp scangearmp2.spec</br>
