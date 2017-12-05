@@ -103,12 +103,12 @@ INSTALLATION</br>
 <u>For debian systems :</u> </br>
 </br>
 git clone https://github.com/Ordissimo/scangearmp2.git</br>
-cp -a scangearmp2 scangearmp2-3.40</br>
-rm -rf scangearmp2-3.40/.git scangearmp2-3.40/debian/</br>
-tar cJvf scangearmp2_3.40.orig.tar.xz scangearmp2-3.40</br>
+cp -a scangearmp2 scangearmp2-3.50</br>
+rm -rf scangearmp2-3.50/.git scangearmp2-3.50/debian/</br>
+tar cJvf scangearmp2_3.50.orig.tar.xz scangearmp2-3.50</br>
 cd scangearmp2</br>
 debuild -tc</br>
-dpkg -i ../scangearmp2_3.40-1_amd64.deb</br>
+dpkg -i ../scangearmp2_3.50-1_amd64.deb</br>
 </br>
 <u>For redhat systems :</u> </br>
 </br>
@@ -124,8 +124,8 @@ yum install rpm-build</br>
 </br>
 #Get sources :</br>
 wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2.spec</br>
-wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2_3.40.orig.tar.gz</br>
-cp ~/rpmbuild/SOURCES/scangearmp2_3.40.orig.tar.gz</br>
+wget https://github.com/Ordissimo/scangearmp2/releases/download/3.40.2/scangearmp2_3.50.orig.tar.gz</br>
+cp ~/rpmbuild/SOURCES/scangearmp2_3.50.orig.tar.gz</br>
 </br>
 #Build Sources :</br>
 rpmbuild -bp scangearmp2.spec</br>
@@ -134,7 +134,7 @@ rpmbuild -bi --short-circuit scangearmp2.spec</br>
 rpmbuild -ba scangearmp2.spec</br>
 </br>
 #Install :
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.40-2.x86_64.rpm</br>
+rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.50-2.x86_64.rpm</br>
 </br>
 </br>
 <u>For all distributions you need to activate the backend :</u></br>

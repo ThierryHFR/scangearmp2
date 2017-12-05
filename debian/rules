@@ -91,7 +91,14 @@ install: build
 	chmod 0755 $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.la 
 	ln -s /usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so.1.0.0 $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so.1
 	ln -s /usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so.1.0.0 $(CURDIR)/debian/${COMMON_PKG}/usr/lib/${TYPE_ARCH}sane/libsane-canon_pixma.so
-
+	ln -s /usr/lib/libcncpmslld2.so.3.0.0 debian/scangearmp2/usr/lib/libcncpmslld2.so.3
+	ln -s /usr/lib/libcncpmslld2.so.3.0.0 debian/scangearmp2/usr/lib/libcncpmslld2.so
+	ln -s /usr/lib/libcncpnet2.so.1.2.4 debian/scangearmp2/usr/lib/libcncpnet2.so.1
+	ln -s /usr/lib/libcncpnet2.so.1.2.4 debian/scangearmp2/usr/lib/libcncpnet2.so
+	ln -s /usr/lib/libcncpnet20.so.1.0.0 debian/scangearmp2/usr/lib/libcncpnet20.so.1
+	ln -s /usr/lib/libcncpnet20.so.1.0.0 debian/scangearmp2/usr/lib/libcncpnet20.so
+	ln -s /usr/lib/libcncpnet30.so.1.0.0 debian/scangearmp2/usr/lib/libcncpnet30.so.1
+	ln -s /usr/lib/libcncpnet30.so.1.0.0 debian/scangearmp2/usr/lib/libcncpnet30.so
 	### copy ini file
 	dh_install -s
 	mkdir -p $(CURDIR)/debian/${COMMON_PKG}/usr/lib/bjlib
