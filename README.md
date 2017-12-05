@@ -17,6 +17,27 @@ DESCRIPTION</br>
 </br>
 	The scanner supported by this backend are :</br>
 </br>
+
+</br>
+#TS9100 series</br>
+#TS8100 series</br>
+#TS6100 series</br>
+#TR8500 series</br>
+#TR7500 series</br>
+#TS5100 series</br>
+#TS3100 series</br>
+#E3100 series</br>
+#TS9180 series</br>
+#TS8180 series</br>
+#TS6180 series</br>
+#TR8580 series</br>
+#TS8130 series</br>
+#TS6130 series</br>
+#TR8530 series</br>
+#TR7530 series</br>
+#XK50 series</br>
+#XK70 series</br>
+</br>
 #MG7500 series</br>
 #MG6600 series</br>
 #MG5600 series</br>
