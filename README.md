@@ -63,7 +63,6 @@ DESCRIPTION</br>
 #TS8000 series</br>
 #TS6000 series</br>
 #TS5000 series</br>
-#TS3100 series</br>
 #MG3000 series</br>
 #E470 series</br>
 #G4000 series</br>
