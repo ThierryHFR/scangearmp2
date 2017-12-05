@@ -53,8 +53,6 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1800", MODE="666"
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1801", MODE="666"
 #TS5000 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1802", MODE="666"
-#TS3100 series
-ATTR{idVendor}=="04a9", ATTR{idProduct}=="1827", MODE="666"
 #MG3000 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="180b", MODE="666"
 #E470 series
@@ -70,5 +68,43 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1792", MODE="666"
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1790", MODE="666"
 #MB5400 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="178f", MODE="666"
+
+#TS9100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1820", MODE="666"
+#TS8100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1821", MODE="666"
+#TS6100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1822", MODE="666"
+#TR8500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1823", MODE="666"
+#TR7500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1824", MODE="666"
+#TS5100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1825", MODE="666"
+#TS3100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1827", MODE="666"
+#E3100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1828", MODE="666"
+#TS9180 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="183e", MODE="666"
+#TS8180 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="183f", MODE="666"
+#TS6180 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1840", MODE="666"
+#TR8580 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1841", MODE="666"
+#TS8130 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1842", MODE="666"
+#TS6130 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1843", MODE="666"
+#TR8530 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1844", MODE="666"
+#TR7530 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1845", MODE="666"
+#XK50 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1846", MODE="666"
+#XK70 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1847", MODE="666"
+
 
 LABEL="canon_mfp_end"
