@@ -49,7 +49,7 @@ libsane_canon_pixma_la_LDFLAGS = -version-info 1:0:0
 # The following is a interlibrary dependency that must be compiled first.
 # if [ "$(UNAME)" = "x86_64" ]
 # then
-libsane_canon_pixma_la_LIBADD = -L$(top_srcdir)/../com/libs_bin64 -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread -ldl $(LIBUSB_1_0_LIBS)
+libsane_canon_pixma_la_LIBADD = -L$(top_srcdir)/../com/libs_bin64 -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread -ldl -ljpeg $(LIBUSB_1_0_LIBS)
 # fi
 # if [ "$(UNAME)" <> "x86_64" ]
 # then
