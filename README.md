@@ -151,7 +151,7 @@ rpmbuild -ba scangearmp2.spec
 rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.50-2.x86_64.rpm
 ```
 # Activate the backend
-##For all distributions you need to activate the backend :
+## For all distributions you need to activate the backend :
 ```
 echo "canon_pixma"  >> /etc/sane.d/dll.conf # for activate the backend in sane
 ```
