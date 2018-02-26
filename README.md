@@ -95,11 +95,11 @@ Requirements for scangearmp2 in : scangearmp2/README.md
 # INSTALLATION
 
 ## For debian systems :
-### Get sources :
+###### Get sources :
 ```
 git clone https://github.com/Ordissimo/scangearmp2.git
 ```
-### Get developement environnement :
+###### Get developement environnement :
 ```
 apt-get update
 apt-get install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libjpeg-dev
@@ -109,18 +109,18 @@ cp -a scangearmp2 scangearmp2-3.50
 rm -rf scangearmp2-3.50/.git scangearmp2-3.50/debian/
 tar cJvf scangearmp2_3.50.orig.tar.xz scangearmp2-3.50
 ```
-### Build Sources :
+###### Build Sources :
 ```
 cd scangearmp2
 debuild -tc
 ```
-### Install :
+###### Install :
 ```
 dpkg -i ../scangearmp2_3.50-1_amd64.deb
 ```
 ## For redhat systems :
 
-### Get developement environnement :
+###### Get developement environnement :
 ```
 yum install gtk2-devel
 yum install libusb-devel
@@ -131,7 +131,7 @@ yum install automake
 yum install autoconf
 yum install rpm-build
 ```
-### Get sources :
+###### Get sources :
 ```
 wget https://github.com/Ordissimo/scangearmp2/releases/download/3.50-2/scangearmp2.spec
 wget https://github.com/Ordissimo/scangearmp2/releases/download/3.50-2/scangearmp2_3.50-2ubuntu.artful.tar.xz
@@ -139,14 +139,14 @@ tar xvf scangearmp2_3.50-2ubuntu.artful.tar.xz
 tar czvf scangearmp2_3.50.orig.tar.gz scangearmp2
 mv scangearmp2_3.50.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
-### Build Sources :
+###### Build Sources :
 ```
 rpmbuild -bp scangearmp2.spec
 rpmbuild -bc --short-circuit scangearmp2.spec
 rpmbuild -bi --short-circuit scangearmp2.spec
 rpmbuild -ba scangearmp2.spec
 ```
-### Install :
+###### Install :
 ```
 rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.50-2.x86_64.rpm
 ```
