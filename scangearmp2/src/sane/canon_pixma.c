@@ -92,7 +92,8 @@ const char *canonJpegDataTmp = "/tmp/jpeg_canon.tmp";
 static inline size_t max_string_size(const SANE_String_Const strings[])
 {
     size_t max_size = 0;
-    for (int i = 0; strings[i]; ++i)
+    int i = 0;
+    for (i = 0; strings[i]; ++i)
     {
         size_t size = strlen (strings[i]);
         if (size > max_size)
