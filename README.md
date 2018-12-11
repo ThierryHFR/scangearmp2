@@ -112,8 +112,9 @@ tar cJvf scangearmp2_3.50.orig.tar.xz scangearmp2-3.50
 ###### Build Sources :
 ```
 cd scangearmp2
-debuild -tc
+debuild -us -uc ## 
 ```
+
 ###### Install :
 ```
 dpkg -i ../scangearmp2_3.50-1_amd64.deb
