@@ -106,5 +106,39 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1846", MODE="666"
 #XK70 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1847", MODE="666"
 
+#G3010 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="183b", MODE="666"
+#G4010 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="183d", MODE="666"
+
+#TS8200 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1859", MODE="666"
+#XK80 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1873", MODE="666"
+#TS8230 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="185b", MODE="666"
+#TS8280 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="185a", MODE="666"
+#TS6200 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1856", MODE="666"
+#TS6230 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1858", MODE="666"
+#TS6280 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1857", MODE="666"
+#TS9500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="185c", MODE="666"
+#TR9530 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="185e", MODE="666"
+#TS9580 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="185d", MODE="666"
+#TR4500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1854", MODE="666"
+#E4200 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1855", MODE="666"
+#LiDE 400
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1912", MODE="666"
+#LiDE 300
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1913", MODE="666"
+
 
 LABEL="canon_mfp_end"

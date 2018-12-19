@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2017
+ *  Copyright CANON INC. 2007-2018
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -82,6 +82,9 @@ GLOBAL CNMSInt32 lastModuleErrCode
 #define BERRCODE_SCANNER_LOCKED					(189)
 #define BERRCODE_SCANNER_CONNECT_FAILED_USB		(156)
 #define BERRCODE_SCANNER_CONNECT_FAILED_LAN		(157)
+
+#define BERRCODE_SFS_LOCKED					(179)
+#define BERRCODE_SFS_INITIALIZE				(120)
 
 #define BERRCODE_CONNECT_NO_DEVICE				(9999)
 

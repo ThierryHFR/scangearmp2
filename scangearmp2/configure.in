@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([scangearmp2],[3.50-2])
+AC_INIT([scangearmp2],[3.70-2])
 
 AC_ARG_ENABLE(libpath)
 if test "${enable_libpath}" = ""; then

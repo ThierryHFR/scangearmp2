@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2016
+ *  Copyright CANON INC. 2007-2018
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -55,6 +55,8 @@ enum{
 	CIJSC_ERROR_SAVE_OTHER,
 	CIJSC_ERROR_SAVE_DISK_FULL,
 	CIJSC_ERROR_INTERNAL,
+	CIJSC_ERROR_SFS_LOCKED,
+	CIJSC_ERROR_SFS_INITIALIZE,
 };
 
 enum{
@@ -84,6 +86,8 @@ static CIJSC_ERROR_MSG_TABLE error_msg_table[] = {
 	{ CIJSC_ERROR_SAVE_OTHER,		STR_CNMS_LS_008_07,		CIJSC_ERROR_DLG_TYPE_OK, CIJSC_ERROR_DLG_QUIT_FALSE, },
 	{ CIJSC_ERROR_SAVE_DISK_FULL,	STR_CNMS_LS_010_06,		CIJSC_ERROR_DLG_TYPE_OK, CIJSC_ERROR_DLG_QUIT_TRUE, },
 	{ CIJSC_ERROR_INTERNAL,			STR_CNMS_LS_010_09,		CIJSC_ERROR_DLG_TYPE_OK, CIJSC_ERROR_DLG_QUIT_TRUE, },
+	{ CIJSC_ERROR_SFS_LOCKED,		STR_CNMS_LS_010_10,		CIJSC_ERROR_DLG_TYPE_OK, CIJSC_ERROR_DLG_QUIT_TRUE, },
+	{ CIJSC_ERROR_SFS_INITIALIZE,	STR_CNMS_LS_010_11,		CIJSC_ERROR_DLG_TYPE_OK, CIJSC_ERROR_DLG_QUIT_TRUE, },
 	{ -1,	NULL, -1, -1, },
 };
 
@@ -120,6 +124,8 @@ static CIJSC_ERROR_INDEX_TABLE error_index_table[] = {
 	{ BERRCODE_SCANNER_LOCKED,					CIJSC_ERROR_DEVICE_OTHER },
 	{ BERRCODE_SCANNER_CONNECT_FAILED_USB,		CIJSC_ERROR_CONNECT_FAILED },
 	{ BERRCODE_SCANNER_CONNECT_FAILED_LAN,		CIJSC_ERROR_CONNECT_FAILED },
+	{ BERRCODE_SFS_LOCKED,					CIJSC_ERROR_SFS_LOCKED },
+	{ BERRCODE_SFS_INITIALIZE,				CIJSC_ERROR_SFS_INITIALIZE },
 	
 	{ BERRCODE_SAVE_NO_FILE_NAME,		CIJSC_ERROR_SAVE_NO_FILE_NAME },
 	{ BERRCODE_SAVE_OVERWRITE,			CIJSC_ERROR_SAVE_OVERWRITE },
@@ -132,7 +138,7 @@ static CIJSC_ERROR_INDEX_TABLE error_index_table[] = {
 
 int CIJSC_UI_error_show( SGMP_Data *data, GtkWidget *parent )
 {
-	int		index_id, index_mes;
+	int		index_id, index_mes, id_mes;
 	int		ret = -1;
 	int		errorCode = 0;
 	
@@ -169,11 +175,14 @@ int CIJSC_UI_error_show( SGMP_Data *data, GtkWidget *parent )
 		}
 		DBGMSG("index_id = %d\n", index_id );
 		if ( index_id == ( sizeof( error_index_table ) / sizeof( CIJSC_ERROR_INDEX_TABLE ) ) ) {
-			goto _EXIT;
+			id_mes = CIJSC_ERROR_INTERNAL;
+		}
+		else {
+			id_mes = error_index_table[index_id].id;
 		}
 		/* get error message. */
 		for( index_mes = 0; error_msg_table[index_mes].id >= 0 ; index_mes++ ) {
-			if ( error_msg_table[index_mes].id == error_index_table[index_id].id ) {
+			if ( error_msg_table[index_mes].id == id_mes ) {
 				break;
 			}
 		}

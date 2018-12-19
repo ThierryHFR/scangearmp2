@@ -37,6 +37,9 @@
 
 #include "canon_mfp_tools.h"
 #include "mainui.h"
+#include "selectdevice.h"
+#include "errordlg.h"
+#include "scanmain.h"
 
 /*
 	main window

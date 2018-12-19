@@ -35,7 +35,6 @@ scangearmp2_CFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
-# UNAME = `shell uname -m`
 
 libsane_canon_pixmadir = /usr/lib/sane
 libsane_canon_pixma_LTLIBRARIES = libsane-canon_pixma.la
@@ -46,16 +45,7 @@ libsane_canon_pixma_la_SOURCES = sane/saneopts.h sane/sane.h sane/sanei_debug.h 
 	keep_setting.h canon_mfp_tools.c file_control.c canon_mfp_tools.h \
 	cnmsfunc.c cnmsfunc.h file_control.h support.h
 libsane_canon_pixma_la_LDFLAGS = -version-info 1:0:0
-# The following is a interlibrary dependency that must be compiled first.
-# if [ "$(UNAME)" = "x86_64" ]
-# then
 libsane_canon_pixma_la_LIBADD = -L$(top_srcdir)/../com/libs_bin64 -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread -ldl -ljpeg $(LIBUSB_1_0_LIBS)
-# fi
-# if [ "$(UNAME)" <> "x86_64" ]
-# then
-# 	libsane_canon_pixma_la_LIBADD = -L$(top_srcdir)/../com/libs_bin32 -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread -ldl $(LIBUSB_1_0_LIBS)
-# fi
-#libsane_canon_pixma_la_CFLAGS = -DWITH_NONAMESPACES -DSOAP_DEBUG
 libsane_canon_pixma_la_CFLAGS = $(LIBUSB_1_0_CFLAGS) -I$(top_srcdir)/include
 
 

@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2017
+ *  Copyright CANON INC. 2007-2018
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,9 +30,9 @@
 /* N_ macro */
 #include "support.h"
 
-#define	STR_CNMS_LS_007_VER_NUM		"3.50"
+#define	STR_CNMS_LS_007_VER_NUM		"3.70"
 #define	STR_CNMS_LS_007_YEAR_BEGIN	"2007"
-#define	STR_CNMS_LS_007_YEAR_END	"2017"
+#define	STR_CNMS_LS_007_YEAR_END	"2018"
 
 /*STR_CNMS_LS_001_01*/
 #define	STR_CNMS_LS_001_01	N_( "Scanner" )
@@ -160,6 +160,10 @@
 #define	STR_CNMS_LS_012_02	N_( "Searching for scanners." )
 /*STR_CNMS_LS_012_03*/
 #define	STR_CNMS_LS_012_03	N_( "Updating the scanner list." )
+/*STR_CNMS_LS_010_10*/
+#define	STR_CNMS_LS_010_10	N_( "Release the lock switch, detach the USB cable and reconnect.\nScanner driver will be closed." )
+/*STR_CNMS_LS_010_11*/
+#define	STR_CNMS_LS_010_11	N_( "Scanner initialization is in progress. Scan after it is complete." )
 
 
 #endif /* _CNMSSTRINGS_H_ */

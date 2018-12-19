@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2017
+ *  Copyright CANON INC. 2007-2018
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ static CIJSC_PROGRESSBAR_TABLE progressbar_table[] = {
 	{ -1,	NULL, NULL, },
 };
 
-static ui_progress_current_id = -1;
+static int ui_progress_current_id = -1;
 static SGMP_Data *ui_progress_data = NULL;
 
 int CIJSC_UI_progress_show( SGMP_Data *data, int id )

@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2017
+ *  Copyright CANON INC. 2007-2018
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -32,6 +32,8 @@
 
 #include <gtk/gtk.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "support.h"
 #include "callbacks.h"
