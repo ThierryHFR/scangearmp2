@@ -17,6 +17,33 @@
 
 
 ```
+ 
+ ## Add 2018
+ XK80 series
+ 
+ TS9580 series
+ TS9500 series
+  
+ TS8280 series
+ TS8230 series
+ TS8200 series
+ 
+ TS6280 series
+ TS6230 series
+ TS6200 series
+ 
+ TR9530 series
+ TR4500 series
+ 
+ G3010 series
+ G4010 series
+ 
+ E4200 series
+ 
+ LiDE 400
+ LiDE 300
+
+# Add before 2018
 TS9100 series
 TS8100 series
 TS6100 series
