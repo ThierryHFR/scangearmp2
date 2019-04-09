@@ -394,7 +394,7 @@ int cmt_libusb_init(void)
 		goto onErr;
 	}
 	/* search canon mfp */
-	numdev = libusb_get_device_list(NULL, &g_devlist);
+	numdev = libusb_get_device_list(g_context, &g_devlist);
 	if((int)numdev == 0) {
 		err = CN_USB_WRITE_ERROR;
 		goto onErr;
