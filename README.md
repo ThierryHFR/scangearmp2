@@ -96,6 +96,23 @@ MB2100 series
 MB2700 series
 MB5100 series
 MB5400 series
+
+# Add before 2018
+G6000 series
+G6080 series
+TS5300 series
+TS5380 series
+TS6300 series
+TS6380 series
+TS7330 series
+TS8300 series
+TS8380 series
+TS8330 series
+XK60 series
+TS6330 series
+TS3300 series
+E3300 series
+
 ```
 # ADVANTAGES
 
@@ -132,9 +149,9 @@ apt-get update
 apt-get install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libjpeg-dev
 # or, if failure, use:
 apt-get install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool libjpeg-dev
-cp -a scangearmp2 scangearmp2-3.50
-rm -rf scangearmp2-3.50/.git scangearmp2-3.50/debian/
-tar cJvf scangearmp2_3.50.orig.tar.xz scangearmp2-3.50
+cp -a scangearmp2 scangearmp2-3.90
+rm -rf scangearmp2-3.90/.git scangearmp2-3.90/debian/
+tar cJvf scangearmp2_3.90.orig.tar.xz scangearmp2-3.90
 ```
 ###### Build Sources :
 ```
@@ -144,7 +161,7 @@ debuild -us -uc ##
 
 ###### Install :
 ```
-dpkg -i ../scangearmp2_3.50-1_amd64.deb
+dpkg -i ../scangearmp2_3.90-1_amd64.deb
 ```
 ## For redhat systems :
 
@@ -161,11 +178,11 @@ yum install rpm-build
 ```
 ###### Get sources :
 ```
-wget https://github.com/Ordissimo/scangearmp2/releases/download/3.50-2/scangearmp2.spec
-wget https://github.com/Ordissimo/scangearmp2/releases/download/3.50-2/scangearmp2_3.50-2ubuntu.artful.tar.xz
-tar xvf scangearmp2_3.50-2ubuntu.artful.tar.xz
-tar czvf scangearmp2_3.50.orig.tar.gz scangearmp2
-mv scangearmp2_3.50.orig.tar.gz ~/rpmbuild/SOURCES/
+wget https://github.com/Ordissimo/scangearmp2/releases/download/3.90-2/scangearmp2.spec
+wget https://github.com/Ordissimo/scangearmp2/releases/download/3.90-2/scangearmp2_3.90-2ubuntu.artful.tar.xz
+tar xvf scangearmp2_3.90-2ubuntu.artful.tar.xz
+tar czvf scangearmp2_3.90.orig.tar.gz scangearmp2
+mv scangearmp2_3.90.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 ###### Build Sources :
 ```
@@ -176,7 +193,7 @@ rpmbuild -ba scangearmp2.spec
 ```
 ###### Install :
 ```
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.50-2.x86_64.rpm
+rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.90-2.x86_64.rpm
 ```
 # Activate the backend
 ## For all distributions you need to activate the backend :
