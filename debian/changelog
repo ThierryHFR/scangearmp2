@@ -1,8 +1,14 @@
+scangearmp2 (3.90-1ubuntu) stable; urgency=medium
+
+  * build for upstream. 
+
+ -- thierry <thierry@thierry-thinkpad>  tue, 05 dec 2017 21:03:04 +0100
+
 scangearmp2 (3.50-2ubuntu.artful) stable; urgency=medium
 
-  * Build for artful. 
+  * build for artful. 
 
- -- thierry <thierry@thierry-ThinkPad>  Tue, 05 Dec 2017 21:03:04 +0100
+ -- thierry <thierry@thierry-thinkpad>  tue, 05 dec 2017 21:03:04 +0100
 
 scangearmp2 (3.50-2) stable; urgency=medium
 

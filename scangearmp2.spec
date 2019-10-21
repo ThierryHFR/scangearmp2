@@ -1,4 +1,4 @@
-%define VERSION 3.50
+%define VERSION 3.90
 %define RELEASE 3
 
 %define _arc  %(getconf LONG_BIT)

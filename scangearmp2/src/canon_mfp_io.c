@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2018
+ *  Copyright CANON INC. 2007-2019
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -73,11 +73,11 @@ typedef struct CANON_Scanner
 
     size_t		bytes_to_read;
     int			scanning;
-
+    
     /* add Ver.1.30 */
     int			scanMethod;
     int			CIJSC_start_status;
-
+    
     int		scanFinished;
   }
 CANON_Scanner;
@@ -109,7 +109,7 @@ static CMT_Status canon_usb_open( const char * devname )
 			return status;
 		}
 		CANON_fd = fd;
-
+		
 		return CMT_STATUS_GOOD;
 	}
 	else { /* already open. */
@@ -132,16 +132,16 @@ static int canon_usb_write( unsigned char * buffer, unsigned long size )
 {
 	unsigned long n = size;
 	CMT_Status status;
-
+	
 	if ( CANON_fd < 0 ) {
 		return -1; /* error */
 	}
 	status = cmt_libusb_bulk_write ( CANON_fd, buffer, &n );
-
+	
 	if ( status != CMT_STATUS_GOOD ) {
 		return -1; /* error */
 	}
-
+	
 	if ( size != n ) {
 		return n; /* error */
 	}
@@ -152,18 +152,18 @@ static int canon_usb_read( unsigned char * buffer, unsigned long * size )
 {
 	unsigned long n = *size;
 	CMT_Status status;
-
+	
 	if ( CANON_fd < 0 ) {
 		return -1; /* error */
 	}
 	status = cmt_libusb_bulk_read ( CANON_fd, buffer, &n );
-
+		
 	if ( status != CMT_STATUS_GOOD ) {
 		return -1; /* error */
 	}
-
+	
 	*size = n;
-
+	
 	if ( *size != n ) {
 		return n; /* error */
 	}
@@ -177,7 +177,7 @@ static CMT_Status canon_network_open( const char * devname )
 {
 	CMT_Status status;
 	CNNLHANDLE handle = NULL;
-
+	
 	if ( CANON_hnd == NULL ) {
 		if ( ( status = cmt_network_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
 			return status;
@@ -206,16 +206,16 @@ static int canon_network_write( unsigned char * buffer, unsigned long size )
 {
 	unsigned long n = size;
 	CMT_Status status;
-
+	
 	if ( CANON_hnd == NULL ) {
 		return -1; /* error */
 	}
 	status = cmt_network_write ( CANON_hnd, buffer, &n );
-
+	
 	if ( status != CMT_STATUS_GOOD ) {
 		return -1; /* error */
 	}
-
+	
 	if ( size != n ) {
 		return n; /* error */
 	}
@@ -226,18 +226,18 @@ static int canon_network_read( unsigned char * buffer, unsigned long * size )
 {
 	unsigned long n = *size;
 	CMT_Status status;
-
+	
 	if ( CANON_hnd == NULL ) {
 		return -1; /* error */
 	}
 	status = cmt_network_read ( CANON_hnd, buffer, &n );
-
+		
 	if ( status != CMT_STATUS_GOOD ) {
 		return -1; /* error */
 	}
-
+	
 	*size = n;
-
+	
 	if ( *size != n ) {
 		return n; /* error */
 	}
@@ -251,7 +251,7 @@ static CMT_Status canon_network2_open( const char * devname )
 {
 	CMT_Status status;
 	HCNNET3 handle = NULL;
-
+	
 	if ( CANON_hnd2 == NULL ) {
 		if ( ( status = cmt_network2_open ((const char *)devname, &handle) ) != CMT_STATUS_GOOD ) {
 			return status;
@@ -280,16 +280,16 @@ static int canon_network2_write( unsigned char * buffer, unsigned long size )
 {
 	unsigned long n = size;
 	CMT_Status status;
-
+	
 	if ( CANON_hnd2 == NULL ) {
 		return -1; /* error */
 	}
 	status = cmt_network2_write ( CANON_hnd2, buffer, &n );
-
+	
 	if ( status != CMT_STATUS_GOOD ) {
 		return -1; /* error */
 	}
-
+	
 	if ( size != n ) {
 		return n; /* error */
 	}
@@ -300,18 +300,18 @@ static int canon_network2_read( unsigned char * buffer, unsigned long * size )
 {
 	unsigned long n = *size;
 	CMT_Status status;
-
+	
 	if ( CANON_hnd2 == NULL ) {
 		return -1; /* error */
 	}
 	status = cmt_network2_read ( CANON_hnd2, buffer, &n );
-
+		
 	if ( status != CMT_STATUS_GOOD ) {
 		return -1; /* error */
 	}
-
+	
 	*size = n;
-
+	
 	if ( *size != n ) {
 		return n; /* error */
 	}
@@ -356,27 +356,27 @@ static CMT_Status attach(
 	int				vendor;
 	int				product;
 	int				speed = 2;
-
+	
 	int				usb_opend = 0;
 	int				flag_usb = 0, i = 0;
 
 	if( strncmp( name, "libusb:", 7 ) >= 0 ){
 		flag_usb = 1;
 	}
-
+	
 	for (dev = *first; dev; dev = dev->next) {
 		if ( strcmp(dev->name, name) == 0 ) {
 			return (CMT_STATUS_GOOD);		/* already exists. */
 		}
 	}
-
+	
 	dev = malloc( sizeof( CANON_Device ) );
 	if ( !dev ) {
 		status = CMT_STATUS_NO_MEM;
 		goto _ERROR;
 	}
 	memset( dev, 0, sizeof(*dev) );
-
+	
 	if(flag_usb){
 		/* open succeed -> append to list */
 		if ( ( status = canon_usb_open(name) ) != CMT_STATUS_GOOD )
@@ -396,7 +396,7 @@ static CMT_Status attach(
 		speed = attach_dev->speed;
 		product = attach_dev->product_id;
 	}
-
+	
 	/* set name */
 	dev->name = strdup( name );
 	/* set model */
@@ -404,12 +404,12 @@ static CMT_Status attach(
 	/* set full name */
 	snprintf( dev_fullname, sizeof(dev_fullname), "Canon %s (%s)", dev->model, dev->name );
 	dev->fullname = strdup( dev_fullname );
-
+	
 	if(flag_usb){
 		canon_usb_close();
 		usb_opend = 0;
 	}
-
+	
 	dev->product_id = product;
 	dev->type = attach_dev->type;
 	dev->speed = speed;
@@ -429,12 +429,12 @@ static CMT_Status attach(
 			}
 		}
 	}
-
+	
 	return status;
 
 _ERROR:
 	dispose_canon_dev( dev );
-
+	
 	if(flag_usb){
 		if ( usb_opend ) {
 			canon_usb_close();
@@ -450,38 +450,38 @@ _ERROR:
 CMT_Status CIJSC_init( void *cnnl_callback )
 {
 	CMT_Status status = CMT_STATUS_GOOD;
-
+	
 	FILE *fp = NULL;
 	CANON_Device	*first_usb = NULL, *first_net = NULL, *first_net2 = NULL, *tmp_dev;
 	CANON_Device	c_dev;
 	int		i;
-
+	
 	num_devices = 0;
-
+	
 	/* initialize libUSB */
 	cmt_libusb_init();
-
+	
 	/* initialize Network */
 	cmt_network_init( cnnl_callback );
-
+	
 	/* initialize Network2 */
 	cmt_network2_init( cnnl_callback );
-
+	
 	/*--- read Configuration file. ---*/
 	fp = cmt_conf_file_open( CANON_CONFIG_FILE );
-
+	
 	if ( fp ) {
 		char line[PATH_MAX];
 		int len, ret;
 		char *dev;
 		int index_usb, index_net, index_net2;
-
+		
 		/* Set USB/Network device list */
 		while ( ( len = cmt_conf_file_read_line( line, sizeof(line), fp ) ) >= 0 ) {
 			index_usb = 0;
 			index_net = 0;
 			index_net2 = 0;
-
+			
 			if ( ( ret = cmt_get_device_info( line, len, &c_dev ) ) < 0 ) {
 				continue;	/* next */
 			}
@@ -561,12 +561,12 @@ void CIJSC_exit(void)
 		dispose_canon_dev( dev );
 	}
 	first_dev = NULL;
-
+	
 	if( devlist ){
 		free( devlist );
 	}
 	devlist = NULL;
-
+	
 	num_devices = 0;
 	cmt_libusb_exit();
 	cmt_network_exit();
@@ -586,7 +586,7 @@ CMT_Status CIJSC_get_devices(
 	if( devlist ){
 		free( devlist );
 	}
-
+	
 	devlist = malloc( ( num_devices + 1 ) * sizeof( CANON_Device * ) );
 	if( !devlist ) {
 		return (CMT_STATUS_NO_MEM);
@@ -594,7 +594,7 @@ CMT_Status CIJSC_get_devices(
 	for( dev = first_dev, devlisttemp = devlist; dev; dev = dev->next ) {
 		*devlisttemp++ = dev;
 	}
-
+	
 	*devlisttemp = NULL;
 	*device_list = devlist;
 
@@ -616,23 +616,23 @@ CMT_Status CIJSC_open2(
 {
 	CMT_Status status;
 	CANON_Scanner *s = &canon_device;
-
+	
 	if ( opened_handle ) {
 		DBGMSG("ERROR : Another CANON MFP Deviece has opened already.\n");
 		return (CMT_STATUS_INVAL);
 	}
-
+	
 	if ( !name ) {
 		return (CMT_STATUS_INVAL);
 	}
-
+	
 	if ( name[0] != '\0' ) {
 		for (dev = first_dev; dev; dev = dev->next) {
 			if (strcmp (dev->name, name) == 0) {
 				break;
 			}
 		}
-
+		
 		if (!dev) {
 			return (CMT_STATUS_INVAL);
 		}
@@ -640,7 +640,7 @@ CMT_Status CIJSC_open2(
 	else {
 		dev = first_dev;
 	}
-
+	
 	DBGMSG(" dev->speed = %d \n" ,dev->speed);
 	if ( dev->speed == -1 ){	/* NET */
 		if( ( status = canon_network_open ( name ) ) != CMT_STATUS_GOOD ){
@@ -681,20 +681,20 @@ CMT_Status CIJSC_open2(
 			}
 		}
 	}
-
+	
 	/* set product id. */
 	DBGMSG("p_canon_init_scanner() product = %X\n", dev->product_id);
 	if ( canon_init_scanner( dev->product_id, dev->speed, NULL ) < 0 ) {
 		DBGMSG("ERROR : p_canon_init_scanner() product = %d\n", dev->product_id);
 		return (CMT_STATUS_INVAL);
 	}
-
+	
 	opened_handle = dev;
 	memset(&canon_device, 0, sizeof(canon_device));
-
+	
 	s->scanMethod = 0;
 	s->CIJSC_start_status = CMT_STATUS_NO_DOCS;
-
+	
 	return CMT_STATUS_GOOD;
 }
 
@@ -704,7 +704,7 @@ CMT_Status CIJSC_open2(
 void CIJSC_close( void )
 {
 	canon_terminate_scanner();
-
+	
 	canon_usb_close ();
 	canon_network_close();
 	canon_network2_close();
@@ -722,30 +722,30 @@ CMT_Status CIJSC_start( CANON_ScanParam *param )
 	int status;
 	CANON_Scanner *s = &canon_device;
 	CANON_SCANDATA	scandata;
-
+	
 	DBGMSG("\n");
-
+	
 	if ( s->CIJSC_start_status == CMT_STATUS_NO_DOCS ) {
 		cmt_network_mutex_lock();
 	}
-
+	
 	s->scanning = TRUE;
 	s->scanFinished = FALSE;
-
+	
 	s->xres = param->XRes;
 	s->yres = param->YRes;
-
+	
 	/* use pixels */
 	s->ulx = ( param->Left * CANONMUD ) / s->xres;
 	s->uly = ( param->Top  * CANONMUD ) / s->yres;
-
+	
 	s->width  = ( ( param->Right  - param->Left ) * CANONMUD ) / s->xres;
 	s->length = ( ( param->Bottom - param->Top  ) * CANONMUD ) / s->yres;
-
+	
 	s->bpp = 8;
-
+	
 	s->scanMethod = param->ScanMethod;
-
+	
 	status = canon_set_parameter_ex(
 		s->xres,			/* XRes */
 		s->yres,			/* YRes */
@@ -760,7 +760,7 @@ CMT_Status CIJSC_start( CANON_ScanParam *param )
 		&scandata,			/* CANON_SCANDATA */
 		&(param->opts)	/* CANON_SCANOPTS */
 	);
-
+	
 	if ( status < 0 ) {
 		DBGMSG("error in canon_set_parameter/canon_set_parameter_ex()\n");
 		status = CMT_STATUS_INVAL;
@@ -772,18 +772,18 @@ CMT_Status CIJSC_start( CANON_ScanParam *param )
 		cmt_network_mutex_unlock();
 		goto _EXIT;
 	}
-
+	
 	if ( canon_start_scan() < 0 ) {
 		DBGMSG("error in canon_start_scan()\n");
 		status = CMT_STATUS_INVAL;
 		goto _EXIT;
 	}
-
+	
 	status = CMT_STATUS_GOOD;
 
 _EXIT:
 	s->CIJSC_start_status = status;
-
+	
 	return status;
 }
 
@@ -793,7 +793,7 @@ _EXIT:
 CMT_Status CIJSC_get_parameters( void *callback )
 {
 	CANON_SCANDATA		scandata;
-
+	
 	if ( canon_get_parameters( &scandata, callback ) < 0 ) {
 		return CMT_STATUS_INVAL;
 	}
@@ -821,11 +821,11 @@ CMT_Status CIJSC_read(
 	CMT_Status status;
 	int nread;
 	CANON_Scanner *s = &canon_device;
-
+	
 	if ( s->scanFinished ) {
 		s->scanning = FALSE;
 		status = canon_end_scan();
-
+		
 		status = CMT_STATUS_EOF;
 		goto _EXIT;
 	}
@@ -835,18 +835,18 @@ CMT_Status CIJSC_read(
 		goto _EXIT;
 	}
 	nread = ( *len * 32 ) / 32;
-
+	
 	if ( ( *len = canon_read_scan ( buf, nread ) ) < 0 ) {
 		status = CMT_STATUS_IO_ERROR;
 		goto _EXIT;
 	}
-
+	
 	if ( *len == 0 ) {
 		s->scanFinished = TRUE;
 		status = CMT_STATUS_EOF;
 		goto _EXIT;
 	}
-
+	
 	status = CMT_STATUS_GOOD;
 
 _EXIT:
@@ -860,11 +860,11 @@ void CIJSC_cancel( void )
 {
 	CANON_Scanner *s = &canon_device;
 	int			skip_unlock = 0;
-
+	
 	DBGMSG("\n");
-
+	
 	s->scanning = FALSE;
-
+	
 	if ( s->scanFinished ) {
 		/* end scan */
 		if ( s->scanMethod ) {	/* ADF */
@@ -885,11 +885,11 @@ void CIJSC_cancel( void )
 		/* user cancel */
 		canon_do_cancel();
 	}
-
+	
 	if( !skip_unlock ) {
 		cmt_network_mutex_unlock();
 	}
-
+	
 	/* for next CIJSC_start */
 	s->CIJSC_start_status = CMT_STATUS_NO_DOCS;
 }

@@ -1,11 +1,11 @@
 # ScanGear MP for Linux
-# Copyright CANON INC. 2014
+# Copyright CANON INC. 2014-2018
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: scangearmp2 3.00\n"
-"POT-Creation-Date: 2014-04-14 18:30+0900\n"
-"PO-Revision-Date: 2014-04-14 19:49+0900\n"
+"Project-Id-Version: scangearmp2 3.70\n"
+"POT-Creation-Date: 2018-03-07 11:24+0900\n"
+"PO-Revision-Date: 2018-03-07 12:45+0900\n"
 "Last-Translator: CANON INC.\n"
 "Language-Team: CANON INC.\n"
 "MIME-Version: 1.0\n"
@@ -15,184 +15,184 @@ msgstr ""
 
 
 #. STR_CNMS_LS_001_01
-#: src/cnmsstrings.h:38 scangearmp2.glade.h:24
+#: ../src/cnmsstrings.h:38 ../scangearmp2.glade.h:24
 msgid "Scanner"
 msgstr "Scanner"
 
 #. STR_CNMS_LS_001_02
-#: src/cnmsstrings.h:40 scangearmp2.glade.h:22
+#: ../src/cnmsstrings.h:40 ../scangearmp2.glade.h:22
 msgid "Scan Mode:"
 msgstr "Scanmodus:"
 
 #. STR_CNMS_LS_001_03
-#: src/cnmsstrings.h:42 scangearmp2.glade.h:28
+#: ../src/cnmsstrings.h:42 ../scangearmp2.glade.h:28
 msgid "Select Source:"
 msgstr "Quelle wählen:"
 
 #. STR_CNMS_LS_001_04
-#: src/cnmsstrings.h:44 scangearmp2.glade.h:6
+#: ../src/cnmsstrings.h:44 ../scangearmp2.glade.h:6
 msgid "Color Mode:"
 msgstr "Farbmodus:"
 
 #. STR_CNMS_LS_001_05
-#: src/cnmsstrings.h:46 scangearmp2.glade.h:12
+#: ../src/cnmsstrings.h:46 ../scangearmp2.glade.h:12
 msgid "Paper Size:"
 msgstr "Papierformat:"
 
 #. STR_CNMS_LS_001_06
-#: src/cnmsstrings.h:48 scangearmp2.glade.h:18
+#: ../src/cnmsstrings.h:48 ../scangearmp2.glade.h:18
 msgid "Scan (JPEG)"
 msgstr "Scannen (JPEG)"
 
 #. STR_CNMS_LS_001_07
-#: src/cnmsstrings.h:50 scangearmp2.glade.h:20
+#: ../src/cnmsstrings.h:50 ../scangearmp2.glade.h:20
 msgid "Scan (PDF)"
 msgstr "Scannen (PDF)"
 
 #. STR_CNMS_LS_001_08
-#: src/cnmsstrings.h:52 scangearmp2.glade.h:4
+#: ../src/cnmsstrings.h:52 ../scangearmp2.glade.h:4
 msgid "Close"
 msgstr "Schließen"
 
 #. STR_CNMS_LS_001_09
-#: src/cnmsstrings.h:54 scangearmp2.glade.h:32
+#: ../src/cnmsstrings.h:54 ../scangearmp2.glade.h:32
 msgid "Version"
 msgstr "Version"
 
 #. STR_CNMS_LS_002_01
-#: src/cnmsstrings.h:56
+#: ../src/cnmsstrings.h:56
 msgid "Platen"
 msgstr "Auflage"
 
 #. STR_CNMS_LS_002_02
-#: src/cnmsstrings.h:58
+#: ../src/cnmsstrings.h:58
 msgid "ADF Simplex"
 msgstr "ADF Simplex"
 
 #. STR_CNMS_LS_002_03
-#: src/cnmsstrings.h:60
+#: ../src/cnmsstrings.h:60
 msgid "ADF Duplex (Long-side Binding)"
 msgstr "ADF Duplex (Bindung an der langen Seite)"
 
 #. STR_CNMS_LS_002_04
-#: src/cnmsstrings.h:62
+#: ../src/cnmsstrings.h:62
 msgid "ADF Duplex (Short-side Binding)"
 msgstr "ADF Duplex (Bindung an der kurzen Seite)"
 
 #. STR_CNMS_LS_003_01
-#: src/cnmsstrings.h:64
+#: ../src/cnmsstrings.h:64
 msgid "Document"
 msgstr "Dokument"
 
 #. STR_CNMS_LS_003_02
-#: src/cnmsstrings.h:66
+#: ../src/cnmsstrings.h:66
 msgid "Photo"
 msgstr "Foto"
 
 #. STR_CNMS_LS_004_01
-#: src/cnmsstrings.h:68
+#: ../src/cnmsstrings.h:68
 msgid "Color"
 msgstr "Farbe"
 
 #. STR_CNMS_LS_004_02
-#: src/cnmsstrings.h:70
+#: ../src/cnmsstrings.h:70
 msgid "Grayscale"
 msgstr "Graustufen"
 
 #. STR_CNMS_LS_005_01
-#: src/cnmsstrings.h:72
+#: ../src/cnmsstrings.h:72
 msgid "Card"
 msgstr "Karte"
 
 #. STR_CNMS_LS_005_02
-#: src/cnmsstrings.h:74
+#: ../src/cnmsstrings.h:74
 msgid "L Landscape"
 msgstr "L Querformat"
 
 #. STR_CNMS_LS_005_03
-#: src/cnmsstrings.h:76
+#: ../src/cnmsstrings.h:76
 msgid "L Portrait"
 msgstr "L Hochformat"
 
 #. STR_CNMS_LS_005_04
-#: src/cnmsstrings.h:78
+#: ../src/cnmsstrings.h:78
 msgid "4\" x 6\" Landscape"
 msgstr "10x15cm Querformat"
 
 #. STR_CNMS_LS_005_05
-#: src/cnmsstrings.h:80
+#: ../src/cnmsstrings.h:80
 msgid "4\" x 6\" Portrait"
 msgstr "10x15cm Hochformat"
 
 #. STR_CNMS_LS_005_06
-#: src/cnmsstrings.h:82
+#: ../src/cnmsstrings.h:82
 msgid "Hagaki Landscape"
 msgstr "Hagaki Querformat"
 
 #. STR_CNMS_LS_005_07
-#: src/cnmsstrings.h:84
+#: ../src/cnmsstrings.h:84
 msgid "Hagaki Portrait"
 msgstr "Hagaki Hochformat"
 
 #. STR_CNMS_LS_005_08
-#: src/cnmsstrings.h:86
+#: ../src/cnmsstrings.h:86
 msgid "2L Landscape"
 msgstr "2L Querformat"
 
 #. STR_CNMS_LS_005_09
-#: src/cnmsstrings.h:88
+#: ../src/cnmsstrings.h:88
 msgid "2L Portrait"
 msgstr "2L Hochformat"
 
 #. STR_CNMS_LS_005_10
-#: src/cnmsstrings.h:90
+#: ../src/cnmsstrings.h:90
 msgid "A5"
 msgstr "A5"
 
 #. STR_CNMS_LS_005_11
-#: src/cnmsstrings.h:92
+#: ../src/cnmsstrings.h:92
 msgid "B5"
 msgstr "B5"
 
 #. STR_CNMS_LS_005_12
-#: src/cnmsstrings.h:94
+#: ../src/cnmsstrings.h:94
 msgid "A4"
 msgstr "A4"
 
 #. STR_CNMS_LS_005_13
-#: src/cnmsstrings.h:96
+#: ../src/cnmsstrings.h:96
 msgid "Letter"
 msgstr "Letter"
 
 #. STR_CNMS_LS_007_03
-#: src/cnmsstrings.h:102
+#: ../src/cnmsstrings.h:102
 #, c-format
 msgid "Version %s"
 msgstr "Version %s"
 
 #. STR_CNMS_LS_007_04
-#: src/cnmsstrings.h:104
+#: ../src/cnmsstrings.h:104
 #, c-format
 msgid "Copyright CANON INC. %s-%s"
 msgstr "Copyright CANON INC. %s-%s"
 
 #. STR_CNMS_LS_008_01
-#: src/cnmsstrings.h:106 scangearmp2.glade.h:16
+#: ../src/cnmsstrings.h:106 ../scangearmp2.glade.h:16
 msgid "Save Scan Image"
 msgstr "Scanbild speichern"
 
 #. STR_CNMS_LS_008_02
-#: src/cnmsstrings.h:108 scangearmp2.glade.h:14
+#: ../src/cnmsstrings.h:108 ../scangearmp2.glade.h:14
 msgid "Save"
 msgstr "Speichern"
 
 #. STR_CNMS_LS_008_03
-#: src/cnmsstrings.h:110
+#: ../src/cnmsstrings.h:110
 msgid "The file name is not specified."
 msgstr "Der Dateiname wurde nicht angegeben."
 
 #. STR_CNMS_LS_008_04
-#: src/cnmsstrings.h:112
+#: ../src/cnmsstrings.h:112
 msgid ""
 "The same file name already exists.\n"
 "Are you sure to overwrite it?"
@@ -201,7 +201,7 @@ msgstr ""
 "Möchten Sie ihn wirklich überschreiben?"
 
 #. STR_CNMS_LS_008_05
-#: src/cnmsstrings.h:114
+#: ../src/cnmsstrings.h:114
 msgid ""
 "You do not have permission to access the specified file.\n"
 "Specify another file name or save the file in another directory."
@@ -211,7 +211,7 @@ msgstr ""
 "anderen Verzeichnis."
 
 #. STR_CNMS_LS_008_06
-#: src/cnmsstrings.h:116
+#: ../src/cnmsstrings.h:116
 msgid ""
 "The specified directory does not exist or you do not have permission to "
 "access the directory.\n"
@@ -222,7 +222,7 @@ msgstr ""
 "Speichern Sie die Datei in einem anderen Verzeichnis."
 
 #. STR_CNMS_LS_008_07
-#: src/cnmsstrings.h:118
+#: ../src/cnmsstrings.h:118
 msgid ""
 "The specified file name is invalid.\n"
 "Specify another file name."
@@ -231,43 +231,43 @@ msgstr ""
 "Geben Sie einen anderen Dateinamen an."
 
 #. STR_CNMS_LS_009_01
-#: src/cnmsstrings.h:120
+#: ../src/cnmsstrings.h:120
 msgid "Scanning..."
 msgstr "Scanvorgang läuft..."
 
 #. STR_CNMS_LS_009_02
-#: src/cnmsstrings.h:122
+#: ../src/cnmsstrings.h:122
 msgid "Saving..."
 msgstr "Speichern..."
 
 #. STR_CNMS_LS_009_03
-#: src/cnmsstrings.h:124
+#: ../src/cnmsstrings.h:124
 msgid "Saved the scan result."
 msgstr "Scanergebnis gespeichert."
 
 #. STR_CNMS_LS_009_04
-#: src/cnmsstrings.h:126
+#: ../src/cnmsstrings.h:126
 #, c-format
 msgid "%d page(s)"
 msgstr "%d Seite(n)"
 
 #. STR_CNMS_LS_009_05
-#: src/cnmsstrings.h:128
+#: ../src/cnmsstrings.h:128
 msgid "Canceling..."
 msgstr "Wird abgebrochen..."
 
 #. STR_CNMS_LS_010_01
-#: src/cnmsstrings.h:130
+#: ../src/cnmsstrings.h:130
 msgid "Scan has been canceled."
 msgstr "Scanvorgang wurde abgebrochen."
 
 #. STR_CNMS_LS_010_02
-#: src/cnmsstrings.h:132
+#: ../src/cnmsstrings.h:132
 msgid "Scan has been canceled. Check the printer."
 msgstr "Scanvorgang wurde abgebrochen. Überprüfen Sie den Drucker."
 
 #. STR_CNMS_LS_010_03
-#: src/cnmsstrings.h:134
+#: ../src/cnmsstrings.h:134
 msgid ""
 "The printer is in operation. Check the printer.\n"
 "Scanner driver will be closed."
@@ -276,7 +276,7 @@ msgstr ""
 "Der Scanner-Treiber wird geschlossen."
 
 #. STR_CNMS_LS_010_04
-#: src/cnmsstrings.h:136
+#: ../src/cnmsstrings.h:136
 msgid ""
 "An error has occurred while scanning. Check the printer.\n"
 "Scanner driver will be closed."
@@ -285,7 +285,7 @@ msgstr ""
 "Der Scanner-Treiber wird geschlossen."
 
 #. STR_CNMS_LS_010_05
-#: src/cnmsstrings.h:138
+#: ../src/cnmsstrings.h:138
 msgid ""
 "Cannot communicate with scanner.\n"
 "Scanner driver will be closed."
@@ -294,7 +294,7 @@ msgstr ""
 "Der Scanner-Treiber wird geschlossen."
 
 #. STR_CNMS_LS_010_06
-#: src/cnmsstrings.h:140
+#: ../src/cnmsstrings.h:140
 msgid ""
 "There is not enough free disk space to complete the scan.\n"
 "Scanner driver will be closed."
@@ -303,7 +303,7 @@ msgstr ""
 "Der Scanner-Treiber wird geschlossen."
 
 #. STR_CNMS_LS_010_07
-#: src/cnmsstrings.h:142
+#: ../src/cnmsstrings.h:142
 msgid ""
 "Cannot find available scanners.\n"
 "\n"
@@ -317,7 +317,7 @@ msgstr ""
 "Überprüfen Sie den Scanner-Status, und versuchen Sie es anschließend erneut."
 
 #. STR_CNMS_LS_010_08
-#: src/cnmsstrings.h:144
+#: ../src/cnmsstrings.h:144
 msgid ""
 "The ADF (Auto Document Feeder) is empty. \n"
 "Place paper in the ADF."
@@ -326,7 +326,7 @@ msgstr ""
 "Legen Sie Papier in den ADF ein."
 
 #. STR_CNMS_LS_010_09
-#: src/cnmsstrings.h:146
+#: ../src/cnmsstrings.h:146
 msgid ""
 "Internal Error occurred.\n"
 "Scanner driver will be closed."
@@ -335,42 +335,56 @@ msgstr ""
 "Der Scanner-Treiber wird geschlossen."
 
 #. STR_CNMS_LS_011_01
-#: src/cnmsstrings.h:148 scangearmp2.glade.h:26
+#: ../src/cnmsstrings.h:148 ../scangearmp2.glade.h:26
 msgid "Select Scanner"
 msgstr "Scanner auswählen"
 
 #. STR_CNMS_LS_011_02
-#: src/cnmsstrings.h:150 scangearmp2.glade.h:8
+#: ../src/cnmsstrings.h:150 ../scangearmp2.glade.h:8
 msgid "No scanners detected."
 msgstr "Keine Scanner erkannt."
 
 #. STR_CNMS_LS_011_03
-#: src/cnmsstrings.h:152 scangearmp2.glade.h:30
+#: ../src/cnmsstrings.h:152 ../scangearmp2.glade.h:30
 msgid "Update Scanner List"
 msgstr "Scanner-Liste aktualisieren"
 
 #. STR_CNMS_LS_011_04
-#: src/cnmsstrings.h:154 scangearmp2.glade.h:10
+#: ../src/cnmsstrings.h:154 ../scangearmp2.glade.h:10
 msgid "OK"
 msgstr "OK"
 
 #. STR_CNMS_LS_011_05
-#: src/cnmsstrings.h:156 scangearmp2.glade.h:2
+#: ../src/cnmsstrings.h:156 ../scangearmp2.glade.h:2
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #. STR_CNMS_LS_012_01
-#: src/cnmsstrings.h:158
+#: ../src/cnmsstrings.h:158
 msgid "Searching..."
 msgstr "Suche läuft..."
 
 #. STR_CNMS_LS_012_02
-#: src/cnmsstrings.h:160
+#: ../src/cnmsstrings.h:160
 msgid "Searching for scanners."
 msgstr "Suche nach Scannern wird ausgeführt."
 
 #. STR_CNMS_LS_012_03
-#: src/cnmsstrings.h:162
+#: ../src/cnmsstrings.h:162
 msgid "Updating the scanner list."
 msgstr "Scanner-Liste wird aktualisiert."
+
+#. STR_CNMS_LS_010_10
+#: ../src/cnmsstrings.h:164
+msgid ""
+"Release the lock switch, detach the USB cable and reconnect.\n"
+"Scanner driver will be closed."
+msgstr ""
+"Deaktivieren Sie den Sperrschalter, ziehen Sie das USB-Kabel ab und schließen Sie es erneut an.\n"
+"Der Scanner-Treiber wird geschlossen."
+
+#. STR_CNMS_LS_010_11
+#: ../src/cnmsstrings.h:166
+msgid "Scanner initialization is in progress. Scan after it is complete."
+msgstr "Der Scanner wird gerade initialisiert. Scannen Sie nach diesem Vorgang."
 

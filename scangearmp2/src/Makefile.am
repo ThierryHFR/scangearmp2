@@ -1,5 +1,4 @@
 ## Process this file with automake to produce Makefile.in
-# SUBDIRS = sane
 
 INCLUDES = \
 	-I$(top_srcdir)/include \
@@ -32,21 +31,23 @@ EXTRA_DIST = \
 scangearmp2_LDADD = @PACKAGE_LIBS@ @GMODULE_LIBS@ @LIBUSB_1_0_LIBS@ -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread $(INTLLIBS)
 
 scangearmp2_CFLAGS = \
-	-DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" \
-	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+	-DPACKAGE_DATA_DIR="$(datadir)/$(PACKAGE)" \
+	-DPACKAGE_LOCALE_DIR="$(prefix)/$(DATADIRNAME)/locale"
 
+_arc = `getconf LONG_BIT`
 
 libsane_canon_pixmadir = /usr/lib/sane
-libsane_canon_pixma_LTLIBRARIES = libsane-canon_pixma.la
-libsane_canon_pixma_la_SOURCES = sane/saneopts.h sane/sane.h sane/sanei_debug.h \
+libsane_canon_pixma_LTLIBRARIES= libsane-canon_pixma.la
+libsane_canon_pixma_la_SOURCES= sane/saneopts.h sane/sane.h sane/sanei_debug.h \
 	sane/sanei.h sane/sanei_init_debug.c sane/sanei_backend.h \
 	sane/canon_pixma.c sane/canon_pixma.h sane/errordlg.c sane/errordlg.h \
 	keep_setting.c canon_mfp_io.c cnmsstrings.h errors.h \
 	keep_setting.h canon_mfp_tools.c file_control.c canon_mfp_tools.h \
 	cnmsfunc.c cnmsfunc.h file_control.h support.h
-libsane_canon_pixma_la_LDFLAGS = -version-info 1:0:0
-libsane_canon_pixma_la_LIBADD = -L$(top_srcdir)/../com/libs_bin64 -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread -ldl -ljpeg $(LIBUSB_1_0_LIBS)
-libsane_canon_pixma_la_CFLAGS = $(LIBUSB_1_0_CFLAGS) -I$(top_srcdir)/include
+libsane_canon_pixma_la_LDFLAGS= -version-info 1:0:0
+libsane_canon_pixma_la_LIBADD= -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread -ldl -ljpeg $(LIBUSB_1_0_LIBS)
+#libsane_canon_pixma_la_CFLAGS = -DWITH_NONAMESPACES -DSOAP_DEBUG
+libsane_canon_pixma_la_CFLAGS= $(LIBUSB_1_0_CFLAGS) -I$(top_srcdir)/include
 
 
 

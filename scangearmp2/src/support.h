@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2018
+ *  Copyright CANON INC. 2007-2019
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ typedef struct
 {
 	GtkBuilder	*builder;
 	gboolean	ignore_combobox_changed;
-
+	
 	/* main window */
 	GtkWidget	*window_main;
 	GtkWidget	*combobox_scanmode;
@@ -100,13 +100,13 @@ typedef struct
 	gboolean	window_main_sensitive;
 	gint		window_main_value;
 	int			prev_scanmode;
-
+	
 	GtkWidget	*button_scanjpeg;
 	GtkWidget	*button_scanpdf;
 	GtkWidget	*button_version;
 	GtkWidget	*button_close;
 	GtkWidget	*label_devname;
-
+	
 	/* select device dialog */
 	GtkWidget	*dialog_select;
 	GtkWidget	*combobox_select_devlist;
@@ -116,7 +116,7 @@ typedef struct
 	GtkWidget	*button_select_ok;
 	gboolean	dialog_select_sensitive;
 	gint		dialog_select_value;
-
+	
 	/* save dialog */
 	GtkWidget	*dialog_save;
 	GtkWidget	*filechooserwidget_save;
@@ -124,7 +124,7 @@ typedef struct
 	GtkWidget	*button_save_save;
 	gboolean	dialog_save_sensitive;
 	gint		dialog_save_value;
-
+	
 	/* version dialog */
 	GtkWidget	*dialog_version;
 	GtkWidget	*label_version_app;
@@ -132,11 +132,11 @@ typedef struct
 	GtkWidget	*label_version_cpy;
 	GtkWidget	*button_version_ok;
 	gint		dialog_version_value;
-
+	
 	/* notify dialog */
 	GtkWidget	*dialog_notify;
 	GtkWidget	*label_notify_save;
-
+	
 	/* progress bar dialog */
 	GtkWidget	*dialog_progress;
 	GtkWidget	*progressbar_prog;
@@ -145,26 +145,26 @@ typedef struct
 	GtkWidget	*label_prog_pages;
 	GtkWidget	*button_prog_cancel;
 	gint		dialog_progress_value;
-
+	
 	/* error dialog */
 	GtkWidget	*dialog_error;
 	GtkWidget	*label_error_msg;
 	GtkWidget	*button_error_cancel;
 	GtkWidget	*button_error_ok;
 	gint		dialog_error_value;
-
+	
 	/* scan parameters */
 	int			scan_scanmode;
 	int			scan_source;
 	int			scan_color;
 	int			scan_size;
-
+	
 	int			scan_format;
-
+	
 	int			scan_result;
 	int			scanning_page;
 	char		file_path[ PATH_MAX ];
-
+	
 	int			scan_w;
 	int			scan_h;
 	int			scan_res;

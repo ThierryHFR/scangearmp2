@@ -1,7 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.61)
-AC_INIT([scangearmp2],[3.70-2])
+AC_INIT(configure.in)
 
 AC_ARG_ENABLE(libpath)
 if test "${enable_libpath}" = ""; then
@@ -13,9 +12,8 @@ AC_SUBST(CNMSLIBPATH)
 
 AC_SUBST(enable_libpath)
 
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE(scangearmp2, 3.90-1)
 AM_CONFIG_HEADER(config.h)
-
 AM_PROG_LIBTOOL
 AC_PROG_LIBTOOL
 AM_MAINTAINER_MODE
@@ -52,7 +50,7 @@ dnl OPTION
 CFLAGS="-O2 -D_FILE_OFFSET_BITS=64"
 
 dnl Add the languages which your application supports here.
-ALL_LINGUAS="de fr ja zh ru"
+ALL_LINGUAS="de fr ja zh"
 AM_GLIB_GNU_GETTEXT
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.

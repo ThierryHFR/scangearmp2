@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2018
+ *  Copyright CANON INC. 2007-2019
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -240,7 +240,7 @@ static CNMSInt32 SubWriteSettingCommonFile( CNMSFd fd )
 		goto	EXIT;
 	}
 	for( i = 0 ; i < KEEPSETTING_COMMON_ID_MAX ; i ++ ){
-		snprintf( lpBuf, KEEP_SETTING_RASTER_LEN, "%s%s\n\0", KeepSettingCommonStrArray[ i ], lpCommonSetting->str[ i ] );
+		snprintf( lpBuf, KEEP_SETTING_RASTER_LEN, "%s%s\n", KeepSettingCommonStrArray[ i ], lpCommonSetting->str[ i ] );
 		if( ( ldata = FileControlWriteFile( fd, lpBuf, CnmsStrLen( lpBuf ) ) ) != CNMS_NO_ERR ){
 			goto	EXIT;
 		}
