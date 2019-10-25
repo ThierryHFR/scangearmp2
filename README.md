@@ -14,7 +14,8 @@
 	It was done as a patch to have a minimun impact on the orginal scangearmp2 source code,
 	but currently we choose to abandon this idea because it was difficult to make the 
 	releases and had not that much interrest for the developement.
-
+	
+	For ubuntu-based distributions: https://launchpad.net/~thierry-f/+archive/ubuntu/fork-michael-gruz
 
 ```
  
