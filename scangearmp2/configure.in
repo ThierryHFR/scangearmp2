@@ -50,7 +50,7 @@ dnl OPTION
 CFLAGS="-O2 -D_FILE_OFFSET_BITS=64"
 
 dnl Add the languages which your application supports here.
-ALL_LINGUAS="de fr ja zh"
+ALL_LINGUAS="de fr ja zh ru"
 AM_GLIB_GNU_GETTEXT
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
