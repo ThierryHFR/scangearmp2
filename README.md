@@ -98,7 +98,7 @@ MB2700 series
 MB5100 series
 MB5400 series
 
-# Add before 2019
+# Add 2019
 G6000 series
 G6080 series
 TS5300 series
