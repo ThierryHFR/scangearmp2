@@ -142,6 +142,8 @@ Requirements for scangearmp2 in : scangearmp2/README.md
 ## For debian systems :
 ###### Get sources :
 ```
+mkdir build
+cd build
 git clone https://github.com/Ordissimo/scangearmp2.git
 ```
 ###### Get developement environnement :
