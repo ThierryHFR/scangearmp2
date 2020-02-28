@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>Canon WiFi Scan</short>
+  <description>Canon TS8051 configuration to allow wifi scan.
+  Require scangearmp2 driver found here https://github.com/Ordissimo/scangearmp2
+  1st. Scanner detection is done in UDP with the port 161 of the scanner to a dynamic local port in range [20.000-60.000]
+  2nd. Scanner driver is done in TCP with the port 80 of the scanner to a dynamic local port in range [20.000-60.000]
+  Other source ports are those given by `nmap (scanner-IP)` and `sudo nmap -sU (scanner-IP)`
+  </description>
+  <port port="20000-60000" protocol="udp"/>
+  <port port="20000-60000" protocol="tcp"/>
+  <!-- `nmap (scanner-IP)`
+  PORT     STATE SERVICE
+  80/tcp   open  http
+  443/tcp  open  https
+  515/tcp  open  printer
+  631/tcp  open  ipp
+  9100/tcp open  jetdirect
+  -->
+  <source-port port="80" protocol="tcp"/>
+  <source-port port="443" protocol="tcp"/>
+  <source-port port="515" protocol="tcp"/>
+  <source-port port="631" protocol="tcp"/>
+  <source-port port="9100" protocol="tcp"/>
+  <!-- `nmap (scanner-IP)`
+  PORT     STATE         SERVICE
+  68/udp   open|filtered dhcpc
+  161/udp  open          snmp => https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol
+  500/udp  open|filtered isakmp => https://en.wikipedia.org/wiki/Internet_Security_Association_and_Key_Management_Protocol
+  1900/udp open|filtered upnp => https://en.wikipedia.org/wiki/Universal_Plug_and_Play
+  1901/udp open|filtered fjicl-tep-a  => Fujitsu ICL Terminal Emulator Program A
+  3702/udp open|filtered ws-discovery => https://en.wikipedia.org/wiki/WS-Discovery
+  5353/udp open          zeroconf => https://en.wikipedia.org/wiki/Zeroconf
+  5355/udp open|filtered llmnr  => https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution
+  -->
+  <source-port port="161" protocol="udp"/>
+  <!--source-port port="68" protocol="udp"/>
+  <source-port port="500" protocol="udp"/>
+  <source-port port="1900" protocol="udp"/>
+  <source-port port="1901" protocol="udp"/>
+  <source-port port="3702" protocol="udp"/>
+  <source-port port="5353" protocol="udp"/>
+  <source-port port="5355" protocol="udp"/-->
+</service>

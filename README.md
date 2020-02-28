@@ -187,6 +187,13 @@ tar xvf scangearmp2_3.90-2ubuntu.artful.tar.xz
 tar czvf scangearmp2_3.90.orig.tar.gz scangearmp2
 mv scangearmp2_3.90.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
+
+Or, from git repository
+```
+git archive --format=tar --prefix=scangearmp2-3.90/ HEAD |gzip >scangearmp2_3.90.orig.tar.gz
+mv scangearmp2_3.90.orig.tar.gz ~/rpmbuild/SOURCES/
+```
+
 ###### Build Sources :
 ```
 rpmbuild -bp scangearmp2.spec
@@ -203,6 +210,21 @@ rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.90-2.x86_64.rpm
 ```
 echo "canon_pixma"  >> /etc/sane.d/dll.conf # for activate the backend in sane
 ```
+
+###### Firewall :
+In case of problem with `firewalld` 
+ you can copy the service definition 'scangearmp2/etc/canon-scan.xml'
+ into '/etc/firewalld/services/' and activate the service (for the adequate zone(s))
+
+```
+sudo cp scangearmp2/etc/canon-scan.xml /etc/firewalld/services/
+firewall-cmd --permanent --zone=home --add-service=canon-scan
+```
+
+Nota: 
+- A way to list detected scanners is `scanimage -L`
+- To see firewall's rejected packages `firewall-cmd --set-log-denied=all` and then call `journalctl -f`
+- See https://firewalld.org/documentation/service/options.html
 
 # LICENSE
 
