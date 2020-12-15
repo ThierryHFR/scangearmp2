@@ -114,6 +114,30 @@ TS6330 series
 TS3300 series
 E3300 series
 
+#Add 2020
+G7000 series
+G7080 series
+GM4000 series
+GM4080 series
+
+
+Add Dec 2020
+TS3400 series
+E3400 series
+TR7000 series
+G2020 series
+G3060 series
+G2060 series
+G3020 series
+TS7430 series
+XK90 series
+TS8430 series
+TR7600 series
+TR8600 series
+TR8630 series
+TS6400 series
+TS7400 series
+
 ```
 # ADVANTAGES
 

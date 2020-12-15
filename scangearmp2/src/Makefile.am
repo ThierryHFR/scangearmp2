@@ -31,8 +31,8 @@ EXTRA_DIST = \
 scangearmp2_LDADD = @PACKAGE_LIBS@ @GMODULE_LIBS@ @LIBUSB_1_0_LIBS@ -lcncpmslld2 -lcncpnet2 -lcncpnet20 -lcncpnet30 -lpthread $(INTLLIBS)
 
 scangearmp2_CFLAGS = \
-	-DPACKAGE_DATA_DIR="$(datadir)/$(PACKAGE)" \
-	-DPACKAGE_LOCALE_DIR="$(prefix)/$(DATADIRNAME)/locale"
+	-DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 _arc = `getconf LONG_BIT`
 

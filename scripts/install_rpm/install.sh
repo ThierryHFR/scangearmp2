@@ -3,7 +3,7 @@
 ##############################################################################
 ##
 ##  ScanGear MP for Linux
-##  Copyright CANON INC. 2007-2017
+##  Copyright CANON INC. 2007-2020
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@
 ##
 ##############################################################################
 
-C_version="3.50-1"
-C_copyright_end="2017"
+C_version="4.10-1"
+C_copyright_end="2020"
 C_default_system="rpm"
 
 L_INST_COM_01_01="Command executed = %s\n"

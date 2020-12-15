@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2019
+ *  Copyright CANON INC. 2007-2020
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -394,7 +394,7 @@ int cmt_libusb_init(void)
 		goto onErr;
 	}
 	/* search canon mfp */
-	numdev = libusb_get_device_list(g_context, &g_devlist);
+	numdev = libusb_get_device_list(NULL, &g_devlist);
 	if((int)numdev == 0) {
 		err = CN_USB_WRITE_ERROR;
 		goto onErr;

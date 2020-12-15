@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2019
+ *  Copyright CANON INC. 2007-2020
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -99,9 +99,9 @@ int main(int argc, char **argv )
 	CANON_Device const	*selected = NULL;
 	
 #ifdef ENABLE_NLS
-	bindtextdomain( "scangearmp2", "/usr/share/locale" );
-	bind_textdomain_codeset( "scangearmp2", "UTF-8" );
-	textdomain( "scangearmp2" );
+	bindtextdomain( GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR );
+	bind_textdomain_codeset( GETTEXT_PACKAGE, "UTF-8" );
+	textdomain( GETTEXT_PACKAGE );
 #endif
 	
 	gtk_set_locale();
@@ -111,7 +111,7 @@ int main(int argc, char **argv )
 	data = g_slice_new( SGMP_Data );
 	data->builder = gtk_builder_new();
 	
-	if( ! gtk_builder_add_from_file( data->builder, "/usr/share/scangearmp2/scangearmp2.glade", &error ) )
+	if( ! gtk_builder_add_from_file( data->builder, PACKAGE_DATA_DIR G_DIR_SEPARATOR_S "scangearmp2.glade", &error ) )
 	{
 		g_warning( "%s", error->message );
 		g_slice_free(SGMP_Data, data);

@@ -1,3 +1,9 @@
+scangearmp2 (4.10-1ubuntu.bionic) bionic; urgency=medium
+
+  * build for upstream.
+
+ -- thierry <thierry@ordissimo.com>  Tue, 15 Dec 2020 03:58:23 +0100
+
 scangearmp2 (3.90-1ubuntu) stable; urgency=medium
 
   * build for upstream. 

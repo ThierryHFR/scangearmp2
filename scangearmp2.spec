@@ -1,5 +1,5 @@
-%define VERSION 3.90
-%define RELEASE 3
+%define VERSION 4.10
+%define RELEASE 1
 
 %define _arc  %(getconf LONG_BIT)
 %define _is64 %(if [ `getconf LONG_BIT` = "64" ] ; then  printf "64";  fi)

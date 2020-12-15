@@ -7,6 +7,45 @@ GOTO="canon_mfp_end"
 
 LABEL="canon_mfp_start"
 
+#TS3400 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18b7", MODE="666"
+#E3400 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18b8", MODE="666"
+#TR7000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18b9", MODE="666"
+#G2020 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18bd", MODE="666"
+#G3060 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18c3", MODE="666"
+#G2060 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18c1", MODE="666"
+#G3020 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18bf", MODE="666"
+#TS7430 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18b2", MODE="666"
+#XK90 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18b6", MODE="666"
+#TS8430 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18b5", MODE="666"
+#TR7600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18aa", MODE="666"
+#TR8600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18ad", MODE="666"
+#TR8630 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18af", MODE="666"
+#TS6400 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18d3", MODE="666"
+#TS7400 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18d7", MODE="666"
+
+#G7000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1863", MODE="666"
+#G7080 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1864", MODE="666"
+#GM4000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1869", MODE="666"
+#GM4080 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="186a", MODE="666"
 #G6000 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1865", MODE="666"
 #G6080 series
