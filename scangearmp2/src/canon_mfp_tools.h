@@ -156,7 +156,7 @@ CMT_Status CIJSC_init( void *cnnl_callback );
 void CIJSC_exit(void);
 CMT_Status CIJSC_get_devices( const CANON_Device ***device_list );
 CMT_Status CIJSC_open( const char *name );
-CMT_Status CIJSC_open2( const char *name, CANON_Device *dev );
+CMT_Status CIJSC_open2( const char *name, CANON_Device *dev, CANON_DEVICE_INFO *info );
 void CIJSC_close( void );
 
 CMT_Status CIJSC_start( CANON_ScanParam *param );

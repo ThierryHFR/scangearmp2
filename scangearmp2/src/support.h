@@ -186,6 +186,10 @@ typedef struct
 	int			scanning_page;
 	char		file_path[ PATH_MAX ];
 
+	int			scan_x;
+	int			scan_y;
+	int			scan_wx;
+	int			scan_hy;
 	int			scan_w;
 	int			scan_h;
 	int			scan_res;

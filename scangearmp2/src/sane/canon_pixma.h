@@ -32,6 +32,7 @@ enum canon_sane_Option
 	OPT_TL_Y,
 	OPT_BR_X,
 	OPT_BR_Y,
+	OPT_SCAN_SOURCE,
 	/* must come last: */
 	NUM_OPTIONS
 };

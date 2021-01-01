@@ -608,11 +608,11 @@ CMT_Status CIJSC_open(
 	const char *name )	/* libusb:00X:00Y or MAC address */
 {
 	CANON_Device *dev;
-	return CIJSC_open2(name,dev);
+	return CIJSC_open2(name,dev, NULL);
 }
 
 CMT_Status CIJSC_open2(
-	const char *name,CANON_Device *dev )	/* libusb:00X:00Y or MAC address */
+	const char *name,CANON_Device *dev, CANON_DEVICE_INFO *info )	/* libusb:00X:00Y or MAC address */
 {
 	CMT_Status status;
 	CANON_Scanner *s = &canon_device;
@@ -684,7 +684,7 @@ CMT_Status CIJSC_open2(
 	
 	/* set product id. */
 	DBGMSG("p_canon_init_scanner() product = %X\n", dev->product_id);
-	if ( canon_init_scanner( dev->product_id, dev->speed, NULL ) < 0 ) {
+	if ( canon_init_scanner( dev->product_id, dev->speed, info) < 0 ) {
 		DBGMSG("ERROR : p_canon_init_scanner() product = %d\n", dev->product_id);
 		return (CMT_STATUS_INVAL);
 	}
