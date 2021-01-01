@@ -1027,7 +1027,7 @@ SCAN_START:
 					/* delete disused file. */
 					DBGMSG("CIJSC_cancel->\n");
 					CIJSC_cancel();
-				return show_sane_cmt_error(CMT_STATUS_CANCELLED);
+				return show_sane_cmt_error(CMT_STATUS_NO_DOCS);
 				}
 			}else {
 				/* delete disused file.*/
@@ -1063,7 +1063,7 @@ sane_get_parameters (SANE_Handle h, SANE_Parameters * p)//voir avec CIJSC_get_pa
 
 	int errCode = 0;
 	ps.depth = 8;//8
-	ps.last_frame = SANE_TRUE;
+	ps.last_frame = (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_PLATEN ? SANE_TRUE : SANE_FALSE);
 	ps.format = SANE_FRAME_RGB;
     	ps.pixels_per_line = handled->sgmp.scan_wx;
     	ps.lines = handled->sgmp.scan_hy;
