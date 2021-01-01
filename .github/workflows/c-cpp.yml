@@ -13,13 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: autoreconf -vfi
-      run: autoreconf -vfi
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: Install build env
+      run: sudo apt-get install build-essential fakeroot devscripts haskell-debian-utils
+    - name: Install build depends
+      run: sudo apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libtool libjpeg-dev
+    - name: Build package
+      run: debuild -i -us -uc -b
