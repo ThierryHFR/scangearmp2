@@ -13,13 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: autoreconf -vfi
-      run: autoreconf -vfi
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: Install build env
+      run: apt-get install build-essential fakeroot devscripts haskell-debian-utils
+    - name: Install build depends
+      run: mk-build-deps --install debian/control
+    - name: debuild -tc
+      run: debuild -tc
