@@ -16,6 +16,6 @@ jobs:
     - name: Install build env
       run: sudo apt-get install build-essential fakeroot devscripts haskell-debian-utils
     - name: Install build depends
-      run: sudo mk-build-deps --install debian/control
+      run: sudo apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libtool libjpeg-dev
     - name: debuild -tc
       run: debuild -tc
