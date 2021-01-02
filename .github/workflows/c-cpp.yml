@@ -7,9 +7,32 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build1604:
+    runs-on: ubuntu-16.04
 
-    runs-on: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install build env
+      run: sudo apt-get install build-essential fakeroot devscripts haskell-debian-utils
+    - name: Install build depends
+      run: sudo apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libtool libjpeg-dev
+    - name: Build package
+      run: debuild -i -us -uc -b
+
+  build1804:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install build env
+      run: sudo apt-get install build-essential fakeroot devscripts haskell-debian-utils
+    - name: Install build depends
+      run: sudo apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libtool libjpeg-dev
+    - name: Build package
+      run: debuild -i -us -uc -b
+
+  build2004:
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
