@@ -106,8 +106,10 @@ static int ui_main_is_en_US( void )
 #ifdef USE_PO_LOCALE
 	env_locale = _( "Locale" );
 #else
-	if( ( env_locale = (char *)getenv( "LANG" ) ) == NULL ){
-		env_locale = "";
+	if( ( env_locale = (char *)getenv( "LC_PAPER" ) ) == NULL ){
+		if( ( env_locale = (char *)getenv( "LANG" ) ) == NULL ){
+			env_locale = "";
+		}
 	}
 	env_locale = (char *)strsep( &env_locale, "." );
 #endif
