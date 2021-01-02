@@ -1,0 +1,7 @@
+name: Debian Build
+description: Runs a `debuild` build in a Debian container
+runs:
+  using: docker
+  image: Dockerfile
+  entrypoint: debuild -i -us -uc -b
+  
