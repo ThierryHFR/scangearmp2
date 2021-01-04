@@ -85,9 +85,8 @@ static const CIJSC_SIZE_TABLE sourceSize[] = {
 /* scanmode */
 static const SANE_String_Const scan_table[] = {
         "Platen",
-	"ADF Simplex",
-        "ADF Duplex (Long-side Binding)",
-        "ADF Duplex (Short-side Binding)"
+	"ADF Simplex"
+        "ADF Duplex",
 };
 
 static const SANE_String_Const mode_list[] = {
@@ -97,10 +96,37 @@ static const SANE_String_Const mode_list[] = {
 
 static const SANE_Int resbit_list[] =
 {
-	5,75, 100, 150, 200, 300
+	2, 300, 600
 };
 
 const char *canonJpegDataTmp = "/tmp/jpeg_canon.tmp";
+
+static SANE_String_Const *
+char_to_array(SANE_String_Const *tab,
+                       int *tabsize,
+                       SANE_String_Const mode) {
+	SANE_String_Const *board = NULL;
+	int i = 0;
+	SANE_String_Const convert = NULL;
+
+	if (mode == NULL)
+		return (tab);
+
+	convert = mode;
+
+	for (i = 0; i < (*tabsize); i++) {
+		if (strcmp(tab[i], mode) == 0)
+		return (tab);
+	}
+	(*tabsize)++;
+	if (*tabsize == 1)
+		board = (SANE_String_Const *)malloc(sizeof(SANE_String_Const) * (*tabsize) + 1);
+	else
+		board = (SANE_String_Const *)realloc(tab, sizeof(SANE_String_Const) * (*tabsize) + 1);
+	board[*tabsize - 1] = (SANE_String_Const)strdup(mode);
+	board[*tabsize] = NULL;
+	return (board);
+}
 
 static int
 _get_source_num(const SANE_String_Const source)
@@ -111,7 +137,7 @@ _get_source_num(const SANE_String_Const source)
 	if (!strcmp(scan_table[i], source))
 	   return i;
     }
-    return -1;
+    return CIJSC_SCANMODE_PLATEN;
 }
 
 
@@ -517,7 +543,7 @@ sane_get_devices (const SANE_Device *** device_list, SANE_Bool local_only)
 	return (dev_list) ? SANE_STATUS_GOOD : show_sane_cmt_error(CMT_STATUS_NO_MEM);
 }
 
-static CMT_Status init_canon_options(canon_sane_t * handled, CANON_DEVICE_INFO *infos){
+static CMT_Status init_canon_options(canon_sane_t * handled){
 	unsigned long i;
 	SGMP_Data_Lite * data = NULL;
 	data = (SGMP_Data_Lite*)calloc(1,sizeof(SGMP_Data_Lite));
@@ -542,10 +568,10 @@ static CMT_Status init_canon_options(canon_sane_t * handled, CANON_DEVICE_INFO *
 	}
 */
 	data->scan_res = resbit_list[3];
-	data->scan_w = infos->max_width;
-	data->scan_h = infos->max_length;
-	data->scan_wx = infos->max_width;
-	data->scan_hy = infos->max_length;
+	data->scan_w = 2550;
+	data->scan_h = 3507;
+	data->scan_wx = data->scan_w;
+	data->scan_hy = data->scan_h;
 	data->scan_x = 0;
 	data->scan_y = 0;
 	data->scanning_page = 1;
@@ -567,14 +593,9 @@ static CMT_Status init_canon_options(canon_sane_t * handled, CANON_DEVICE_INFO *
 }
 
 static CMT_Status
-init_options (canon_sane_t * s, CANON_DEVICE_INFO *infos)
+init_options (canon_sane_t * s)
 {
 	int i;
-	int x_source = 0;
-	int platen = -1;
-	int adf = -1;
-	int adf_l = -1;
-	int adf_s = -1;
 	CMT_Status status = CMT_STATUS_GOOD;
 
 	memset (s->opt, 0, sizeof (s->opt));
@@ -586,51 +607,11 @@ init_options (canon_sane_t * s, CANON_DEVICE_INFO *infos)
 		s->opt[i].cap = SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT;
 	}
 
-	status = init_canon_options(s, infos);
+	status = init_canon_options(s);
 	if(status != CMT_STATUS_GOOD){
 		return show_canon_cmt_error(status);
 	}
 
-	if ( CIJSC_GET_SUPPORT_PLATEN( s->dev.type ) ) {
-	        x_source++;
-		platen = CIJSC_SCANMODE_PLATEN;
-        }
-        if ( CIJSC_GET_SUPPORT_ADF_S( s->dev.type ) ) {
-	        x_source++;
-                adf = CIJSC_SCANMODE_ADF_S;
-        }
-        if ( CIJSC_GET_SUPPORT_ADF_D( s->dev.type ) ) {
-	        x_source += 2;
-                adf_l = CIJSC_SCANMODE_ADF_D_L;
-                adf_s = CIJSC_SCANMODE_ADF_D_S;
-        }
-
-	SANE_String_Const real_scan_source[x_source];
-	x_source = 0;
-	s->sgmp.scan_scanmode = -1; // CIJSC_SCANMODE_PLATEN;
-	if (platen > -1) {
-	       real_scan_source[x_source] = strdup(scan_table[platen]);
-	       x_source++;
-	       s->sgmp.scan_scanmode = CIJSC_SCANMODE_PLATEN;
-        }
-	if (adf > -1) {
-	       real_scan_source[x_source] = strdup(scan_table[adf]);
-	       x_source++;
-	       if (s->sgmp.scan_scanmode == -1)
-	           s->sgmp.scan_scanmode = CIJSC_SCANMODE_ADF_S;
-        }
-	if (adf_l > -1) {
-	       real_scan_source[x_source] = strdup(scan_table[adf_l]);
-	       x_source++;
-	       if (s->sgmp.scan_scanmode == -1)
-	           s->sgmp.scan_scanmode = CIJSC_SCANMODE_ADF_D_L;
-        }
-	if (adf_s > -1) {
-	       real_scan_source[x_source] = strdup(scan_table[adf_s]);
-	       x_source++;
-	       if (s->sgmp.scan_scanmode == -1)
-	           s->sgmp.scan_scanmode = CIJSC_SCANMODE_ADF_D_S;
-        }
 
 	s->opt[OPT_NUM_OPTS].title = SANE_TITLE_NUM_OPTIONS;
 	s->opt[OPT_NUM_OPTS].desc = SANE_DESC_NUM_OPTIONS;
@@ -728,12 +709,12 @@ init_options (canon_sane_t * s, CANON_DEVICE_INFO *infos)
         s->opt[OPT_SCAN_SOURCE].title = SANE_TITLE_SCAN_SOURCE;
         s->opt[OPT_SCAN_SOURCE].desc = SANE_DESC_SCAN_SOURCE;
         s->opt[OPT_SCAN_SOURCE].type = SANE_TYPE_STRING;
-        s->opt[OPT_SCAN_SOURCE].size = x_source;
+        // s->opt[OPT_SCAN_SOURCE].size = x_source;
         s->opt[OPT_SCAN_SOURCE].cap = SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT;
         s->opt[OPT_SCAN_SOURCE].constraint_type = SANE_CONSTRAINT_STRING_LIST;
-        s->opt[OPT_SCAN_SOURCE].constraint.string_list = real_scan_source;
-        s->val[OPT_SCAN_SOURCE].s = strdup (real_scan_source[0]);
-
+        s->opt[OPT_SCAN_SOURCE].constraint.string_list = scan_table;
+        s->val[OPT_SCAN_SOURCE].s = strdup (scan_table[0]);
+	s->sgmp.scan_scanmode = CIJSC_SCANMODE_PLATEN;
 
 	return status == CMT_STATUS_GOOD ? status : show_canon_cmt_error(status);
 
@@ -745,13 +726,12 @@ sane_open (SANE_String_Const name, SANE_Handle * h){
 	canon_sane_t *  handled = NULL;
 	CANON_Device dev;
 	CMT_Status status = CMT_STATUS_INVAL;
-	CANON_DEVICE_INFO infos;
 
 	if(!name){
 		return show_sane_cmt_error(CMT_STATUS_INVAL);
 	}
 
-	status = CIJSC_open2((char*)name,&dev, &infos);
+	status = CIJSC_open2((char*)name,&dev);
 	if(status != CMT_STATUS_GOOD){
 		return show_sane_cmt_error(status);
 	}
@@ -768,7 +748,7 @@ sane_open (SANE_String_Const name, SANE_Handle * h){
 	handled->decompress_scan_data = SANE_FALSE;
 	handled->end_read = SANE_FALSE;
 
-	status = init_options(handled, &infos);
+	status = init_options(handled);
 	if(status != CMT_STATUS_GOOD){
 		return show_sane_cmt_error(status);
 	}
@@ -809,7 +789,7 @@ static int
 _get_resolution(int resol)
 {
     int x = 1;
-    int n = resbit_list[0] + 1;
+    int n = 3;
     int old = -1;
     for (; x < n; x++) {
       if (resol == resbit_list[x])

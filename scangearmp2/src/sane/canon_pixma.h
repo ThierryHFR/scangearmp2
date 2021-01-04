@@ -26,13 +26,13 @@ enum canon_sane_Option
 	OPT_MODE,
 	OPT_RESOLUTION,
 	OPT_PREVIEW,
+	OPT_SCAN_SOURCE,
 
 	OPT_GEOMETRY_GROUP,
 	OPT_TL_X,
 	OPT_TL_Y,
 	OPT_BR_X,
 	OPT_BR_Y,
-	OPT_SCAN_SOURCE,
 	/* must come last: */
 	NUM_OPTIONS
 };
