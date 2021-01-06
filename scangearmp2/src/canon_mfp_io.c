@@ -684,11 +684,11 @@ CMT_Status CIJSC_open2(
 	
 	/* set product id. */
 	DBGMSG("p_canon_init_scanner() product = %X\n", dev->product_id);
-	if ( canon_init_scanner( dev->product_id, dev->speed, NULL ) < 0 ) {
+	if ( canon_init_scanner( dev->product_id, dev->speed, NULL) < 0 ) {
 		DBGMSG("ERROR : p_canon_init_scanner() product = %d\n", dev->product_id);
 		return (CMT_STATUS_INVAL);
 	}
-	
+
 	opened_handle = dev;
 	memset(&canon_device, 0, sizeof(canon_device));
 	

@@ -188,4 +188,3 @@ _EXIT:
 
 
 #endif	/* _ERRORDLG_C_ */
-
