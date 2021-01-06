@@ -82,10 +82,75 @@ static const CIJSC_SIZE_TABLE sourceSize[] = {
 	{ CIJSC_SIZE_LETTER,	2550, 3300 }		// Letter
 };
 
+
+static CIJSC_SIZE_TABLE
+_get_source_size(int right, int bottom) {
+   int x = 0;
+   int obottom = -1;
+   int oright = -1;
+   static CIJSC_SIZE_TABLE maw_size = { CIJSC_SIZE_LETTER + 1, 2550, 3507};
+   for (; x < CIJSC_SIZE_NUM; x++) {
+      if (right > 0) {
+         if ( sourceSize[x].right == right)
+            return sourceSize[x];
+         else if (oright == -1)
+               oright = x;
+         else if (sourceSize[oright].right > right &&
+            sourceSize[x].right < sourceSize[oright].right)
+               oright = x;
+      }
+      else if (bottom > 0) {
+         if ( sourceSize[x].bottom == bottom)
+            return sourceSize[x];
+         else if (obottom == -1)
+            obottom = x;
+         else if (sourceSize[obottom].bottom > bottom &&
+                  sourceSize[x].bottom < sourceSize[obottom].bottom)
+               obottom = x;
+      }
+   }
+   fprintf(stderr, "> %s => %d\n", (obottom != -1 ? "HAUTEUR" : "LARGEUR"), (obottom != -1 ? bottom : right));
+   if (obottom == -1 && oright == -1) {
+       fprintf(stderr, ">\t[%dx%d]\n",
+               maw_size.right,
+               maw_size.bottom);
+       return maw_size;
+   }
+   fprintf(stderr, ">\t[%dx%d]\n",
+               sourceSize[(obottom != -1 ? obottom : oright)].right,
+               sourceSize[(obottom != -1 ? obottom : oright)].bottom);
+   return sourceSize[(obottom != -1 ? obottom : oright)];
+}
+
+static CIJSC_SIZE_TABLE
+_get_source_adf_size(int right, int bottom) {
+   if (right > 0) {
+      if ( sourceSize[CIJSC_SIZE_A4].right == right)
+         return sourceSize[CIJSC_SIZE_A4];
+      if ( sourceSize[CIJSC_SIZE_LETTER].right == right)
+         return sourceSize[CIJSC_SIZE_LETTER];
+      else if ( sourceSize[CIJSC_SIZE_A4].right < right)
+         return sourceSize[CIJSC_SIZE_A4];
+      else
+         return sourceSize[CIJSC_SIZE_LETTER];
+   }
+   else if (bottom > 0) {
+      if ( sourceSize[CIJSC_SIZE_A4].bottom == bottom)
+         return sourceSize[CIJSC_SIZE_A4];
+      else if ( sourceSize[CIJSC_SIZE_LETTER].bottom == bottom)
+         return sourceSize[CIJSC_SIZE_LETTER];
+      else if ( sourceSize[CIJSC_SIZE_LETTER].bottom < bottom)
+         return sourceSize[CIJSC_SIZE_LETTER];
+      else
+         return sourceSize[CIJSC_SIZE_A4];
+   }
+   return sourceSize[CIJSC_SIZE_A4];
+}
+
 /* scanmode */
 static const SANE_String_Const scan_table[] = {
         "Platen",
-	"ADF Simplex"
+	"ADF Simplex",
         "ADF Duplex",
 };
 
@@ -559,7 +624,7 @@ static CMT_Status init_canon_options(canon_sane_t * handled){
 /*
 	for ( i = 0; i < sizeof( sourceSize ) / sizeof( CIJSC_SIZE_TABLE ) ; i++ ) {
 		if ( sourceSize[i].id == data->scan_size ) {
-		
+
 			break;
 		}
 	}
@@ -567,9 +632,9 @@ static CMT_Status init_canon_options(canon_sane_t * handled){
 		return show_canon_cmt_error(CMT_STATUS_INVAL);
 	}
 */
-	data->scan_res = resbit_list[3];
+	data->scan_res = resbit_list[1];
 	data->scan_w = 2550;
-	data->scan_h = 3507;
+        data->scan_h = 3507;
 	data->scan_wx = data->scan_w;
 	data->scan_hy = data->scan_h;
 	data->scan_x = 0;
@@ -580,11 +645,11 @@ static CMT_Status init_canon_options(canon_sane_t * handled){
 	handled->sgmp= *data;
 	SANE_Range x_range = {0,0,0},y_range = {0,0,0};
 	x_range.min = 0;
-	x_range.max = PIXEL_TO_MM(data->scan_w, 300.0); // data->scan_res;
+	x_range.max = PIXEL_TO_MM(data->scan_w, 300); // data->scan_res;
 	x_range.quant = 1;
 
 	y_range.min = 0;
-	y_range.max = PIXEL_TO_MM(data->scan_h, 300.0); // data->scan_res;
+	y_range.max = PIXEL_TO_MM(data->scan_h, 300); // data->scan_res;
 	y_range.quant = 1;
 
 	handled->x_range = x_range;
@@ -672,6 +737,7 @@ init_options (canon_sane_t * s)
 	s->val[OPT_TL_X].w = s->x_range.min;
 
 	/* top-left y */
+
 	s->opt[OPT_TL_Y].name = SANE_NAME_SCAN_TL_Y;
 	s->opt[OPT_TL_Y].title = SANE_TITLE_SCAN_TL_Y;
 	s->opt[OPT_TL_Y].desc = SANE_DESC_SCAN_TL_Y;
@@ -742,17 +808,17 @@ sane_open (SANE_String_Const name, SANE_Handle * h){
 		return show_sane_cmt_error(CMT_STATUS_NO_MEM);
 	}
 
-	handled->dev = dev;
-	handled->cancel = SANE_FALSE;
-	handled->write_scan_data = SANE_FALSE;
-	handled->decompress_scan_data = SANE_FALSE;
-	handled->end_read = SANE_FALSE;
 
 	status = init_options(handled);
 	if(status != CMT_STATUS_GOOD){
 		return show_sane_cmt_error(status);
 	}
 
+	handled->dev = dev;
+	handled->cancel = SANE_FALSE;
+	handled->write_scan_data = SANE_FALSE;
+	handled->decompress_scan_data = SANE_FALSE;
+	handled->end_read = SANE_FALSE;
 	*h = handled;
 	return SANE_STATUS_GOOD;
 
@@ -766,7 +832,7 @@ void sane_cancel(SANE_Handle h){
 
 void
 sane_close (SANE_Handle h){
-	
+
 	CIJSC_close( );
 	if(h){
 		free(h);
@@ -845,73 +911,51 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 	}
 	if(a == SANE_ACTION_SET_VALUE){
 		int v1 = 0;
+                CIJSC_SIZE_TABLE size;
 		switch(n){
 			case OPT_TL_X:
-			   	handled->val[n].w = *(SANE_Word *) v;
-				v1 = MM_TO_PIXEL(handled->val[n].w, 300.0);
-                           	if (v1 < 0 && v1 > handled->sgmp.scan_w)
-			      		handled->sgmp.scan_x = 0;
-			   	else if ((v1 + handled->sgmp.scan_wx) > handled->sgmp.scan_w) {
-                              		handled->sgmp.scan_x = v1;
-                              		handled->sgmp.scan_wx = handled->sgmp.scan_w - v1;
-			   	}
-			   	else
-                              		handled->sgmp.scan_x = v1;
-			   	handled->val[n].w = PIXEL_TO_MM(handled->sgmp.scan_x, 300.0);
-			   	if(i){
-			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
-			   	}
-			   	break;
 			case OPT_TL_Y:
-			   	handled->val[n].w = *(SANE_Word *) v;
-				v1 = MM_TO_PIXEL(handled->val[n].w, 300.0);
-                           	if (v1 < 0 && v1 > handled->sgmp.scan_h)
-			      		handled->sgmp.scan_y = 0;
-			   	else if ((v1 + handled->sgmp.scan_hy) > handled->sgmp.scan_h) {
-                              		handled->sgmp.scan_y = v1 ;
-                              		handled->sgmp.scan_hy = handled->sgmp.scan_h - v1;
-			   	}
-			   	else
-                              		handled->sgmp.scan_y = v1;
-			   	handled->val[n].w = PIXEL_TO_MM(handled->sgmp.scan_y, 300.0);
-			   	if(i){
-			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
-			   	}
-			   	break;
+			   	handled->val[OPT_TL_X].w = 0;
+			   	handled->val[OPT_TL_Y].w = 0;
+                                break;
 			case OPT_BR_X:
 			   	handled->val[n].w = *(SANE_Word *) v;
-				v1 = MM_TO_PIXEL(handled->val[n].w, 300.0);
-                           	if (v1 < 0 && v1 > handled->sgmp.scan_w)
-			      		handled->sgmp.scan_wx = 0;
-			   	else if ((v1 + handled->sgmp.scan_wx) > handled->sgmp.scan_w) {
-                              		handled->sgmp.scan_x = 0 ;
-                              		handled->sgmp.scan_wx = v1 ;
-			   	}
-			   	else
-                              		handled->sgmp.scan_wx = v1;
-			   	handled->val[n].w = PIXEL_TO_MM(handled->sgmp.scan_wx, 300.0);
+                                if (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_PLATEN)
+                                    size = _get_source_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
+                                else
+                                    size = _get_source_adf_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
+			      	handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->val[n].w = PIXEL_TO_MM(size.right, 300);
+			      	handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->val[OPT_BR_Y].w = PIXEL_TO_MM(size.bottom, 300);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			   	}
 			   	break;
 			case OPT_BR_Y:
 			   	handled->val[n].w = *(SANE_Word *) v;
-				v1 = MM_TO_PIXEL(handled->val[n].w, 300.0);
-                           	if (v1 < 0 && v1 > handled->sgmp.scan_h)
-			      		handled->sgmp.scan_hy = 0;
-			   	else if ((v1 + handled->sgmp.scan_hy) > handled->sgmp.scan_h) {
-                              		handled->sgmp.scan_y = 0 ;
-                              		handled->sgmp.scan_hy = v1;
-			   	}
-			   	else
-                              		handled->sgmp.scan_hy = v1;
-			   	handled->val[n].w = PIXEL_TO_MM(handled->sgmp.scan_hy, 300.0);
+                                if (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_PLATEN)
+                                    size = _get_source_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
+                                else
+                                    size = _get_source_adf_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
+			      	handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->val[n].w = PIXEL_TO_MM(size.bottom, 300);
+			      	handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->val[OPT_BR_X].w = PIXEL_TO_MM(size.right, 300);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			   	}
 			   	break;
 			case OPT_PREVIEW:
 			   	handled->val[n].w = *(SANE_Word *) v;
+			      	if (handled->val[OPT_RESOLUTION].w == 600) {
+			      	    handled->val[OPT_RESOLUTION].w = 300;
+			      	    handled->sgmp.scan_res = 300 ;
+			      	    handled->sgmp.scan_hy /= 2;
+			      	    handled->sgmp.scan_wx /= 2;
+                                    handled->val[OPT_BR_X].w = PIXEL_TO_MM(handled->sgmp.scan_wx, 300);
+                                    handled->val[OPT_BR_Y].w = PIXEL_TO_MM(handled->sgmp.scan_hy, 300);
+                                }
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			   	}
@@ -919,26 +963,41 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 			case OPT_RESOLUTION:
 			      	v1 = (int)*(SANE_Word*)v;
                               	v1 = _get_resolution(v1);
-			      	handled->val[n].w = v1;
 			      	handled->sgmp.scan_res = v1 ;
+			      	if (handled->val[n].w != v1);
+                                {
+                                   if (handled->val[n].w > v1) {
+			      	      handled->sgmp.scan_wx /= 2;
+			              handled->sgmp.scan_hy /= 2;
+                                   }
+                                   else if (handled->val[n].w < v1) {
+			      	      handled->sgmp.scan_wx *= 2;
+			              handled->sgmp.scan_hy *= 2;
+                                   }
+                                   // handled->val[OPT_BR_X].w = PIXEL_TO_MM(handled->sgmp.scan_wx, 300);
+                                   // handled->val[OPT_BR_Y].w = PIXEL_TO_MM(handled->sgmp.scan_hy, 300);
+                                }
+			      	handled->val[n].w = v1;
 			      	if(i){
 			        	*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			      	}
 			   	break;
 			case OPT_MODE:
-			   	handled->val[n].s = v;//(SANE_Word *)strdup((char *)v);
-			   	if(!strncasecmp(v,SANE_VALUE_SCAN_MODE_GRAY,3)){
+                                if (handled->val[n].s)
+                                    free(handled->val[n].s);
+			   	handled->val[n].s = (SANE_Word *)strdup((char *)v);
+			   	if(!strncasecmp(v,SANE_VALUE_SCAN_MODE_GRAY,3))
 					handled->sgmp.scan_color = CIJSC_COLOR_GRAY;
-			   	}
-			   	else{
+			   	else
 					handled->sgmp.scan_color = CIJSC_COLOR_COLOR;
-			   	}
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			   	}
 			   	break;
 			case OPT_SCAN_SOURCE:
-			   	handled->val[n].s = v;//(SANE_Word *)strdup((char *)v);
+                                if (handled->val[n].s)
+                                    free(handled->val[n].s);
+			   	handled->val[n].s = (SANE_Word *)strdup((char *)v);
 			   	handled->sgmp.scan_scanmode = _get_source_num(v);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
@@ -966,10 +1025,13 @@ sane_start (SANE_Handle h){
 
 	param.XRes			= handled->sgmp.scan_res;
 	param.YRes			= handled->sgmp.scan_res;
-	param.Left			= handled->sgmp.scan_x;
-	param.Top			= handled->sgmp.scan_y;
+	param.Left			= 0;
+	param.Top			= 0;
 	param.Right			= handled->sgmp.scan_wx;
 	param.Bottom			= handled->sgmp.scan_hy;
+fprintf(stderr, "Res User  : [%d]\n", handled->sgmp.scan_res);
+fprintf(stderr, "Format Max  : [0x0|%dx%d]\n", handled->sgmp.scan_w, handled->sgmp.scan_h);
+fprintf(stderr, "Format User : [%dx%d|%dx%d]\n", handled->sgmp.scan_x, handled->sgmp.scan_y, handled->sgmp.scan_wx, handled->sgmp.scan_hy);
 	param.ScanMode			= ( handled->sgmp.scan_color == CIJSC_COLOR_COLOR ) ? 4 : 2;
 	param.ScanMethod		= ( handled->sgmp.scan_scanmode == CIJSC_SCANMODE_ADF_D_S ) ? CIJSC_SCANMODE_ADF_D_L : handled->sgmp.scan_scanmode;
 	param.opts.p1_0			= 0;
@@ -981,7 +1043,7 @@ sane_start (SANE_Handle h){
 	param.opts.p6_1			= 1;
 
 	handled->param = param;
-	
+
 
 	handled->cancel = SANE_FALSE;
 	handled->write_scan_data = SANE_FALSE;
@@ -1027,7 +1089,7 @@ SCAN_START:
     if((status = CIJSC_get_parameters(NULL)) != CMT_STATUS_GOOD){
       return SANE_STATUS_UNSUPPORTED;
     }
-       
+
 	return SANE_STATUS_GOOD;
 
 }
@@ -1133,4 +1195,3 @@ sane_set_io_mode(SANE_Handle handle,
 {
 	return SANE_STATUS_UNSUPPORTED;
 }
-
