@@ -89,7 +89,7 @@ _get_source_size(int right, int bottom) {
    int obottom = -1;
    int oright = -1;
    static CIJSC_SIZE_TABLE maw_size = { CIJSC_SIZE_LETTER + 1, 2550, 3507};
-   for (; x < CIJSC_SIZE_NUM; x++) {
+   for (; x < (CIJSC_SIZE_LETTER + 1); x++) {
       if (right > 0) {
          if ( sourceSize[x].right == right)
             return sourceSize[x];
