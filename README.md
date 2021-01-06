@@ -145,14 +145,14 @@ Better image quality than 'pixma' backend (with an output image size of 2480x350
 
 # STATE
 
-Tested with sane 1.0.25, 1.0.27, 1.0.29 and 1.0.31-9999 (may not work for lower versions)
-In Platen, the backend recognizes CARD, L_L, L_P, 4X6_L, 4X6_P, HAGAKI_L, HAGAKI_P, 2L_L, 2L_P, A5, B5, A4 and LETTER formats.
-In ADF, the backend recognizes A4 and LETTER formats.
-The scan works in color or in gray map.
-The options are not well handled, so they might not work.
-The color option allow to chose between color or graymap modes.
-The resolution option allow to have a 300 or 600 quality for the output.
-The source option allow to chose between Platen, ADF Simplex and ADF Duplex, i don't have a means of detection, so it depends on the hardware.
+Tested with sane 1.0.25, 1.0.27, 1.0.29 and 1.0.31-9999 (may not work for lower versions)<br>
+In Platen, the backend recognizes CARD, L_L, L_P, 4X6_L, 4X6_P, HAGAKI_L, HAGAKI_P, 2L_L, 2L_P, A5, B5, A4 and LETTER formats.<br>
+In ADF, the backend recognizes A4 and LETTER formats.<br>
+The scan works in color or in gray map.<br>
+The options are not well handled, so they might not work.<br>
+The color option allow to chose between color or graymap modes.<br>
+The resolution option allow to have a 300 or 600 quality for the output.<br>
+The source option allow to chose between Platen, ADF Simplex and ADF Duplex, i don't have a means of detection, so it depends on the hardware.<br>
 
 # KNOWN PROBLEMS
 
