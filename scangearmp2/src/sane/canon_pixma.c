@@ -985,7 +985,7 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 			case OPT_MODE:
                                 if (handled->val[n].s)
                                     free(handled->val[n].s);
-			   	handled->val[n].s = (SANE_Word *)strdup((char *)v);
+			   	handled->val[n].s = strdup((char *)v);
 			   	if(!strncasecmp(v,SANE_VALUE_SCAN_MODE_GRAY,3))
 					handled->sgmp.scan_color = CIJSC_COLOR_GRAY;
 			   	else
@@ -997,7 +997,7 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 			case OPT_SCAN_SOURCE:
                                 if (handled->val[n].s)
                                     free(handled->val[n].s);
-			   	handled->val[n].s = (SANE_Word *)strdup((char *)v);
+			   	handled->val[n].s = strdup((char *)v);
 			   	handled->sgmp.scan_scanmode = _get_source_num(v);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;

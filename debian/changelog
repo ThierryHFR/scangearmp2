@@ -1,4 +1,4 @@
-scangearmp2 (4.10+1ubuntu.bionic) bionic; urgency=medium
+scangearmp2 (4.11) buster; urgency=medium
 
   * build for upstream.
 

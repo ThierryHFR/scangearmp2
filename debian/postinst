@@ -9,4 +9,6 @@ if [ -x /sbin/udevadm ]; then
 	/sbin/udevadm control --reload-rules 2> /dev/null
 	/sbin/udevadm trigger --action=add --subsystem-match=usb 2> /dev/null
 fi
+mkdir -p /etc/sane.d/dll.d
+echo 'canon_pixma' > /etc/sane.d/dll.d/canon_pixma
 
