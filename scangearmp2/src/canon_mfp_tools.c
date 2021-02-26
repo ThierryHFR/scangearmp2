@@ -36,6 +36,7 @@
 #include <ctype.h>
 #include <libusb.h>
 #include <pthread.h>
+#include <unistd.h>
 
 #include "support.h"
 #include "errors.h"
@@ -68,10 +69,38 @@ static LIB_USB_DEV libusbdev[LIBUSB_DEV_MAX];
 static struct libusb_device **g_devlist = NULL;				/* device list */
 static struct libusb_context *g_context = NULL;				/* libusb context */
 
+static char *
+get_cnmslibpath(void)
+{
+	static char *cnmslibpath = NULL;
+	if (cnmslibpath) return (char*)cnmslibpath;
+	if (access("/usr/lib/x86_64-linux-gnu/bjlib", F_OK) != -1)
+	   cnmslibpath = strdup("/usr/lib/x86_64-linux-gnu/bjlib");
+	else if (access("/usr/lib/i386-linux-gnu/bjlib", F_OK) != -1)
+	   cnmslibpath = strdup("/usr/lib/i386-linux-gnu/bjlib");
+	else if (access("/usr/lib64/bjlib", F_OK) != -1)
+	   cnmslibpath = strdup("/usr/lib64/bjlib");
+	else
+	   cnmslibpath = strdup("/usr/lib/bjlib");
+	return cnmslibpath;
+}
+
+static char *
+get_cnmslibmfp2(void)
+{
+	static char *cnmslibmfp2 = NULL;
+	if (cnmslibmfp2) return (char*)cnmslibmfp2;
+	char *libpath = get_cnmslibpath();
+	cnmslibmfp2 = (char*)malloc(1024*sizeof(char));
+	strcpy(cnmslibmfp2,libpath);
+        strcat(cnmslibmfp2, "/canon_mfp2_net.ini");
+	return cnmslibmfp2;
+}
+
 /*
 	definitions for network
 */
-#define CACHE_PATH				DEFTOSTR( CNMSLIBPATH ) "/canon_mfp2_net.ini"
+#define CACHE_PATH				get_cnmslibmfp2()
 #define NETWORK_DEV_MAX			(64)
 #define STRING_SHORT			(32)
 #define TIMEOUT_MSEC			(80)
@@ -113,7 +142,7 @@ static NETWORK_DEV	network2dev[NETWORK_DEV_MAX];
 */
 FILE *cmt_conf_file_open(const char *conf)
 {
-	char *path = DEFTOSTR( CNMSLIBPATH );
+	char *path = get_cnmslibpath();
 	char dst[PATH_MAX];
 	FILE *fp = NULL;
 	

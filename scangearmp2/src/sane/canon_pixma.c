@@ -1195,3 +1195,4 @@ sane_set_io_mode(SANE_Handle handle,
 {
 	return SANE_STATUS_UNSUPPORTED;
 }
+
