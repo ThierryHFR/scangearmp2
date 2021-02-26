@@ -144,6 +144,7 @@ static int canon_usb_write( unsigned char * buffer, unsigned long size )
 	if ( CANON_fd < 0 ) {
 		return -1; /* error */
 	}
+	usleep(1000);
 	status = cmt_libusb_bulk_write ( CANON_fd, buffer, &n );
 
 	if ( status != CMT_STATUS_GOOD ) {
@@ -164,6 +165,7 @@ static int canon_usb_read( unsigned char * buffer, unsigned long * size )
 	if ( CANON_fd < 0 ) {
 		return -1; /* error */
 	}
+	usleep(1000);
 	status = cmt_libusb_bulk_read ( CANON_fd, buffer, &n );
 
 	if ( status != CMT_STATUS_GOOD ) {
