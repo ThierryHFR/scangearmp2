@@ -165,6 +165,10 @@ Requirements for scangearmp2 in : scangearmp2/README.md
 
 # INSTALLATION
 
+## For Ach Linux systems :
+- makepkg for archlinux or cmake && make install for others
+- add canon_pixma backend to sane backends list: echo "canon_pixma" >> /etc/sane.d/dll.conf
+
 ## For debian systems :
 ###### Get sources :
 ```
