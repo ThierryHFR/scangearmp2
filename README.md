@@ -3,7 +3,7 @@
 
 # DESCRIPTION
 
-	Because of changes in CANON's network communication protocols,some of CANON's scanner 
+	Because of changes in CANON's network communication protocols, some of CANON's scanner 
 	became unsuported by sane.
 
 	This backend is for making the CANON's scanners, using the new communication protocol,
@@ -11,9 +11,9 @@
 	of the scangearmp2 program to access to the scanners functionalities and implementing 
 	the sane functions.
 
-	It was done as a patch to have a minimun impact on the orginal scangearmp2 source code,
+	It was done as a patch to have a minimum impact on the orginal scangearmp2 source code,
 	but currently we choose to abandon this idea because it was difficult to make the 
-	releases and had not that much interrest for the developement.
+	releases and had not that much interest for the developement.
 	
 	For ubuntu-based distributions: https://launchpad.net/~thierry-f/+archive/ubuntu/fork-michael-gruz
 	For debian-based distribution : https://github.com/Ordissimo/scangearmp2/releases/tag/4.12 
@@ -160,10 +160,6 @@ The source option allow to chose between Platen, ADF Simplex and ADF Duplex, i d
 When using xsane :
 bug with the display of the selected color option (Fixed)
 
-# REQUIREMENTS
-
-Requirements for scangearmp2 in : scangearmp2/README.md
-
 # INSTALLATION
 
 ## For Arch Linux systems :
@@ -178,7 +174,7 @@ mkdir build
 cd build
 git clone https://github.com/Ordissimo/scangearmp2.git
 ```
-###### Get developement environnement :
+###### Get development environment :
 ```
 apt update
 apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
@@ -200,15 +196,13 @@ apt install ../scangearmp2_4.12-1_amd64.deb
 ```
 ## For redhat systems : <font color="red">This is no longer current</font>
 
-###### Get developement environnement :
+###### Get development environment :
 ```
 yum install gtk2-devel
 yum install libusb-devel
 yum install libjpeg-devel
 yum install gettext-devel
-yum install libtool
-yum install automake
-yum install autoconf
+yum install cmake
 yum install rpm-build
 ```
 ###### Get sources :
