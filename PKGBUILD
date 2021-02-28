@@ -1,10 +1,9 @@
-# Maintainer: fft <anonim288@gmail.com>
 pkgname=scangearmp2-sane
-pkgver=4.12.r54.g99e3e20
+pkgver=4.12.2.rgf91a432
 pkgrel=1
 pkgdesc="Canon ScanGear MP v2 scanner utility and sane backend"
 arch=('x86_64')
-url="https://github.com/fftmp/scangearmp2"
+url="https://github.com/Ordissimo/scangearmp2"
 license=('GPL' 'custom:canon')
 depends=('gtk2')
 makedepends=('cmake' 'libjpeg' 'sane')
@@ -30,11 +29,6 @@ build() {
 package() {
   rm -rf ${pkgdir}
   make -C${_builddir} install DESTDIR=${pkgdir}
-  #kostyl': /usr/sbin /usr/lib64 are symlinks in archlinux
-  mkdir -p ${pkgdir}/usr/bin ${pkgdir}/usr/lib
-  mv ${pkgdir}/usr/bin/*  ${pkgdir}/usr/bin/
-  mv ${pkgdir}/usr/lib64/* ${pkgdir}/usr/lib/
-  rmdir ${pkgdir}/usr/sbin ${pkgdir}/usr/lib64
 
   mkdir -p ${pkgdir}/usr/share/licenses/scangearmp2-sane
   mv ${pkgdir}/usr/share/scangearmp2/doc/* ${pkgdir}/usr/share/licenses/scangearmp2-sane/

@@ -166,8 +166,10 @@ Requirements for scangearmp2 in : scangearmp2/README.md
 
 # INSTALLATION
 
-## For Ach Linux systems :
-- makepkg for archlinux or cmake && make install for others
+## For Arch Linux systems :
+```
+makepkg && sudo pacman -U scangearmp2-sane-*.tar.zst
+```
 
 ## For debian systems :
 ###### Get sources :
