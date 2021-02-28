@@ -79,7 +79,7 @@ CNMSInt32 CnmsStrCopy(
 //#pragma GCC diagnostic push
 //#pragma GCC diagnostic ignored "-Wstringop-truncation"
 //#pragma GCC diagnostic ignored "-Wstringop-overflow"
-	(void)strncpy( (char *)lpDst, (char *)lpSrc, srcLen );
+	snprintf((char *)lpDst, (int)srcLen, "%s", (char *)lpSrc);
 //#pragma GCC diagnostic pop
 
 	lpDst[ srcLen ] = '\0';
