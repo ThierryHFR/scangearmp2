@@ -1,0 +1,371 @@
+# ScanGear MP for Linux
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scangearmp2 3.00\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-07 19:06+0300\n"
+"Last-Translator: fftmp\n"
+"Language-Team: fftmp\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+".\n"
+
+#. STR_CNMS_LS_001_01
+#: ../src/cnmsstrings.h:59 ../usr/share/scangearmp2/scangearmp2.glade.h:12
+msgid "Scanner"
+msgstr "Сканер"
+
+#. STR_CNMS_LS_001_02
+#: ../src/cnmsstrings.h:61 ../usr/share/scangearmp2/scangearmp2.glade.h:4
+msgid "Scan Mode:"
+msgstr "Режим сканирования:"
+
+#. STR_CNMS_LS_001_03
+#: ../src/cnmsstrings.h:63 ../usr/share/scangearmp2/scangearmp2.glade.h:6
+msgid "Select Source:"
+msgstr "Выбрать источник:"
+
+#. STR_CNMS_LS_001_04
+#: ../src/cnmsstrings.h:65 ../usr/share/scangearmp2/scangearmp2.glade.h:8
+msgid "Color Mode:"
+msgstr "Режим цветности:"
+
+#. STR_CNMS_LS_001_05
+#: ../src/cnmsstrings.h:67 ../usr/share/scangearmp2/scangearmp2.glade.h:10
+msgid "Paper Size:"
+msgstr "Формат бумаги:"
+
+#. STR_CNMS_LS_001_06
+#: ../src/cnmsstrings.h:69 ../usr/share/scangearmp2/scangearmp2.glade.h:2
+msgid "Scan (JPEG)"
+msgstr "Сканировать (JPEG)"
+
+#. STR_CNMS_LS_001_07
+#: ../src/cnmsstrings.h:71 ../usr/share/scangearmp2/scangearmp2.glade.h:14
+msgid "Scan (PDF)"
+msgstr "Сканировать (PDF)"
+
+#. STR_CNMS_LS_001_08
+#: ../src/cnmsstrings.h:73 ../usr/share/scangearmp2/scangearmp2.glade.h:16
+msgid "Close"
+msgstr "Закрыть"
+
+#. STR_CNMS_LS_001_09
+#: ../src/cnmsstrings.h:75 ../usr/share/scangearmp2/scangearmp2.glade.h:18
+msgid "Version"
+msgstr "Версия"
+
+#. STR_CNMS_LS_002_01
+#: ../src/cnmsstrings.h:77
+msgid "Platen"
+msgstr "Стекло"
+
+#. STR_CNMS_LS_002_02
+#: ../src/cnmsstrings.h:79
+msgid "ADF Simplex"
+msgstr "Автоподатчик односторонний"
+
+#. STR_CNMS_LS_002_03
+#: ../src/cnmsstrings.h:81
+msgid "ADF Duplex (Long-side Binding)"
+msgstr "Автоподатчик дуплекс (по длинной стороне)"
+
+#. STR_CNMS_LS_002_04
+#: ../src/cnmsstrings.h:83
+msgid "ADF Duplex (Short-side Binding)"
+msgstr "Автоподатчик дуплекс (по короткой стороне)"
+
+#. STR_CNMS_LS_003_01
+#: ../src/cnmsstrings.h:85
+msgid "Document"
+msgstr "Документ"
+
+#. STR_CNMS_LS_003_02
+#: ../src/cnmsstrings.h:87
+msgid "Photo"
+msgstr "Фото"
+
+#. STR_CNMS_LS_004_01
+#: ../src/cnmsstrings.h:89
+msgid "Color"
+msgstr "Цветное сканирование"
+
+#. STR_CNMS_LS_004_02
+#: ../src/cnmsstrings.h:91
+msgid "Grayscale"
+msgstr "чёрно-белое сканирование"
+
+#. STR_CNMS_LS_005_01
+#: ../src/cnmsstrings.h:93
+msgid "Card"
+msgstr "Карточка (55x91мм)"
+
+#. STR_CNMS_LS_005_02
+#: ../src/cnmsstrings.h:95
+msgid "L Landscape"
+msgstr "L (89x127мм) альбом"
+
+#. STR_CNMS_LS_005_03
+#: ../src/cnmsstrings.h:97
+msgid "L Portrait"
+msgstr "L (89x127мм) портрет"
+
+#. STR_CNMS_LS_005_04
+#: ../src/cnmsstrings.h:99
+msgid "4\" x 6\" Landscape"
+msgstr "10x15см альбом"
+
+#. STR_CNMS_LS_005_05
+#: ../src/cnmsstrings.h:101
+msgid "4\" x 6\" Portrait"
+msgstr "10x15см портрет"
+
+#. STR_CNMS_LS_005_06
+#: ../src/cnmsstrings.h:103
+msgid "Hagaki Landscape"
+msgstr "Hagaki (100x148мм) альбом"
+
+#. STR_CNMS_LS_005_07
+#: ../src/cnmsstrings.h:105
+msgid "Hagaki Portrait"
+msgstr "Hagaki (100x148мм) портрет"
+
+#. STR_CNMS_LS_005_08
+#: ../src/cnmsstrings.h:107
+msgid "2L Landscape"
+msgstr "2L (127x178мм) альбом"
+
+#. STR_CNMS_LS_005_09
+#: ../src/cnmsstrings.h:109
+msgid "2L Portrait"
+msgstr "2L (127x178мм) портрет"
+
+#. STR_CNMS_LS_005_10
+#: ../src/cnmsstrings.h:111
+msgid "A5"
+msgstr "A5 (148×210мм)"
+
+#. STR_CNMS_LS_005_11
+#: ../src/cnmsstrings.h:113
+msgid "B5"
+msgstr "B5 (176×250мм)"
+
+#. STR_CNMS_LS_005_12
+#: ../src/cnmsstrings.h:115
+msgid "A4"
+msgstr "A4 (210x297мм)"
+
+#. STR_CNMS_LS_005_13
+#: ../src/cnmsstrings.h:117
+msgid "Letter"
+msgstr "Letter (216x279 мм)"
+
+#. STR_CNMS_LS_007_03
+#: ../src/cnmsstrings.h:123
+#, c-format
+msgid "Version %s"
+msgstr "Версия %s"
+
+#. STR_CNMS_LS_007_04
+#: ../src/cnmsstrings.h:125
+#, c-format
+msgid "Copyright CANON INC. %s-%s"
+msgstr "Copyright CANON INC. %s-%s"
+
+#. STR_CNMS_LS_008_01
+#: ../src/cnmsstrings.h:127 ../usr/share/scangearmp2/scangearmp2.glade.h:30
+msgid "Save Scan Image"
+msgstr "Сохранить сканированное изображение"
+
+#. STR_CNMS_LS_008_02
+#: ../src/cnmsstrings.h:129 ../usr/share/scangearmp2/scangearmp2.glade.h:32
+msgid "Save"
+msgstr "Сохранить"
+
+#. STR_CNMS_LS_008_03
+#: ../src/cnmsstrings.h:131
+msgid "The file name is not specified."
+msgstr "Не указано имя файла."
+
+#. STR_CNMS_LS_008_04
+#: ../src/cnmsstrings.h:133
+msgid ""
+"The same file name already exists.\n"
+"Are you sure to overwrite it?"
+msgstr ""
+"Файл уже существует.\n"
+"Перезаписать ?"
+
+#. STR_CNMS_LS_008_05
+#: ../src/cnmsstrings.h:135
+msgid ""
+"You do not have permission to access the specified file.\n"
+"Specify another file name or save the file in another directory."
+msgstr ""
+"Недостаточно прав для доступа к указанному файлу.\n"
+"Укажите другое имя файла или сохраните файл в другой папке."
+
+#. STR_CNMS_LS_008_06
+#: ../src/cnmsstrings.h:137
+msgid ""
+"The specified directory does not exist or you do not have permission to "
+"access the directory.\n"
+"Save the file in another directory."
+msgstr ""
+"Указанная папка не существует или у Вас нет прав на доступ.\n"
+"Сохраните файл в другой папке."
+
+#. STR_CNMS_LS_008_07
+#: ../src/cnmsstrings.h:139
+msgid ""
+"The specified file name is invalid.\n"
+"Specify another file name."
+msgstr ""
+"Указанное имя файла неверно.\n"
+"Укажите другое имя файла."
+
+#. STR_CNMS_LS_009_01
+#: ../src/cnmsstrings.h:141
+msgid "Scanning..."
+msgstr "Сканирование..."
+
+#. STR_CNMS_LS_009_02
+#: ../src/cnmsstrings.h:143
+msgid "Saving..."
+msgstr "Сохранение..."
+
+#. STR_CNMS_LS_009_03
+#: ../src/cnmsstrings.h:145
+msgid "Saved the scan result."
+msgstr "Результат сканирования сохранён."
+
+#. STR_CNMS_LS_009_04
+#: ../src/cnmsstrings.h:147
+#, c-format
+msgid "%d page(s)"
+msgstr "%d страница"
+
+#. STR_CNMS_LS_009_05
+#: ../src/cnmsstrings.h:149
+msgid "Canceling..."
+msgstr "Отмена..."
+
+#. STR_CNMS_LS_010_01
+#: ../src/cnmsstrings.h:151
+msgid "Scan has been canceled."
+msgstr "Сканирование отменено."
+
+#. STR_CNMS_LS_010_02
+#: ../src/cnmsstrings.h:153
+msgid "Scan has been canceled. Check the printer."
+msgstr "Сканирование отменено. Проверьте устройство."
+
+#. STR_CNMS_LS_010_03
+#: ../src/cnmsstrings.h:155
+msgid ""
+"The printer is in operation. Check the printer.\n"
+"Scanner driver will be closed."
+msgstr ""
+"Устройство занято.\n"
+"Драйвер сканера будет закрыт."
+
+#. STR_CNMS_LS_010_04
+#: ../src/cnmsstrings.h:157
+msgid ""
+"An error has occurred while scanning. Check the printer.\n"
+"Scanner driver will be closed."
+msgstr ""
+"Во время сканирования произошла ошибка. Проверьте устройство.\n"
+"Драйвер сканера будет закрыт."
+
+#. STR_CNMS_LS_010_05
+#: ../src/cnmsstrings.h:159
+msgid ""
+"Cannot communicate with scanner.\n"
+"Scanner driver will be closed."
+msgstr ""
+"Невозможно соединиться со сканером.\n"
+"Драйвер сканера будет закрыт."
+
+#. STR_CNMS_LS_010_06
+#: ../src/cnmsstrings.h:161
+msgid ""
+"There is not enough free disk space to complete the scan.\n"
+"Scanner driver will be closed."
+msgstr ""
+"Недостаточно места на диске для завершения сканирования.\n"
+"Драйвер сканера будет закрыт."
+
+#. STR_CNMS_LS_010_07
+#: ../src/cnmsstrings.h:163
+msgid ""
+"Cannot find available scanners.\n"
+"\n"
+"Cable may be disconnected or scanner may be turned off.\n"
+"Check the scanner status, and then try again."
+msgstr ""
+"Не найдено доступных сканеров.\n"
+"\n"
+"Возможно сканер отключён от сети или его питание выключено.\n"
+"Проверьте сканер и попытайтесь снова."
+
+#. STR_CNMS_LS_010_08
+#: ../src/cnmsstrings.h:165
+msgid ""
+"The ADF (Auto Document Feeder) is empty. \n"
+"Place paper in the ADF."
+msgstr ""
+"Автоподатчик пуст. \n"
+"Поместите бумагу в автоподатчик."
+
+#. STR_CNMS_LS_010_09
+#: ../src/cnmsstrings.h:167
+msgid ""
+"Internal Error occurred.\n"
+"Scanner driver will be closed."
+msgstr ""
+"Произошла внутренняя ошибка.\n"
+"Драйвер сканера будет закрыт."
+
+#. STR_CNMS_LS_011_01
+#: ../src/cnmsstrings.h:169 ../usr/share/scangearmp2/scangearmp2.glade.h:20
+msgid "Select Scanner"
+msgstr "Выбрать сканер"
+
+#. STR_CNMS_LS_011_02
+#: ../src/cnmsstrings.h:171 ../usr/share/scangearmp2/scangearmp2.glade.h:22
+msgid "No scanners detected."
+msgstr "Нет найденных сканеров."
+
+#. STR_CNMS_LS_011_03
+#: ../src/cnmsstrings.h:173 ../usr/share/scangearmp2/scangearmp2.glade.h:24
+msgid "Update Scanner List"
+msgstr "Обновить список сканеров"
+
+#. STR_CNMS_LS_011_04
+#: ../src/cnmsstrings.h:175 ../usr/share/scangearmp2/scangearmp2.glade.h:28
+msgid "OK"
+msgstr "OK"
+
+#. STR_CNMS_LS_011_05
+#: ../src/cnmsstrings.h:177 ../usr/share/scangearmp2/scangearmp2.glade.h:26
+msgid "Cancel"
+msgstr "Отмена"
+
+#. STR_CNMS_LS_012_01
+#: ../src/cnmsstrings.h:179
+msgid "Searching..."
+msgstr "Поиск..."
+
+#. STR_CNMS_LS_012_02
+#: ../src/cnmsstrings.h:181
+msgid "Searching for scanners."
+msgstr "Поиск сканеров."
+
+#. STR_CNMS_LS_012_03
+#: ../src/cnmsstrings.h:183
+msgid "Updating the scanner list."
+msgstr "Обновление списка сканеров."

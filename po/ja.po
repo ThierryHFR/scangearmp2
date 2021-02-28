@@ -1,0 +1,388 @@
+# ScanGear MP for Linux
+# Copyright CANON INC. 2014-2018
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scangearmp2 3.00\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-07 18:54+0300\n"
+"PO-Revision-Date: 2014-04-14 19:49+0900\n"
+"Last-Translator: CANON INC.\n"
+"Language-Team: CANON INC.\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+".\n"
+
+#. STR_CNMS_LS_001_01
+#: ../src/cnmsstrings.h:59 ../usr/share/scangearmp2/scangearmp2.glade.h:12
+msgid "Scanner"
+msgstr "スキャナー"
+
+#. STR_CNMS_LS_001_02
+#: ../src/cnmsstrings.h:61 ../usr/share/scangearmp2/scangearmp2.glade.h:4
+msgid "Scan Mode:"
+msgstr "スキャンモード :"
+
+#. STR_CNMS_LS_001_03
+#: ../src/cnmsstrings.h:63 ../usr/share/scangearmp2/scangearmp2.glade.h:6
+msgid "Select Source:"
+msgstr "原稿の種類 :"
+
+#. STR_CNMS_LS_001_04
+#: ../src/cnmsstrings.h:65 ../usr/share/scangearmp2/scangearmp2.glade.h:8
+msgid "Color Mode:"
+msgstr "カラーモード :"
+
+#. STR_CNMS_LS_001_05
+#: ../src/cnmsstrings.h:67 ../usr/share/scangearmp2/scangearmp2.glade.h:10
+msgid "Paper Size:"
+msgstr "原稿サイズ :"
+
+#. STR_CNMS_LS_001_06
+#: ../src/cnmsstrings.h:69 ../usr/share/scangearmp2/scangearmp2.glade.h:2
+msgid "Scan (JPEG)"
+msgstr "スキャン(JPEG)"
+
+#. STR_CNMS_LS_001_07
+#: ../src/cnmsstrings.h:71 ../usr/share/scangearmp2/scangearmp2.glade.h:14
+msgid "Scan (PDF)"
+msgstr "スキャン(PDF)"
+
+#. STR_CNMS_LS_001_08
+#: ../src/cnmsstrings.h:73 ../usr/share/scangearmp2/scangearmp2.glade.h:16
+msgid "Close"
+msgstr "閉じる"
+
+#. STR_CNMS_LS_001_09
+#: ../src/cnmsstrings.h:75 ../usr/share/scangearmp2/scangearmp2.glade.h:18
+msgid "Version"
+msgstr "バージョン情報"
+
+#. STR_CNMS_LS_002_01
+#: ../src/cnmsstrings.h:77
+msgid "Platen"
+msgstr "原稿台"
+
+#. STR_CNMS_LS_002_02
+#: ../src/cnmsstrings.h:79
+msgid "ADF Simplex"
+msgstr "ADF 片面"
+
+#. STR_CNMS_LS_002_03
+#: ../src/cnmsstrings.h:81
+msgid "ADF Duplex (Long-side Binding)"
+msgstr "ADF 両面(長辺とじ)"
+
+#. STR_CNMS_LS_002_04
+#: ../src/cnmsstrings.h:83
+msgid "ADF Duplex (Short-side Binding)"
+msgstr "ADF 両面(短辺とじ)"
+
+#. STR_CNMS_LS_003_01
+#: ../src/cnmsstrings.h:85
+msgid "Document"
+msgstr "文書"
+
+#. STR_CNMS_LS_003_02
+#: ../src/cnmsstrings.h:87
+msgid "Photo"
+msgstr "写真"
+
+#. STR_CNMS_LS_004_01
+#: ../src/cnmsstrings.h:89
+msgid "Color"
+msgstr "カラー"
+
+#. STR_CNMS_LS_004_02
+#: ../src/cnmsstrings.h:91
+msgid "Grayscale"
+msgstr "グレースケール"
+
+#. STR_CNMS_LS_005_01
+#: ../src/cnmsstrings.h:93
+msgid "Card"
+msgstr "名刺"
+
+#. STR_CNMS_LS_005_02
+#: ../src/cnmsstrings.h:95
+msgid "L Landscape"
+msgstr "L判 横"
+
+#. STR_CNMS_LS_005_03
+#: ../src/cnmsstrings.h:97
+msgid "L Portrait"
+msgstr "L判 縦"
+
+#. STR_CNMS_LS_005_04
+#: ../src/cnmsstrings.h:99
+msgid "4\" x 6\" Landscape"
+msgstr "KG 横"
+
+#. STR_CNMS_LS_005_05
+#: ../src/cnmsstrings.h:101
+msgid "4\" x 6\" Portrait"
+msgstr "KG 縦"
+
+#. STR_CNMS_LS_005_06
+#: ../src/cnmsstrings.h:103
+msgid "Hagaki Landscape"
+msgstr "はがき 横"
+
+#. STR_CNMS_LS_005_07
+#: ../src/cnmsstrings.h:105
+msgid "Hagaki Portrait"
+msgstr "はがき 縦"
+
+#. STR_CNMS_LS_005_08
+#: ../src/cnmsstrings.h:107
+msgid "2L Landscape"
+msgstr "2L判 横"
+
+#. STR_CNMS_LS_005_09
+#: ../src/cnmsstrings.h:109
+msgid "2L Portrait"
+msgstr "2L判 縦"
+
+#. STR_CNMS_LS_005_10
+#: ../src/cnmsstrings.h:111
+msgid "A5"
+msgstr "A5"
+
+#. STR_CNMS_LS_005_11
+#: ../src/cnmsstrings.h:113
+msgid "B5"
+msgstr "B5"
+
+#. STR_CNMS_LS_005_12
+#: ../src/cnmsstrings.h:115
+msgid "A4"
+msgstr "A4"
+
+#. STR_CNMS_LS_005_13
+#: ../src/cnmsstrings.h:117
+msgid "Letter"
+msgstr "レター"
+
+#. STR_CNMS_LS_007_03
+#: ../src/cnmsstrings.h:123
+#, c-format
+msgid "Version %s"
+msgstr "Version %s"
+
+#. STR_CNMS_LS_007_04
+#: ../src/cnmsstrings.h:125
+#, c-format
+msgid "Copyright CANON INC. %s-%s"
+msgstr "Copyright CANON INC. %s-%s"
+
+#. STR_CNMS_LS_008_01
+#: ../src/cnmsstrings.h:127 ../usr/share/scangearmp2/scangearmp2.glade.h:30
+msgid "Save Scan Image"
+msgstr "スキャン画像の保存"
+
+#. STR_CNMS_LS_008_02
+#: ../src/cnmsstrings.h:129 ../usr/share/scangearmp2/scangearmp2.glade.h:32
+msgid "Save"
+msgstr "保存"
+
+#. STR_CNMS_LS_008_03
+#: ../src/cnmsstrings.h:131
+msgid "The file name is not specified."
+msgstr "ファイル名が入力されていません。"
+
+#. STR_CNMS_LS_008_04
+#: ../src/cnmsstrings.h:133
+msgid ""
+"The same file name already exists.\n"
+"Are you sure to overwrite it?"
+msgstr ""
+"同じ名前のファイルが既に存在します。\n"
+"上書きしますか？"
+
+#. STR_CNMS_LS_008_05
+#: ../src/cnmsstrings.h:135
+msgid ""
+"You do not have permission to access the specified file.\n"
+"Specify another file name or save the file in another directory."
+msgstr ""
+"指定したファイルにアクセスするための権限がありません。\n"
+"別のファイル名を指定するか、別のディレクトリに保存してください。"
+
+#. STR_CNMS_LS_008_06
+#: ../src/cnmsstrings.h:137
+msgid ""
+"The specified directory does not exist or you do not have permission to "
+"access the directory.\n"
+"Save the file in another directory."
+msgstr ""
+"指定したディレクトリが存在しないか、アクセスするための権限がありません。\n"
+"別のディレクトリに保存してください。"
+
+#. STR_CNMS_LS_008_07
+#: ../src/cnmsstrings.h:139
+msgid ""
+"The specified file name is invalid.\n"
+"Specify another file name."
+msgstr ""
+"ファイル名が無効です。\n"
+"別のファイル名を指定してください。"
+
+#. STR_CNMS_LS_009_01
+#: ../src/cnmsstrings.h:141
+msgid "Scanning..."
+msgstr "スキャン中..."
+
+#. STR_CNMS_LS_009_02
+#: ../src/cnmsstrings.h:143
+msgid "Saving..."
+msgstr "保存中..."
+
+#. STR_CNMS_LS_009_03
+#: ../src/cnmsstrings.h:145
+msgid "Saved the scan result."
+msgstr "スキャン結果を保存しました。"
+
+#. STR_CNMS_LS_009_04
+#: ../src/cnmsstrings.h:147
+#, c-format
+msgid "%d page(s)"
+msgstr "%d 枚目"
+
+#. STR_CNMS_LS_009_05
+#: ../src/cnmsstrings.h:149
+msgid "Canceling..."
+msgstr "キャンセル中..."
+
+#. STR_CNMS_LS_010_01
+#: ../src/cnmsstrings.h:151
+msgid "Scan has been canceled."
+msgstr "スキャンはキャンセルされました。"
+
+#. STR_CNMS_LS_010_02
+#: ../src/cnmsstrings.h:153
+msgid "Scan has been canceled. Check the printer."
+msgstr "スキャンはキャンセルされました。プリンターを確認してください。"
+
+#. STR_CNMS_LS_010_03
+#: ../src/cnmsstrings.h:155
+msgid ""
+"The printer is in operation. Check the printer.\n"
+"Scanner driver will be closed."
+msgstr ""
+"プリンターは動作中です。プリンターを確認してください。\n"
+"スキャナードライバーを終了します。"
+
+#. STR_CNMS_LS_010_04
+#: ../src/cnmsstrings.h:157
+msgid ""
+"An error has occurred while scanning. Check the printer.\n"
+"Scanner driver will be closed."
+msgstr ""
+"スキャン中にエラーが発生しました。プリンターを確認してください。\n"
+"スキャナードライバーを終了します。"
+
+#. STR_CNMS_LS_010_05
+#: ../src/cnmsstrings.h:159
+msgid ""
+"Cannot communicate with scanner.\n"
+"Scanner driver will be closed."
+msgstr ""
+"スキャナーと通信できません。\n"
+"スキャナードライバーを終了します。"
+
+#. STR_CNMS_LS_010_06
+#: ../src/cnmsstrings.h:161
+msgid ""
+"There is not enough free disk space to complete the scan.\n"
+"Scanner driver will be closed."
+msgstr ""
+"読取を完了するために必要なディスクの空き容量がありません。\n"
+"スキャナードライバーを終了します。"
+
+#. STR_CNMS_LS_010_07
+#: ../src/cnmsstrings.h:163
+msgid ""
+"Cannot find available scanners.\n"
+"\n"
+"Cable may be disconnected or scanner may be turned off.\n"
+"Check the scanner status, and then try again."
+msgstr ""
+"使用できるスキャナーが見つかりません。\n"
+"\n"
+"ケーブルが外れているか、電源が入っていない可能性があります。\n"
+"スキャナーの状態を確認してから、やり直してください。"
+
+#. STR_CNMS_LS_010_08
+#: ../src/cnmsstrings.h:165
+msgid ""
+"The ADF (Auto Document Feeder) is empty. \n"
+"Place paper in the ADF."
+msgstr ""
+"ADF(自動原稿給紙装置)に原稿がありません。\n"
+"原稿をセットしてください。"
+
+#. STR_CNMS_LS_010_09
+#: ../src/cnmsstrings.h:167
+msgid ""
+"Internal Error occurred.\n"
+"Scanner driver will be closed."
+msgstr ""
+"内部エラーが発生しました。\n"
+"スキャナードライバーを終了します。"
+
+#. STR_CNMS_LS_011_01
+#: ../src/cnmsstrings.h:169 ../usr/share/scangearmp2/scangearmp2.glade.h:20
+msgid "Select Scanner"
+msgstr "スキャナーの選択"
+
+#. STR_CNMS_LS_011_02
+#: ../src/cnmsstrings.h:171 ../usr/share/scangearmp2/scangearmp2.glade.h:22
+msgid "No scanners detected."
+msgstr "スキャナーが見つかりません。"
+
+#. STR_CNMS_LS_011_03
+#: ../src/cnmsstrings.h:173 ../usr/share/scangearmp2/scangearmp2.glade.h:24
+msgid "Update Scanner List"
+msgstr "スキャナーリストを更新"
+
+#. STR_CNMS_LS_011_04
+#: ../src/cnmsstrings.h:175 ../usr/share/scangearmp2/scangearmp2.glade.h:28
+msgid "OK"
+msgstr "OK"
+
+#. STR_CNMS_LS_011_05
+#: ../src/cnmsstrings.h:177 ../usr/share/scangearmp2/scangearmp2.glade.h:26
+msgid "Cancel"
+msgstr "キャンセル"
+
+#. STR_CNMS_LS_012_01
+#: ../src/cnmsstrings.h:179
+msgid "Searching..."
+msgstr "検索中..."
+
+#. STR_CNMS_LS_012_02
+#: ../src/cnmsstrings.h:181
+msgid "Searching for scanners."
+msgstr "スキャナーを検索中です。"
+
+#. STR_CNMS_LS_012_03
+#: ../src/cnmsstrings.h:183
+msgid "Updating the scanner list."
+msgstr "スキャナーリストを更新中です。"
+
+#. STR_CNMS_LS_010_10
+#: ../src/cnmsstrings.h:164
+msgid ""
+"Release the lock switch, detach the USB cable and reconnect.\n"
+"Scanner driver will be closed."
+msgstr ""
+"ロックスイッチを解除し、USBケーブルを抜いて、接続し直してください。\n"
+"スキャナードライバーを終了します。"
+
+#. STR_CNMS_LS_010_11
+#: ../src/cnmsstrings.h:166
+msgid "Scanner initialization is in progress. Scan after it is complete."
+msgstr "スキャナーの初期化中です。終了してからスキャンしてください。"
+
