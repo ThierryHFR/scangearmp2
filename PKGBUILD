@@ -32,7 +32,7 @@ package() {
   make -C${_builddir} install DESTDIR=${pkgdir}
   #kostyl': /usr/sbin /usr/lib64 are symlinks in archlinux
   mkdir -p ${pkgdir}/usr/bin ${pkgdir}/usr/lib
-  mv ${pkgdir}/usr/sbin/*  ${pkgdir}/usr/bin/
+  mv ${pkgdir}/usr/bin/*  ${pkgdir}/usr/bin/
   mv ${pkgdir}/usr/lib64/* ${pkgdir}/usr/lib/
   rmdir ${pkgdir}/usr/sbin ${pkgdir}/usr/lib64
 
