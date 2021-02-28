@@ -16,6 +16,7 @@
 	releases and had not that much interrest for the developement.
 	
 	For ubuntu-based distributions: https://launchpad.net/~thierry-f/+archive/ubuntu/fork-michael-gruz
+	For debian-based distribution : https://github.com/Ordissimo/scangearmp2/releases/tag/4.12 
 
 ```
  
