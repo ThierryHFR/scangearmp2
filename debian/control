@@ -3,7 +3,8 @@ Section: graphics
 Priority: optional
 Maintainer: Thierry HUCHARD <thierry@substantyiel.fr>
 Build-Depends: debhelper, autotools-dev, libglib2.0-dev, libgtk2.0-dev, libusb-1.0-0-dev,
- libtool-bin, libjpeg-dev, autoconf, autotools-dev, gawk, automake, cmake
+ libtool-bin, libjpeg-dev, autoconf, autotools-dev, gawk, automake, cmake, intltool,
+ libsane-dev
 Standards-Version: 3.7.2
 
 Package: scangearmp2
