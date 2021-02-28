@@ -52,7 +52,7 @@ CNMSInt32 CnmsStrLen(
 		DBGMSG( "[CnmsStrLen]Parameter is error.\n" );
 		goto	EXIT;
 	}
-	ret = strlen( lpStr );
+	ret = strlen( (char*)lpStr );
 EXIT:
 #ifdef	__CNMS_DEBUG_FUNC__
 	DBGMSG( "[CnmsStrLen(lpStr:%s)]=%d.\n", lpStr, ret );
@@ -79,7 +79,7 @@ CNMSInt32 CnmsStrCopy(
 //#pragma GCC diagnostic push
 //#pragma GCC diagnostic ignored "-Wstringop-truncation"
 //#pragma GCC diagnostic ignored "-Wstringop-overflow"
-	strncpy( (CNMSInt8 *)lpDst, (CNMSInt8 *)lpSrc, srcLen );
+	strncpy( (char *)lpDst, (char *)lpSrc, srcLen );
 //#pragma GCC diagnostic pop
 
 	lpDst[ srcLen ] = '\0';
