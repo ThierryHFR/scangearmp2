@@ -113,7 +113,7 @@ CNMSInt32 CnmsStrCat(
 //#pragma GCC diagnostic push
 //#pragma GCC diagnostic ignored "-Wstringop-truncation"
 //#pragma GCC diagnostic ignored "-Wstringop-overflow"
-	strncat( (CNMSInt8 *)lpDst, (CNMSInt8 *)lpSrc, srcLen );
+	(void)strncat( (char *)lpDst, (char *)lpSrc, (int)srcLen );
 //#pragma GCC diagnostic pop
 	lpDst[ totalLen ] = '\0';
 
