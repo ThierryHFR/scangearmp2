@@ -207,17 +207,17 @@ yum install rpm-build
 ```
 ###### Get sources :
 ```
-wget https://github.com/Ordissimo/scangearmp2/releases/download/3.90-2/scangearmp2.spec
-wget https://github.com/Ordissimo/scangearmp2/releases/download/3.90-2/scangearmp2_3.90-2ubuntu.artful.tar.xz
-tar xvf scangearmp2_3.90-2ubuntu.artful.tar.xz
-tar czvf scangearmp2_3.90.orig.tar.gz scangearmp2
-mv scangearmp2_3.90.orig.tar.gz ~/rpmbuild/SOURCES/
+wget https://github.com/Ordissimo/scangearmp2/releases/download/4.12/scangearmp2.spec
+wget https://github.com/Ordissimo/scangearmp2/releases/download/4.12/scangearmp2_4.12.tar.xz
+tar xvf scangearmp2_4.12-2ubuntu.artful.tar.xz
+tar czvf scangearmp2_4.12.orig.tar.gz scangearmp2
+mv scangearmp2_4.12.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 Or, from git repository
 ```
-git archive --format=tar --prefix=scangearmp2-3.90/ HEAD |gzip >scangearmp2_3.90.orig.tar.gz
-mv scangearmp2_3.90.orig.tar.gz ~/rpmbuild/SOURCES/
+git archive --format=tar --prefix=scangearmp2-4.10/ HEAD |gzip >scangearmp2_4.12.orig.tar.gz
+mv scangearmp2_4.12.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 ###### Build Sources :
@@ -229,7 +229,7 @@ rpmbuild -ba scangearmp2.spec
 ```
 ###### Install :
 ```
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-3.90-2.x86_64.rpm
+rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.12-2.x86_64.rpm
 ```
 # Activate the backend
 ## For all distributions you need to activate the backend :
@@ -243,7 +243,7 @@ In case of problem with `firewalld`
  into '/etc/firewalld/services/' and activate the service (for the adequate zone(s))
 
 ```
-sudo cp scangearmp2/etc/canon-scan.xml /etc/firewalld/services/
+sudo cp /etc/canon-scan.xml /etc/firewalld/services/
 firewall-cmd --permanent --zone=home --add-service=canon-scan
 ```
 
