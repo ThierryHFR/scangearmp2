@@ -19,7 +19,7 @@ else ()
 endif ()
 
 set(CMAKE_INSTALL_PREFIX "/usr")
-set(CFLAGS_WARN     "-Wall -Wextra -Werror -Wno-deprecated-declarations -Wno-format-truncation")
+set(CFLAGS_WARN     "-Wall -Wextra -Werror -Wno-deprecated-declarations -Wno-format-truncation -Wno-stringop-truncation")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} ${CFLAGS_WARN}")
 
 include(GNUInstallDirs) # for make install
