@@ -97,6 +97,7 @@ CNMSInt32 CnmsStrCat(
 		CNMSLPSTR		lpDst,
 		CNMSInt32		dstLen )
 {
+	CNMSInt32	dstLenX = 0;
 	CNMSInt32	ret = CNMS_ERR, totalLen, srcLen;
 	
 	if( ( lpSrc == CNMSNULL ) || ( lpDst == CNMSNULL ) || ( dstLen <= 0 ) ){
@@ -104,8 +105,9 @@ CNMSInt32 CnmsStrCat(
 		goto	EXIT;
 	}
 
+    dstLenX = CnmsStrLen( (CNMSInt8 *)lpDst );
 	srcLen = CnmsStrLen( (CNMSInt8 *)lpSrc );
-	if( ( totalLen  = srcLen + CnmsStrLen( (CNMSInt8 *)lpDst ) ) >= dstLen ){
+	if( ( totalLen  = srcLen + dstLenX ) >= dstLen ){
 		DBGMSG( "[CnmsStrCat]total string(%d) is too long(>%d).\n", totalLen, dstLen );
 		goto	EXIT;
 	}
@@ -113,7 +115,7 @@ CNMSInt32 CnmsStrCat(
 //#pragma GCC diagnostic push
 //#pragma GCC diagnostic ignored "-Wstringop-truncation"
 //#pragma GCC diagnostic ignored "-Wstringop-overflow"
-	(void)strncat( (char *)lpDst, (char *)lpSrc, (int)srcLen );
+	memcpy(&lpDst[dstLenX], lpSrc, (int)srcLen);
 //#pragma GCC diagnostic pop
 	lpDst[ totalLen ] = '\0';
 
