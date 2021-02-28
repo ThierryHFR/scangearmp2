@@ -175,12 +175,12 @@ git clone https://github.com/Ordissimo/scangearmp2.git
 ###### Get developement environnement :
 ```
 apt update
-apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libjpeg-dev
+apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
 # or, if failure, use:
-apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool libjpeg-dev
-cp -a scangearmp2 scangearmp2-3.90
-rm -rf scangearmp2-3.90/.git scangearmp2-3.90/debian/
-tar cJvf scangearmp2_3.90.orig.tar.xz scangearmp2-3.90
+apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool libjpeg-dev intltool libsane-dev
+cp -a scangearmp2 scangearmp2-4.12
+rm -rf scangearmp2-4.12/.git scangearmp2-4.12/debian/
+tar cJvf scangearmp2_4.12.orig.tar.xz scangearmp2-4.12
 ```
 ###### Build Sources :
 ```
@@ -190,9 +190,9 @@ dpkg-buildpackage -us -uc ##
 
 ###### Install :
 ```
-apt install ../scangearmp2_3.90-1_amd64.deb
+apt install ../scangearmp2_4.12-1_amd64.deb
 ```
-## For redhat systems :
+## For redhat systems : <font color="red">This is no longer current</font>
 
 ###### Get developement environnement :
 ```
