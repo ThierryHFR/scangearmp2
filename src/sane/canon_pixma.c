@@ -84,14 +84,14 @@ static const CIJSC_SIZE_TABLE sourceSize[] = {
 	{ CIJSC_SIZE_L_P,		1051, 1500 },		// L Portrait
 	{ CIJSC_SIZE_4X6_L,		1800, 1200 },		// 4"x6" Landscape
 	{ CIJSC_SIZE_4X6_P,		1200, 1800 },		// 4"x6" Portrait
-	{ CIJSC_SIZE_HAGAKI_L,	1748, 1181 },		// Hagaki Landscape
-	{ CIJSC_SIZE_HAGAKI_P,	1181, 1748 },		// Hagaki Portrait
+	{ CIJSC_SIZE_HAGAKI_L,	        1748, 1181 },		// Hagaki Landscape
+	{ CIJSC_SIZE_HAGAKI_P,	        1181, 1748 },		// Hagaki Portrait
 	{ CIJSC_SIZE_2L_L,		2102, 1500 },		// 2L Landscape
 	{ CIJSC_SIZE_2L_P,		1500, 2102 },		// 2L Portrait
 	{ CIJSC_SIZE_A5,		1748, 2480 },		// A5
 	{ CIJSC_SIZE_B5,		2149, 3035 },		// B5
 	{ CIJSC_SIZE_A4,		2480, 3507 },		// A4 size
-	{ CIJSC_SIZE_LETTER,	2550, 3300 }		// Letter
+	{ CIJSC_SIZE_LETTER,	        2550, 3300 }		// Letter
 };
 
 
@@ -101,34 +101,42 @@ _get_source_size(int right, int bottom) {
    int obottom = -1;
    int oright = -1;
    static CIJSC_SIZE_TABLE maw_size = { CIJSC_SIZE_LETTER + 1, 2550, 3507};
-   for (; x < (CIJSC_SIZE_LETTER + 1); x++) {
+   // for (; x < (CIJSC_SIZE_LETTER + 1); x++) {
+   for (x = CIJSC_SIZE_LETTER; x > -1;  x--) {
       if (right > 0) {
          if ( sourceSize[x].right == right)
-            return sourceSize[x];
+             return sourceSize[x];
          else if (oright == -1)
-               oright = x;
-         else if (sourceSize[oright].right > right &&
-            sourceSize[x].right < sourceSize[oright].right)
-               oright = x;
+             oright = x;
+         if (sourceSize[x].right < sourceSize[oright].right &&
+             right > sourceSize[x].right)
+             return sourceSize[oright];
+         else 
+             oright = x;
       }
       else if (bottom > 0) {
          if ( sourceSize[x].bottom == bottom)
             return sourceSize[x];
          else if (obottom == -1)
             obottom = x;
-         else if (sourceSize[obottom].bottom > bottom &&
-                  sourceSize[x].bottom < sourceSize[obottom].bottom)
-               obottom = x;
+         if (sourceSize[x].bottom < sourceSize[obottom].bottom &&
+             bottom > sourceSize[x].bottom)
+             return sourceSize[obottom];
+         else
+             obottom = x;
       }
    }
-   fprintf(stderr, "> %s => %d\n", (obottom != -1 ? "HAUTEUR" : "LARGEUR"), (obottom != -1 ? bottom : right));
+   if (obottom != -1 && oright != -1)
+       fprintf(stderr, "> %s => %d\n", (obottom != -1 ? "HAUTEUR" : "LARGEUR"), (obottom != -1 ? bottom : right));
+   else
+       fprintf(stderr, "> Pas trouvé\n");
    if (obottom == -1 && oright == -1) {
-       fprintf(stderr, ">\t[%dx%d]\n",
+       fprintf(stderr, "A >\t[%dx%d]\n",
                maw_size.right,
                maw_size.bottom);
        return maw_size;
    }
-   fprintf(stderr, ">\t[%dx%d]\n",
+   fprintf(stderr, "B >\t[%dx%d]\n",
                sourceSize[(obottom != -1 ? obottom : oright)].right,
                sourceSize[(obottom != -1 ? obottom : oright)].bottom);
    return sourceSize[(obottom != -1 ? obottom : oright)];
@@ -869,23 +877,15 @@ sane_get_option_descriptor(SANE_Handle h, SANE_Int n){
 int
 _get_resolution(int resol)
 {
-    int x = 1;
-    int n = 3;
-    int old = -1;
-    for (; x < n; x++) {
-      if (resol == resbit_list[x])
-         return resol;
-      else if (resol < resbit_list[x])
-      {
-          if (old == -1)
-             return resbit_list[1];
-          else
-             return old;
-      }
-      else
-          old = resbit_list[x];
-    }
-    return old;
+    int median = (resbit_list[2] - resbit_list[1]) / 2;
+    if (resol < resbit_list[1])
+        return resbit_list[1];
+    else if (resol > resbit_list[2])
+        return resbit_list[2];
+    else if (resol < (resbit_list[1] + median))
+        return resbit_list[1];
+    else
+        return resbit_list[2];
 }
 
 
@@ -939,9 +939,11 @@ sane_control_option (SANE_Handle h, SANE_Int n,
                                     size = _get_source_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
                                 else
                                     size = _get_source_adf_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
-			      	handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
+			      	handled->sgmp.scan_w = size.right;
+			      	handled->sgmp.scan_h = size.bottom;
                                 handled->val[n].w = PIXEL_TO_MM(size.right, 300);
-			      	handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
                                 handled->val[OPT_BR_Y].w = PIXEL_TO_MM(size.bottom, 300);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
@@ -953,9 +955,11 @@ sane_control_option (SANE_Handle h, SANE_Int n,
                                     size = _get_source_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
                                 else
                                     size = _get_source_adf_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
-			      	handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
+                                handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
+			      	handled->sgmp.scan_w = size.right;
+			      	handled->sgmp.scan_h = size.bottom;
                                 handled->val[n].w = PIXEL_TO_MM(size.bottom, 300);
-			      	handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
                                 handled->val[OPT_BR_X].w = PIXEL_TO_MM(size.right, 300);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
@@ -966,8 +970,8 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 			      	if (handled->val[OPT_RESOLUTION].w == 600) {
 			      	    handled->val[OPT_RESOLUTION].w = 300;
 			      	    handled->sgmp.scan_res = 300 ;
-			      	    handled->sgmp.scan_hy /= 2;
-			      	    handled->sgmp.scan_wx /= 2;
+			      	    handled->sgmp.scan_hy = handled->sgmp.scan_h;
+			      	    handled->sgmp.scan_wx = handled->sgmp.scan_w;
                                     handled->val[OPT_BR_X].w = PIXEL_TO_MM(handled->sgmp.scan_wx, 300);
                                     handled->val[OPT_BR_Y].w = PIXEL_TO_MM(handled->sgmp.scan_hy, 300);
                                 }
@@ -979,20 +983,16 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 			      	v1 = (int)*(SANE_Word*)v;
                               	v1 = _get_resolution(v1);
 			      	handled->sgmp.scan_res = v1 ;
-			      	if (handled->val[n].w != v1)
-                                {
-                                   if (handled->val[n].w > v1) {
-			      	      handled->sgmp.scan_wx /= 2;
-			              handled->sgmp.scan_hy /= 2;
-                                   }
-                                   else if (handled->val[n].w < v1) {
-			      	      handled->sgmp.scan_wx *= 2;
-			              handled->sgmp.scan_hy *= 2;
-                                   }
-                                   // handled->val[OPT_BR_X].w = PIXEL_TO_MM(handled->sgmp.scan_wx, 300);
-                                   // handled->val[OPT_BR_Y].w = PIXEL_TO_MM(handled->sgmp.scan_hy, 300);
-                                }
 			      	handled->val[n].w = v1;
+                                if (v1 == 300) {
+                                      handled->sgmp.scan_wx = handled->sgmp.scan_w;
+			              handled->sgmp.scan_hy = handled->sgmp.scan_h;
+                                }
+                                else {
+                                      handled->sgmp.scan_wx = handled->sgmp.scan_w * 2;
+			              handled->sgmp.scan_hy = handled->sgmp.scan_h * 2;
+                                }
+                                fprintf(stderr, "RESOLUTION : [%d]\n", handled->sgmp.scan_res);
 			      	if(i){
 			        	*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			      	}
@@ -1042,8 +1042,8 @@ sane_start (SANE_Handle h){
 	param.YRes			= handled->sgmp.scan_res;
 	param.Left			= 0;
 	param.Top			= 0;
-	param.Right			= handled->sgmp.scan_wx;
-	param.Bottom			= handled->sgmp.scan_hy;
+	param.Right			= handled->sgmp.scan_wx; // * (param.XRes == 300 ? 1 : 2);
+	param.Bottom			= handled->sgmp.scan_hy; // * (param.XRes == 300 ? 1 : 2);
 fprintf(stderr, "Res User  : [%d]\n", handled->sgmp.scan_res);
 fprintf(stderr, "Format Max  : [0x0|%dx%d]\n", handled->sgmp.scan_w, handled->sgmp.scan_h);
 fprintf(stderr, "Format User : [%dx%d|%dx%d]\n", handled->sgmp.scan_x, handled->sgmp.scan_y, handled->sgmp.scan_wx, handled->sgmp.scan_hy);
