@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2020
+ *  Copyright CANON INC. 2007-2021
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,9 +52,9 @@ CNMSInt32 CnmsStrLen(
 		DBGMSG( "[CnmsStrLen]Parameter is error.\n" );
 		goto	EXIT;
 	}
-	ret = (CNMSInt32)strlen( (char*)lpStr );
+	ret = strlen( lpStr );
 EXIT:
-#ifdef	__CNMS_DEBUG_FUNC__
+	#ifdef	__CNMS_DEBUG_FUNC__
 	DBGMSG( "[CnmsStrLen(lpStr:%s)]=%d.\n", lpStr, ret );
 #endif
 	return	ret;
@@ -76,8 +76,8 @@ CNMSInt32 CnmsStrCopy(
 		DBGMSG( "[CnmsStrCopy]src string(%d) is too long(>%d).\n", srcLen, dstLen );
 		goto	EXIT;
 	}
-	snprintf((char *)lpDst, (int)srcLen, "%s", (char *)lpSrc);
 
+	strncpy( (CNMSInt8 *)lpDst, (CNMSInt8 *)lpSrc, srcLen );
 	lpDst[ srcLen ] = '\0';
 
 	ret = srcLen;
@@ -93,7 +93,6 @@ CNMSInt32 CnmsStrCat(
 		CNMSLPSTR		lpDst,
 		CNMSInt32		dstLen )
 {
-	CNMSInt32	dstLenX = 0;
 	CNMSInt32	ret = CNMS_ERR, totalLen, srcLen;
 	
 	if( ( lpSrc == CNMSNULL ) || ( lpDst == CNMSNULL ) || ( dstLen <= 0 ) ){
@@ -101,15 +100,13 @@ CNMSInt32 CnmsStrCat(
 		goto	EXIT;
 	}
 
-    dstLenX = CnmsStrLen( (CNMSInt8 *)lpDst );
 	srcLen = CnmsStrLen( (CNMSInt8 *)lpSrc );
-	if( ( totalLen  = srcLen + dstLenX ) >= dstLen ){
+	if( ( totalLen  = srcLen + CnmsStrLen( (CNMSInt8 *)lpDst ) ) >= dstLen ){
 		DBGMSG( "[CnmsStrCat]total string(%d) is too long(>%d).\n", totalLen, dstLen );
 		goto	EXIT;
 	}
 
-	memcpy(&lpDst[dstLenX], lpSrc, (int)srcLen);
-
+	strncat( (CNMSInt8 *)lpDst, (CNMSInt8 *)lpSrc, srcLen );
 	lpDst[ totalLen ] = '\0';
 
 	ret = totalLen;
@@ -125,7 +122,7 @@ CNMSInt32 CnmsStrCompare(
 		const CNMSLPSTR		lpStr2 )
 {
 	CNMSInt32	ret = CNMS_ERR;
-	
+
 	if( ( lpStr1 == CNMSNULL ) || ( lpStr2 == CNMSNULL ) ){
 		DBGMSG( "[CnmsStrCompare]Parameter is error.\n" );
 		goto	EXIT;

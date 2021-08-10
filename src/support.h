@@ -26,6 +26,11 @@
 #ifndef	_SUPPORT_H_
 #define	_SUPPORT_H_
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#include <stdio.h>
 #include <limits.h>
 
 /*
@@ -216,8 +221,15 @@ enum{
 	CIJSC_SCANMODE_PLATEN = 0,
 	CIJSC_SCANMODE_ADF_S,
 	CIJSC_SCANMODE_ADF_D_L,
-	CIJSC_SCANMODE_ADF_D_S,
+	CIJSC_SCANMODE_ADF_D_S
 };
+
+
+
+#define FLATBED "Flatbed"
+#define ADF "ADF"
+#define ADF_DUPLEX "ADF Duplex"
+
 
 /* select source list */
 enum{

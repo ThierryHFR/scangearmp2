@@ -723,7 +723,7 @@ CMT_Status cmt_libusb_bulk_write( int index, unsigned char *buffer, unsigned lon
 	
 	request_bytes = *size;
 #ifdef _SGMP_DEBUG_VERBOSE_
-	DBGMSG( " (*size:%d,request_bytes:%d)--->\n" ,*size,request_bytes);
+	DBGMSG( " (*size:%ld,request_bytes:%d)--->\n" ,*size,request_bytes);
 #endif
 	err = libusb_bulk_transfer( libusbdev[index].handle, libusbdev[index].ep_bulk_out_address,
 					(unsigned char *)buffer, request_bytes, &ret_bytes, LIBUSB_TIMEOUT );
@@ -764,7 +764,7 @@ CMT_Status cmt_libusb_bulk_read( int index, unsigned char *buffer, unsigned long
 	
 	request_bytes = ( *size > LIBUSB_READ_MAX_SIZE ) ? LIBUSB_READ_MAX_SIZE : *size;
 #ifdef _SGMP_DEBUG_VERBOSE_
-	DBGMSG( " (*size:%d,request_bytes:%d)--->\n" ,*size,request_bytes);
+	DBGMSG( " (*size:%ld,request_bytes:%d)--->\n" ,*size,request_bytes);
 #endif
 	err = libusb_bulk_transfer( libusbdev[index].handle, libusbdev[index].ep_bulk_in_address,
 					(unsigned char *)buffer, request_bytes, &ret_bytes, LIBUSB_TIMEOUT );
@@ -953,7 +953,7 @@ void cmt_network_mutex_unlock( void )
 	}
 }
 
-noreturn void* cmt_network_keep_session( void *hnd )
+void *cmt_network_keep_session( void *hnd )
 {
 	int				i;
 	unsigned long	d_time;
@@ -1001,6 +1001,7 @@ noreturn void* cmt_network_keep_session( void *hnd )
 			WAIT_300MSEC;
 		}
 	}
+        return NULL;
 }
 
 
@@ -1054,7 +1055,7 @@ CMT_Status cmt_network_open(const char *macaddr, CNNLHANDLE *handle)
 	cmt_network_mode = 1;
 	/* keep TCP session thread */
 	pthread_mutex_init( &cmt_net_mutex, NULL );
-	if( ( ret = pthread_create( &cmt_network_thread, NULL, cmt_network_keep_session, (void *)hnd ) ) ) {
+	if( ( ret = pthread_create( &cmt_network_thread, NULL, (void *(*)(void*))cmt_network_keep_session, (void *)hnd ) ) ) {
 		goto error2;
 	}
 	cmt_net_aborted = 0;
@@ -1293,7 +1294,7 @@ CMT_Status cmt_network2_open( const char * devname, HCNNET3 *handle )
 	cmt_network_mode = 2;
 	/* keep TCP session thread */
 	pthread_mutex_init( &cmt_net_mutex, NULL );
-	if( ( ret = pthread_create( &cmt_network_thread, NULL, cmt_network_keep_session, (void *)hnd ) ) ) {
+	if( ( ret = pthread_create( &cmt_network_thread, NULL, (void *(*)(void*))cmt_network_keep_session, (void *)hnd ) ) ) {
 		goto error;
 	}
 	cmt_net2_aborted = 0;
@@ -1405,13 +1406,13 @@ CMT_Status cmt_network2_read( HCNNET3 handle, unsigned char *buffer, unsigned lo
 		tmp_read_bytes = request_bytes;
 
 #ifdef _SGMP_DEBUG_VERBOSE_
-		DBGMSG( " CNNET3_Read (request:%d)\n", tmp_read_bytes );
+		DBGMSG( " CNNET3_Read (request:%ld)\n", tmp_read_bytes );
 #endif
 		
 		status = CNNET3_Read( handle, tmp_buffer, &tmp_read_bytes, &needContinue );
 		
 #ifdef _SGMP_DEBUG_VERBOSE_
-		DBGMSG( " CNNET3_Read (recieve:%d) needContinue = %d\n", tmp_read_bytes, needContinue );
+		DBGMSG( " CNNET3_Read (recieve:%ld) needContinue = %d\n", tmp_read_bytes, needContinue );
 #endif
 		
 		if ( status != CNNET3_ERR_SUCCESS ) { /* error happend. */
@@ -1427,7 +1428,7 @@ CMT_Status cmt_network2_read( HCNNET3 handle, unsigned char *buffer, unsigned lo
 	}
 	
 #ifdef _SGMP_DEBUG_VERBOSE_
-	DBGMSG( " CNNET3_Read result (%d/%d)\n", *size, ret_bytes );
+	DBGMSG( " CNNET3_Read result (%ld/%ld)\n", *size, ret_bytes );
 #endif
 	*size = ret_bytes;
 	
