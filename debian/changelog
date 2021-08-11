@@ -1,3 +1,9 @@
+scangearmp2 (4.20.1) UNRELEASED; urgency=medium
+
+  * Migration to scangearmp2 4.20
+
+ -- thierry <thierry@ordissimo.com>  Wed, 11 Aug 2021 04:56:37 +0200
+
 scangearmp2 (4.12) buster; urgency=medium
 
   * build for upstream.
