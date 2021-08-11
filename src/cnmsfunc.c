@@ -48,7 +48,7 @@ CNMSInt32 CnmsStrLen(
 {
 	CNMSInt32	ret = CNMS_ERR;
 
-	if( lpStr == CNMSNULL ){
+	if( lpStr == CNMSNULL || *lpStr == 0){
 		DBGMSG( "[CnmsStrLen]Parameter is error.\n" );
 		goto	EXIT;
 	}
@@ -77,7 +77,7 @@ CNMSInt32 CnmsStrCopy(
 		goto	EXIT;
 	}
 
-	strncpy( (CNMSInt8 *)lpDst, (CNMSInt8 *)lpSrc, srcLen );
+	strncpy( (char *)lpDst, (char *)lpSrc, srcLen );
 	lpDst[ srcLen ] = '\0';
 
 	ret = srcLen;
