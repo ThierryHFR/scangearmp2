@@ -7,6 +7,13 @@ GOTO="canon_mfp_end"
 
 LABEL="canon_mfp_start"
 
+#GX6000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18a6", MODE="666"
+#GX7000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18a8", MODE="666"
+#TS5400 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18d8", MODE="666"
+
 #TS3400 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="18b7", MODE="666"
 #E3400 series
@@ -94,6 +101,8 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1777", MODE="666"
 #E460 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1788", MODE="666"
 
+#MX450 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1768", MODE="666"
 #MX490 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1787", MODE="666"
 #E480 series

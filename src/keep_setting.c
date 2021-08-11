@@ -31,6 +31,7 @@
 #endif
 
 #include <stdio.h>
+#include <string.h>
 #include <limits.h>
 
 #include "support.h"
@@ -237,10 +238,13 @@ static CNMSInt32 SubWriteSettingCommonFile( CNMSFd fd )
 		goto	EXIT;
 	}
 	for( i = 0 ; i < KEEPSETTING_COMMON_ID_MAX ; i ++ ){
-		snprintf( lpBuf, KEEP_SETTING_RASTER_LEN, "%s%s\n", KeepSettingCommonStrArray[ i ], lpCommonSetting->str[ i ] );
+                strcpy(lpBuf,KeepSettingCommonStrArray[ i ]);
+                strcat(lpBuf, lpCommonSetting->str[ i ]);
+                strcat(lpBuf, "\n");
 		if( ( ldata = FileControlWriteFile( fd, lpBuf, CnmsStrLen( lpBuf ) ) ) != CNMS_NO_ERR ){
 			goto	EXIT;
 		}
+                memset(lpBuf, 0, KEEP_SETTING_RASTER_LEN);
 	}
 	ret = CNMS_NO_ERR;
 EXIT:
