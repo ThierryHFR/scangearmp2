@@ -111,7 +111,7 @@ static gboolean ui_dialog_notify_hide( gpointer gdata )
 	
 	DBGMSG("->\n");
 	
-	if ( GTK_WIDGET_VISIBLE ( data->dialog_notify ) ) {
+	if ( gtk_widget_get_visible( data->dialog_notify ) ) {
 		DBGMSG("hide dialog\n");
 		gtk_widget_hide( data->dialog_notify );
 	}

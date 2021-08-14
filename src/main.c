@@ -92,7 +92,7 @@ int main(int argc, char **argv )
         textdomain( "scangearmp2" );
 #endif
 	
-	gtk_set_locale();
+	setlocale(LC_ALL,"");
 
 	gtk_init( &argc, &argv );
 	

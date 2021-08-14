@@ -162,7 +162,7 @@ int CIJSC_UI_error_show( SGMP_Data *data, GtkWidget *parent )
 	/* error occurred. */
 	if ( errorCode ) {
 		if ( parent ) {
-			if( GTK_WIDGET_VISIBLE( parent ) ) {
+			if( gtk_widget_get_visible( parent ) ) {
 				gtk_widget_set_sensitive( parent, FALSE );
 			}
 		}
@@ -218,7 +218,7 @@ int CIJSC_UI_error_show( SGMP_Data *data, GtkWidget *parent )
 _EXIT:
 	if ( errorCode ) {
 		if ( parent ) {
-			if( GTK_WIDGET_VISIBLE( parent ) ) {
+			if( gtk_widget_get_visible( parent ) ) {
 				gtk_widget_set_sensitive( parent, TRUE );
 			}
 		}
