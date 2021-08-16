@@ -177,7 +177,7 @@ git clone https://github.com/Ordissimo/scangearmp2.git
 ###### Get development environment :
 ```
 apt update
-apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
+apt install debhelper libglib2.0-dev libgtk-3-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
 # or, if failure, use:
 apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool libjpeg-dev intltool libsane-dev
 cp -a scangearmp2 scangearmp2-4.12
@@ -198,7 +198,7 @@ apt install ../scangearmp2_4.12-1_amd64.deb
 
 ###### Get development environment :
 ```
-yum install gtk2-devel
+yum install gtk3-devel
 yum install libusb-devel
 yum install libjpeg-devel
 yum install gettext-devel
