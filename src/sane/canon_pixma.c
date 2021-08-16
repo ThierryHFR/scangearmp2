@@ -505,6 +505,7 @@ CMT_Status canon_sane_read(canon_sane_t * handled){
 	if(handled->file == NULL){
 		return show_canon_cmt_error(CMT_STATUS_INVAL);
 	}
+        unlink(canonJpegDataTmp);
 
 	while(status == CMT_STATUS_GOOD && !handled->cancel){
 		/*Read data from the scanner, the data are send in jpeg format*/
@@ -712,7 +713,7 @@ init_options (canon_sane_t * s)
 	/* TODO: Build the constraints on resolution in a smart way */
 	s->opt[OPT_RESOLUTION].constraint_type = SANE_CONSTRAINT_WORD_LIST;
 	s->opt[OPT_RESOLUTION].constraint.word_list = resbit_list;
-	s->val[OPT_RESOLUTION].w = s->sgmp.scan_res = resbit_list[333];
+	s->val[OPT_RESOLUTION].w = s->sgmp.scan_res = resbit_list[3];
 
 	s->opt[OPT_PREVIEW].name = SANE_NAME_PREVIEW;
 	s->opt[OPT_PREVIEW].title = SANE_TITLE_PREVIEW;
