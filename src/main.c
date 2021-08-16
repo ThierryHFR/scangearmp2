@@ -190,7 +190,7 @@ int main(int argc, char **argv )
 	
 	gtk_window_set_default_size( GTK_WINDOW( data->dialog_save ), gdk_screen_width() * 0.35, gdk_screen_height() * 0.35 );
 	
-	// g_object_unref( G_OBJECT( data->builder ) );
+	g_object_unref( G_OBJECT( data->builder ) );
 	
 	/* initialize device list. */
 	if( CIJSC_init( (void *)NULL ) != CMT_STATUS_GOOD ) {
