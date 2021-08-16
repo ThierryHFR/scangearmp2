@@ -123,26 +123,18 @@ static int ui_main_is_en_US( void )
 
 static void ui_main_combobox_scanmode_init( SGMP_Data *data, CANON_Device const *dev )
 {
-	GtkListStore		*store;
-	GtkTreeIter			iter;
-	
 	DBGMSG("->\n");
-	store = GTK_LIST_STORE( gtk_combo_box_get_model( GTK_COMBO_BOX( data->combobox_scanmode ) ) );
-	gtk_list_store_clear( store );
+        gtk_combo_box_text_remove_all ( GTK_COMBO_BOX_TEXT ( data->combobox_scanmode ) );
 	
 	if ( CIJSC_GET_SUPPORT_PLATEN( dev->type ) ) {
-		gtk_list_store_append (store, &iter);
-		gtk_list_store_set( store, &iter, 0, gettext( STR_CNMS_LS_002_01 ), -1 );
+                gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_01 ));
 	}
 	if ( CIJSC_GET_SUPPORT_ADF_S( dev->type ) ) {
-		gtk_list_store_append (store, &iter);
-		gtk_list_store_set( store, &iter, 0, gettext( STR_CNMS_LS_002_02 ), -1 );
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_02 ));
 	}
 	if ( CIJSC_GET_SUPPORT_ADF_D( dev->type ) ) {
-		gtk_list_store_append (store, &iter);
-		gtk_list_store_set( store, &iter, 0, gettext( STR_CNMS_LS_002_03 ), -1 );
-		gtk_list_store_append (store, &iter);
-		gtk_list_store_set( store, &iter, 0, gettext( STR_CNMS_LS_002_04 ), -1 );
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_03 ));
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_04 ));
 	}
 	
 	gtk_combo_box_set_active( GTK_COMBO_BOX( data->combobox_scanmode ) , 0 );
@@ -150,18 +142,14 @@ static void ui_main_combobox_scanmode_init( SGMP_Data *data, CANON_Device const 
 
 static void ui_main_other_combobox_init( SGMP_Data *data, GtkWidget *combo, CIJSC_MAINUI_ITEM_TABLE *table )
 {
-	GtkListStore		*store;
-	GtkTreeIter			iter;
 	int					i;
 	
 	(void)data;
 	DBGMSG("->\n");
-	store = GTK_LIST_STORE( gtk_combo_box_get_model( GTK_COMBO_BOX( combo ) ) );
-	gtk_list_store_clear( store );
+        gtk_combo_box_text_remove_all ( GTK_COMBO_BOX_TEXT( combo ) );
 	
 	for( i = 0 ; table[i].id >= 0; i++ ) {
-		gtk_list_store_append (store, &iter);
-		gtk_list_store_set( store, &iter, 0, gettext( table[i].str ), -1 );
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT ( combo ), gettext( table[i].str ) );
 	}
 	gtk_combo_box_set_active( GTK_COMBO_BOX( combo ) , 0 );
 }

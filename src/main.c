@@ -54,6 +54,9 @@ static void create_combobox(
 	SGMP_Data	*data,
 	GtkWidget	*combobox )
 {
+        (void)data;
+        (void)combobox;
+/*
 	GtkListStore		*store;
 	GtkCellRenderer		*renderer;
 	
@@ -66,7 +69,7 @@ static void create_combobox(
 	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT( combobox ), renderer, "text", 0, NULL);
 	g_object_unref( store );
 	g_object_unref( renderer );
-	
+*/	
 	data->ignore_combobox_changed = FALSE;
 }
 
@@ -92,7 +95,7 @@ int main(int argc, char **argv )
         textdomain( "scangearmp2" );
 #endif
 	
-	gtk_set_locale();
+	setlocale(LC_ALL,"");
 
 	gtk_init( &argc, &argv );
 	

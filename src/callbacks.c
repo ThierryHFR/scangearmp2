@@ -53,7 +53,7 @@ on_window_main_delete_event(	GtkWidget	*widget,
 	(void)widget;
 	(void)event;
 	
-	if( GTK_WIDGET_SENSITIVE( data->window_main ) ){
+	if( gtk_widget_get_sensitive ( data->window_main ) ){
 		DBGMSG( "[x] sensitive true\n" );
 		gtk_main_quit();
   		return TRUE;
@@ -348,7 +348,7 @@ on_dialog_error_delete_event(	GtkWidget	*widget,
 	(void)event;
 	DBGMSG("->\n");
 
-	if ( GTK_WIDGET_VISIBLE( data->button_error_cancel ) ) {
+	if ( gtk_widget_get_visible ( data->button_error_cancel ) ) {
 		on_button_error_cancel_clicked( NULL, data);
 	}
 	else {

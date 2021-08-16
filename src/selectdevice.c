@@ -51,23 +51,17 @@ static const CANON_Device **select_device_list = NULL;
 
 static void ui_combobox_select_devlist_init( SGMP_Data *data )
 {
-	GtkListStore		*store;
-	GtkTreeIter			iter;
 	int					devnum;
 	int					cache_num = 0;
-	// char				dev_list_name[256];
 	char				*cache_name = KeepSettingCommonGetString( KEEPSETTING_COMMON_ID_MACADDRESS );
-	
-	store = GTK_LIST_STORE( gtk_combo_box_get_model( GTK_COMBO_BOX( data->combobox_select_devlist ) ) );
-	gtk_list_store_clear( store );
+        gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT (data->combobox_select_devlist));
 	
 	for( devnum = 0 ; ; devnum ++ ){
 		if( select_device_list[ devnum ] == NULL ){
 			break;
 		}
 		else {
-			gtk_list_store_append (store, &iter);
-			gtk_list_store_set( store, &iter, 0, select_device_list[ devnum ]->fullname, -1 );
+                        gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_select_devlist), select_device_list[ devnum ]->fullname);
 			if ( strcmp( select_device_list[ devnum ]->name, cache_name ) == 0 ) {
 				cache_num = devnum;
 			}
