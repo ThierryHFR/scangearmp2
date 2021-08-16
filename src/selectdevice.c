@@ -88,7 +88,7 @@ static int ui_dialog_select_init( SGMP_Data *data )
 	if ( devnum == 0 ) {
 		gtk_widget_hide( data->combobox_select_devlist );
 		gtk_widget_show( data->label_select_nodev );
-		// gtk_widget_set_sensitive( data->button_select_ok, FALSE );
+		gtk_widget_set_sensitive( data->button_select_ok, FALSE );
 		gtk_widget_grab_focus( data->button_select_cancel );
 		/* show "device not found" */
 		lastBackendErrCode = BERRCODE_CONNECT_NO_DEVICE;
@@ -97,7 +97,7 @@ static int ui_dialog_select_init( SGMP_Data *data )
 	else {
 		gtk_widget_show( data->combobox_select_devlist );
 		gtk_widget_hide( data->label_select_nodev );
-		// gtk_widget_set_sensitive( data->button_select_ok, TRUE );
+		gtk_widget_set_sensitive( data->button_select_ok, TRUE );
 		gtk_widget_grab_focus( data->button_select_ok );
 		ui_combobox_select_devlist_init( data );
 	}
@@ -149,7 +149,7 @@ int CIJSC_UI_select_update_list( SGMP_Data	*data )
 	int				devnum;
 	
 	/* disable dialog_select */
-	// gtk_widget_set_sensitive( data->dialog_select, FALSE );
+	gtk_widget_set_sensitive( data->dialog_select, FALSE );
 	/* clear device list. */
 	CIJSC_exit();
 	
@@ -174,7 +174,7 @@ int CIJSC_UI_select_update_list( SGMP_Data	*data )
 	devnum = ui_dialog_select_init( data );
 	
 	/* enable dialog_select */
-	// gtk_widget_set_sensitive( data->dialog_select, TRUE );
+	gtk_widget_set_sensitive( data->dialog_select, TRUE );
 	if ( devnum == 0 ) {
 		gtk_widget_grab_focus( data->button_select_cancel );
 	}
