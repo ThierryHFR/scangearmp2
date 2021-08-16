@@ -64,8 +64,6 @@
             <property name="xpad">10</property>
             <property name="ypad">15</property>
             <property name="label">xxxxxxxxxxxxxxxxxxx</property>
-            <property name="xalign">0.10000000149011612</property>
-            <property name="yalign">0.44999998807907104</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -119,7 +117,6 @@
             <property name="can-focus">False</property>
             <property name="xpad">15</property>
             <property name="ypad">10</property>
-            <property name="yalign">0.44999998807907104</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -231,7 +228,6 @@
                 <property name="can-focus">False</property>
                 <property name="ypad">10</property>
                 <property name="label">xxxxx</property>
-                <property name="yalign">0</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -393,14 +389,13 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="GtkComboBox" id="combobox_select_devlist">
+                  <object class="GtkComboBoxText" id="combobox_select_devlist">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">False</property>
-                    <property name="padding">5</property>
+                    <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -513,7 +508,6 @@
                 <property name="xpad">35</property>
                 <property name="ypad">2</property>
                 <property name="label">xxxxx</property>
-                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -528,7 +522,6 @@
                 <property name="xpad">35</property>
                 <property name="ypad">2</property>
                 <property name="label">xxxxx</property>
-                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -543,7 +536,6 @@
                 <property name="xpad">35</property>
                 <property name="ypad">2</property>
                 <property name="label">xxxxx</property>
-                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -583,84 +575,34 @@
     <property name="window-position">center</property>
     <signal name="delete-event" handler="on_window_main_delete_event" swapped="no"/>
     <child>
-      <object class="GtkTable" id="table1">
+      <!-- n-columns=4 n-rows=11 -->
+      <object class="GtkGrid" id="table1">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="n-rows">11</property>
-        <property name="n-columns">4</property>
-        <property name="column-spacing">5</property>
         <property name="row-spacing">5</property>
+        <property name="column-spacing">5</property>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <object class="GtkComboBox" id="combobox_source">
+          <object class="GtkComboBoxText" id="combobox_source">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="active">0</property>
             <signal name="changed" handler="on_combobox_source_changed" swapped="no"/>
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">4</property>
-            <property name="bottom-attach">5</property>
+            <property name="width">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkComboBox" id="combobox_colormode">
+          <object class="GtkComboBoxText" id="combobox_colormode">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="active">0</property>
             <signal name="changed" handler="on_combobox_colormode_changed" swapped="no"/>
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">5</property>
-            <property name="bottom-attach">6</property>
+            <property name="width">2</property>
           </packing>
         </child>
         <child>
@@ -668,14 +610,13 @@
             <property name="label" translatable="yes" comments="STR_CNMS_LS_001_06">Scan (JPEG)</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="can-default">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="on_button_scanjpeg_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">2</property>
             <property name="top-attach">7</property>
-            <property name="bottom-attach">8</property>
           </packing>
         </child>
         <child>
@@ -684,11 +625,10 @@
             <property name="can-focus">False</property>
             <property name="xpad">10</property>
             <property name="label" translatable="yes" comments="STR_CNMS_LS_001_02">Scan Mode:</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
+            <property name="left-attach">0</property>
             <property name="top-attach">3</property>
-            <property name="bottom-attach">4</property>
           </packing>
         </child>
         <child>
@@ -697,24 +637,10 @@
             <property name="can-focus">False</property>
             <property name="xpad">10</property>
             <property name="label" translatable="yes" comments="STR_CNMS_LS_001_03">Select Source:</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
+            <property name="left-attach">0</property>
             <property name="top-attach">4</property>
-            <property name="bottom-attach">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_colormode">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="xpad">10</property>
-            <property name="label" translatable="yes" comments="STR_CNMS_LS_001_04">Color Mode:</property>
-            <property name="xalign">0</property>
-          </object>
-          <packing>
-            <property name="top-attach">5</property>
-            <property name="bottom-attach">6</property>
           </packing>
         </child>
         <child>
@@ -723,11 +649,21 @@
             <property name="can-focus">False</property>
             <property name="xpad">10</property>
             <property name="label" translatable="yes" comments="STR_CNMS_LS_001_05">Paper Size:</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
+            <property name="left-attach">0</property>
             <property name="top-attach">6</property>
-            <property name="bottom-attach">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator" id="hseparator1">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">8</property>
+            <property name="width">4</property>
           </packing>
         </child>
         <child>
@@ -737,47 +673,46 @@
             <property name="label" translatable="yes" comments="STR_CNMS_LS_001_01">Scanner</property>
           </object>
           <packing>
-            <property name="top-attach">1</property>
-            <property name="bottom-attach">2</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="label_devname">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label">Canon XXXXXX series</property>
+            <property name="label" translatable="yes">Canon XXXXXX series</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">1</property>
-            <property name="bottom-attach">2</property>
+            <property name="width">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHSeparator" id="hseparator1">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="right-attach">3</property>
-            <property name="top-attach">8</property>
-            <property name="bottom-attach">9</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_scanpdf">
+          <object class="GtkButton">
             <property name="label" translatable="yes" comments="STR_CNMS_LS_001_07">Scan (PDF)</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="can-default">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="on_button_scanpdf_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="left-attach">2</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">7</property>
-            <property name="bottom-attach">8</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_colormode">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="xpad">10</property>
+            <property name="label" translatable="yes" comments="STR_CNMS_LS_001_04">Color Mode:</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">5</property>
           </packing>
         </child>
         <child>
@@ -785,14 +720,13 @@
             <property name="label" translatable="yes" comments="STR_CNMS_LS_001_08">Close</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="can-default">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="on_button_close_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="left-attach">2</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">9</property>
-            <property name="bottom-attach">10</property>
           </packing>
         </child>
         <child>
@@ -805,9 +739,7 @@
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">2</property>
             <property name="top-attach">9</property>
-            <property name="bottom-attach">10</property>
           </packing>
         </child>
         <child>
@@ -819,11 +751,7 @@
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">2</property>
             <property name="top-attach">10</property>
-            <property name="bottom-attach">11</property>
-            <property name="x-options"/>
-            <property name="y-options"/>
           </packing>
         </child>
         <child>
@@ -835,11 +763,7 @@
           </object>
           <packing>
             <property name="left-attach">2</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">10</property>
-            <property name="bottom-attach">11</property>
-            <property name="x-options"/>
-            <property name="y-options"/>
           </packing>
         </child>
         <child>
@@ -851,9 +775,7 @@
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">2</property>
-            <property name="x-options"/>
-            <property name="y-options"/>
+            <property name="top-attach">0</property>
           </packing>
         </child>
         <child>
@@ -865,13 +787,11 @@
           </object>
           <packing>
             <property name="left-attach">2</property>
-            <property name="right-attach">3</property>
-            <property name="x-options"/>
-            <property name="y-options"/>
+            <property name="top-attach">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkComboBox" id="combobox_size">
+          <object class="GtkComboBoxText" id="combobox_size">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="active">0</property>
@@ -879,13 +799,12 @@
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">6</property>
-            <property name="bottom-attach">7</property>
+            <property name="width">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkComboBox" id="combobox_scanmode">
+          <object class="GtkComboBoxText" id="combobox_scanmode">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="active">0</property>
@@ -893,9 +812,8 @@
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="right-attach">3</property>
             <property name="top-attach">3</property>
-            <property name="bottom-attach">4</property>
+            <property name="width">2</property>
           </packing>
         </child>
         <child>
@@ -906,19 +824,8 @@
           </object>
           <packing>
             <property name="left-attach">3</property>
-            <property name="right-attach">4</property>
             <property name="top-attach">1</property>
-            <property name="bottom-attach">2</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
         </child>
         <child>
           <placeholder/>
