@@ -153,7 +153,7 @@ The scan works in color or in gray map.<br>
 The options are not well handled, so they might not work.<br>
 The color option allow to chose between color or graymap modes.<br>
 The resolution option allow to have a 75, 150, 300 or 600 quality for the output.<br>
-The source option allow to chose between Platen, ADF Simplex and ADF Duplex, i don't have a means of detection, so it depends on the hardware.<br>
+The source option allow to chose between Platen, ADF and ADF Duplex, i don't have a means of detection, so it depends on the hardware.<br>
 
 # KNOWN PROBLEMS
 
