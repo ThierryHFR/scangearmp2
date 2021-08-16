@@ -30,10 +30,12 @@
 /* N_ macro */
 #include "support.h"
 
-#define	STR_CNMS_LS_007_VER_NUM		"4.10"
+#define	STR_CNMS_LS_007_VER_NUM		"4.20"
 #define	STR_CNMS_LS_007_YEAR_BEGIN	"2007"
-#define	STR_CNMS_LS_007_YEAR_END	"2020"
+#define	STR_CNMS_LS_007_YEAR_END	"2021"
 
+/*STR_CNMS_LS_999_99*/
+#define	STR_CNMS_LS_999_99	N_( "Resolution:" )
 /*STR_CNMS_LS_001_01*/
 #define	STR_CNMS_LS_001_01	N_( "Scanner" )
 /*STR_CNMS_LS_001_02*/

@@ -24,6 +24,8 @@ char *s = N_("Scan Mode:");
 char *s = N_("Scanner");
 /* STR_CNMS_LS_011_01 */
 char *s = N_("Select Scanner");
+/* STR_CNMS_LS_999_98 */
+char *s = N_("Select Resolution:");
 /* STR_CNMS_LS_001_03 */
 char *s = N_("Select Source:");
 /* STR_CNMS_LS_011_03 */
