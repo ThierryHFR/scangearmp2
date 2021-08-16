@@ -47,6 +47,18 @@ on_combobox_source_changed(	GtkWidget	*widget,
 							SGMP_Data	*data );
 
 G_MODULE_EXPORT void
+on_combobox_resolution_changed(	GtkWidget	*widget,
+							SGMP_Data	*data );
+
+G_MODULE_EXPORT void
+on_combobox_colormode_changed(	GtkWidget	*widget,
+								SGMP_Data	*data );
+
+G_MODULE_EXPORT void
+on_combobox_size_changed(	GtkWidget	*widget,
+							SGMP_Data	*data );
+
+G_MODULE_EXPORT void
 on_combobox_colormode_changed(	GtkWidget	*widget,
 								SGMP_Data	*data );
 

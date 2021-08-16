@@ -64,6 +64,15 @@ static CIJSC_MAINUI_ITEM_TABLE source_table[] = {
 	{ -1,						NULL, },
 };
 
+/* resolution list */
+static CIJSC_MAINUI_ITEM_TABLE resolution_table[] = {
+       { 0,    "75", },
+       { 1,    "150", },
+       { 2,    "300", },
+       { 3,    "600", },
+       { -1,                                           NULL, },
+};
+
 /* color mode */
 static CIJSC_MAINUI_ITEM_TABLE colormode_table[] = {
 	{ CIJSC_COLOR_COLOR,		STR_CNMS_LS_004_01, },
@@ -235,6 +244,7 @@ static void ui_main_button_scan_main( SGMP_Data *data )
 	/* set scan parameters. */
 	data->scan_scanmode = ui_main_combobox_get_id( data, data->combobox_scanmode, (CIJSC_MAINUI_ITEM_TABLE *)scanmode_table );
 	data->scan_source = ui_main_combobox_get_id( data, data->combobox_source, (CIJSC_MAINUI_ITEM_TABLE *)source_table );
+	data->scan_resolution = ui_main_combobox_get_id( data, data->combobox_resolution, (CIJSC_MAINUI_ITEM_TABLE *)resolution_table );
 	data->scan_color = ui_main_combobox_get_id( data, data->combobox_colormode, (CIJSC_MAINUI_ITEM_TABLE *)colormode_table );
 	data->scan_size = ui_main_combobox_get_id( data, data->combobox_size, (CIJSC_MAINUI_ITEM_TABLE *)size_platen_table );
 	
@@ -253,6 +263,7 @@ void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev )
 	/* init combobox. */
 	data->ignore_combobox_changed = TRUE;
 	ui_main_other_combobox_init( data, data->combobox_source, source_table );
+	ui_main_other_combobox_init( data, data->combobox_resolution, resolution_table );
 	ui_main_other_combobox_init( data, data->combobox_colormode, colormode_table );
 	ui_main_other_combobox_init( data, data->combobox_size, size_platen_table );
 	ui_main_combobox_scanmode_init( data, dev );

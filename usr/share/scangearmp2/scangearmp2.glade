@@ -628,7 +628,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">3</property>
+            <property name="top-attach">2</property>
           </packing>
         </child>
         <child>
@@ -812,7 +812,7 @@
           </object>
           <packing>
             <property name="left-attach">1</property>
-            <property name="top-attach">3</property>
+            <property name="top-attach">2</property>
             <property name="width">2</property>
           </packing>
         </child>
@@ -828,13 +828,28 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkLabel" id="label_resolution">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes" comments="STR_CNMS_LS_999_99">Resolution:</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
+          <object class="GtkComboBoxText" id="combobox_resolution">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="active">0</property>
+            <signal name="changed" handler="on_combobox_resolution_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">3</property>
+            <property name="width">2</property>
+          </packing>
         </child>
         <child>
           <placeholder/>

@@ -319,12 +319,14 @@ static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 		set_module_error();
 		goto EXIT_ERR;
 	}
-	param.XRes			= data->scan_res = 300;
-	param.YRes			= 300;
+        int table_res[] = {75, 150, 300, 600};
+        double table_res_fact[] = {4.0, 2.0, 1.0, 0.5};
+	param.XRes			= data->scan_res = table_res[data->scan_resolution];
+	param.YRes			= data->scan_res; // 300;
 	param.Left			= 0;
 	param.Top			= 0;
-	param.Right			= data->scan_w = sourceSize[i].right;
-	param.Bottom		= data->scan_h = sourceSize[i].bottom;
+	param.Right			= data->scan_w = (int) ((double)sourceSize[i].right / table_res_fact[data->scan_resolution]);
+	param.Bottom		= data->scan_h = (int) ((double)sourceSize[i].bottom / table_res_fact[data->scan_resolution]);
 	param.ScanMode		= ( data->scan_color == CIJSC_COLOR_COLOR ) ? 4 : 2;
 	param.ScanMethod	= ( data->scan_scanmode == CIJSC_SCANMODE_ADF_D_S ) ? CIJSC_SCANMODE_ADF_D_L : data->scan_scanmode;
 	param.opts.p1_0		= 0;
