@@ -114,6 +114,7 @@ int main(int argc, char **argv )
 	/* main window */
 	data->window_main = GTK_WIDGET( gtk_builder_get_object( data->builder, "window_main" ) );
 	data->combobox_scanmode = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_scanmode" ) );
+	data->combobox_resolution = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_resolution" ) );
 	data->combobox_source = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_source" ) );
 	data->combobox_colormode = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_colormode" ) );
 	data->combobox_size = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_size" ) );
@@ -176,6 +177,7 @@ int main(int argc, char **argv )
 	
 	/* create combobox */
 	create_combobox( data, data->combobox_scanmode );
+	create_combobox( data, data->combobox_resolution );
 	create_combobox( data, data->combobox_source );
 	create_combobox( data, data->combobox_colormode );
 	create_combobox( data, data->combobox_size );

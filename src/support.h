@@ -101,6 +101,7 @@ typedef struct
 	/* main window */
 	GtkWidget	*window_main;
 	GtkWidget	*combobox_scanmode;
+	GtkWidget	*combobox_resolution;
 	GtkWidget	*combobox_source;
 	GtkWidget	*combobox_colormode;
 	GtkWidget	*combobox_size;
@@ -163,6 +164,7 @@ typedef struct
 	/* scan parameters */
 	int			scan_scanmode;
 	int			scan_source;
+	int			scan_resolution;
 	int			scan_color;
 	int			scan_size;
 

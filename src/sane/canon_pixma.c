@@ -184,7 +184,7 @@ static const SANE_String_Const scan_table[] = {
 
 static const SANE_Int resbit_list[] =
 {
-	1, 300
+	4, 75, 150, 300, 600
 };
 
 const char *canonJpegDataTmp = "/tmp/jpeg_canon.tmp";
@@ -712,7 +712,7 @@ init_options (canon_sane_t * s)
 	/* TODO: Build the constraints on resolution in a smart way */
 	s->opt[OPT_RESOLUTION].constraint_type = SANE_CONSTRAINT_WORD_LIST;
 	s->opt[OPT_RESOLUTION].constraint.word_list = resbit_list;
-	s->val[OPT_RESOLUTION].w = s->sgmp.scan_res = resbit_list[1];
+	s->val[OPT_RESOLUTION].w = s->sgmp.scan_res = resbit_list[333];
 
 	s->opt[OPT_PREVIEW].name = SANE_NAME_PREVIEW;
 	s->opt[OPT_PREVIEW].title = SANE_TITLE_PREVIEW;
@@ -966,63 +966,43 @@ sane_control_option (SANE_Handle h, SANE_Int n,
                                 break;
 			case OPT_BR_X:
 			   	handled->val[n].w = *(SANE_Word *) v;
-                if (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_PLATEN)
-                     size = _get_source_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
-                else
-                     size = _get_source_adf_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
-                handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
-                handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
-			    handled->sgmp.scan_w = size.right;
-			    handled->sgmp.scan_h = size.bottom;
-                handled->val[n].w = PIXEL_TO_MM(size.right, 300);
-                handled->val[OPT_BR_Y].w = PIXEL_TO_MM(size.bottom, 300);
+                                if (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_PLATEN)
+                                    size = _get_source_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
+                                else
+                                    size = _get_source_adf_size(MM_TO_PIXEL(handled->val[n].w, 300), -1);
+			        handled->sgmp.scan_w = size.right;
+			        handled->sgmp.scan_h = size.bottom;
+                                handled->val[n].w = PIXEL_TO_MM(size.right, 300);
+                                handled->val[OPT_BR_Y].w = PIXEL_TO_MM(size.bottom, 300);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			   	}
 			   	break;
 			case OPT_BR_Y:
 			   	handled->val[n].w = *(SANE_Word *) v;
-                if (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_PLATEN)
-                   size = _get_source_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
-                else
-                   size = _get_source_adf_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
-                handled->sgmp.scan_wx = size.right * (handled->sgmp.scan_res == 300 ? 1 : 2);
-                handled->sgmp.scan_hy = size.bottom * (handled->sgmp.scan_res == 300 ? 1 : 2);
-			    handled->sgmp.scan_w = size.right;
-			    handled->sgmp.scan_h = size.bottom;
-                handled->val[n].w = PIXEL_TO_MM(size.bottom, 300);
-                handled->val[OPT_BR_X].w = PIXEL_TO_MM(size.right, 300);
+                                if (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_PLATEN)
+                                   size = _get_source_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
+                                else
+                                   size = _get_source_adf_size(-1, MM_TO_PIXEL(handled->val[n].w, 300));
+			        handled->sgmp.scan_w = size.right;
+			        handled->sgmp.scan_h = size.bottom;
+                                handled->val[n].w = PIXEL_TO_MM(size.bottom, 300);
+                                handled->val[OPT_BR_X].w = PIXEL_TO_MM(size.right, 300);
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			   	}
 			   	break;
 			case OPT_PREVIEW:
 			   	handled->val[n].w = *(SANE_Word *) v;
-			      	if (handled->val[OPT_RESOLUTION].w == 600) {
-			      	    handled->val[OPT_RESOLUTION].w = 300;
-			      	    handled->sgmp.scan_res = 300 ;
-			      	    handled->sgmp.scan_hy = handled->sgmp.scan_h;
-			      	    handled->sgmp.scan_wx = handled->sgmp.scan_w;
-                                    handled->val[OPT_BR_X].w = PIXEL_TO_MM(handled->sgmp.scan_wx, 300);
-                                    handled->val[OPT_BR_Y].w = PIXEL_TO_MM(handled->sgmp.scan_hy, 300);
-                                }
+			      	handled->sgmp.scan_res = 75 ;
 			   	if(i){
 			     		*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
 			   	}
 			   	break;
 			case OPT_RESOLUTION:
 			      	v1 = (int)*(SANE_Word*)v;
-                              	v1 = 300; //_get_resolution(v1);
 			      	handled->sgmp.scan_res = v1 ;
 			      	handled->val[n].w = v1;
-                                if (v1 == 300) {
-                                      handled->sgmp.scan_wx = handled->sgmp.scan_w;
-			              handled->sgmp.scan_hy = handled->sgmp.scan_h;
-                                }
-                                else {
-                                      handled->sgmp.scan_wx = handled->sgmp.scan_w * 2;
-			              handled->sgmp.scan_hy = handled->sgmp.scan_h * 2;
-                                }
                                 fprintf(stderr, "RESOLUTION : [%d]\n", handled->sgmp.scan_res);
 			      	if(i){
 			        	*i |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS | SANE_INFO_INEXACT;
@@ -1058,6 +1038,29 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 }
 
 
+static double table_res_fact[] = {4.0, 2.0, 1.0, 0.5};
+
+static int
+get_resolution(int val)
+{
+   int resol;
+   switch(val)
+   {
+      case 75:
+        resol = 0;
+        break;
+      case 150:
+        resol = 1;
+        break;
+      case 600:
+        resol = 3;
+        break;
+      default:
+        resol = 2;
+        break;
+   }
+   return resol;
+}
 
 
 SANE_Status
@@ -1069,16 +1072,17 @@ sane_start (SANE_Handle h){
 	// CANON_ScanParam param;
 	// if (handled->img_read == 0)
         {
+            int resol_prefered = get_resolution (handled->sgmp.scan_res);
             memset( &handled->param, 0, sizeof(handled->param));
 	    handled->param.XRes			= handled->sgmp.scan_res;
 	    handled->param.YRes			= handled->sgmp.scan_res;
 	    handled->param.Left			= 0;
             handled->param.Top			= 0;
-	    handled->param.Right			= handled->sgmp.scan_w; // handled->sgmp.scan_wx;
-	    handled->param.Bottom			= handled->sgmp.scan_h; // handled->sgmp.scan_hy;
+	    handled->param.Right			= handled->sgmp.scan_wx = (int) ((double)handled->sgmp.scan_w / table_res_fact[resol_prefered]); // handled->sgmp.scan_wx;
+	    handled->param.Bottom			= handled->sgmp.scan_hy = (int) ((double)handled->sgmp.scan_h / table_res_fact[resol_prefered]); // handled->sgmp.scan_hy;
 fprintf(stderr, "Res User  : [%d]\n", handled->sgmp.scan_res);
 fprintf(stderr, "Format Max  : [0x0|%dx%d]\n", handled->sgmp.scan_w, handled->sgmp.scan_h);
-fprintf(stderr, "Format User : [%dx%d|%dx%d]\n", handled->sgmp.scan_x, handled->sgmp.scan_y, handled->sgmp.scan_wx, handled->sgmp.scan_hy);
+fprintf(stderr, "Format User : [%dx%d|%dx%d]\n", handled->sgmp.scan_x, handled->sgmp.scan_y, handled->param.Right, handled->param.Bottom);
 	    handled->param.ScanMode			= ( handled->sgmp.scan_color == CIJSC_COLOR_COLOR ) ? 4 : 2;
 	    handled->param.ScanMethod		= (handled->sgmp.scan_scanmode == CIJSC_SCANMODE_ADF_D_S ) ? CIJSC_SCANMODE_ADF_D_L : handled->sgmp.scan_scanmode;
 fprintf(stderr, "Scan Methode : [%s]\n", scan_table[handled->sgmp.scan_scanmode]);
