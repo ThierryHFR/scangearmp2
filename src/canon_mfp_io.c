@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2020
+ *  Copyright CANON INC. 2007-2021
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,6 +52,10 @@
 #ifndef FALSE
 # define FALSE 0
 #endif
+
+extern int is_flatbed;
+extern int is_adf;
+extern int is_duplex;
 
 /*---------------------------------------------------------------------------------------*/
 /*    definitions for CIJSC ---->                                                         */
@@ -117,7 +121,7 @@ static CMT_Status canon_usb_open( const char * devname )
 			return status;
 		}
 		CANON_fd = fd;
-		
+
 		return CMT_STATUS_GOOD;
 	}
 	else { /* already open. */
@@ -144,7 +148,7 @@ static int canon_usb_write( unsigned char * buffer, unsigned long size )
 	if ( CANON_fd < 0 ) {
 		return -1; /* error */
 	}
-	usleep(1000);
+        usleep(1000);
 	status = cmt_libusb_bulk_write ( CANON_fd, buffer, &n );
 
 	if ( status != CMT_STATUS_GOOD ) {
@@ -165,7 +169,7 @@ static int canon_usb_read( unsigned char * buffer, unsigned long * size )
 	if ( CANON_fd < 0 ) {
 		return -1; /* error */
 	}
-	usleep(1000);
+        usleep(1000);
 	status = cmt_libusb_bulk_read ( CANON_fd, buffer, &n );
 
 	if ( status != CMT_STATUS_GOOD ) {
@@ -617,12 +621,6 @@ CMT_Status CIJSC_open(
 	const char *name )	/* libusb:00X:00Y or MAC address */
 {
 	CANON_Device *dev = NULL;
-	return CIJSC_open2(name,dev);
-}
-
-CMT_Status CIJSC_open2(
-	const char *name,CANON_Device *dev )	/* libusb:00X:00Y or MAC address */
-{
 	CMT_Status status;
 	CANON_Scanner *s = &canon_device;
 
@@ -697,7 +695,6 @@ CMT_Status CIJSC_open2(
 		DBGMSG("ERROR : p_canon_init_scanner() product = %d\n", dev->product_id);
 		return (CMT_STATUS_INVAL);
 	}
-
 	opened_handle = dev;
 	memset(&canon_device, 0, sizeof(canon_device));
 

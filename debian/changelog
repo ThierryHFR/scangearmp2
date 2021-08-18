@@ -1,26 +1,34 @@
-scangearmp2 (4.20.1) UNRELEASED; urgency=medium
+scangearmp2 (4.20.4) UNRELEASED; urgency=medium
 
+  * Add ADF and ADF Duplex
+  * Add resolution 75, 150, 300 and 600 
   * Migration to scangearmp2 4.20
 
- -- thierry <thierry@ordissimo.com>  Wed, 11 Aug 2021 04:56:37 +0200
+ --  Thierry HUCHARD (cle ubuntu) <thierry@substantiel.fr>  Mon, 16 Aug 2021 14:46:05 +0200
 
-scangearmp2 (4.12) buster; urgency=medium
+scangearmp2 (4.12-1ubuntu1604+4) xenial; urgency=medium
+
+  *Add patch to fix resolution.
+
+ --  Thierry HUCHARD (cle ubuntu) <thierry@substantiel.fr>  Mon, 12 Apr 2021 13:51:41 +0200
+
+scangearmp2 (4.12-1ubuntu1604+3) xenial; urgency=medium
 
   * build for upstream.
 
- -- thierry <thierry@ordissimo.com>  Tue, 15 Dec 2020 03:58:23 +0100
+ --  Thierry HUCHARD (cle ubuntu) <thierry@substantiel.fr>  Sun, 28 Feb 2021 16:32:56 +0100
 
 scangearmp2 (3.90-1ubuntu) stable; urgency=medium
 
   * build for upstream. 
 
- -- thierry <thierry@thierry-thinkpad>  tue, 05 dec 2017 21:03:04 +0100
+ -- thierry <thierry@thierry-thinkpad>  Tue, 06 dec 2017 21:03:04 +0100
 
 scangearmp2 (3.50-2ubuntu.artful) stable; urgency=medium
 
   * build for artful. 
 
- -- thierry <thierry@thierry-thinkpad>  tue, 05 dec 2017 21:03:04 +0100
+ -- thierry <thierry@thierry-thinkpad>  Tue, 05 dec 2017 21:03:04 +0100
 
 scangearmp2 (3.50-2) stable; urgency=medium
 
