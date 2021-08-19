@@ -426,6 +426,12 @@ static CMT_Status attach(
 
 	dev->product_id = product;
 	dev->type = attach_dev->type;
+        if ( CIJSC_GET_SUPPORT_PLATEN( dev->type ) )
+            is_flatbed = 1;
+        if ( CIJSC_GET_SUPPORT_ADF_S( dev->type ) )
+            is_adf = 1;
+        if ( CIJSC_GET_SUPPORT_ADF_D( dev->type ) )
+            is_duplex = 1;
 	dev->speed = speed;
 	if ( attach_dev->ipaddress ) {
 		dev->ipaddress = strdup( attach_dev->ipaddress );
