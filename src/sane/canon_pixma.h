@@ -17,12 +17,24 @@
 #include "../canon_mfp_tools.h"
 #include "../keep_setting.h"
 #include "../file_control.h"
-//#include <glib.h>
-//#include "usr/include/glib-2.0/glib.h"
 
 #ifndef BACKEND_NAME
 #define BACKEND_NAME canon_pixma
 #endif
+
+#define DEBUG_NOT_STATIC
+#include "sanei_debug.h"
+
+#ifndef DBG_LEVEL
+#define DBG_LEVEL       PASTE(sanei_debug_, BACKEND_NAME)
+#endif
+#ifndef NDEBUG
+# define DBGDUMP(level, buf, size) \
+    do { if (DBG_LEVEL >= (level)) sanei_canon_pixma_dbgdump(buf, size); } while (0)
+#else
+# define DBGDUMP(level, buf, size)
+#endif
+
 
 enum canon_sane_Option
 {

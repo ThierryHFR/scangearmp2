@@ -41,6 +41,10 @@ static void jpeg_RW_src (j_decompress_ptr, FILE *);
 static void my_error_exit(j_common_ptr);
 static void output_no_message(j_common_ptr);
 
+int is_flatbed = 0;
+int is_adf = 0;
+int is_duplex = 0;
+
 // static const char vendor_str[] = "CANON";
 // static const char type_str[] = "multi-function peripheral";
 
@@ -52,7 +56,6 @@ static const SANE_Device **dev_list = NULL;
 typedef struct Handled{
 	struct Handled * next;
 	SGMP_Data_Lite sgmp;
-	const CANON_Device *dev;
 	SANE_String_Const *sources;
 	CANON_ScanParam param;
 	SANE_Option_Descriptor opt[NUM_OPTIONS];
@@ -528,6 +531,7 @@ sane_init (SANE_Int * version_code, SANE_Auth_Callback authorize)
 	CNMSInt32 cnms_status = CNMS_NO_ERR;
 
 	UNUSED (authorize);
+        DBG_INIT();
 
 	if (version_code != NULL)
 		*version_code = SANE_VERSION_CODE(1, 0, 0);
@@ -819,15 +823,13 @@ char_to_array(SANE_String_Const *tab, int *tabsize, SANE_String_Const mode)
 SANE_Status
 sane_open (SANE_String_Const name, SANE_Handle * h){
         int i = 0;
-        // CANON_Device* cdev = NULL;
 	canon_sane_t *  handled = NULL;
-	CANON_Device dev;
 	CMT_Status status = CMT_STATUS_INVAL;
 
 	if(!name){
 	     return show_sane_cmt_error(CMT_STATUS_INVAL);
 	}
-	status = CIJSC_open2((char*)name,&dev);
+	status = CIJSC_open((char*)name);
 	if(status != CMT_STATUS_GOOD){
 		return show_sane_cmt_error(status);
 	}
@@ -838,13 +840,12 @@ sane_open (SANE_String_Const name, SANE_Handle * h){
 		return show_sane_cmt_error(CMT_STATUS_NO_MEM);
 	}
 
-	handled->dev = &dev;
         i = 0;
-        // if ( CIJSC_GET_SUPPORT_PLATEN( dev.type ) )
+        if (is_flatbed)
                 handled->sources = char_to_array(handled->sources, &i, (SANE_String_Const)FLATBED);
-        // if ( CIJSC_GET_SUPPORT_ADF_S( dev.type ) )
+        if (is_adf)
                 handled->sources = char_to_array(handled->sources, &i, (SANE_String_Const)ADF);
-        // if ( CIJSC_GET_SUPPORT_ADF_D( dev.type ) )
+        if (is_duplex)
                 handled->sources = char_to_array(handled->sources, &i, (SANE_String_Const)ADF_DUPLEX);
 
 	status = init_options(handled);

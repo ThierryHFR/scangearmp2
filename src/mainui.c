@@ -105,6 +105,9 @@ static CIJSC_MAINUI_ITEM_TABLE size_adf_table[] = {
 	{ -1,						NULL, },
 };
 
+int is_flatbed = 0;
+int is_adf = 0;
+int is_duplex = 0;
 
 static int ui_main_is_en_US( void )
 {
@@ -133,15 +136,16 @@ static int ui_main_is_en_US( void )
 static void ui_main_combobox_scanmode_init( SGMP_Data *data, CANON_Device const *dev )
 {
 	DBGMSG("->\n");
+	(void)dev;
         gtk_combo_box_text_remove_all ( GTK_COMBO_BOX_TEXT ( data->combobox_scanmode ) );
 	
-	if ( CIJSC_GET_SUPPORT_PLATEN( dev->type ) ) {
+	if ( is_flatbed ) {
                 gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_01 ));
 	}
-	if ( CIJSC_GET_SUPPORT_ADF_S( dev->type ) ) {
+	if ( is_adf ) {
 		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_02 ));
 	}
-	if ( CIJSC_GET_SUPPORT_ADF_D( dev->type ) ) {
+	if ( is_duplex ) {
 		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_03 ));
 		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (data->combobox_scanmode ), gettext( STR_CNMS_LS_002_04 ));
 	}
