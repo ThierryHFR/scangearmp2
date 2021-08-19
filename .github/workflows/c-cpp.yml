@@ -18,15 +18,3 @@ jobs:
       run: sudo apt install debhelper libglib2.0-dev libgtk-3-dev libusb-1.0-0-dev libtool-bin libtool libjpeg-dev cmake intltool libsane-dev
     - name: Build package
       run: debuild -i -us -uc -b
-
-  build2104:
-    runs-on: ubuntu-21.04
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install build env
-      run: sudo apt-get install build-essential fakeroot devscripts haskell-debian-utils
-    - name: Install build depends
-      run: sudo apt install debhelper libglib2.0-dev libgtk-3-dev libusb-1.0-0-dev libtool-bin libtool libjpeg-dev cmake intltool libsane-dev
-    - name: Build package
-      run: debuild -i -us -uc -b
