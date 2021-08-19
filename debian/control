@@ -10,5 +10,7 @@ Standards-Version: 3.7.2
 Package: scangearmp2
 Architecture: amd64 i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Replaces: libmfp2-canon, libcanon-proprio-bin
+Provides: libmfp2-canon, libcanon-proprio-bin
 Description: ScanGear MP for Linux.
  This ScanGear MP provides scanning functions for Canon Multifunction Inkjet Printer.
