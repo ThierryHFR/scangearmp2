@@ -19,8 +19,8 @@ jobs:
     - name: Build package
       run: debuild -i -us -uc -b
 
-  build2004:
-    runs-on: ubuntu-20.04
+  build2104:
+    runs-on: ubuntu-21.04
 
     steps:
     - uses: actions/checkout@v2
