@@ -271,7 +271,7 @@ static int ui_dialog_save_scan_add_file_list( SGMP_Data *data, LPCNMS_ROOT root,
 	(*pnode)->page = data->scanning_page;
 	(*pnode)->rotate = ( ( data->scanning_page % 2 ) || data->scan_scanmode != CIJSC_SCANMODE_ADF_D_L ) ? CNMS_FALSE : CNMS_TRUE ;
 	CnmsPutQueue( root, *pnode );
-	DBGMSG( " <%d> file [%s]\n", (*pnode)->page, (*pnode)->file_path );
+	DBGMSG( " <%ld> file [%s]\n", (*pnode)->page, (*pnode)->file_path );
 	*pnode = CNMSNULL;
 	
 	ret = CNMS_NO_ERR;
@@ -286,7 +286,7 @@ static void ui_dialog_save_scan_dispose_file_list( SGMP_Data *data, LPCNMS_ROOT 
 	
 	while( CnmsDisposeRoot( &root ) > 0 ) {
 		node = root->head;
-		DBGMSG( "delete file in list [%s] size = %d\n", node->file_path, node->file_size );
+		DBGMSG( "delete file in list [%s] size = %ld\n", node->file_path, node->file_size );
 		if( data->scan_format == CIJSC_FORMAT_PDF ) {
 			FileControlDeleteFile( node->file_path, CNMS_FILE_ERR );
 		}
@@ -502,7 +502,7 @@ static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 	
 	DBGMSG("->\n");
 	if ( root->head == CNMSNULL ){
-		DBGMSG(, "no scanned page data. -> do nothing.\n" );
+		DBGMSG("no scanned page data. -> do nothing.\n" );
 		result = CNMS_NO_ERR_CANCLED;
 		goto EXIT_ERR;
 	}
@@ -517,7 +517,7 @@ static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 	}
 	
 	if ( ( result = CnmsPDF_Open( &p, fd ) ) != CNMS_NO_ERR ) {
-		DBGMSG(, "CnmsPDF_Open : error\n\n" );
+		DBGMSG( "CnmsPDF_Open : error\n\n" );
 		goto EXIT_ERR;
 	}
 	if ( ( result = CnmsPDF_StartDoc( p ) ) != CNMS_NO_ERR ) {
@@ -542,7 +542,7 @@ static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 		CnmsDisposeQueue( root, CNMS_NODE_HEAD );
 	}
 	if ( ( result = CnmsPDF_EndDoc( p ) ) != CNMS_NO_ERR ) {
-		DBGMSG(, "CnmsPDF_Open : error\n\n" );
+		DBGMSG( "CnmsPDF_Open : error\n\n" );
 		goto EXIT_ERR;
 	}
 	result = CNMS_NO_ERR;

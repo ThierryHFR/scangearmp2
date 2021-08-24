@@ -308,7 +308,7 @@ CNMSInt32 CnmsPDF_EndDoc( CNMSVoid *pw )
 	while ( p != CNMSNULL ) {
 		i++;
 		if ( p->status != CNMS_NO_ERR ) {
-			DBGMSG( " page(%d) is NG!\n", i );
+			DBGMSG( " page(%ld) is NG!\n", i );
 			goto EXIT;
 		}
 	

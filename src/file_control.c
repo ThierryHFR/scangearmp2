@@ -260,10 +260,10 @@ CNMSInt32 FileControlWriteFile(
 	}
 	else if( ( ldata_1st = write( fd, lpSrc, writeSize ) ) != writeSize ){
 		set_errno();
-		DBGMSG( "[FileControlWriteFile]Can't write file(1st request:%d -> write:%d).\n", writeSize, ldata_1st );
+		DBGMSG( "[FileControlWriteFile]Can't write file(1st request:%ld -> write:%ld).\n", writeSize, ldata_1st );
 		if( ( ldata_2nd = write( fd, lpSrc+ldata_1st, writeSize-ldata_1st ) ) != writeSize-ldata_1st ){ /* For detect write() error */
 			set_errno();
-			DBGMSG( "[FileControlWriteFile]Can't write file(2nd request:%d -> write:%d).\n", writeSize-ldata_1st, ldata_2nd );
+			DBGMSG( "[FileControlWriteFile]Can't write file(2nd request:%ld -> write:%ld).\n", writeSize-ldata_1st, ldata_2nd );
 			goto	EXIT;
 		}
 	}

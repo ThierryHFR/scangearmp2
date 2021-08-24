@@ -42,6 +42,7 @@
 #define CANONMUD	(9600)
 
 #define CANON_CONFIG_FILE "canon_mfp2.conf"
+#define SANE_CONFIG_FILE "/etc/sane.d/canon_pixma.conf"
 
 #include "canon_mfp_tools.h"
 
@@ -479,6 +480,18 @@ CMT_Status CIJSC_init( void *cnnl_callback )
 
 	/* initialize libUSB */
 	cmt_libusb_init();
+
+	fp = cmt_conf_file_open( SANE_CONFIG_FILE );
+        if ( fp ) {
+                char line[PATH_MAX];
+                int len, ret;
+
+                /* Set USB/Network device list */
+                while ( ( len = cmt_conf_file_read_line( line, sizeof(line), fp ) ) >= 0 ) {
+			if (len)
+
+		}
+        }
 
 	/* initialize Network */
 	cmt_network_init( cnnl_callback );

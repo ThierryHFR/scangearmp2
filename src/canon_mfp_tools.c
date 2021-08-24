@@ -144,14 +144,20 @@ static NETWORK_DEV	network2dev[NETWORK_DEV_MAX];
 */
 FILE *cmt_conf_file_open(const char *conf)
 {
-	char *path = get_cnmslibpath();
+	char *path = NULL;get_cnmslibpath();
 	char dst[PATH_MAX];
 	FILE *fp = NULL;
 	
 	if ( !conf ) return NULL;
 	
 	memset( dst, 0, sizeof(dst) );
-	snprintf( dst, sizeof(dst), "%s/%s", path, conf );
+	if (*conf == '/') {
+	    snprintf( dst, sizeof(dst), "%s", conf );
+	}
+	else {
+	    path = get_cnmslibpath();
+	    snprintf( dst, sizeof(dst), "%s/%s", path, conf );
+	}
 	DBGMSG( " conf file \"%s\".\n", dst );
 	fp = fopen( dst, "r" );
 	if (fp) {
@@ -794,6 +800,7 @@ void cmt_network_init( void *cnnl_callback )
 	CNNLHANDLE hmdl=NULL;
 	int j=0, k=0, max = NETWORK_DEV_MAX, found=0, found_cache=0, timeout_msec = 0;
 	CNNLNICINFO *nic;
+	CNNLNICINFO nic_static;
 	char model[STRING_SHORT], ipaddr[STRING_SHORT];
 	unsigned long version = 110, versize;
 	unsigned long	cnnl_callback_size = sizeof( cnnl_callback );
@@ -828,10 +835,26 @@ void cmt_network_init( void *cnnl_callback )
 	}
 	timeout_msec = ( found_cache ) ? found_cache * 1000 : 5000;
 	DBGMSG( " cache num = %d, timeout = %d msec\n", found_cache, timeout_msec );
-	
+
+
 	// find printers
 	memset(nic, 0x00, sizeof(CNNLNICINFO)*max);
 	if( CNNL_SearchPrintersEx( hmdl, nic, CACHE_PATH, max, &found, cnnl_mode, 1, timeout_msec ) == CNNL_RET_SUCCESS ){
+	        j = 0;
+	        nic_static.ipaddr[j++] = 192;
+                nic_static.ipaddr[j++] = 168;
+	        nic_static.ipaddr[j++] = 14;
+	        nic_static.ipaddr[j++] = 183;
+	        j = 0;
+	        nic_static.macaddr[j++] = 24;
+	        nic_static.macaddr[j++] = 12;
+	        nic_static.macaddr[j++] = 172;
+	        nic_static.macaddr[j++] = 16;
+	        nic_static.macaddr[j++] = 144;
+	        nic_static.macaddr[j++] = 49;
+
+                nic[found] = nic_static;
+	        found += 1;
 		for (j=0; j<found; j++){
 			
 			memset(ipaddr, 0x00, STRING_SHORT);
@@ -1215,7 +1238,14 @@ void cmt_network2_init( void *cnnl_callback )
 		DBGMSG( "Error.\n" );
 		goto error;
 	}
-	
+
+        DBGMSG( "CNNET2_Search ->\n" );
+        num += CNNET2_Search( instance, "192.168.14.127", NULL, NULL );
+        if ( num < CNNET2_ERROR_CODE_SUCCESS ) {
+                DBGMSG( "Error.\n" );
+                goto error;
+        }
+
 	if ( num > 0 ) {
 		DBGMSG( "CNNET2_Search : %d printer(s) found.\n", num );
 		if ( (infoList = malloc( sizeof(tagSearchPrinterInfo) * num )) == NULL )
