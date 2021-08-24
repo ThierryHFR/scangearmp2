@@ -494,28 +494,25 @@ CMT_Status CIJSC_init( void *cnnl_callback )
                 /* Set Network device list */
                 // while ( ( len = cmt_conf_file_read_line( line, sizeof(line), fp ) ) >= 0 ) {
 		while ( fgets (line, 1024, fp) != NULL) {
-                        DBGMSG ("SANE Conf file [%s].\n", line);
 			if (strncmp(line, "device", 6) == 0) {
 			    tmp = line;
-                        DBGMSG ("SANE Conf file [Line found].\n");
                             tmp = (char*)cmt_config_get_string(tmp + 6, &ip_str);
                             if (!ip_str || !*ip_str) {
-                                 DBGMSG ("IP Device missing.\n");
                                  continue;
                             }
                             DBGMSG ("IP Adress Device [%s].\n", ip_str);
                             CNNLNICINFO info;
                             if (!cmt_convert_ipadress_to_array(ip_str, &info)) {
-                                 DBGMSG ("Invalide IP Device.\n");
                                  continue;
                             }
                             if (*tmp) {
                                  tmp = (char*)cmt_config_get_string(tmp, &mac_str);
-                                 DBGMSG ("Mac Adress Device [%s].\n", mac_str);
                                  if (!cmt_convert_macadress_to_array(mac_str, &info)) {
 				      info.macaddr[0] = 0;
-                                      DBGMSG ("Invalide Mac Address Device.\n");
                                  }
+				 else {
+                                    DBGMSG ("Mac Adress Device [%s].\n", mac_str);
+				 }
                             }
                             if (manual_nic == NULL)
                                 manual_nic = (CNNLNICINFO*) calloc(1, sizeof(CNNLNICINFO));

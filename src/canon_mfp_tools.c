@@ -335,17 +335,23 @@ cmt_config_get_string (char *str, char **string_const) {
 int
 cmt_convert_macadress_to_array(char *str, CNNLNICINFO* info)
 {
+        uint8_t values[6] = { 0 };
 	if (sscanf(str, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
-				&info->macaddr[0],
-				&info->macaddr[1],
-				&info->macaddr[2],
-				&info->macaddr[3],
-				&info->macaddr[4],
-				&info->macaddr[5]) < 6)
+				&values[0],
+				&values[1],
+				&values[2],
+				&values[3],
+				&values[4],
+				&values[5]) < 6)
 	{
-		fprintf(stderr, "could not parse %s\n", str);
                 return 0;
 	}
+	info->macaddr[0] = values[0];
+	info->macaddr[1] = values[1];
+	info->macaddr[2] = values[2];
+	info->macaddr[3] = values[3];
+	info->macaddr[4] = values[4];
+	info->macaddr[5] = values[5];
         return 1;
 }
 
@@ -924,27 +930,12 @@ void cmt_network_init( void *cnnl_callback )
 	memset(nic, 0x00, sizeof(CNNLNICINFO)*max);
 	if( CNNL_SearchPrintersEx( hmdl, nic, CACHE_PATH, max, &found, cnnl_mode, 1, timeout_msec ) == CNNL_RET_SUCCESS ){
                 for (j = 0; j < manual_len; j++) {
-                    nic[found] = manual_nic[j];
-	            found += 1;
+		    if (manual_nic[j].macaddr[0] != 0) {
+                       nic[found] = manual_nic[j];
+	               found += 1;
+		       break;
+		    }
                 }
-/*
-	        j = 0;
-                nic[found] = nic_static;
-	        nic_static.ipaddr[j++] = 192;
-                nic_static.ipaddr[j++] = 168;
-	        nic_static.ipaddr[j++] = 14;
-	        nic_static.ipaddr[j++] = 183;
-	        j = 0;
-	        nic_static.macaddr[j++] = 24;
-	        nic_static.macaddr[j++] = 12;
-	        nic_static.macaddr[j++] = 172;
-	        nic_static.macaddr[j++] = 16;
-	        nic_static.macaddr[j++] = 144;
-	        nic_static.macaddr[j++] = 49;
-
-                nic[found] = nic_static;
-	        found += 1;
-*/
 		for (j=0; j<found; j++){
 			
 			memset(ipaddr, 0x00, STRING_SHORT);
@@ -1322,13 +1313,6 @@ void cmt_network2_init( void *cnnl_callback )
 		goto error;
 	}
 	
-	DBGMSG( "CNNET2_Search ->\n" );
-	num = CNNET2_Search( instance, NULL, NULL, NULL );
-	if ( num < CNNET2_ERROR_CODE_SUCCESS ) {
-		DBGMSG( "Error.\n" );
-		goto error;
-	}
-
         DBGMSG( "CNNET2_Search ->\n" );
         for (i = 0; i < manual_len; i++) {
            if (manual_nic[i].macaddr[0] != 0) continue;
@@ -1346,6 +1330,13 @@ void cmt_network2_init( void *cnnl_callback )
            }
 	   break;
         }
+	if (num == 0) {
+	   num = CNNET2_Search( instance, NULL, NULL, NULL );
+	   if ( num < CNNET2_ERROR_CODE_SUCCESS ) {
+		DBGMSG( "Error.\n" );
+		goto error;
+	  }
+	}
 
 	if ( num > 0 ) {
 		DBGMSG( "CNNET2_Search : %d printer(s) found.\n", num );
