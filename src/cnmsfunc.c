@@ -73,7 +73,7 @@ CNMSInt32 CnmsStrCopy(
 	}
 
 	if( ( srcLen  = CnmsStrLen( (CNMSInt8 *)lpSrc ) ) >= dstLen ){
-		DBGMSG( "[CnmsStrCopy]src string(%ld) is too long(>%ld).\n", srcLen, dstLen );
+		DBGMSG( "[CnmsStrCopy]src string(%d) is too long(>%d).\n", srcLen, dstLen );
 		goto	EXIT;
 	}
 
@@ -83,7 +83,7 @@ CNMSInt32 CnmsStrCopy(
 	ret = srcLen;
 EXIT:
 #ifdef	__CNMS_DEBUG_FUNC__
-	DBGMSG( "[CnmsStrCopy(lpSrc:%s,lpDst:%s,dstLen:%ld)]=%ld.\n", lpSrc, lpDst, dstLen, ret );
+	DBGMSG( "[CnmsStrCopy(lpSrc:%s,lpDst:%s,dstLen:%d)]=%d.\n", lpSrc, lpDst, dstLen, ret );
 #endif
 	return	ret;
 }
@@ -102,7 +102,7 @@ CNMSInt32 CnmsStrCat(
 
 	srcLen = CnmsStrLen( (CNMSInt8 *)lpSrc );
 	if( ( totalLen  = srcLen + CnmsStrLen( (CNMSInt8 *)lpDst ) ) >= dstLen ){
-		DBGMSG( "[CnmsStrCat]total string(%ld) is too long(>%ld).\n", totalLen, dstLen );
+		DBGMSG( "[CnmsStrCat]total string(%d) is too long(>%d).\n", totalLen, dstLen );
 		goto	EXIT;
 	}
 
@@ -112,7 +112,7 @@ CNMSInt32 CnmsStrCat(
 	ret = totalLen;
 EXIT:
 #ifdef	__CNMS_DEBUG_FUNC__
-	DBGMSG( "[CnmsStrCat(lpSrc:%s,lpDst:%s,dstLen:%ld)]=%ld.\n", lpSrc, lpDst, dstLen, ret );
+	DBGMSG( "[CnmsStrCat(lpSrc:%s,lpDst:%s,dstLen:%d)]=%d.\n", lpSrc, lpDst, dstLen, ret );
 #endif
 	return	ret;
 }
