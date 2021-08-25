@@ -113,6 +113,10 @@ typedef struct {
 FILE *cmt_conf_file_open(const char *conf);
 int cmt_conf_file_read_line(char *line, int size, FILE *fp);
 int cmt_get_device_info( char *line, int len, CANON_Device *c_dev );
+int cmt_convert_macadress_to_array(char *str, CNNLNICINFO* infos);
+int cmt_convert_ipadress_to_array(char *str, CNNLNICINFO* infos);
+char *cmt_config_get_string (char *str, char **string_const);
+char *cmt_config_skip_whitespace (char *str);
 
 char *cmt_find_device_usb( CANON_Device *c_dev, int *index );
 char *cmt_find_device_net( CANON_Device *c_dev, int *index );

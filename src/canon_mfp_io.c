@@ -42,6 +42,7 @@
 #define CANONMUD	(9600)
 
 #define CANON_CONFIG_FILE "canon_mfp2.conf"
+#define SANE_CONFIG_FILE "/etc/sane.d/canon_pixma.conf"
 
 #include "canon_mfp_tools.h"
 
@@ -56,6 +57,8 @@
 extern int is_flatbed;
 extern int is_adf;
 extern int is_duplex;
+extern int manual_len;
+extern CNNLNICINFO *manual_nic;
 
 /*---------------------------------------------------------------------------------------*/
 /*    definitions for CIJSC ---->                                                         */
@@ -479,6 +482,48 @@ CMT_Status CIJSC_init( void *cnnl_callback )
 
 	/* initialize libUSB */
 	cmt_libusb_init();
+
+	fp = cmt_conf_file_open( SANE_CONFIG_FILE );
+        if ( fp ) {
+                char line[1024] = { 0 }; // char*)calloc(1, sizeof(1024)); //[PATH_MAX];
+                char *tmp = NULL;
+                char *ip_str = NULL;
+                char *mac_str = NULL;
+                manual_len = 0;
+                manual_nic = NULL;
+                /* Set Network device list */
+                // while ( ( len = cmt_conf_file_read_line( line, sizeof(line), fp ) ) >= 0 ) {
+		while ( fgets (line, 1024, fp) != NULL) {
+			if (strncmp(line, "device", 6) == 0) {
+			    tmp = line;
+                            tmp = (char*)cmt_config_get_string(tmp + 6, &ip_str);
+                            if (!ip_str || !*ip_str) {
+                                 continue;
+                            }
+                            DBGMSG ("IP Adress Device [%s].\n", ip_str);
+                            CNNLNICINFO info;
+                            if (!cmt_convert_ipadress_to_array(ip_str, &info)) {
+                                 continue;
+                            }
+                            if (*tmp) {
+                                 tmp = (char*)cmt_config_get_string(tmp, &mac_str);
+                                 if (!cmt_convert_macadress_to_array(mac_str, &info)) {
+				      info.macaddr[0] = 0;
+                                 }
+				 else {
+                                    DBGMSG ("Mac Adress Device [%s].\n", mac_str);
+				 }
+                            }
+                            if (manual_nic == NULL)
+                                manual_nic = (CNNLNICINFO*) calloc(1, sizeof(CNNLNICINFO));
+                            else
+                                manual_nic = (CNNLNICINFO*) realloc(manual_nic, sizeof(CNNLNICINFO) * (manual_len + 1));
+                            manual_nic[manual_len] = info;
+                            manual_len += 1;
+                        }
+		}
+		fclose (fp);
+        }
 
 	/* initialize Network */
 	cmt_network_init( cnnl_callback );

@@ -48,7 +48,7 @@
 /*	#define	__CNMS_DEBUG_FILE_CONTROL__	*/
 
 /* Ver.2.20 */
-#define	TEMP_FILE_FULL_NAME		"/var/tmp/cnms_tmp_file_XXXXXX\0"
+#define	TEMP_FILE_FULL_NAME		"/tmp/cnms_tmp_file_XXXXXX\0"
 
 
 /* for FileControlReadFileEx... */

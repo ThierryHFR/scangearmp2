@@ -1,5 +1,5 @@
 /*
- *  ScanGear MP for Linux
+*  ScanGear MP for Linux
  *  Copyright CANON INC. 2007-2021
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -70,6 +70,8 @@ static LIB_USB_DEV libusbdev[LIBUSB_DEV_MAX];
 
 static struct libusb_device **g_devlist = NULL;				/* device list */
 static struct libusb_context *g_context = NULL;				/* libusb context */
+int manual_len = 0;
+CNNLNICINFO *manual_nic = NULL;
 
 static char *
 get_cnmslibpath(void)
@@ -144,14 +146,20 @@ static NETWORK_DEV	network2dev[NETWORK_DEV_MAX];
 */
 FILE *cmt_conf_file_open(const char *conf)
 {
-	char *path = get_cnmslibpath();
+	char *path = NULL;get_cnmslibpath();
 	char dst[PATH_MAX];
 	FILE *fp = NULL;
 	
 	if ( !conf ) return NULL;
 	
 	memset( dst, 0, sizeof(dst) );
-	snprintf( dst, sizeof(dst), "%s/%s", path, conf );
+	if (*conf == '/') {
+	    snprintf( dst, sizeof(dst), "%s", conf );
+	}
+	else {
+	    path = get_cnmslibpath();
+	    snprintf( dst, sizeof(dst), "%s/%s", path, conf );
+	}
 	DBGMSG( " conf file \"%s\".\n", dst );
 	fp = fopen( dst, "r" );
 	if (fp) {
@@ -286,6 +294,94 @@ int cmt_get_device_info( char *line, int len, CANON_Device *c_dev )
 	
 _EXIT:
 	return ret;
+}
+
+char *
+cmt_config_skip_whitespace (char *str)
+{
+	while (str && *str && isspace (*str))
+		++str;
+	return str;
+}
+
+char *
+cmt_config_get_string (char *str, char **string_const) {
+	char *start;
+	size_t len;
+	str = cmt_config_skip_whitespace (str);
+	if (*str == '"')
+	{
+		start = ++str;
+		while (*str && *str != '"')
+			++str;
+		len = str - start;
+		if (*str == '"')
+			++str;
+		else
+			start = 0;
+		/* final double quote is missing */
+	}   else     {
+		start = str;
+		while (*str && !isspace (*str)) 	++str;
+		len = str - start;
+	}
+	if (start)
+		*string_const = strndup (start, len);
+	else
+		*string_const = 0;
+	return str;
+}
+
+int
+cmt_convert_macadress_to_array(char *str, CNNLNICINFO* info)
+{
+        uint8_t values[6] = { 0 };
+	if (sscanf(str, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
+				&values[0],
+				&values[1],
+				&values[2],
+				&values[3],
+				&values[4],
+				&values[5]) < 6)
+	{
+                return 0;
+	}
+	info->macaddr[0] = values[0];
+	info->macaddr[1] = values[1];
+	info->macaddr[2] = values[2];
+	info->macaddr[3] = values[3];
+	info->macaddr[4] = values[4];
+	info->macaddr[5] = values[5];
+        return 1;
+}
+
+int
+cmt_convert_ipadress_to_array(char *str, CNNLNICINFO* info)
+{
+        char *tmp = str;
+        char *tmp2 = str;
+	int cpt = 0;
+	short oct[4] = { 0 };
+
+	while ((tmp2 = strchr(tmp, '.')) != NULL) {
+		*tmp2 = 0;
+		oct[cpt++] = atoi((const char*)tmp);
+		*tmp2 = '.';
+		tmp2++;
+		tmp = tmp2;
+	}
+	if (tmp) {
+		oct[cpt++] = atoi((const char*)tmp);
+	}
+	if (cpt < 4)
+	{
+		return 0;
+	}
+	info->ipaddr[0] = oct[0];
+	info->ipaddr[1] = oct[1];
+	info->ipaddr[2] = oct[2];
+	info->ipaddr[3] = oct[3];
+	return 1;
 }
 
 /*
@@ -828,10 +924,18 @@ void cmt_network_init( void *cnnl_callback )
 	}
 	timeout_msec = ( found_cache ) ? found_cache * 1000 : 5000;
 	DBGMSG( " cache num = %d, timeout = %d msec\n", found_cache, timeout_msec );
-	
+
+
 	// find printers
 	memset(nic, 0x00, sizeof(CNNLNICINFO)*max);
 	if( CNNL_SearchPrintersEx( hmdl, nic, CACHE_PATH, max, &found, cnnl_mode, 1, timeout_msec ) == CNNL_RET_SUCCESS ){
+                for (j = 0; j < manual_len; j++) {
+		    if (manual_nic[j].macaddr[0] != 0) {
+                       nic[found] = manual_nic[j];
+	               found += 1;
+		       break;
+		    }
+                }
 		for (j=0; j<found; j++){
 			
 			memset(ipaddr, 0x00, STRING_SHORT);
@@ -1209,13 +1313,31 @@ void cmt_network2_init( void *cnnl_callback )
 		goto error;
 	}
 	
-	DBGMSG( "CNNET2_Search ->\n" );
-	num = CNNET2_Search( instance, NULL, NULL, NULL );
-	if ( num < CNNET2_ERROR_CODE_SUCCESS ) {
+        DBGMSG( "CNNET2_Search ->\n" );
+        for (i = 0; i < manual_len; i++) {
+           if (manual_nic[i].macaddr[0] != 0) continue;
+	   char strip[16] = { 0 };
+           snprintf(strip, sizeof(strip), "%d.%d.%d.%d",
+                    manual_nic[i].ipaddr[0],
+                    manual_nic[i].ipaddr[1],
+                    manual_nic[i].ipaddr[2],
+                    manual_nic[i].ipaddr[3]);
+           num = CNNET2_Search( instance, strip, NULL, NULL );
+           DBGMSG( "CNNET2_Search Add manual IP -> [%s]\n", strip );
+           if ( num < CNNET2_ERROR_CODE_SUCCESS ) {
+                DBGMSG( "Error.\n" );
+		continue;
+           }
+	   break;
+        }
+	if (num == 0) {
+	   num = CNNET2_Search( instance, NULL, NULL, NULL );
+	   if ( num < CNNET2_ERROR_CODE_SUCCESS ) {
 		DBGMSG( "Error.\n" );
 		goto error;
+	  }
 	}
-	
+
 	if ( num > 0 ) {
 		DBGMSG( "CNNET2_Search : %d printer(s) found.\n", num );
 		if ( (infoList = malloc( sizeof(tagSearchPrinterInfo) * num )) == NULL )

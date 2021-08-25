@@ -502,7 +502,7 @@ static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 	
 	DBGMSG("->\n");
 	if ( root->head == CNMSNULL ){
-		DBGMSG(, "no scanned page data. -> do nothing.\n" );
+		DBGMSG("no scanned page data. -> do nothing.\n" );
 		result = CNMS_NO_ERR_CANCLED;
 		goto EXIT_ERR;
 	}
@@ -517,7 +517,7 @@ static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 	}
 	
 	if ( ( result = CnmsPDF_Open( &p, fd ) ) != CNMS_NO_ERR ) {
-		DBGMSG(, "CnmsPDF_Open : error\n\n" );
+		DBGMSG( "CnmsPDF_Open : error\n\n" );
 		goto EXIT_ERR;
 	}
 	if ( ( result = CnmsPDF_StartDoc( p ) ) != CNMS_NO_ERR ) {
@@ -542,7 +542,7 @@ static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 		CnmsDisposeQueue( root, CNMS_NODE_HEAD );
 	}
 	if ( ( result = CnmsPDF_EndDoc( p ) ) != CNMS_NO_ERR ) {
-		DBGMSG(, "CnmsPDF_Open : error\n\n" );
+		DBGMSG( "CnmsPDF_Open : error\n\n" );
 		goto EXIT_ERR;
 	}
 	result = CNMS_NO_ERR;
