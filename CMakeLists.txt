@@ -52,3 +52,4 @@ install(FILES "etc/udev/rules.d/80-canon_mfp2.rules" DESTINATION "/etc/udev/rule
 install(FILES "etc/sane.d/dll.d/mfp2" DESTINATION "/etc/sane.d/dll.d/")
 install(FILES "etc/sane.d/canon_pixma.conf" DESTINATION "/etc/sane.d/")
 install(FILES "etc/canon-scan.xml" DESTINATION "/etc/")
+install(FILES "usr/share/applications/scangearmp2.desktop" DESTINATION "/usr/share/applications/")

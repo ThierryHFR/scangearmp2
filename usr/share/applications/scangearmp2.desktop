@@ -1,0 +1,20 @@
+[Desktop Entry]
+Name=ScanGear
+GenericName=Document Scanner
+GenericName[fr]=Numériseur de documents
+GenericName[de]=Dokumentenscanner
+GenericName[ja]=ドキュメントスキャナー
+GenericName[ru]=Сканер документов
+GenericName[zh]=文件掃描儀
+Comment=Scan Documents
+Comment[fr]=Numériser des documents
+Comment[de]=Dokumente scannen
+Comment[ja]=ドキュメントをスキャンする
+Comment[ru]=Сканировать документы
+Comment[zh]=掃描文件
+Exec=scangearmp2
+Icon=scanner
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Graphics;Scanning;
