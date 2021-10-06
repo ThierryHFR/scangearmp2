@@ -17,6 +17,24 @@
 	
 	For ubuntu-based distributions: https://launchpad.net/~thierry-f/+archive/ubuntu/fork-michael-gruz
 	For debian-based distribution : https://github.com/Ordissimo/scangearmp2/releases/tag/4.12 
+	
+	The scangearmp2 version of my repository, contains 3 elements:
+	1 - binary libraries where the source code is not provided (under Canon license), it lets us use and 
+	redistribute it, without the right to decompile it.
+	2 - the scangearmp2 GUI in GPL provided by Canon, I have extended these features and migrated it
+	to GTK3.
+	3 - The code developed by the Compagny Ordissimo which is under GPL license, which is based on
+	Canon's proprietary libraries. This code provides a backend to "sane".
+	
+	- libcanon-proprio-bin (https://github.com/Ordissimo/libcanon-proprio-bin) contains the proprietary
+	libraries for Canon, I repackage them but do not make any modification on them. This allows you
+	to use them without having to install the whole GTK2 toolkit, this supposes that you install
+	libmfp2-canon.
+	- libmfp2-canon (https://github.com/Ordissimo/libmfp2-canon) is the part provided by Ordissimo, which
+	is under GPL license and is a backend of the sane project
+	
+	Finally, and to clear up any ambiguity, I am the developer of the company Ordissimo with no ties 
+	whatsoever to Canon.
 
 ```
  
