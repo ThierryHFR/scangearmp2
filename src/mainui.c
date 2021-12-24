@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2020
+ *  Copyright CANON INC. 2007-2021
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -70,6 +70,7 @@ static CIJSC_MAINUI_ITEM_TABLE resolution_table[] = {
        { 1,    "150", },
        { 2,    "300", },
        { 3,    "600", },
+       { 4,    "1200", },
        { -1,                                           NULL, },
 };
 
@@ -198,8 +199,7 @@ static int ui_main_combobox_set_id( SGMP_Data *data, GtkWidget *combo, CIJSC_MAI
 	GtkTreeIter		iter;
 	gint			i, table_index = -1, combo_index = -1;
 	gchar			*str = NULL;
-
-	(void)data;
+        (void) data;
 	DBGMSG("->\n");
 	for( i = 0 ; table[i].id >= 0; i++ ) {
 		if( table[i].id == id ) {

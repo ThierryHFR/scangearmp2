@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2020
+ *  Copyright CANON INC. 2007-2021
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -237,8 +237,7 @@ EXIT:
 
 static void ui_dialog_save_scan_dispose_file( SGMP_Data *data, LPCNMS_NODE *pnode )
 {
-
-	(void)data;
+        (void) data;
 	if( pnode == CNMSNULL ) {
 		DBGMSG( "[CnmsScanFlowDisposeDstFile]pnode is CNMSNULL.\n" );
 		return ;

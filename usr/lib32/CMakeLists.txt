@@ -1,4 +1,4 @@
-foreach(bin_lib_file libcncpmslld2.so.3.0.0 libcncpnet2.so.1.2.4 libcncpnet20.so.1.0.0 libcncpnet30.so.1.0.0)
+foreach(bin_lib_file libcncpmslld2.so.3.0.0 libcncpnet2.so.1.2.5 libcncpnet20.so.1.0.0 libcncpnet30.so.1.0.0)
 
   #get SONAME from canon shared libs to construct symlinks
   string(REGEX REPLACE "^lib(.*)\.so.*" "\\1" bin_lib_name ${bin_lib_file})

@@ -30,7 +30,7 @@
 /* N_ macro */
 #include "support.h"
 
-#define	STR_CNMS_LS_007_VER_NUM		"4.20"
+#define	STR_CNMS_LS_007_VER_NUM		"4.30"
 #define	STR_CNMS_LS_007_YEAR_BEGIN	"2007"
 #define	STR_CNMS_LS_007_YEAR_END	"2021"
 

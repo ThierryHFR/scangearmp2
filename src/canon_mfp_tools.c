@@ -1,5 +1,5 @@
 /*
-*  ScanGear MP for Linux
+ *  ScanGear MP for Linux
  *  Copyright CANON INC. 2007-2021
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -1057,7 +1057,7 @@ void cmt_network_mutex_unlock( void )
 	}
 }
 
-void *cmt_network_keep_session( void *hnd )
+void cmt_network_keep_session( void *hnd )
 {
 	int				i;
 	unsigned long	d_time;
@@ -1105,7 +1105,6 @@ void *cmt_network_keep_session( void *hnd )
 			WAIT_300MSEC;
 		}
 	}
-        return NULL;
 }
 
 

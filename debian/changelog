@@ -1,3 +1,10 @@
+scangearmp2 (4.30.0) UNRELEASED; urgency=medium
+
+  * Migration to scangearmp2 4.30
+  * Add resolution 1200 
+
+ --  Thierry HUCHARD (cle ubuntu) <thierry@substantiel.fr>  Mon, 16 Aug 2021 14:46:05 +0200
+
 scangearmp2 (4.20.4) UNRELEASED; urgency=medium
 
   * Add ADF and ADF Duplex

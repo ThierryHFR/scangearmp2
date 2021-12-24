@@ -7,6 +7,29 @@ GOTO="canon_mfp_end"
 
 LABEL="canon_mfp_start"
 
+#TS5350i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18d9", MODE="666"
+#G600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18d5", MODE="666"
+#TS3500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18d4", MODE="666"
+#TR4600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18da", MODE="666"
+#E4500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18db", MODE="666"
+#TR4700 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18dc", MODE="666"
+#XK500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18df", MODE="666"
+#TS8530 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18e0", MODE="666"
+#XK100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18e2", MODE="666"
+#TS7530 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18e1", MODE="666"
+#TS7450i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18f7", MODE="666"
+
 #GX6000 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="18a6", MODE="666"
 #GX7000 series
