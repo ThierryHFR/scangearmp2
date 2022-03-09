@@ -1057,7 +1057,7 @@ void cmt_network_mutex_unlock( void )
 	}
 }
 
-void cmt_network_keep_session( void *hnd )
+void *cmt_network_keep_session( void *hnd )
 {
 	int				i;
 	unsigned long	d_time;
@@ -1105,6 +1105,7 @@ void cmt_network_keep_session( void *hnd )
 			WAIT_300MSEC;
 		}
 	}
+	return NULL;
 }
 
 
@@ -1158,7 +1159,7 @@ CMT_Status cmt_network_open(const char *macaddr, CNNLHANDLE *handle)
 	cmt_network_mode = 1;
 	/* keep TCP session thread */
 	pthread_mutex_init( &cmt_net_mutex, NULL );
-	if( ( ret = pthread_create( &cmt_network_thread, NULL, (void *(*)(void*))cmt_network_keep_session, (void *)hnd ) ) ) {
+	if( ( ret = pthread_create( &cmt_network_thread, NULL, cmt_network_keep_session, (void *)hnd ) ) ) {
 		goto error2;
 	}
 	cmt_net_aborted = 0;
@@ -1415,7 +1416,7 @@ CMT_Status cmt_network2_open( const char * devname, HCNNET3 *handle )
 	cmt_network_mode = 2;
 	/* keep TCP session thread */
 	pthread_mutex_init( &cmt_net_mutex, NULL );
-	if( ( ret = pthread_create( &cmt_network_thread, NULL, (void *(*)(void*))cmt_network_keep_session, (void *)hnd ) ) ) {
+	if( ( ret = pthread_create( &cmt_network_thread, NULL, cmt_network_keep_session, (void *)hnd ) ) ) {
 		goto error;
 	}
 	cmt_net2_aborted = 0;
