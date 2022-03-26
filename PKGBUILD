@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://github.com/Ordissimo/scangearmp2"
 license=('GPL' 'custom:canon')
 depends=('gtk3')
-makedepends=('cmake' 'libjpeg' 'sane')
+makedepends=('cmake' 'libjpeg' 'sane', 'intltool')
 provides=('scangearmp2')
 conflicts=('scangearmp2')
 
