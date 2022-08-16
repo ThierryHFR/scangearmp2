@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# remove sgmp_setting files
-rm -f /var/tmp/canon_sgmp2_setting*.*
