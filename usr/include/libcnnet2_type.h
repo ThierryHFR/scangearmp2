@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Canon Inkjet Printer Driver for Linux
  *  Copyright CANON INC. 2014-2016
  *
@@ -25,8 +25,6 @@
 
 #ifndef __INC_CNNET2_TYPE__
 #define __INC_CNNET2_TYPE__
-
-#include <stdbool.h>
 
 typedef enum {
   CNNET2_ERROR_CODE_SUCCESS        =  0,
@@ -59,8 +57,8 @@ typedef struct {
   int currentConnectMode_;
   char deviceId_[1024];
   char bonjourName_[256];
-  bool isUnicast_;
-  bool isSameSegment_;
+  char isUnicast_;
+  char isSameSegment_;
 } tagSearchPrinterInfo;
 
 #define CNNET2_DEFAULT_GET_PRINTER_INFO_TIMEOUT_MILLIS 2000

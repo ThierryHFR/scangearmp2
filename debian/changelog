@@ -1,3 +1,10 @@
+scangearmp2 (4.40.0) UNRELEASED; urgency=medium
+
+  * Migration to scangearmp2 4.40
+  * Add arrch mips64el and aarch64
+
+ --  Thierry HUCHARD (cle ubuntu) <thierry@substantiel.fr>  Mon, 16 Aug 2021 14:46:05 +0200
+
 scangearmp2 (4.30.0) UNRELEASED; urgency=medium
 
   * Migration to scangearmp2 4.30

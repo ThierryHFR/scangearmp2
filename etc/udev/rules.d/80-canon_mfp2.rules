@@ -125,7 +125,7 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1777", MODE="666"
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1788", MODE="666"
 
 #MX450 series
-ATTR{idVendor}=="04a9", ATTR{idProduct}=="1768", MODE="666"
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1768", MODE="666
 #MX490 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1787", MODE="666"
 #E480 series
@@ -239,6 +239,11 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1855", MODE="666"
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1912", MODE="666"
 #LiDE 300
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1913", MODE="666"
+
+#TS2600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1107", MODE="666"
+#TS2400 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1108", MODE="666"
 
 
 LABEL="canon_mfp_end"
