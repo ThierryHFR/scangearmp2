@@ -82,6 +82,10 @@ get_cnmslibpath(void)
 	   cnmslibpath = strdup("/usr/lib/x86_64-linux-gnu/bjlib");
 	else if (access("/usr/lib/i386-linux-gnu/bjlib", F_OK) != -1)
 	   cnmslibpath = strdup("/usr/lib/i386-linux-gnu/bjlib");
+	else if (access("/usr/lib/aarch64-linux-gnu/bjlib", F_OK) != -1)
+	   cnmslibpath = strdup("/usr/lib/aarch64-linux-gnu/bjlib");
+	else if (access("/usr/lib/mips64el-linux-gnu/bjlib", F_OK) != -1)
+	   cnmslibpath = strdup("/usr/lib/mips64el-linux-gnu/bjlib");
 	else if (access("/usr/lib64/bjlib", F_OK) != -1)
 	   cnmslibpath = strdup("/usr/lib64/bjlib");
 	else

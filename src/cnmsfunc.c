@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2021
+ *  Copyright CANON INC. 2007-2022
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -178,6 +178,9 @@ CNMSVoid CnmsCopyMem(
 		DBGMSG( "[CnmsCopyMem]Parameter is error.\n" );
 		goto	EXIT;
 	}
+#ifdef __x86_64__
+		__asm__(".symver memcpy, memcpy@GLIBC_2.2.5");
+#endif
 	memcpy( lpDst, lpSrc, size );
 EXIT:
 #ifdef	__CNMS_DEBUG_FUNC__
