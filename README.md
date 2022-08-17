@@ -157,6 +157,28 @@ TR8630 series
 TS6400 series
 TS7400 series
 
+
+Add Dec 2021
+TS5350i series
+G600 series
+TS3500 series
+TR4600 series
+E4500 series
+TR4700 series
+XK500 series
+TS8530 series
+XK100 series
+TS7530 series
+TS7450i series
+GX6000 series
+GX7000 series
+TS5400 series
+
+
+Add May 2022
+TS2400 series
+TS2600 series
+
 ```
 # ADVANTAGES
 
@@ -175,6 +197,29 @@ The source option allow to chose between Platen, ADF and ADF Duplex, i don't hav
 
 When using xsane :
 bug with the display of the selected color option (Fixed)
+
+# BINARIES
+
+## Binary for the majority of Distribution
+
+https://download.opensuse.org/repositories/home:/thierry1970/
+```
+CentOS 8                  x86_64, aarch64
+Debian 9.0                x86_64, i386, aarch64
+Debian 10                 x86_64, i386, aarch64
+Debian 11                 x86_64, i386, aarch64
+Fedora 31                 x86_64, aarch64
+Fedora 32                 x86_64, aarch64
+Fedora 33                 x86_64, aarch64
+Fedora 34                 x86_64, i386, aarch64
+Raspbian 9.0              aarch64
+Raspbian 10               aarch64
+Raspbian 11               aarch64
+xUbuntu 18.04             x86_64, i386
+xUbuntu 20.04             x86_64, i386, aarch64
+xUbuntu 22.04             x86_64, i386, aarch64
+```
+
 
 # INSTALLATION
 
