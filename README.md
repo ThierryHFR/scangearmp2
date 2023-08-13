@@ -248,7 +248,8 @@ makepkg && sudo pacman -U scangearmp2-sane-*.tar.zst
 ```
 mkdir build
 cd build
-git clone https://github.com/Ordissimo/scangearmp2.git
+git clone https://github.com/ThierryFR/scangearmp2.git
+git checkout debian
 ```
 ###### Get development environment :
 ```
@@ -256,9 +257,9 @@ apt update
 apt install debhelper libglib2.0-dev libgtk-3-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
 # or, if failure, use:
 apt install debhelper libglib2.0-dev libgtk2.0-dev libusb-1.0-0-dev libtool libjpeg-dev intltool libsane-dev
-cp -a scangearmp2 scangearmp2-4.12
-rm -rf scangearmp2-4.12/.git scangearmp2-4.12/debian/
-tar cJvf scangearmp2_4.12.orig.tar.xz scangearmp2-4.12
+cp -a scangearmp2 scangearmp2-4.60.0
+rm -rf scangearmp2-4.60.0/.git scangearmp2-4.60.0/debian/
+tar cJvf scangearmp2_4.60.0.orig.tar.xz scangearmp2-4.12
 ```
 ###### Build Sources :
 ```
@@ -268,7 +269,7 @@ dpkg-buildpackage -us -uc ##
 
 ###### Install :
 ```
-apt install ../scangearmp2_4.12-1_amd64.deb
+apt install ../scangearmp2_4.60.0-1_amd64.deb
 ```
 ## For redhat systems : <font color="red">This is no longer current</font>
 
@@ -283,17 +284,17 @@ yum install rpm-build
 ```
 ###### Get sources :
 ```
-wget https://github.com/Ordissimo/scangearmp2/releases/download/4.12/scangearmp2.spec
-wget https://github.com/Ordissimo/scangearmp2/releases/download/4.12/scangearmp2_4.12.tar.xz
-tar xvf scangearmp2_4.12-2ubuntu.artful.tar.xz
-tar czvf scangearmp2_4.12.orig.tar.gz scangearmp2
-mv scangearmp2_4.12.orig.tar.gz ~/rpmbuild/SOURCES/
+wget https://github.com/ThierryFR/scangearmp2/releases/download/4.60.0/scangearmp2.spec
+wget https://github.com/ThierryFR/scangearmp2/releases/download/4.60.0/scangearmp2_4.60.0.tar.xz
+tar xvf scangearmp2_4.60.0-1.tar.xz
+tar czvf scangearmp2_4.60.0.orig.tar.gz scangearmp2
+mv scangearmp2_4.60.0.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 Or, from git repository
 ```
-git archive --format=tar --prefix=scangearmp2-4.10/ HEAD |gzip >scangearmp2_4.12.orig.tar.gz
-mv scangearmp2_4.12.orig.tar.gz ~/rpmbuild/SOURCES/
+git archive --format=tar --prefix=scangearmp2-4.60.0/ HEAD |gzip >scangearmp2_4.60.0.orig.tar.gz
+mv scangearmp2_4.60.0.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 ###### Build Sources :
@@ -305,7 +306,7 @@ rpmbuild -ba scangearmp2.spec
 ```
 ###### Install :
 ```
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.12-2.x86_64.rpm
+rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.60.0-1.x86_64.rpm
 ```
 
 ###### Firewall :
