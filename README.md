@@ -157,6 +157,43 @@ TR8630 series
 TS6400 series
 TS7400 series
 
+
+Add Dec 2021
+TS5350i series
+G600 series
+TS3500 series
+TR4600 series
+E4500 series
+TR4700 series
+XK500 series
+TS8530 series
+XK100 series
+TS7530 series
+TS7450i series
+GX6000 series
+GX7000 series
+TS5400 series
+
+
+Add May 2022
+TS2400 series
+TS2600 series
+
+Add Dec 2022
+TS8630 series
+XK110 series
+GX3000 series
+GX4000 series
+
+Add Jui 2023
+G3070 series
+G2070 series
+G4070 series
+G3030 series
+G2030 series
+TC-20M
+TC-5200M
+
 ```
 # ADVANTAGES
 
@@ -164,7 +201,7 @@ Better image quality than 'pixma' backend (with an output image size of 2480x350
 
 # STATE
 
-Tested with sane 1.0.25, 1.0.27, 1.0.29 and 1.0.31-9999 (may not work for lower versions)<br>
+Tested with sane 1.0.25, 1.0.27, 1.0.29 and 1.1.1<br>
 In Platen, the backend recognizes CARD, L_L, L_P, 4X6_L, 4X6_P, HAGAKI_L, HAGAKI_P, 2L_L, 2L_P, A5, B5, A4 and LETTER formats.<br>
 In ADF, the backend recognizes A4 and LETTER formats.<br>
 The scan works in color or in gray map.<br>
@@ -175,6 +212,29 @@ The source option allow to chose between Platen, ADF and ADF Duplex, i don't hav
 
 When using xsane :
 bug with the display of the selected color option (Fixed)
+
+# BINARIES
+
+## Binary for the majority of Distribution
+
+https://download.opensuse.org/repositories/home:/thierry1970/
+```
+CentOS 8                  x86_64, aarch64
+Debian 9.0                x86_64, i386, aarch64
+Debian 10                 x86_64, i386, aarch64
+Debian 11                 x86_64, i386, aarch64
+Fedora 31                 x86_64, aarch64
+Fedora 32                 x86_64, aarch64
+Fedora 33                 x86_64, aarch64
+Fedora 34                 x86_64, i386, aarch64
+Raspbian 9.0              aarch64
+Raspbian 10               aarch64
+Raspbian 11               aarch64
+xUbuntu 18.04             x86_64, i386
+xUbuntu 20.04             x86_64, i386, aarch64
+xUbuntu 22.04             x86_64, i386, aarch64
+```
+
 
 # INSTALLATION
 

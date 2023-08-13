@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2022
+ *  Copyright CANON INC. 2007-2023
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -56,20 +56,7 @@ static void create_combobox(
 {
         (void)data;
         (void)combobox;
-/*
-	GtkListStore		*store;
-	GtkCellRenderer		*renderer;
 	
-	data->ignore_combobox_changed = TRUE;
-	
-	store = gtk_list_store_new( 1, G_TYPE_STRING );
-	gtk_combo_box_set_model( GTK_COMBO_BOX( combobox ), GTK_TREE_MODEL( store ) );
-	renderer = gtk_cell_renderer_text_new();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT( combobox ), renderer, TRUE);
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT( combobox ), renderer, "text", 0, NULL);
-	g_object_unref( store );
-	g_object_unref( renderer );
-*/	
 	data->ignore_combobox_changed = FALSE;
 }
 
