@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2022
+ *  Copyright CANON INC. 2007-2023
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -285,10 +285,6 @@ void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev )
 
 void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data )
 {
-	//GtkListStore	*store;
-	//GtkTreeIter		iter;
-	//gint			select_no, i;
-	// gchar			*str;
 	int				current_scanmode;
 	int				current_size;
 

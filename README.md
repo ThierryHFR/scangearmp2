@@ -179,6 +179,21 @@ Add May 2022
 TS2400 series
 TS2600 series
 
+Add Dec 2022
+TS8630 series
+XK110 series
+GX3000 series
+GX4000 series
+
+Add Jui 2023
+G3070 series
+G2070 series
+G4070 series
+G3030 series
+G2030 series
+TC-20M
+TC-5200M
+
 ```
 # ADVANTAGES
 

@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2022
+ *  Copyright CANON INC. 2007-2023
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -92,18 +92,6 @@ static void ui_dialog_save_gtk_main_iteration(void)
 		gtk_main_iteration();
 	}
 }
-
-/*
-static void wait_msec(long msec)
-{
-	struct	timespec mytime;
-	CnmsSetMem( (CNMSLPSTR)&mytime, 0, sizeof(mytime) );
-	mytime.tv_sec   = 0;
-	mytime.tv_nsec  = 1000000*msec;	// nsec = 1/1000000 msec
-	
-	nanosleep( &mytime, NULL );
-}
-*/
 
 static gboolean ui_dialog_notify_hide( gpointer gdata )
 {
