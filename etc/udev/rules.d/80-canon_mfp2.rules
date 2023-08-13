@@ -252,4 +252,20 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="18f1", MODE="666"
 #GX4000 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="18f2", MODE="666"
 
+#G3070 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18f4", MODE="666"
+#G2070 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18f5", MODE="666"
+#G4070 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18f3", MODE="666"
+#G3030 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1105", MODE="666"
+#G2030 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1106", MODE="666"
+#TC-20M
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18fc", MODE="666"
+#TC-5200M
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="18ff", MODE="666"
+
+
 LABEL="canon_mfp_end"
