@@ -1,3 +1,9 @@
+scangearmp2 (4.60.0) UNRELEASED; urgency=medium
+
+  * Migration to scangearmp2 4.60
+
+ --  Thierry HUCHARD (cle ubuntu) <thierry@substantiel.fr>  Mon, 13 Aug 2023 20:31:05 +0200
+
 scangearmp2 (4.50.0) UNRELEASED; urgency=medium
 
   * Migration to scangearmp2 4.50
