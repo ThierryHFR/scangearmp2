@@ -220,6 +220,7 @@ bug with the display of the selected color option (Fixed)
 https://download.opensuse.org/repositories/home:/thierry1970/
 ```
 CentOS 8                  x86_64, aarch64
+Arch                      x86_64
 Debian 9.0                x86_64, i386, aarch64
 Debian 10                 x86_64, i386, aarch64
 Debian 11                 x86_64, i386, aarch64
