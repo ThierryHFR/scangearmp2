@@ -416,7 +416,6 @@ CMT_Status canon_sane_decompress(canon_sane_t * handled,const char * filename)
 	int start;
 	struct jpeg_decompress_struct cinfo;
 	JSAMPROW rowptr[1];
-	unsigned char * surface = NULL;
 	struct my_error_mgr jerr;
 	int lineSize;
 	(void)filename;
@@ -432,9 +431,6 @@ CMT_Status canon_sane_decompress(canon_sane_t * handled,const char * filename)
 	if(setjmp(jerr.escape)) {
 		/* If we get here, libjpeg found an error */
 		jpeg_destroy_decompress(&cinfo);
-		if ( surface != NULL ) {
-			free(surface);
-		}
 	        fclose(handled->file);
                 handled->file = NULL;
 		return show_canon_cmt_error(CMT_STATUS_INVAL);
@@ -445,12 +441,13 @@ CMT_Status canon_sane_decompress(canon_sane_t * handled,const char * filename)
 	jpeg_read_header(&cinfo, TRUE);
 
 
-		/* Set 24-bit RGB output */
-			cinfo.out_color_space =  JCS_RGB;
-		cinfo.quantize_colors = FALSE;
-		jpeg_calc_output_dimensions(&cinfo);
-		/* Allocate an output surface to hold the image */
-		surface = malloc(cinfo.output_width * cinfo.output_height * cinfo.output_components);
+	/* Set 24-bit RGB output */
+	cinfo.out_color_space =  JCS_RGB;
+	cinfo.quantize_colors = FALSE;
+	jpeg_calc_output_dimensions(&cinfo);
+	/* Allocate an output surface to hold the image */
+	unsigned char * surface = NULL;
+	surface = malloc(cinfo.output_width * cinfo.output_height * cinfo.output_components);
 
 	if ( surface == NULL ) {
 		jpeg_destroy_decompress(&cinfo);
