@@ -596,7 +596,7 @@ sane_get_devices (const SANE_Device *** device_list, SANE_Bool local_only)
 	/* initialize selected device cache. */
 	canon_list = canon_get_device(&count_canon_list,&status);
 	if(canon_list == NULL){
-		return show_sane_cmt_error(CMT_STATUS_NO_MEM);
+		return (SANE_Status)CMT_STATUS_GOOD;
 	}
 	if(status != CMT_STATUS_GOOD){
 		return show_sane_cmt_error(status);
