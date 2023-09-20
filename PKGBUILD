@@ -1,6 +1,4 @@
 pkgname=scangearmp2-sane
-pkgver=4.60.1.rgf91a432
-pkgrel=1
 pkgdesc="Canon ScanGear MP v2 scanner utility and sane backend"
 arch=('x86_64')
 url="https://github.com/ThierryHFR/scangearmp2"
