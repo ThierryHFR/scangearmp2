@@ -3,17 +3,28 @@ pkgver=4.60.1.rgf91a432
 pkgrel=1
 pkgdesc="Canon ScanGear MP v2 scanner utility and sane backend"
 arch=('x86_64')
-url="https://github.com/Ordissimo/scangearmp2"
+url="https://github.com/ThierryHFR/scangearmp2"
 license=('GPL' 'custom:canon')
 depends=('gtk3')
-makedepends=('cmake' 'libjpeg' 'sane', 'intltool')
+makedepends=('cmake' 'libjpeg' 'sane', 'intltool', 'libusb')
 provides=('scangearmp2')
 conflicts=('scangearmp2')
 
 
 pkgver() {
   cd ${startdir}
-  git describe --tags --long | sed -r 's/^2_//; s/^([[:digit:]]+)(-|.)([[:digit:]]+)(-|.)([[:digit:]]+)/\1.\3.\5/; s/-/.r/; s/-/./g'
+
+  _ver="$(git describe  --tags | sed 's|^[vV]||' | sed 's|-g[0-9a-fA-F]*$||' | tr '-' '+')"
+  _rev="$(git rev-list --count HEAD)"
+  _date="$(git log -1 --date=format:"%Y%m%d" --format="%ad")"
+  _hash="$(git rev-parse --short HEAD)"
+
+  if [ -z "${_ver}" ]; then
+    error "Version could not be determined."
+    return 1
+  else
+    printf '%s' "${_ver}.r${_rev}.${_date}.${_hash}"
+  fi
 }
 
 _builddir="${startdir}/build"
