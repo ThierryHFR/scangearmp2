@@ -1,10 +1,12 @@
 pkgname=scangearmp2-sane
 pkgdesc="Canon ScanGear MP v2 scanner utility and sane backend"
+pkgver=4.60.2+2.r204.20230920.78ec743
+pkgrel=1
 arch=('x86_64')
 url="https://github.com/ThierryHFR/scangearmp2"
 license=('GPL' 'custom:canon')
 depends=('gtk3')
-makedepends=('cmake' 'libjpeg' 'sane', 'intltool', 'libusb')
+makedepends=('cmake' 'libjpeg' 'sane' 'intltool' 'libusb')
 provides=('scangearmp2')
 conflicts=('scangearmp2')
 
