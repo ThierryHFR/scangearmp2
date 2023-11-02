@@ -99,6 +99,22 @@ static CIJSC_MAINUI_ITEM_TABLE size_platen_table[] = {
 	{ -1,						NULL, },
 };
 
+/* size(Platen A5) : A4 Letter B5 2L_L not support*/
+static CIJSC_MAINUI_ITEM_TABLE size_platen_A5_table[] = {
+	{ CIJSC_SIZE_CARD,			STR_CNMS_LS_005_01, },
+	{ CIJSC_SIZE_L_L,			STR_CNMS_LS_005_02, },
+	{ CIJSC_SIZE_L_P,			STR_CNMS_LS_005_03, },
+	{ CIJSC_SIZE_4X6_L,			STR_CNMS_LS_005_04, },
+	{ CIJSC_SIZE_4X6_P,			STR_CNMS_LS_005_05, },
+	{ CIJSC_SIZE_HAGAKI_L,		STR_CNMS_LS_005_06, },
+	{ CIJSC_SIZE_HAGAKI_P,		STR_CNMS_LS_005_07, },
+	{ CIJSC_SIZE_2L_P,			STR_CNMS_LS_005_09, },
+	{ CIJSC_SIZE_A5,			STR_CNMS_LS_005_10, },
+	{ CIJSC_SIZE_STATEMENT,		STR_CNMS_LS_005_14, },
+	{ -1,						NULL, },
+};
+
+
 /* size(ADF) */
 static CIJSC_MAINUI_ITEM_TABLE size_adf_table[] = {
 	{ CIJSC_SIZE_A4,			STR_CNMS_LS_005_12, },
@@ -271,6 +287,17 @@ void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev )
 	ui_main_other_combobox_init( data, data->combobox_colormode, colormode_table );
 	ui_main_other_combobox_init( data, data->combobox_size, size_platen_table );
 	ui_main_combobox_scanmode_init( data, dev );
+
+	/* platen_table_init */
+	if ( CIJSC_GET_PLATEN_A5( dev->type ) ) {
+		data->platen_A5 = 1;
+	}
+	else {
+		data->platen_A5 = 0;
+	}
+	
+	ui_main_other_combobox_init( data, data->combobox_size, get_size_table( data ));
+
 	/* set default size. */
 	ui_main_combobox_set_default_size( data );
 	/* save current scanmode. */
@@ -285,6 +312,7 @@ void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev )
 
 void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data )
 {
+	CIJSC_MAINUI_ITEM_TABLE         *platen_table;
 	int				current_scanmode;
 	int				current_size;
 
@@ -294,6 +322,14 @@ void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data )
 		DBGMSG("scanmode changed : %s -> %s\n", 
 				gettext( scanmode_table[data->prev_scanmode].str ),
 				gettext( scanmode_table[current_scanmode].str ) );
+        
+		/*get platen table*/
+		if ( data->platen_A5 ){
+			platen_table = size_platen_A5_table;
+		}
+		else {
+			platen_table = size_platen_table;
+		}
 		
 		/* update Scan(JPEG) button. */
 		if ( current_scanmode == CIJSC_SCANMODE_PLATEN ) {
@@ -305,7 +341,7 @@ void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data )
 		if ( data->prev_scanmode == CIJSC_SCANMODE_PLATEN ) {
 			/* PLATEN -> ADF */
 			/* get current size and set current size. */
-			current_size = ui_main_combobox_get_id( data, data->combobox_size, (CIJSC_MAINUI_ITEM_TABLE *)size_platen_table );
+			current_size = ui_main_combobox_get_id( data, data->combobox_size, platen_table );
 			ui_main_other_combobox_init( data, data->combobox_size, size_adf_table );
 			if ( ui_main_combobox_set_id( data, data->combobox_size, (CIJSC_MAINUI_ITEM_TABLE *)size_adf_table, current_size ) ) {
 				/* set default size. */
@@ -317,8 +353,8 @@ void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data )
 				/* ADF -> PLATEN */
 				/* get current size and set current size. */
 				current_size = ui_main_combobox_get_id( data, data->combobox_size, (CIJSC_MAINUI_ITEM_TABLE *)size_adf_table );
-				ui_main_other_combobox_init( data, data->combobox_size, size_platen_table );
-				if ( ui_main_combobox_set_id( data, data->combobox_size, (CIJSC_MAINUI_ITEM_TABLE *)size_platen_table, current_size ) ) {
+				ui_main_other_combobox_init( data, data->combobox_size, platen_table );
+				if ( ui_main_combobox_set_id( data, data->combobox_size, platen_table, current_size ) ) {
 					/* set default size. */
 					ui_main_combobox_set_default_size( data );
 				}

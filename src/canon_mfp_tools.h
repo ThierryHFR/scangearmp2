@@ -59,6 +59,7 @@
 #define CN_USB_PRINTER_READ_EP (2)
 
 /* CANON_Device macros.*/
+#define	CIJSC_GET_PLATEN_A5(x)	( ( (x) >> 12 ) & 0x0001 )
 #define	CIJSC_GET_LIB_VERSION(x)	( ( (x) >> 8 ) & 0x000F )
 #define	CIJSC_GET_SUPPORT_USB(x)	( ( (x) >> 4 ) & 0x0001 )
 #define	CIJSC_GET_SUPPORT_NET(x)	( ( (x) >> 4 ) & 0x0002 )
