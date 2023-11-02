@@ -267,5 +267,30 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="18fc", MODE="666"
 #TC-5200M
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="18ff", MODE="666"
 
+#TS8700 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1118", MODE="666"
+#XK120 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1119", MODE="666"
+#GX1000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="110b", MODE="666"
+#GX2000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="110d", MODE="666"
+#TS6630 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="114e", MODE="666"
+#TS7700 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="110f", MODE="666"
+#TS7600i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="114f", MODE="666"
+#TS6730 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1150", MODE="666"
+#TR7800 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1151", MODE="666"
+#TS7700i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1152", MODE="666"
+#TS7700A series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1111", MODE="666"
+#GX6500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1148", MODE="666"
+
 
 LABEL="canon_mfp_end"

@@ -949,8 +949,8 @@ void cmt_network_init( void *cnnl_callback )
 			if( CNNL_OpenEx( hmdl, ipaddr, CNNET_TYPE_MULTIPASS, 1, 1000 ) == CNNL_RET_SUCCESS ){
 				if( CNNL_GetModelName( hmdl, model, STRING_SHORT, 3, 3000) == CNNL_RET_SUCCESS){
 					
-					strncpy( networkdev[j].modelName, model, STRING_SHORT );
-					strncpy( networkdev[j].ipAddStr, ipaddr, STRING_SHORT );
+					strncpy( networkdev[j].modelName, model, STRING_SHORT-1 );
+					strncpy( networkdev[j].ipAddStr, ipaddr, STRING_SHORT-1 );
 					snprintf( networkdev[j].macAddStr, STRING_SHORT-1, "%02X-%02X-%02X-%02X-%02X-%02X",
 						nic[j].macaddr[0],nic[j].macaddr[1],nic[j].macaddr[2], nic[j].macaddr[3],nic[j].macaddr[4],nic[j].macaddr[5] );
 					

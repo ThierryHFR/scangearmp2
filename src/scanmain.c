@@ -83,7 +83,8 @@ static const CIJSC_SIZE_TABLE sourceSize[] = {
 	{ CIJSC_SIZE_A5,		1748, 2480 },		// A5
 	{ CIJSC_SIZE_B5,		2149, 3035 },		// B5
 	{ CIJSC_SIZE_A4,		2480, 3507 },		// A4
-	{ CIJSC_SIZE_LETTER,	2550, 3300 }		// Letter
+	{ CIJSC_SIZE_LETTER,	2550, 3300 },		// Letter
+	{ CIJSC_SIZE_STATEMENT,	1650, 2550 },		// Statement
 };
 
 static void ui_dialog_save_gtk_main_iteration(void)

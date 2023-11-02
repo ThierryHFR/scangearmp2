@@ -47,6 +47,10 @@ typedef enum {
   CNNET2_SETTING_FLAG_DISCOVER_PACKET_WAIT_MILLIS,        
 } CNNET2_SETTING_FLAGS;
 
+#ifndef __cplusplus
+typedef char bool;
+#endif
+
 typedef struct {
   int nicIndex_;
   char ipAddressStr_[46];
@@ -57,8 +61,8 @@ typedef struct {
   int currentConnectMode_;
   char deviceId_[1024];
   char bonjourName_[256];
-  char isUnicast_;
-  char isSameSegment_;
+  bool isUnicast_;
+  bool isSameSegment_;
 } tagSearchPrinterInfo;
 
 #define CNNET2_DEFAULT_GET_PRINTER_INFO_TIMEOUT_MILLIS 2000
