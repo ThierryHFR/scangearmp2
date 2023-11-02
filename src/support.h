@@ -177,6 +177,10 @@ typedef struct
 	int			scan_w;
 	int			scan_h;
 	int			scan_res;
+
+	/* platen type */
+	int			platen_A5;
+
 	/* error */
 	int			last_error_quit;
 }SGMP_Data;
@@ -203,6 +207,10 @@ typedef struct
 	int			scan_w;
 	int			scan_h;
 	int			scan_res;
+
+	/* platen type */
+	int			platen_A5;
+
 	/* error */
 	int			last_error_quit;
 }SGMP_Data_Lite;
@@ -260,6 +268,7 @@ enum{
 	CIJSC_SIZE_B5,
 	CIJSC_SIZE_A4,
 	CIJSC_SIZE_LETTER,
+	CIJSC_SIZE_STATEMENT,
 };
 
 /* file format */
