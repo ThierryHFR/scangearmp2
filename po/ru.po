@@ -163,6 +163,11 @@ msgstr "A4 (210x297мм)"
 msgid "Letter"
 msgstr "Letter (216x279 мм)"
 
+#. STR_CNMS_LS_005_14
+#: ../src/cnmsstrings.h:98
+msgid "Statement"
+msgstr "Заявление"
+
 #. STR_CNMS_LS_007_03
 #: ../src/cnmsstrings.h:123
 #, c-format

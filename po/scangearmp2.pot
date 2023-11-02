@@ -167,6 +167,11 @@ msgstr ""
 msgid "Letter"
 msgstr ""
 
+#. STR_CNMS_LS_005_14
+#: ../src/cnmsstrings.h:98
+msgid "Statement"
+msgstr ""
+
 #. STR_CNMS_LS_007_03
 #: ../src/cnmsstrings.h:123
 #, c-format
@@ -348,4 +353,16 @@ msgstr ""
 #. STR_CNMS_LS_012_03
 #: ../src/cnmsstrings.h:183
 msgid "Updating the scanner list."
+msgstr ""
+
+#. STR_CNMS_LS_010_10
+#: ../src/cnmsstrings.h:164
+msgid ""
+"Release the lock switch, detach the USB cable and reconnect.\n"
+"Scanner driver will be closed."
+msgstr ""
+
+#. STR_CNMS_LS_010_11
+#: ../src/cnmsstrings.h:166
+msgid "Scanner initialization is in progress. Scan after it is complete."
 msgstr ""

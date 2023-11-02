@@ -30,7 +30,7 @@
 /* N_ macro */
 #include "support.h"
 
-#define	STR_CNMS_LS_007_VER_NUM		"4.60"
+#define	STR_CNMS_LS_007_VER_NUM		"4.70"
 #define	STR_CNMS_LS_007_YEAR_BEGIN	"2007"
 #define	STR_CNMS_LS_007_YEAR_END	"2023"
 
@@ -96,6 +96,8 @@
 #define	STR_CNMS_LS_005_12	N_( "A4" )
 /*STR_CNMS_LS_005_13*/
 #define	STR_CNMS_LS_005_13	N_( "Letter" )
+/*STR_CNMS_LS_005_14*/
+#define	STR_CNMS_LS_005_14	N_( "Statement" )
 
 #define	STR_CNMS_LS_007_01		"ScanGear"
 #define	STR_CNMS_LS_007_02		"ScanGear MP"
