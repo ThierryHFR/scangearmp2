@@ -194,6 +194,20 @@ G2030 series
 TC-20M
 TC-5200M
 
+Add Oct 2023
+TS8700 series
+XK120 series
+GX1000 series
+GX2000 series
+TS6630 series
+TS7700 series
+TS7600i series
+TS6730 series
+TR7800 series
+TS7700i series
+TS7700A series
+GX6500 series
+
 ```
 # ADVANTAGES
 
