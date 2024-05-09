@@ -1,271 +1,294 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-      <object class="GtkGrid" id="table1">
-        <property name="row-spacing">5</property>
-        <property name="column-spacing">5</property>
-        <child>
-          <object class="GtkComboBoxText" id="combobox_source">
-            <signal name="changed" handler="on_combobox_source_changed" swapped="no"/>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">4</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="combobox_colormode">
-            <signal name="changed" handler="on_combobox_colormode_changed" swapped="no"/>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">5</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_scanjpeg">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_06">Scan (JPEG)</property>
-            <property name="focusable">1</property>
-            <property name="receives-default">1</property>
-            <signal name="clicked" handler="on_button_scanjpeg_clicked" swapped="no"/>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">7</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_scanmode">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_02">Scan Mode:</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_source">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_03">Select Source:</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">4</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_size">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_05">Paper Size:</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">6</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSeparator" id="hseparator1">
-            <layout>
-              <property name="column">0</property>
-              <property name="row">8</property>
-              <property name="column-span">4</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_scanner">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_01">Scanner</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_devname">
-            <property name="label" translatable="1">Canon XXXXXX series</property>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">1</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_07">Scan (PDF)</property>
-            <property name="focusable">1</property>
-            <property name="receives-default">1</property>
-            <signal name="clicked" handler="on_button_scanpdf_clicked" swapped="no"/>
-            <layout>
-              <property name="column">2</property>
-              <property name="row">7</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_colormode">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_04">Color Mode:</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">5</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_close">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_08">Close</property>
-            <property name="focusable">1</property>
-            <property name="receives-default">1</property>
-            <signal name="clicked" handler="on_button_close_clicked" swapped="no"/>
-            <layout>
-              <property name="column">2</property>
-              <property name="row">9</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_version">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_001_09">Version</property>
-            <property name="focusable">1</property>
-            <property name="receives-default">1</property>
-            <signal name="clicked" handler="on_button_version_clicked" swapped="no"/>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">9</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label2">
-            <property name="width-request">100</property>
-            <property name="height-request">2</property>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">10</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label3">
-            <property name="width-request">100</property>
-            <property name="height-request">2</property>
-            <layout>
-              <property name="column">2</property>
-              <property name="row">10</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label4">
-            <property name="width-request">100</property>
-            <property name="height-request">12</property>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">0</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label5">
-            <property name="width-request">100</property>
-            <property name="height-request">12</property>
-            <layout>
-              <property name="column">2</property>
-              <property name="row">0</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="combobox_size">
-            <property name="active">0</property>
-            <signal name="changed" handler="on_combobox_size_changed" swapped="no"/>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">6</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="combobox_scanmode">
-            <property name="active">0</property>
-            <signal name="changed" handler="on_combobox_scanmode_changed" swapped="no"/>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">2</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label6">
-            <layout>
-              <property name="column">3</property>
-              <property name="row">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_resolution">
-            <property name="label" translatable="1" comments="STR_CNMS_LS_999_99">Resolution:</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">3</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="combobox_resolution">
-            <property name="active">0</property>
-            <signal name="changed" handler="on_combobox_resolution_changed" swapped="no"/>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">3</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
+  <object class="GtkGrid" id="table1">
+    <property name="visible">1</property>
+    <property name="row-spacing">5</property>
+    <property name="column-spacing">5</property>
+    <child>
+      <object class="GtkComboBoxText" id="combobox_source">
+        <property name="visible">1</property>
+        <signal name="changed" handler="on_combobox_source_changed" swapped="no"/>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">4</property>
+          <property name="column-span">2</property>
+        </layout>
       </object>
+    </child>
+    <child>
+      <object class="GtkComboBoxText" id="combobox_colormode">
+        <property name="visible">1</property>
+        <signal name="changed" handler="on_combobox_colormode_changed" swapped="no"/>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">5</property>
+          <property name="column-span">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="button_scanjpeg">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_06">Scan (JPEG)</property>
+        <property name="focusable">1</property>
+        <property name="receives-default">1</property>
+        <signal name="clicked" handler="on_button_scanjpeg_clicked" swapped="no"/>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">7</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_scanmode">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_02">Scan Mode:</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_source">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_03">Select Source:</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">4</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_size">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_05">Paper Size:</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">6</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparator" id="hseparator1">
+        <property name="visible">1</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">8</property>
+          <property name="column-span">4</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_scanner">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_01">Scanner</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_devname">
+        <property name="visible">1</property>
+        <property name="label" translatable="1">Canon XXXXXX series</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">1</property>
+          <property name="column-span">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_07">Scan (PDF)</property>
+        <property name="focusable">1</property>
+        <property name="receives-default">1</property>
+        <signal name="clicked" handler="on_button_scanpdf_clicked" swapped="no"/>
+        <layout>
+          <property name="column">2</property>
+          <property name="row">7</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_colormode">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_04">Color Mode:</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">5</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="button_close">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_08">Close</property>
+        <property name="focusable">1</property>
+        <property name="receives-default">1</property>
+        <signal name="clicked" handler="on_button_close_clicked" swapped="no"/>
+        <layout>
+          <property name="column">2</property>
+          <property name="row">9</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="button_version">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_001_09">Version</property>
+        <property name="focusable">1</property>
+        <property name="receives-default">1</property>
+        <signal name="clicked" handler="on_button_version_clicked" swapped="no"/>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">9</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label2">
+        <property name="visible">1</property>
+        <property name="width-request">100</property>
+        <property name="height-request">2</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">10</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label3">
+        <property name="visible">1</property>
+        <property name="width-request">100</property>
+        <property name="height-request">2</property>
+        <layout>
+          <property name="column">2</property>
+          <property name="row">10</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label4">
+        <property name="visible">1</property>
+        <property name="width-request">100</property>
+        <property name="height-request">12</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label5">
+        <property name="visible">1</property>
+        <property name="width-request">100</property>
+        <property name="height-request">12</property>
+        <layout>
+          <property name="column">2</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkComboBoxText" id="combobox_size">
+        <property name="visible">1</property>
+        <property name="active">0</property>
+        <signal name="changed" handler="on_combobox_size_changed" swapped="no"/>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">6</property>
+          <property name="column-span">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkComboBoxText" id="combobox_scanmode">
+        <property name="visible">1</property>
+        <property name="active">0</property>
+        <signal name="changed" handler="on_combobox_scanmode_changed" swapped="no"/>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">2</property>
+          <property name="column-span">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label6">
+        <property name="visible">1</property>
+        <layout>
+          <property name="column">3</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_resolution">
+        <property name="visible">1</property>
+        <property name="label" translatable="1" comments="STR_CNMS_LS_999_99">Resolution:</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">3</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="GtkComboBoxText" id="combobox_resolution">
+        <property name="visible">1</property>
+        <property name="active">0</property>
+        <signal name="changed" handler="on_combobox_resolution_changed" swapped="no"/>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">3</property>
+          <property name="column-span">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
   <object class="GtkDialog" id="dialog_error">
     <property name="title">ScanGear</property>
     <property name="resizable">0</property>
@@ -273,10 +296,12 @@
     <signal name="close" handler="on_dialog_error_delete_event" swapped="no"/>
     <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox6">
+        <property name="visible">1</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkLabel" id="label_error_msg">
+            <property name="visible">1</property>
             <property name="label">xxxxxxxxxxxxxxxxxxx</property>
           </object>
         </child>
@@ -288,9 +313,11 @@
     </action-widgets>
     <child internal-child="action_area">
       <object class="GtkBox" id="dialog-action_area6">
-        <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+        <property name="visible">1</property>
+        <property name="orientation">horizontal</property>
         <child>
           <object class="GtkButton" id="button_error_cancel">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_011_05">Cancel</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>
@@ -299,6 +326,7 @@
         </child>
         <child>
           <object class="GtkButton" id="button_error_ok">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_011_04">OK</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>
@@ -316,17 +344,20 @@
     <signal name="hide" handler="on_dialog_notify_hide" swapped="no"/>
     <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox4">
+        <property name="visible">1</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkLabel" id="label_notify_save">
+            <property name="visible">1</property>
           </object>
         </child>
       </object>
     </child>
     <child internal-child="action_area">
       <object class="GtkBox" id="dialog-action_area4">
-        <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+        <property name="visible">1</property>
+        <property name="orientation">horizontal</property>
         <child>
           <placeholder/>
         </child>
@@ -342,28 +373,34 @@
     <signal name="close" handler="on_dialog_progress_delete_event" swapped="no"/>
     <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox5">
+        <property name="visible">1</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkBox" id="vbox3">
+            <property name="visible">1</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="label_prog_msg">
+                <property name="visible">1</property>
                 <property name="label">xxxxx</property>
               </object>
             </child>
             <child>
               <object class="GtkLabel" id="label_prog_percent">
+                <property name="visible">1</property>
                 <property name="vexpand">1</property>
                 <property name="label">xxxxx</property>
               </object>
             </child>
             <child>
               <object class="GtkBox" id="alignment1">
-                <property name="halign">GTK_ALIGN_CENTER</property>
-                <property name="valign">GTK_ALIGN_CENTER</property>
+                <property name="visible">1</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
                 <child>
                   <object class="GtkProgressBar" id="progressbar_prog">
+                    <property name="visible">1</property>
                     <property name="width-request">270</property>
                     <property name="height-request">30</property>
                   </object>
@@ -372,6 +409,7 @@
             </child>
             <child>
               <object class="GtkLabel" id="label_prog_pages">
+                <property name="visible">1</property>
                 <property name="vexpand">1</property>
                 <property name="label">xxxxx</property>
               </object>
@@ -385,12 +423,14 @@
     </action-widgets>
     <child internal-child="action_area">
       <object class="GtkBox" id="dialog-action_area5">
-        <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+        <property name="visible">1</property>
+        <property name="orientation">horizontal</property>
         <child>
           <placeholder/>
         </child>
         <child>
           <object class="GtkButton" id="button_prog_cancel">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_011_05">Cancel</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>
@@ -406,10 +446,12 @@
     <signal name="close" handler="on_dialog_save_delete_event" swapped="no"/>
     <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox2">
+        <property name="visible">1</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkFileChooserWidget" id="filechooserwidget_save">
+            <property name="visible">1</property>
             <property name="action">save</property>
           </object>
         </child>
@@ -421,9 +463,11 @@
     </action-widgets>
     <child internal-child="action_area">
       <object class="GtkBox" id="dialog-action_area2">
-        <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+        <property name="visible">1</property>
+        <property name="orientation">horizontal</property>
         <child>
           <object class="GtkButton" id="button_save_cancel">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_011_05">Cancel</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>
@@ -432,6 +476,7 @@
         </child>
         <child>
           <object class="GtkButton" id="button_save_save">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_008_02">Save</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>
@@ -448,30 +493,36 @@
     <signal name="close" handler="on_dialog_select_delete_event" swapped="no"/>
     <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox1">
+        <property name="visible">1</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkBox" id="hbox1">
+            <property name="visible">1</property>
             <child>
               <placeholder/>
             </child>
             <child>
               <object class="GtkBox" id="vbox2">
+                <property name="visible">1</property>
                 <property name="hexpand">1</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkComboBoxText" id="combobox_select_devlist">
+                    <property name="visible">1</property>
                     <property name="vexpand">1</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label_select_nodev">
+                    <property name="visible">1</property>
                     <property name="vexpand">1</property>
                     <property name="label" translatable="1" comments="STR_CNMS_LS_011_02">No scanners detected.</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkButton" id="button_select_update">
+                    <property name="visible">1</property>
                     <property name="vexpand">1</property>
                     <property name="label" translatable="1" comments="STR_CNMS_LS_011_03">Update Scanner List</property>
                     <property name="focusable">1</property>
@@ -494,9 +545,11 @@
     </action-widgets>
     <child internal-child="action_area">
       <object class="GtkBox" id="dialog-action_area1">
-        <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+        <property name="visible">1</property>
+        <property name="orientation">horizontal</property>
         <child>
           <object class="GtkButton" id="button_select_cancel">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_011_05">Cancel</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>
@@ -505,6 +558,7 @@
         </child>
         <child>
           <object class="GtkButton" id="button_select_ok">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_011_04">OK</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>
@@ -521,34 +575,40 @@
     <signal name="close" handler="on_dialog_version_delete_event" swapped="no"/>
     <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox3">
+        <property name="visible">1</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkBox" id="vbox1">
+            <property name="visible">1</property>
             <property name="orientation">vertical</property>
             <child>
               <placeholder/>
             </child>
             <child>
               <object class="GtkLabel" id="label_version_app">
+                <property name="visible">1</property>
                 <property name="vexpand">1</property>
                 <property name="label">xxxxx</property>
               </object>
             </child>
             <child>
               <object class="GtkLabel" id="label_version_ver">
+                <property name="visible">1</property>
                 <property name="vexpand">1</property>
                 <property name="label">xxxxx</property>
               </object>
             </child>
             <child>
               <object class="GtkLabel" id="label_version_cpy">
+                <property name="visible">1</property>
                 <property name="vexpand">1</property>
                 <property name="label">xxxxx</property>
               </object>
             </child>
             <child>
               <object class="GtkLabel" id="label1">
+                <property name="visible">1</property>
                 <property name="vexpand">1</property>
                 <property name="height-request">20</property>
               </object>
@@ -562,12 +622,14 @@
     </action-widgets>
     <child internal-child="action_area">
       <object class="GtkBox" id="dialog-action_area3">
-        <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+        <property name="visible">1</property>
+        <property name="orientation">horizontal</property>
         <child>
           <placeholder/>
         </child>
         <child>
           <object class="GtkButton" id="button_version_ok">
+            <property name="visible">1</property>
             <property name="label" translatable="1" comments="STR_CNMS_LS_011_04">OK</property>
             <property name="focusable">1</property>
             <property name="receives-default">1</property>

@@ -292,5 +292,12 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1111", MODE="666"
 #GX6500 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1148", MODE="666"
 
+#TS3600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1156", MODE="666"
+#TS3700 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1158", MODE="666"
+#E3600 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1157", MODE="666"
+
 
 LABEL="canon_mfp_end"
