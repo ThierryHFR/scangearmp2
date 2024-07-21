@@ -308,7 +308,7 @@ static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 		goto EXIT_ERR;
 	}
         int table_res[] = {75, 150, 300, 600, 1200};
-        double table_res_fact[] = {4.0, 2.0, 1.0, 0.5};
+        double table_res_fact[] = {4.0, 2.0, 1.0, 0.5, 0.25};
 	param.XRes			= data->scan_res = table_res[data->scan_resolution];
 	param.YRes			= data->scan_res; // 300;
 	param.Left			= 0;
