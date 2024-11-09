@@ -208,6 +208,21 @@ TS7700i series
 TS7700A series
 GX6500 series
 
+Add May 2024
+TS3600 series
+TS3700 series
+E3600 series
+
+Add Oct 2024
+G4090 series
+G4080 series
+G3090 series
+G3080 series
+TS8800 series
+XK130 series
+
+
+
 ```
 # ADVANTAGES
 
@@ -215,7 +230,7 @@ Better image quality than 'pixma' backend (with an output image size of 2480x350
 
 # STATE
 
-Tested with sane 1.0.25, 1.0.27, 1.0.29 and 1.1.1<br>
+Tested with sane 1.0.25, 1.0.27, 1.0.29 and 1.3.1<br>
 In Platen, the backend recognizes CARD, L_L, L_P, 4X6_L, 4X6_P, HAGAKI_L, HAGAKI_P, 2L_L, 2L_P, A5, B5, A4 and LETTER formats.<br>
 In ADF, the backend recognizes A4 and LETTER formats.<br>
 The scan works in color or in gray map.<br>
@@ -270,9 +285,9 @@ git checkout debian
 ```
 apt update
 apt install debhelper libglib2.0-dev libgtk-3-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
-cp -a scangearmp2 scangearmp2-4.70a
-rm -rf scangearmp2-4.70a/.git scangearmp2-4.70a/debian/
-tar cJvf scangearmp2_4.70a.orig.tar.xz scangearmp2-70a
+cp -a scangearmp2 scangearmp2-4.80
+rm -rf scangearmp2-4.80/.git scangearmp2-4.80/debian/
+tar cJvf scangearmp2_4.80.orig.tar.xz scangearmp2-80
 ```
 ###### Build Sources :
 ```
@@ -282,7 +297,7 @@ dpkg-buildpackage -us -uc ##
 
 ###### Install :
 ```
-apt install ../scangearmp2_4.70a-1_amd64.deb
+apt install ../scangearmp2_4.80-1_amd64.deb
 ```
 ## For redhat systems : <font color="red">This is no longer current</font>
 
@@ -297,17 +312,17 @@ yum install rpm-build
 ```
 ###### Get sources :
 ```
-wget https://github.com/ThierryFR/scangearmp2/releases/download/4.70a/scangearmp2.spec
-wget https://github.com/ThierryFR/scangearmp2/releases/download/4.70a/scangearmp2_4.70a.tar.xz
-tar xvf scangearmp2_4.70a-1.tar.xz
-tar czvf scangearmp2_4.70a.orig.tar.gz scangearmp2
-mv scangearmp2_4.70a.orig.tar.gz ~/rpmbuild/SOURCES/
+wget https://github.com/ThierryFR/scangearmp2/releases/download/4.80/scangearmp2.spec
+wget https://github.com/ThierryFR/scangearmp2/releases/download/4.80/scangearmp2_4.80.tar.xz
+tar xvf scangearmp2_4.80-1.tar.xz
+tar czvf scangearmp2_4.80.orig.tar.gz scangearmp2
+mv scangearmp2_4.80a.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 Or, from git repository
 ```
-git archive --format=tar --prefix=scangearmp2-4.70a/ HEAD |gzip >scangearmp2_4.70a.orig.tar.gz
-mv scangearmp2_4.70a.orig.tar.gz ~/rpmbuild/SOURCES/
+git archive --format=tar --prefix=scangearmp2-4.80/ HEAD |gzip >scangearmp2_4.80.orig.tar.gz
+mv scangearmp2_4.80.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 ###### Build Sources :
@@ -319,7 +334,7 @@ rpmbuild -ba scangearmp2.spec
 ```
 ###### Install :
 ```
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.70a-1.x86_64.rpm
+rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.80-1.x86_64.rpm
 ```
 
 ###### Firewall :
