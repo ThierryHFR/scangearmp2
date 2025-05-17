@@ -12,7 +12,7 @@ Ver. 3.30
 	Support G3000 series
 
 Ver. 3.40
-	Support G3000 series, TS9000 series, TS8000 series, TS6000 series, TS5000 series, MG3000 series, E470 series, G4000 series, MB2100 series, MB2700 series, MB5100 series, MB5400 series
+	Support TS9000 series, TS8000 series, TS6000 series, TS5000 series, MG3000 series, E470 series, G4000 series, MB2100 series, MB2700 series, MB5100 series, MB5400 series
 
 Ver. 3.50
 	Support TS9100 series, TS8100 series, TS6100 series, TR8500 series, TR7500 series, TS5100 series, TS3100 series, E3100 series, TS9180 series, TS8180 series, TS6180 series, TR8580 series, TS8130 series, TS6130 series, TR8530 series, TR7530 series, XK50 series, XK70 series
@@ -25,3 +25,36 @@ Ver. 3.70
 
 Ver. 3.90
 	Supporting G6000 series, G6080 series, TS5300 series, TS5380 series, TS6300 series, TS6380 series, TS7330 series, TS8300 series, TS8380 series, TS8330 series, XK60 series, TS6330 series, TS3300 series, E3300 series
+
+Ver. 4.00
+	Supporting G7000 series, G7080 series, GM4000 series, GM4080 series
+
+Ver. 4.10
+	Supporting TS3400 series, E3400 series, TR7000 series, G2020 series, G3060 series, G2060 series, G3020 series, TS7430 series, XK90 series, TS8430 series, TR7600 series, TR8600 series, TR8630 series, TS6400 series, TS7400 series
+
+Ver. 4.20
+	Supporting GX6000 series, GX7000 series, TS5400 series
+
+Ver. 4.30
+	Supporting TS5350i series, G600 series, TS3500 series, TR4600 series, E4500 series, TR4700 series, XK500 series, TS8530 series, XK100 series, TS7530 series, TS7450i series
+
+Ver. 4.40
+	Supporting TS2600 series, TS2400 series
+
+Ver. 4.50
+	Supporting TS8630 series, XK110 series, GX3000 series, GX4000 series
+
+Ver. 4.60
+	Supporting G3070 series, G2070 series, G4070 series, G3030 series, G2030 series, TC-20M, TC-5200M
+
+Ver. 4.70
+	Supporting TS8700 series, XK120 series, GX1000 series, GX2000 series, TS6630 series, TS7700 series, TS7600i series, TS6730 series, TR7800 series, TS7700i series, TS7700A series, GX6500 series
+
+Ver. 4.71
+	Supporting TS3600 series, TS3700 series, E3600 series
+
+Ver. 4.80
+	Supporting G4090 series, G4080 series, G3090 series, G3080 series, TS8800 series, XK130 series
+
+Ver. 4.81
+	Supporting GX6100 series, GX7100 series, TC-21M
