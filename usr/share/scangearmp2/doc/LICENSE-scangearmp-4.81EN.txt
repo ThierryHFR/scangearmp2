@@ -32,7 +32,7 @@ BY CLICKING THE BUTTON PROVIDED WITH THIS AGREEMENT INDICATING YOUR ACCEPTANCE O
 
 Except as expressly provided herein, you shall not rent, lease, sub-license, loan, sell, assign, convey, transfer, copy, reproduce, modify, adapt, merge, translate, convert to another programming language, reverse-engineer, decompile, alter, disassemble or create derivative works based in whole or in part on the Licensed Software, nor permit any third party to do so, or to use the Licensed Software, except as expressly permitted by this Agreement and except to the extent and in the circumstances expressly permitted by law.
 
-3. Acknowledgement of Transmission of Information: You expressly acknowledge and agree that (i) some Software may transmit information such as name and serial number of the Printers you use, type of the Software, language setting, ink or toner information, Printer condition, region and type of OS/browser (provided that the transmitted information does not include your personal information), in order to provide you with information and data best suited to your printer environment when you access servers of Canon or any third party designated by Canon; and that (ii) Canon, its subsidiaries and affiliates, and their respective distributors and dealers may analyze and use such information for its product development and services.
+3. Acknowledgement of Transmission of Information: Some Software may transmit information about the Printers you use, the Software and your device when you access servers of Canon or any third party designated by Canon via the internet using the Software. You expressly acknowledge and agree that Canon, its subsidiaries and affiliates, and their respective distributors and dealers may (i) use such information in order to provide you with information and data suitable for your printer environment and (ii) analyze and use such information in order to develop products and to improve the quality of products and services. If such information includes your personal information, Canon will obtain your consent, where required by applicable laws in your country or region and use your personal information according to Canon's privacy policy.
 
 4. Export Restriction: You agree to comply with all export laws and restrictions and regulations of each country involved, as well as with the U.S. Export Administration Regulations ("EAR"), and not to export or re-export, directly or indirectly, the Licensed Software in violation of such laws, restrictions and regulations, or without all necessary approvals.
 
@@ -72,7 +72,7 @@ U.S. Government Restricted Rights Notice
 The Software is a "commercial item," as that term is defined in 48 C.F.R. 2.101 (Oct 1995), consisting of "commercial computer software" and "commercial computer software documentation," as such terms are used in 48 C.F.R. 12.212 (Sept 1995). Consistent with 48 C.F.R. 12.212 and 48 C.F.R. 227.7202-1 through 227.7202-4 (June 1995), all U.S. Government End Users acquire the Software with only those rights set forth herein. Manufacturer is Canon Inc./ 30-2, Shimomaruko 3-chome, Ohta-ku, Tokyo 146-8501, Japan.
 In this section, the word "Software" shall mean "Licensed Software" herein.
 
-No.I010G025123
+No. I010G026743
 
 NOTICE FOR THE SOFTWARE MODULES TO BE PROVIDED TO YOU UNDER THE GPL AND A SPECIAL EXEMPTION ("Notice")
 

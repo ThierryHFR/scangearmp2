@@ -8,12 +8,12 @@ DESCRIPTION
 REQUIREMENTS
 
     You need the following libraries.
-    * Gtk+         (3.0   or above)
+    * Gtk+         (2.16   or above)
     * libusb       (1.0.x  or above)
 
     You need the following libraries.
     * libcncpmslld2   (3.0.0  or above)
-    * libcncpnet2     (1.2.5  or above)
+    * libcncpnet2     (1.2.3  or above)
     * libcncpnet20    (1.0.0  or above)
     * libcncpnet30    (1.0.0  or above)
 
