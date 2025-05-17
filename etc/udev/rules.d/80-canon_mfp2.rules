@@ -126,6 +126,8 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1788", MODE="666"
 
 #MX490 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1787", MODE="666"
+#MX450 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1768", MODE="666"
 #E480 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1789", MODE="666"
 
@@ -298,6 +300,26 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="1156", MODE="666"
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1158", MODE="666"
 #E3600 series
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1157", MODE="666"
+
+#G4090 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="114a", MODE="666"
+#G4080 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="114b", MODE="666"
+#G3090 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="114c", MODE="666"
+#G3080 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="114d", MODE="666"
+#TS8800 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1159", MODE="666"
+#XK130 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="115a", MODE="666"
+
+#GX6100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="115e", MODE="666"
+#GX7100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="115f", MODE="666"
+#TC-21M
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1172", MODE="666"
 
 
 LABEL="canon_mfp_end"
