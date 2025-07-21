@@ -28,6 +28,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include "gtk3compat.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

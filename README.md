@@ -21,8 +21,8 @@
 	The scangearmp2 version of my repository, contains 3 elements:
 	1 - binary libraries where the source code is not provided (under Canon license), it lets us use and 
 	redistribute it, without the right to decompile it.
-	2 - the scangearmp2 GUI in GPL provided by Canon, I have extended these features and migrated it
-	to GTK3.
+       2 - the scangearmp2 GUI in GPL provided by Canon, I have extended these features and migrated it
+       to GTK4.
 	3 - The code developed by the Compagny Ordissimo which is under GPL license, which is based on
 	Canon's proprietary libraries. This code provides a backend to "sane".
 	

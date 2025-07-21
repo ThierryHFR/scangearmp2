@@ -33,7 +33,7 @@ endif()
 find_package(Gettext REQUIRED)
 include(FindPkgConfig)
 pkg_search_module(LIBUSB REQUIRED libusb-1.0)
-pkg_search_module(GTK3 REQUIRED gtk+-3.0)
+pkg_search_module(GTK4 REQUIRED gtk4)
 pkg_search_module(SANE REQUIRED sane-backends)
 find_package(JPEG REQUIRED)
 

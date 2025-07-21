@@ -34,6 +34,7 @@
 #include <string.h>
 
 #include <gtk/gtk.h>
+#include "gtk3compat.h"
 
 #include "support.h"
 #include "callbacks.h"
