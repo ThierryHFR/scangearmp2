@@ -278,7 +278,7 @@ makepkg && sudo pacman -U scangearmp2-sane-*.tar.zst
 ```
 mkdir build
 cd build
-git clone https://github.com/ThierryFR/scangearmp2.git
+git clone https://github.com/ThierryHFR/scangearmp2.git
 git checkout debian
 ```
 ###### Get development environment :
@@ -312,8 +312,8 @@ yum install rpm-build
 ```
 ###### Get sources :
 ```
-wget https://github.com/ThierryFR/scangearmp2/releases/download/4.80/scangearmp2.spec
-wget https://github.com/ThierryFR/scangearmp2/releases/download/4.80/scangearmp2_4.80.tar.xz
+wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.80/scangearmp2.spec
+wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.80/scangearmp2_4.80.tar.xz
 tar xvf scangearmp2_4.80-1.tar.xz
 tar czvf scangearmp2_4.80.orig.tar.gz scangearmp2
 mv scangearmp2_4.80a.orig.tar.gz ~/rpmbuild/SOURCES/
