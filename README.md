@@ -140,7 +140,7 @@ GM4000 series
 GM4080 series
 
 
-Add Dec 2020
+#Add Dec 2020
 TS3400 series
 E3400 series
 TR7000 series
@@ -158,7 +158,7 @@ TS6400 series
 TS7400 series
 
 
-Add Dec 2021
+#Add Dec 2021
 TS5350i series
 G600 series
 TS3500 series
@@ -175,17 +175,17 @@ GX7000 series
 TS5400 series
 
 
-Add May 2022
+#Add May 2022
 TS2400 series
 TS2600 series
 
-Add Dec 2022
+# Add Dec 2022
 TS8630 series
 XK110 series
 GX3000 series
 GX4000 series
 
-Add Jui 2023
+#Add Jui 2023
 G3070 series
 G2070 series
 G4070 series
@@ -194,7 +194,7 @@ G2030 series
 TC-20M
 TC-5200M
 
-Add Oct 2023
+#Add Oct 2023
 TS8700 series
 XK120 series
 GX1000 series
@@ -208,12 +208,12 @@ TS7700i series
 TS7700A series
 GX6500 series
 
-Add May 2024
+#Add May 2024
 TS3600 series
 TS3700 series
 E3600 series
 
-Add Oct 2024
+#Add Oct 2024
 G4090 series
 G4080 series
 G3090 series
@@ -221,7 +221,25 @@ G3080 series
 TS8800 series
 XK130 series
 
+#Add 1 2025
+TC-5210M
 
+#Add Oct 2025
+GX4000i series
+GX7100i series
+TS5630 series
+TR7100 series
+TS7500i series
+TS5500 series
+TS6500 series
+TS6500i series
+TS4300 series
+TS4100i series
+TS8930 series
+XK510 series
+XK140 series
+TS7630 series
+TS4000 series
 
 ```
 # ADVANTAGES
