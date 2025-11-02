@@ -1,4 +1,10 @@
-scangearmp2 (4.71-1) UNRELEASED; urgency=medium
+scangearmp2 (4.90-1) UNRELEASED; urgency=medium
+
+  * Migration to scangearmp2 4.90
+
+ --  Thierry HUCHARD (cle ubuntu) <thierry@substantiel.fr>  Thu, 02 Nov 2025 10:44:05 +0200
+
+scangearmp2 (4.71.1) UNRELEASED; urgency=medium
 
   * Migration to scangearmp2 4.71
 
