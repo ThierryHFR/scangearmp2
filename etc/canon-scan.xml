@@ -2,7 +2,7 @@
 <service>
   <short>Canon WiFi Scan</short>
   <description>Canon TS8051 configuration to allow wifi scan.
-  Require scangearmp2 driver found here https://github.com/Ordissimo/scangearmp2
+  Require scangearmp2 driver found here https://github.com/ThierryHFR/scangearmp2
   1st. Scanner detection is done in UDP with the port 161 of the scanner to a dynamic local port in range [20.000-60.000]
   2nd. Scanner driver is done in TCP with the port 80 of the scanner to a dynamic local port in range [20.000-60.000]
   Other source ports are those given by `nmap (scanner-IP)` and `sudo nmap -sU (scanner-IP)`
