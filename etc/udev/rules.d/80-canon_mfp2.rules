@@ -321,5 +321,39 @@ ATTR{idVendor}=="04a9", ATTR{idProduct}=="115f", MODE="666"
 #TC-21M
 ATTR{idVendor}=="04a9", ATTR{idProduct}=="1172", MODE="666"
 
+#TC-5210M
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1174", MODE="666"
+
+#GX4000i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1115", MODE="666"
+#GX7100i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="117c", MODE="666"
+#TS5630 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1181", MODE="666"
+#TR7100 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="116e", MODE="666"
+#TS7500i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="117d", MODE="666"
+#TS5500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="116f", MODE="666"
+#TS6500 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="117e", MODE="666"
+#TS6500i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="117f", MODE="666"
+#TS4300 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1170", MODE="666"
+#TS4100i series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1180", MODE="666"
+#TS8930 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1177", MODE="666"
+#XK510 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1178", MODE="666"
+#XK140 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="1179", MODE="666"
+#TS7630 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="117a", MODE="666"
+#TS4000 series
+ATTR{idVendor}=="04a9", ATTR{idProduct}=="119a", MODE="666"
+
 
 LABEL="canon_mfp_end"

@@ -285,14 +285,11 @@ static void ui_dialog_save_scan_dispose_file_list( SGMP_Data *data, LPCNMS_ROOT 
 static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 {
 	CANON_ScanParam		param;
-	// CANON_SCANDATA		scandata;
 	int					i;
-	// int					ret = -1;
 	int					status;
 	unsigned char				*buf = NULL;
 	int					errCode;
 	int					readBytes = 0;
-	// int					result = CIJSC_SCANMAIN_SCAN_FINISHED;
 	int					pc_canceled = 0, updated_label = 0;
 	int					progress_id;
 	LPCNMS_NODE			node = CNMSNULL;

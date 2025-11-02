@@ -107,7 +107,6 @@ _EXIT:
 
 CANON_Device const *CIJSC_UI_select_show( SGMP_Data	*data )
 {
-	// CMT_Status			ret;
 	CANON_Device const	*selected = NULL;
 	int					select_no;
 	CNMSByte			address[256];
