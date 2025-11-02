@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2023
+ *  Copyright CANON INC. 2007-2024
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -285,14 +285,11 @@ static void ui_dialog_save_scan_dispose_file_list( SGMP_Data *data, LPCNMS_ROOT 
 static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 {
 	CANON_ScanParam		param;
-	// CANON_SCANDATA		scandata;
 	int					i;
-	// int					ret = -1;
 	int					status;
 	unsigned char				*buf = NULL;
 	int					errCode;
 	int					readBytes = 0;
-	// int					result = CIJSC_SCANMAIN_SCAN_FINISHED;
 	int					pc_canceled = 0, updated_label = 0;
 	int					progress_id;
 	LPCNMS_NODE			node = CNMSNULL;
@@ -307,8 +304,8 @@ static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 		set_module_error();
 		goto EXIT_ERR;
 	}
-        int table_res[] = {75, 150, 300, 600};
-        double table_res_fact[] = {4.0, 2.0, 1.0, 0.5};
+        int table_res[] = {75, 150, 300, 600, 1200};
+        double table_res_fact[] = {4.0, 2.0, 1.0, 0.5, 0.25};
 	param.XRes			= data->scan_res = table_res[data->scan_resolution];
 	param.YRes			= data->scan_res; // 300;
 	param.Left			= 0;

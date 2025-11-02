@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2023
+ *  Copyright CANON INC. 2007-2024
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -107,7 +107,6 @@ _EXIT:
 
 CANON_Device const *CIJSC_UI_select_show( SGMP_Data	*data )
 {
-	// CMT_Status			ret;
 	CANON_Device const	*selected = NULL;
 	int					select_no;
 	CNMSByte			address[256];

@@ -1,6 +1,6 @@
 /*
  *  ScanGear MP for Linux
- *  Copyright CANON INC. 2007-2023
+ *  Copyright CANON INC. 2007-2024
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,9 +30,9 @@
 /* N_ macro */
 #include "support.h"
 
-#define	STR_CNMS_LS_007_VER_NUM		"4.71"
+#define	STR_CNMS_LS_007_VER_NUM		"4.90"
 #define	STR_CNMS_LS_007_YEAR_BEGIN	"2007"
-#define	STR_CNMS_LS_007_YEAR_END	"2023"
+#define	STR_CNMS_LS_007_YEAR_END	"2024"
 
 /*STR_CNMS_LS_999_99*/
 #define	STR_CNMS_LS_999_99	N_( "Resolution:" )
