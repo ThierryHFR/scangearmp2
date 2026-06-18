@@ -495,7 +495,6 @@ CMT_Status canon_sane_read(canon_sane_t * handled){
 	unsigned char* buf  = NULL;
 	int readBytes = JPEGSCANBUFSIZE;
 	int len = 0;
-	int total =0;
 	buf = (unsigned char *)calloc(JPEGSCANBUFSIZE,1);
 
 	if(!buf){
@@ -513,7 +512,9 @@ CMT_Status canon_sane_read(canon_sane_t * handled){
 		readBytes = JPEGSCANBUFSIZE;
 		status = CIJSC_read(buf,&readBytes);
 		len = fwrite(buf,1,readBytes,handled->file);
-		total += len;
+		if(len != readBytes){
+			status = CMT_STATUS_IO_ERROR;
+		}
 	}
 	if(handled->cancel){
 		status = CMT_STATUS_CANCELLED;
