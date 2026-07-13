@@ -161,6 +161,7 @@ CMT_Status CIJSC_init( void *cnnl_callback );
 void CIJSC_exit(void);
 CMT_Status CIJSC_get_devices( const CANON_Device ***device_list );
 CMT_Status CIJSC_open( const char *name );
+int CIJSC_resolution_is_supported( int resolution );
 void CIJSC_close( void );
 
 CMT_Status CIJSC_start( CANON_ScanParam *param );

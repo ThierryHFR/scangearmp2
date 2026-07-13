@@ -45,6 +45,7 @@
 #define SANE_CONFIG_FILE "/etc/sane.d/canon_pixma.conf"
 
 #include "canon_mfp_tools.h"
+#include "resolution_capabilities.h"
 
 #ifndef TRUE
 # define TRUE 1
@@ -102,6 +103,8 @@ CANON_Scanner;
 static int num_devices = 0;
 static CANON_Device *first_dev = NULL;
 static CANON_Device *opened_handle = NULL;
+static CANON_DEVICE_INFO opened_device_info;
+static int opened_device_info_valid = 0;
 static const CANON_Device **devlist = NULL;
 static CANON_Scanner canon_device;
 
@@ -742,10 +745,24 @@ CMT_Status CIJSC_open(
 
 	/* set product id. */
 	DBGMSG("p_canon_init_scanner() product = %X\n", dev->product_id);
-	if ( canon_init_scanner( dev->product_id, dev->speed, NULL) < 0 ) {
+	memset(&opened_device_info, 0, sizeof(opened_device_info));
+	opened_device_info_valid = 0;
+	if ( canon_init_scanner( dev->product_id, dev->speed, &opened_device_info) < 0 ) {
 		DBGMSG("ERROR : p_canon_init_scanner() product = %d\n", dev->product_id);
 		return (CMT_STATUS_INVAL);
 	}
+	opened_device_info_valid = 1;
+	DBGMSG("resolution range: X=%d-%d Y=%d-%d\n",
+		opened_device_info.xres_min, opened_device_info.xres_max,
+		opened_device_info.yres_min, opened_device_info.yres_max);
+#ifdef _SGMP_DEBUG
+	for (int i = 0; i < CIJSC_RESOLUTION_LIST_SIZE; i++) {
+		if (opened_device_info.xres_list[i] > 0 || opened_device_info.yres_list[i] > 0) {
+			DBGMSG("resolution list[%d]: X=%d Y=%d\n", i,
+				opened_device_info.xres_list[i], opened_device_info.yres_list[i]);
+		}
+	}
+#endif
 	opened_handle = dev;
 	memset(&canon_device, 0, sizeof(canon_device));
 
@@ -753,6 +770,27 @@ CMT_Status CIJSC_open(
 	s->CIJSC_start_status = CMT_STATUS_NO_DOCS;
 
 	return CMT_STATUS_GOOD;
+}
+
+int CIJSC_resolution_is_supported( int resolution )
+{
+	int support;
+
+	if (!opened_device_info_valid) {
+		return resolution <= 600;
+	}
+
+	support = cijsc_resolution_support_from_capabilities(
+		resolution,
+		opened_device_info.xres_list,
+		opened_device_info.xres_min,
+		opened_device_info.xres_max,
+		opened_device_info.yres_list,
+		opened_device_info.yres_min,
+		opened_device_info.yres_max);
+
+	/* Older proprietary drivers may leave the capability structure empty. */
+	return support >= 0 ? support : resolution <= 600;
 }
 
 /*-------------------------------------------------
@@ -767,6 +805,8 @@ void CIJSC_close( void )
 	canon_network2_close();
 
 	opened_handle = NULL;
+	opened_device_info_valid = 0;
+	memset(&opened_device_info, 0, sizeof(opened_device_info));
 }
 
 

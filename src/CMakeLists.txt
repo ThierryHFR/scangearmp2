@@ -10,6 +10,7 @@ add_executable(scangearmp2 	main.c
                             keep_setting.c
                             mainui.c
                             progressbar.c
+                            resolution_capabilities.c
                             scanmain.c
                             selectdevice.c
               )

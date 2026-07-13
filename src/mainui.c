@@ -184,6 +184,30 @@ static void ui_main_other_combobox_init( SGMP_Data *data, GtkWidget *combo, CIJS
 	gtk_combo_box_set_active( GTK_COMBO_BOX( combo ) , 0 );
 }
 
+static void ui_main_resolution_combobox_init( SGMP_Data *data )
+{
+	int i;
+	int count = 0;
+
+	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(data->combobox_resolution));
+	for (i = 0; resolution_table[i].id >= 0; i++) {
+		int resolution = atoi(resolution_table[i].str);
+		if (CIJSC_resolution_is_supported(resolution)) {
+			gtk_combo_box_text_append_text(
+				GTK_COMBO_BOX_TEXT(data->combobox_resolution),
+				resolution_table[i].str);
+			count++;
+		}
+	}
+
+	/* Keep a safe default if a malformed driver reports no resolutions. */
+	if (count == 0) {
+		gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(data->combobox_resolution), "300");
+	}
+	gtk_combo_box_set_active(GTK_COMBO_BOX(data->combobox_resolution), 0);
+}
+
 static int ui_main_combobox_get_id( SGMP_Data *data, GtkWidget *combo, CIJSC_MAINUI_ITEM_TABLE *table )
 {
 	GtkListStore	*store;
@@ -320,7 +344,7 @@ void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev )
 	/* init combobox. */
 	data->ignore_combobox_changed = TRUE;
 	ui_main_other_combobox_init( data, data->combobox_source, source_table );
-	ui_main_other_combobox_init( data, data->combobox_resolution, resolution_table );
+	ui_main_resolution_combobox_init( data );
 	ui_main_other_combobox_init( data, data->combobox_colormode, colormode_table );
 	ui_main_other_combobox_init( data, data->combobox_size, size_platen_table );
 	ui_main_combobox_scanmode_init( data, dev );
@@ -415,7 +439,6 @@ void CIJSC_UI_main_button_scan_clicked( SGMP_Data *data, int format )
 
 
 #endif	/* _MAINUI_C_ */
-
 
 
 
