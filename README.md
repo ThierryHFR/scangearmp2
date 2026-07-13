@@ -22,7 +22,7 @@
 	1 - binary libraries where the source code is not provided (under Canon license), it lets us use and 
 	redistribute it, without the right to decompile it.
 	2 - the scangearmp2 GUI in GPL provided by Canon, I have extended these features and migrated it
-	to GTK3.
+	to GTK4.
 	3 - The code developed by the Compagny Ordissimo which is under GPL license, which is based on
 	Canon's proprietary libraries. This code provides a backend to "sane".
 	
@@ -296,26 +296,16 @@ makepkg && sudo pacman -U scangearmp2-sane-*.tar.zst
 ```
 mkdir build
 cd build
-<<<<<<< HEAD
-git clone https://github.com/ThierryFR/scangearmp2.git
-=======
 git clone https://github.com/ThierryHFR/scangearmp2.git
->>>>>>> master
 git checkout debian
 ```
 ###### Get development environment :
 ```
 apt update
-apt install debhelper libglib2.0-dev libgtk-3-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
-<<<<<<< HEAD
-cp -a scangearmp2 scangearmp2-4.70a
-rm -rf scangearmp2-4.70a/.git scangearmp2-4.70a/debian/
-tar cJvf scangearmp2_4.70a.orig.tar.xz scangearmp2-70a
-=======
-cp -a scangearmp2 scangearmp2-4.80
-rm -rf scangearmp2-4.80/.git scangearmp2-4.80/debian/
-tar cJvf scangearmp2_4.80.orig.tar.xz scangearmp2-80
->>>>>>> master
+apt install debhelper libglib2.0-dev libgtk-4-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
+cp -a scangearmp2 scangearmp2-4.90
+rm -rf scangearmp2-4.90/.git scangearmp2-4.90/debian/
+tar cJvf scangearmp2_4.90.orig.tar.xz scangearmp2-4.90
 ```
 ###### Build Sources :
 ```
@@ -325,17 +315,13 @@ dpkg-buildpackage -us -uc ##
 
 ###### Install :
 ```
-<<<<<<< HEAD
-apt install ../scangearmp2_4.70a-1_amd64.deb
-=======
-apt install ../scangearmp2_4.80-1_amd64.deb
->>>>>>> master
+apt install ../scangearmp2_4.90-2_amd64.deb
 ```
 ## For redhat systems : <font color="red">This is no longer current</font>
 
 ###### Get development environment :
 ```
-yum install gtk3-devel
+yum install gtk4-devel
 yum install libusb-devel
 yum install libjpeg-devel
 yum install gettext-devel
@@ -344,30 +330,17 @@ yum install rpm-build
 ```
 ###### Get sources :
 ```
-<<<<<<< HEAD
-wget https://github.com/ThierryFR/scangearmp2/releases/download/4.70a/scangearmp2.spec
-wget https://github.com/ThierryFR/scangearmp2/releases/download/4.70a/scangearmp2_4.70a.tar.xz
-tar xvf scangearmp2_4.70a-1.tar.xz
-tar czvf scangearmp2_4.70a.orig.tar.gz scangearmp2
-mv scangearmp2_4.70a.orig.tar.gz ~/rpmbuild/SOURCES/
-=======
-wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.80/scangearmp2.spec
-wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.80/scangearmp2_4.80.tar.xz
-tar xvf scangearmp2_4.80-1.tar.xz
-tar czvf scangearmp2_4.80.orig.tar.gz scangearmp2
-mv scangearmp2_4.80a.orig.tar.gz ~/rpmbuild/SOURCES/
->>>>>>> master
+wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.90/scangearmp2.spec
+wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.90/scangearmp2_4.90.tar.xz
+tar xvf scangearmp2_4.90-1.tar.xz
+tar czvf scangearmp2_4.90.orig.tar.gz scangearmp2
+mv scangearmp2_4.90.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 Or, from git repository
 ```
-<<<<<<< HEAD
-git archive --format=tar --prefix=scangearmp2-4.70a/ HEAD |gzip >scangearmp2_4.70a.orig.tar.gz
-mv scangearmp2_4.70a.orig.tar.gz ~/rpmbuild/SOURCES/
-=======
-git archive --format=tar --prefix=scangearmp2-4.80/ HEAD |gzip >scangearmp2_4.80.orig.tar.gz
-mv scangearmp2_4.80.orig.tar.gz ~/rpmbuild/SOURCES/
->>>>>>> master
+git archive --format=tar --prefix=scangearmp2-4.90/ HEAD |gzip >scangearmp2_4.90.orig.tar.gz
+mv scangearmp2_4.90.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 ###### Build Sources :
@@ -379,11 +352,7 @@ rpmbuild -ba scangearmp2.spec
 ```
 ###### Install :
 ```
-<<<<<<< HEAD
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.70a-1.x86_64.rpm
-=======
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.80-1.x86_64.rpm
->>>>>>> master
+rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.90-1.x86_64.rpm
 ```
 
 ###### Firewall :

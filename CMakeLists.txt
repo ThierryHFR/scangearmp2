@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(scangearmp2-sane)
 
+include(CTest)
+
 # The target architecture.
 # For cross-compilation this should still work as you're supposed to set this var.
 # X64 mean 64-bit generically, whether AMD64 or AARCH64.
@@ -33,7 +35,7 @@ endif()
 find_package(Gettext REQUIRED)
 include(FindPkgConfig)
 pkg_search_module(LIBUSB REQUIRED libusb-1.0)
-pkg_search_module(GTK3 REQUIRED gtk+-3.0)
+pkg_search_module(GTK4 REQUIRED gtk4)
 pkg_search_module(SANE REQUIRED sane-backends)
 find_package(JPEG REQUIRED)
 
@@ -41,6 +43,10 @@ option(DEBUG "turn on debug info" OFF)
 
 add_subdirectory(po)
 add_subdirectory(src)
+
+if(BUILD_TESTING)
+  add_subdirectory(tests)
+endif()
 
 if (ARCH EQUAL 1)
 add_subdirectory(usr/libmips64)

@@ -5,6 +5,7 @@ add_library(sane-canon_pixma SHARED canon_pixma.c
                                     ../keep_setting.c
                                     ../cnmsfunc.c
                                     ../file_control.c
+                                    ../resolution_capabilities.c
            )
 set_target_properties(sane-canon_pixma PROPERTIES
                       C_STANDARD 11

@@ -45,13 +45,11 @@
 	main window
 */
 G_MODULE_EXPORT gboolean
-on_window_main_delete_event(	GtkWidget	*widget,
-								GdkEvent	*event,
+on_window_main_delete_event(	GtkWindow	*window,
 								SGMP_Data	*data )
 {
 	DBGMSG("->\n");
-	(void)widget;
-	(void)event;
+	(void)window;
 	
 	if( gtk_widget_get_sensitive ( data->window_main ) ){
 		DBGMSG( "[x] sensitive true\n" );
@@ -171,12 +169,10 @@ on_button_close_clicked(	GtkWidget	*widget,
 	select device dialog
 */
 G_MODULE_EXPORT gboolean
-on_dialog_select_delete_event(	GtkWidget	*widget,
-								GdkEvent	*event,
+on_dialog_select_delete_event(	GtkWindow	*window,
 								SGMP_Data	*data )
 {
-	(void)widget;
-	(void)event;
+	(void)window;
 	DBGMSG("->\n");
 	
 	on_button_select_cancel_clicked( NULL, data );
@@ -227,12 +223,10 @@ on_button_select_ok_clicked(	GtkWidget	*widget,
 	save dialog
 */
 G_MODULE_EXPORT gboolean
-on_dialog_save_delete_event(	GtkWidget	*widget,
-								GdkEvent	*event,
+on_dialog_save_delete_event(	GtkWindow	*window,
 								SGMP_Data	*data )
 {
-	(void)widget;
-	(void)event;
+	(void)window;
 	DBGMSG("->\n");
 
 	on_button_save_cancel_clicked( NULL, data );
@@ -265,12 +259,10 @@ on_button_save_cancel_clicked(	GtkWidget	*widget,
 	version dialog
 */
 G_MODULE_EXPORT gboolean
-on_dialog_version_delete_event(	GtkWidget	*widget,
-								GdkEvent	*event,
+on_dialog_version_delete_event(	GtkWindow	*window,
 								SGMP_Data	*data )
 {
-	(void)widget;
-	(void)event;
+	(void)window;
 	DBGMSG("->\n");
 	
 	on_button_version_ok_clicked( NULL, data );
@@ -295,12 +287,10 @@ on_button_version_ok_clicked(	GtkWidget	*widget,
 	notify dialog
 */
 G_MODULE_EXPORT gboolean
-on_dialog_notify_delete_event(	GtkWidget	*widget,
-								GdkEvent	*event,
+on_dialog_notify_delete_event(	GtkWindow	*window,
 								SGMP_Data	*data )
 {
-	(void)widget;
-	(void)event;
+	(void)window;
 	DBGMSG("->\n");
 	gtk_widget_hide( data->dialog_notify );
 	
@@ -322,12 +312,10 @@ on_dialog_notify_hide(	GtkWidget	*widget,
 	progress bar dialog
 */
 G_MODULE_EXPORT gboolean
-on_dialog_progress_delete_event(	GtkWidget	*widget,
-									GdkEvent	*event,
+on_dialog_progress_delete_event(	GtkWindow	*window,
 									SGMP_Data	*data )
 {
-	(void)widget;
-	(void)event;
+	(void)window;
 	(void)data;
 	DBGMSG("->\n");
 	return TRUE;
@@ -351,12 +339,10 @@ on_button_prog_cancel_clicked(	GtkWidget	*widget,
 	error dialog
 */
 G_MODULE_EXPORT gboolean
-on_dialog_error_delete_event(	GtkWidget	*widget,
-								GdkEvent	*event,
+on_dialog_error_delete_event(	GtkWindow	*window,
 								SGMP_Data	*data )
 {
-	(void)widget;
-	(void)event;
+	(void)window;
 	DBGMSG("->\n");
 
 	if ( gtk_widget_get_visible ( data->button_error_cancel ) ) {
@@ -394,7 +380,6 @@ on_button_error_cancel_clicked(	GtkWidget	*widget,
 }
 
 #endif	/* _CALLBACKS_C_ */
-
 
 
 

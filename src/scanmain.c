@@ -600,6 +600,7 @@ void CIJSC_Scan_And_Save( SGMP_Data	*data )
 void CIJSC_UI_save_button_save_clicked( SGMP_Data *data )
 {
 	gchar	*filename = NULL;
+	GFile	*file = NULL;
 	int		check_status = -1;
 	LPCNMS_ROOT		root = CNMSNULL;
 	int		scan_result = -1;
@@ -607,7 +608,11 @@ void CIJSC_UI_save_button_save_clicked( SGMP_Data *data )
 	DBGMSG("->\n");
 	memset( data->file_path, 0, sizeof( data->file_path ) );
 	/* get file name. */
-	filename = gtk_file_chooser_get_filename( GTK_FILE_CHOOSER( data->filechooserwidget_save ) );
+	file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(data->filechooserwidget_save));
+	if (file != NULL) {
+		filename = g_file_get_path(file);
+		g_object_unref(file);
+	}
 	if ( filename ) {
 		DBGMSG( " filename = %s\n", filename );
 		CnmsStrCopy( filename, data->file_path, sizeof( data->file_path ) );
@@ -684,7 +689,6 @@ void CIJSC_UI_notify_hide( SGMP_Data *data )
 
 
 #endif	/* _SCANMAIN_C_ */
-
 
 
 
