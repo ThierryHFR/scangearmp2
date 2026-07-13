@@ -1,6 +1,7 @@
 build-stamp
 configure-stamp
 install
+build*/
 
 *.swp
 *.swo
