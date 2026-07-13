@@ -69,6 +69,9 @@ int main(int argc, char **argv )
 	char			strbuf[PATH_MAX];
 	CANON_Device const	*selected = NULL;
 
+	(void)argc;
+	(void)argv;
+
 	char bin_path[PATH_MAX];
 	ssize_t bin_path_len = readlink("/proc/self/exe", bin_path, PATH_MAX);
 	bin_path[bin_path_len] = '\0';
@@ -84,7 +87,7 @@ int main(int argc, char **argv )
 	
 	setlocale(LC_ALL,"");
 
-	gtk_init( &argc, &argv );
+	gtk_init();
 	
 	data = g_slice_new( SGMP_Data );
 	data->builder = gtk_builder_new();
@@ -149,9 +152,43 @@ int main(int argc, char **argv )
 	data->label_error_msg = GTK_WIDGET( gtk_builder_get_object( data->builder, "label_error_msg" ) );
 	data->button_error_cancel = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_error_cancel" ) );
 	data->button_error_ok = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_error_ok" ) );
-	
-	/* connect signals */
-	gtk_builder_connect_signals( data->builder, data );
+
+	gtk_window_set_transient_for(GTK_WINDOW(data->dialog_select), GTK_WINDOW(data->window_main));
+	gtk_window_set_transient_for(GTK_WINDOW(data->dialog_save), GTK_WINDOW(data->window_main));
+	gtk_window_set_transient_for(GTK_WINDOW(data->dialog_version), GTK_WINDOW(data->window_main));
+	gtk_window_set_transient_for(GTK_WINDOW(data->dialog_notify), GTK_WINDOW(data->window_main));
+	gtk_window_set_transient_for(GTK_WINDOW(data->dialog_progress), GTK_WINDOW(data->window_main));
+	gtk_window_set_transient_for(GTK_WINDOW(data->dialog_error), GTK_WINDOW(data->window_main));
+
+	/* Connect signals explicitly so every GTK4 callback receives SGMP_Data. */
+#define CONNECT(widget, signal, callback) g_signal_connect((widget), (signal), G_CALLBACK(callback), data)
+	CONNECT(data->window_main, "close-request", on_window_main_delete_event);
+	CONNECT(data->combobox_scanmode, "changed", on_combobox_scanmode_changed);
+	CONNECT(data->combobox_source, "changed", on_combobox_source_changed);
+	CONNECT(data->combobox_resolution, "changed", on_combobox_resolution_changed);
+	CONNECT(data->combobox_colormode, "changed", on_combobox_colormode_changed);
+	CONNECT(data->combobox_size, "changed", on_combobox_size_changed);
+	CONNECT(data->button_scanjpeg, "clicked", on_button_scanjpeg_clicked);
+	CONNECT(data->button_scanpdf, "clicked", on_button_scanpdf_clicked);
+	CONNECT(data->button_version, "clicked", on_button_version_clicked);
+	CONNECT(data->button_close, "clicked", on_button_close_clicked);
+	CONNECT(data->dialog_select, "close-request", on_dialog_select_delete_event);
+	CONNECT(data->button_select_update, "clicked", on_button_select_update_clicked);
+	CONNECT(data->button_select_cancel, "clicked", on_button_select_cancel_clicked);
+	CONNECT(data->button_select_ok, "clicked", on_button_select_ok_clicked);
+	CONNECT(data->dialog_save, "close-request", on_dialog_save_delete_event);
+	CONNECT(data->button_save_save, "clicked", on_button_save_save_clicked);
+	CONNECT(data->button_save_cancel, "clicked", on_button_save_cancel_clicked);
+	CONNECT(data->dialog_version, "close-request", on_dialog_version_delete_event);
+	CONNECT(data->button_version_ok, "clicked", on_button_version_ok_clicked);
+	CONNECT(data->dialog_notify, "close-request", on_dialog_notify_delete_event);
+	CONNECT(data->dialog_notify, "hide", on_dialog_notify_hide);
+	CONNECT(data->dialog_progress, "close-request", on_dialog_progress_delete_event);
+	CONNECT(data->button_prog_cancel, "clicked", on_button_prog_cancel_clicked);
+	CONNECT(data->dialog_error, "close-request", on_dialog_error_delete_event);
+	CONNECT(data->button_error_ok, "clicked", on_button_error_ok_clicked);
+	CONNECT(data->button_error_cancel, "clicked", on_button_error_cancel_clicked);
+#undef CONNECT
 	
 	/* set version and year */
 	{
@@ -174,10 +211,12 @@ int main(int argc, char **argv )
 	gtk_label_set_text( GTK_LABEL ( data->label_notify_save ), gettext( STR_CNMS_LS_009_03 ) );
 	
 	if( ( home_dir = getenv("HOME") ) != NULL ) {
-		gtk_file_chooser_set_current_folder( GTK_FILE_CHOOSER( data->filechooserwidget_save ), home_dir );
+		GFile *home = g_file_new_for_path(home_dir);
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(data->filechooserwidget_save), home, NULL);
+		g_object_unref(home);
 	}
 	
-	gtk_window_set_default_size( GTK_WINDOW( data->dialog_save ), gdk_screen_width() * 0.35, gdk_screen_height() * 0.35 );
+	gtk_window_set_default_size(GTK_WINDOW(data->dialog_save), 640, 480);
 	
 	g_object_unref( G_OBJECT( data->builder ) );
 	

@@ -93,6 +93,7 @@
 
 #ifndef SUPPORT_H_WO_GTK
 #include <gtk/gtk.h>
+#include "gtk_compat.h"
 typedef struct
 {
 	GtkBuilder	*builder;
