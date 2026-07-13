@@ -22,7 +22,7 @@
 	1 - binary libraries where the source code is not provided (under Canon license), it lets us use and 
 	redistribute it, without the right to decompile it.
 	2 - the scangearmp2 GUI in GPL provided by Canon, I have extended these features and migrated it
-	to GTK3.
+	to GTK4.
 	3 - The code developed by the Compagny Ordissimo which is under GPL license, which is based on
 	Canon's proprietary libraries. This code provides a backend to "sane".
 	
@@ -302,7 +302,7 @@ git checkout debian
 ###### Get development environment :
 ```
 apt update
-apt install debhelper libglib2.0-dev libgtk-3-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
+apt install debhelper libglib2.0-dev libgtk-4-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
 cp -a scangearmp2 scangearmp2-4.80
 rm -rf scangearmp2-4.80/.git scangearmp2-4.80/debian/
 tar cJvf scangearmp2_4.80.orig.tar.xz scangearmp2-80
@@ -321,7 +321,7 @@ apt install ../scangearmp2_4.80-1_amd64.deb
 
 ###### Get development environment :
 ```
-yum install gtk3-devel
+yum install gtk4-devel
 yum install libusb-devel
 yum install libjpeg-devel
 yum install gettext-devel

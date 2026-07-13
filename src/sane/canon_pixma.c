@@ -185,10 +185,33 @@ static const SANE_String_Const scan_table[] = {
 	ADF_DUPLEX
 };
 
-static const SANE_Int resbit_list[] =
+static SANE_Int resbit_list[] = {0, 75, 150, 300, 600, 1200};
+static SANE_Int default_resolution = 300;
+
+static void update_resolution_list(void)
 {
-	4, 75, 150, 300, 600
-};
+	static const SANE_Int candidates[] = {75, 150, 300, 600, 1200};
+	int i;
+	int count = 0;
+
+	for (i = 0; i < (int)(sizeof(candidates) / sizeof(candidates[0])); i++) {
+		if (CIJSC_resolution_is_supported(candidates[i])) {
+			resbit_list[++count] = candidates[i];
+		}
+	}
+	if (count == 0) {
+		resbit_list[++count] = 300;
+	}
+	resbit_list[0] = count;
+
+	default_resolution = resbit_list[1];
+	for (i = 1; i <= count; i++) {
+		if (resbit_list[i] == 300) {
+			default_resolution = 300;
+			break;
+		}
+	}
+}
 
 const char *canonJpegDataTmp = "/tmp/jpeg_canon.tmp";
 
@@ -638,7 +661,7 @@ static CMT_Status init_canon_options(canon_sane_t * handled){
 		return show_canon_cmt_error(CMT_STATUS_INVAL);
 	}
 */
-	data->scan_res = resbit_list[1];
+	data->scan_res = default_resolution;
 	data->scan_w = 2550;
         data->scan_h = 3507;
 	data->scan_wx = data->scan_w;
@@ -715,7 +738,7 @@ init_options (canon_sane_t * s)
 	/* TODO: Build the constraints on resolution in a smart way */
 	s->opt[OPT_RESOLUTION].constraint_type = SANE_CONSTRAINT_WORD_LIST;
 	s->opt[OPT_RESOLUTION].constraint.word_list = resbit_list;
-	s->val[OPT_RESOLUTION].w = s->sgmp.scan_res = resbit_list[3];
+	s->val[OPT_RESOLUTION].w = s->sgmp.scan_res = default_resolution;
 
 	s->opt[OPT_PREVIEW].name = SANE_NAME_PREVIEW;
 	s->opt[OPT_PREVIEW].title = SANE_TITLE_PREVIEW;
@@ -831,6 +854,7 @@ sane_open (SANE_String_Const name, SANE_Handle * h){
 	if(status != CMT_STATUS_GOOD){
 		return show_sane_cmt_error(status);
 	}
+	update_resolution_list();
 
 
 	handled = (canon_sane_t*)calloc(1, sizeof(canon_sane_t));
@@ -908,15 +932,18 @@ sane_get_option_descriptor(SANE_Handle h, SANE_Int n){
 int
 _get_resolution(int resol)
 {
-    int median = (resbit_list[2] - resbit_list[1]) / 2;
-    if (resol < resbit_list[1])
-        return resbit_list[1];
-    else if (resol > resbit_list[2])
-        return resbit_list[2];
-    else if (resol < (resbit_list[1] + median))
-        return resbit_list[1];
-    else
-        return resbit_list[2];
+    int i;
+    int nearest = resbit_list[1];
+    int nearest_distance = abs(resol - nearest);
+
+    for (i = 2; i <= resbit_list[0]; i++) {
+        int distance = abs(resol - resbit_list[i]);
+        if (distance < nearest_distance) {
+            nearest = resbit_list[i];
+            nearest_distance = distance;
+        }
+    }
+    return nearest;
 }
 
 
@@ -1038,7 +1065,7 @@ sane_control_option (SANE_Handle h, SANE_Int n,
 }
 
 
-static double table_res_fact[] = {4.0, 2.0, 1.0, 0.5};
+static double table_res_fact[] = {4.0, 2.0, 1.0, 0.5, 0.25};
 
 static int
 get_resolution(int val)
@@ -1054,6 +1081,9 @@ get_resolution(int val)
         break;
       case 600:
         resol = 3;
+        break;
+      case 1200:
+        resol = 4;
         break;
       default:
         resol = 2;
@@ -1273,4 +1303,3 @@ sane_set_io_mode(SANE_Handle handle,
 	(void)non_blocking;
 	return SANE_STATUS_UNSUPPORTED;
 }
-
