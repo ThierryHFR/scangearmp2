@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://github.com/ThierryHFR/scangearmp2"
 license=('GPL' 'custom:canon')
 depends=('gtk4')
-makedepends=('cmake' 'libjpeg' 'sane' 'intltool' 'libusb')
+makedepends=('cmake' 'libjpeg-turbo' 'sane' 'intltool' 'libusb')
 provides=('scangearmp2')
 conflicts=('scangearmp2')
 
