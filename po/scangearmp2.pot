@@ -384,6 +384,9 @@ msgstr ""
 msgid "The last JPEG scan will appear here."
 msgstr ""
 
+msgid "Drag to select a scan area, or scan the full page."
+msgstr ""
+
 msgid "Drag to select the area for the next scan."
 msgstr ""
 

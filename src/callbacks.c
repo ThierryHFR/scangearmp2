@@ -91,7 +91,7 @@ on_combobox_resolution_changed(	GtkWidget	*widget,
 							SGMP_Data	*data )
 {
 	(void)widget;
-	(void)data;
+	CIJSC_UI_main_preview_geometry_update( data );
 #ifdef _SGMP_DEBUG_VERBOSE_
 	DBGMSG("->\n");
 #endif
@@ -113,7 +113,7 @@ on_combobox_size_changed(	GtkWidget	*widget,
 							SGMP_Data	*data )
 {
 	(void)widget;
-	(void)data;
+	CIJSC_UI_main_preview_geometry_update( data );
 #ifdef _SGMP_DEBUG_VERBOSE_
 	DBGMSG("->\n");
 #endif
@@ -178,6 +178,7 @@ on_button_clear_preview_clicked(	GtkWidget	*widget,
 	data->crop_enabled = FALSE;
 	data->preview_source_x = data->preview_source_y = 0.0;
 	data->preview_source_width = data->preview_source_height = 1.0;
+	CIJSC_UI_main_preview_geometry_update( data );
 	CIJSC_advanced_ui_image_updated( data );
 }
 

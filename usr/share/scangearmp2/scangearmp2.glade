@@ -375,7 +375,7 @@
                     </child>
                     <child type="overlay">
                       <object class="GtkLabel" id="preview_placeholder">
-                        <property name="label" translatable="1">The last JPEG scan will appear here.</property>
+                        <property name="label" translatable="1">Drag to select a scan area, or scan the full page.</property>
                         <property name="wrap">1</property>
                         <property name="justify">center</property>
                         <property name="hexpand">1</property>

@@ -43,6 +43,7 @@
 #include "mainui.h"
 #include "scanmain.h"
 #include "advanced_ui.h"
+#include "scan_geometry.h"
 
 typedef struct {
 	const int		id;
@@ -317,6 +318,26 @@ static void ui_main_combobox_set_default_size_new( SGMP_Data *data )
 	}
 }
 
+void CIJSC_UI_main_preview_geometry_update( SGMP_Data *data )
+{
+	CIJSC_MAINUI_ITEM_TABLE *size_table;
+	int size_id;
+	int resolution_index;
+	if (data->ignore_combobox_changed ||
+		gtk_widget_get_visible(data->preview_picture) ||
+		gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_scanmode)) < 0 ||
+		gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_size)) < 0 ||
+		gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_resolution)) < 0)
+		return;
+	size_table = get_size_table(data);
+	size_id = ui_main_combobox_get_id(data, data->combobox_size, size_table);
+	resolution_index = ui_main_combobox_get_id(data, data->combobox_resolution,
+		resolution_table);
+	if (CIJSC_scan_geometry(size_id, resolution_index,
+		&data->scan_w, &data->scan_h) == 0)
+		gtk_widget_queue_draw(data->preview_crop_area);
+}
+
 static void ui_main_button_scan_main( SGMP_Data *data )
 {
 	double selected_x = data->crop_x;
@@ -391,6 +412,7 @@ void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev )
 	/* save current scanmode. */
 	data->prev_scanmode = ui_main_combobox_get_id( data, data->combobox_scanmode, (CIJSC_MAINUI_ITEM_TABLE *)scanmode_table );
 	data->ignore_combobox_changed = FALSE;
+	CIJSC_UI_main_preview_geometry_update( data );
 	
 	/* show main ui. */
 	gtk_widget_show( data->window_main );
@@ -451,6 +473,7 @@ void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data )
 		}
 		/* update prev_scanmode. */
 		data->prev_scanmode = current_scanmode;
+		CIJSC_UI_main_preview_geometry_update( data );
 	}
 }
 

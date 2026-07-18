@@ -107,13 +107,19 @@ static void reset_crop(GtkButton *button, SGMP_Data *data)
 static void crop_draw(GtkDrawingArea *area, cairo_t *cr, int width, int height,
 	SGMP_Data *data)
 {
+	double image_x, image_y, image_width, image_height;
 	(void)area;
+	preview_bounds(data, width, height, &image_x, &image_y,
+		&image_width, &image_height);
+	if (!gtk_widget_get_visible(data->preview_picture)) {
+		cairo_set_source_rgba(cr, 0.55, 0.55, 0.55, 0.8);
+		cairo_set_line_width(cr, 1.0);
+		cairo_rectangle(cr, image_x + 0.5, image_y + 0.5,
+			MAX(0.0, image_width - 1.0), MAX(0.0, image_height - 1.0));
+		cairo_stroke(cr);
+	}
 	if (!data->crop_enabled)
 		return;
-	{
-		double image_x, image_y, image_width, image_height;
-		preview_bounds(data, width, height, &image_x, &image_y,
-			&image_width, &image_height);
 	cairo_set_source_rgba(cr, 0.95, 0.2, 0.15, 0.95);
 	cairo_set_line_width(cr, 2.0);
 	cairo_rectangle(cr,
@@ -124,7 +130,6 @@ static void crop_draw(GtkDrawingArea *area, cairo_t *cr, int width, int height,
 		data->crop_width / data->preview_source_width * image_width,
 		data->crop_height / data->preview_source_height * image_height);
 	cairo_stroke(cr);
-	}
 }
 
 static void crop_drag_begin(GtkGestureDrag *gesture, double x, double y,
@@ -133,7 +138,7 @@ static void crop_drag_begin(GtkGestureDrag *gesture, double x, double y,
 	GtkWidget *widget = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(gesture));
 	int width = gtk_widget_get_width(widget);
 	int height = gtk_widget_get_height(widget);
-	if (!gtk_widget_get_visible(data->preview_picture) || width <= 0 || height <= 0)
+	if (width <= 0 || height <= 0)
 		return;
 	preview_to_normalized(data, width, height, x, y,
 		&data->crop_drag_x, &data->crop_drag_y);

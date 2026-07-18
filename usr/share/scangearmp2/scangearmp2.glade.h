@@ -39,6 +39,7 @@ char *s = N_("Clear the last scanned image.");
 char *s = N_("About");
 char *s = N_("Preview");
 char *s = N_("The last JPEG scan will appear here.");
+char *s = N_("Drag to select a scan area, or scan the full page.");
 char *s = N_("Drag to select the area for the next scan.");
 char *s = N_("Input Settings");
 char *s = N_("Output Settings");

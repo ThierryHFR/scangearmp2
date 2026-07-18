@@ -14,6 +14,7 @@ add_executable(scangearmp2 	main.c
                             progressbar.c
                             resolution_capabilities.c
                             scanmain.c
+							scan_geometry.c
                             selectdevice.c
               )
 

@@ -406,6 +406,9 @@ msgstr "Aperçu"
 msgid "The last JPEG scan will appear here."
 msgstr "La dernière numérisation JPEG apparaîtra ici."
 
+msgid "Drag to select a scan area, or scan the full page."
+msgstr "Faites glisser pour sélectionner une zone, ou numérisez la page entière."
+
 msgid "Drag to select the area for the next scan."
 msgstr "Faites glisser pour sélectionner la zone de la prochaine numérisation."
 
