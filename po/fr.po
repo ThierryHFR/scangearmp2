@@ -390,4 +390,84 @@ msgstr ""
 #: ../src/cnmsstrings.h:166
 msgid "Scanner initialization is in progress. Scan after it is complete."
 msgstr "Initialisation du scanner en cours. Attendez qu'elle soit terminée pour numériser."
+# GTK4 classic ScanGear interface
+msgid "Clear Preview"
+msgstr "Effacer l’aperçu"
 
+msgid "Clear the last scanned image."
+msgstr "Effacer la dernière image numérisée."
+
+msgid "About"
+msgstr "À propos"
+
+msgid "Preview"
+msgstr "Aperçu"
+
+msgid "The last JPEG scan will appear here."
+msgstr "La dernière numérisation JPEG apparaîtra ici."
+
+msgid "Drag to select the area for the next scan."
+msgstr "Faites glisser pour sélectionner la zone de la prochaine numérisation."
+
+msgid "Input Settings"
+msgstr "Paramètres d’entrée"
+
+msgid "Output Settings"
+msgstr "Paramètres de sortie"
+
+msgid "Basic Mode"
+msgstr "Mode de base"
+
+msgid "Histogram"
+msgstr "Histogramme"
+
+msgid "Brightness"
+msgstr "Luminosité"
+
+msgid "Contrast"
+msgstr "Contraste"
+
+msgid "Gamma"
+msgstr "Gamma"
+
+msgid "Black point"
+msgstr "Point noir"
+
+msgid "White point"
+msgstr "Point blanc"
+
+msgid "Tone curve"
+msgstr "Courbe de tonalité"
+
+msgid "Linear"
+msgstr "Linéaire"
+
+msgid "S curve"
+msgstr "Courbe en S"
+
+msgid "High key"
+msgstr "Tons clairs"
+
+msgid "Low key"
+msgstr "Tons sombres"
+
+msgid "Invert"
+msgstr "Inverser"
+
+msgid "Threshold"
+msgstr "Seuil"
+
+msgid "Unsharp mask"
+msgstr "Masque flou"
+
+msgid "Descreen"
+msgstr "Détramage"
+
+msgid "Reset crop"
+msgstr "Réinitialiser le recadrage"
+
+msgid "Defaults"
+msgstr "Valeurs par défaut"
+
+msgid "Advanced Mode"
+msgstr "Mode avancé"

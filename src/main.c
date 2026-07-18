@@ -47,6 +47,7 @@
 #include "selectdevice.h"
 #include "keep_setting.h"
 #include "errordlg.h"
+#include "advanced_ui.h"
 
 #define WAIT_SECOND				{usleep(1000000);}
 
@@ -116,6 +117,20 @@ int main(int argc, char **argv )
 	data->label_devname = GTK_WIDGET( gtk_builder_get_object( data->builder, "label_devname" ) );
 	data->preview_picture = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_picture" ) );
 	data->preview_placeholder = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_placeholder" ) );
+	data->preview_crop_area = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_crop_area" ) );
+	data->histogram_area = GTK_WIDGET( gtk_builder_get_object( data->builder, "histogram_area" ) );
+	data->scale_brightness = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_brightness" ) );
+	data->scale_contrast = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_contrast" ) );
+	data->scale_gamma = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_gamma" ) );
+	data->scale_black_point = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_black_point" ) );
+	data->scale_white_point = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_white_point" ) );
+	data->scale_threshold = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_threshold" ) );
+	data->check_threshold = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_threshold" ) );
+	data->check_unsharp = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_unsharp" ) );
+	data->check_descreen = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_descreen" ) );
+	data->combobox_curve = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_curve" ) );
+	data->button_reset_adjustments = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_reset_adjustments" ) );
+	data->button_reset_crop = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_reset_crop" ) );
 	
 	/* select device dialog */
 	data->dialog_select = GTK_WIDGET( gtk_builder_get_object( data->builder, "dialog_select" ) );
@@ -193,6 +208,7 @@ int main(int argc, char **argv )
 	CONNECT(data->button_error_ok, "clicked", on_button_error_ok_clicked);
 	CONNECT(data->button_error_cancel, "clicked", on_button_error_cancel_clicked);
 #undef CONNECT
+	CIJSC_advanced_ui_init( data );
 	
 	/* set version and year */
 	{

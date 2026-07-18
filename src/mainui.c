@@ -42,6 +42,7 @@
 
 #include "mainui.h"
 #include "scanmain.h"
+#include "advanced_ui.h"
 
 typedef struct {
 	const int		id;
@@ -318,6 +319,11 @@ static void ui_main_combobox_set_default_size_new( SGMP_Data *data )
 
 static void ui_main_button_scan_main( SGMP_Data *data )
 {
+	double selected_x = data->crop_x;
+	double selected_y = data->crop_y;
+	double selected_width = data->crop_width;
+	double selected_height = data->crop_height;
+	gboolean had_crop = data->crop_enabled;
 	DBGMSG("->\n");
 	gtk_widget_set_sensitive( data->window_main, FALSE );
 	/* set scan parameters. */
@@ -338,7 +344,20 @@ static void ui_main_button_scan_main( SGMP_Data *data )
 		gtk_widget_set_visible( data->preview_placeholder, FALSE );
 		gtk_widget_set_visible( data->preview_picture, TRUE );
 		gtk_widget_set_sensitive( data->button_clear_preview, TRUE );
+		if (had_crop) {
+			data->preview_source_x = selected_x;
+			data->preview_source_y = selected_y;
+			data->preview_source_width = selected_width;
+			data->preview_source_height = selected_height;
+		}
+		else {
+			data->preview_source_x = data->preview_source_y = 0.0;
+			data->preview_source_width = data->preview_source_height = 1.0;
+		}
+		data->crop_enabled = FALSE;
 	}
+	if (data->histogram_valid)
+		CIJSC_advanced_ui_image_updated( data );
 	gtk_widget_set_sensitive( data->window_main, TRUE );
 }
 
@@ -447,5 +466,3 @@ void CIJSC_UI_main_button_scan_clicked( SGMP_Data *data, int format )
 
 
 #endif	/* _MAINUI_C_ */
-
-

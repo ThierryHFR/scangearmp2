@@ -1,4 +1,5 @@
 add_executable(scangearmp2 	main.c
+							advanced_ui.c
                             gtk_compat.c
                             callbacks.c
                             canon_mfp_io.c
@@ -6,6 +7,7 @@ add_executable(scangearmp2 	main.c
                             cnmsfunc.c
                             errordlg.c
                             file_control.c
+							image_processing.c
                             jpeg2pdf.c
                             keep_setting.c
                             mainui.c
@@ -27,7 +29,7 @@ else(DEBUG)
 endif(DEBUG)
 
 target_include_directories(scangearmp2 PRIVATE ${GTK4_INCLUDE_DIRS} ${LIBUSB_INCLUDE_DIRS})
-target_link_libraries(scangearmp2 pthread ${GTK4_LIBRARIES} ${LIBUSB_LIBRARIES})
+target_link_libraries(scangearmp2 pthread ${GTK4_LIBRARIES} ${LIBUSB_LIBRARIES} JPEG::JPEG m)
 target_link_libraries(scangearmp2 cncpmslld2 cncpnet2 cncpnet20 cncpnet30)
 target_compile_definitions(scangearmp2 PRIVATE "PACKAGE_DATA_DIR=\"../share/scangearmp2\"")
 target_compile_definitions(scangearmp2 PRIVATE "CNMSLIBPATH=../${CMAKE_INSTALL_LIBDIR}/bjlib")

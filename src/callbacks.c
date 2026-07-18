@@ -40,6 +40,7 @@
 #include "selectdevice.h"
 #include "errordlg.h"
 #include "scanmain.h"
+#include "advanced_ui.h"
 
 /*
 	main window
@@ -173,6 +174,11 @@ on_button_clear_preview_clicked(	GtkWidget	*widget,
 	gtk_widget_set_visible( data->preview_picture, FALSE );
 	gtk_widget_set_visible( data->preview_placeholder, TRUE );
 	gtk_widget_set_sensitive( data->button_clear_preview, FALSE );
+	data->histogram_valid = FALSE;
+	data->crop_enabled = FALSE;
+	data->preview_source_x = data->preview_source_y = 0.0;
+	data->preview_source_width = data->preview_source_height = 1.0;
+	CIJSC_advanced_ui_image_updated( data );
 }
 
 
@@ -391,5 +397,3 @@ on_button_error_cancel_clicked(	GtkWidget	*widget,
 }
 
 #endif	/* _CALLBACKS_C_ */
-
-

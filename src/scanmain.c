@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
+#include <glib/gstdio.h>
 
 #include "support.h"
 #include "callbacks.h"
@@ -48,6 +49,7 @@
 #include "jpeg2pdf.h"
 
 #include "progressbar.h"
+#include "image_processing.h"
 
 enum{
 	CIJSC_SCANMAIN_GO_NEXT = 0,
@@ -255,6 +257,23 @@ static int ui_dialog_save_scan_add_file_list( SGMP_Data *data, LPCNMS_ROOT root,
 	
 	FileControlCloseFile( (*pnode)->fd );
 	(*pnode)->fd = CNMS_FILE_ERR;
+	{
+		int processed_width = 0, processed_height = 0;
+		GStatBuf status;
+		if (CIJSC_image_process_jpeg((const char *)(*pnode)->file_path,
+			&data->image_settings, data->histogram,
+			&processed_width, &processed_height) != 0) {
+			DBGMSG("Unable to apply image adjustments to [%s].\n", (*pnode)->file_path);
+			set_module_error();
+			FileControlDeleteFile((*pnode)->file_path, CNMS_FILE_ERR);
+			goto EXIT;
+		}
+		data->histogram_valid = TRUE;
+		data->scan_w = processed_width;
+		data->scan_h = processed_height;
+		if (g_stat((const char *)(*pnode)->file_path, &status) == 0)
+			(*pnode)->file_size = (int)status.st_size;
+	}
 	
 	(*pnode)->page = data->scanning_page;
 	(*pnode)->rotate = ( ( data->scanning_page % 2 ) || data->scan_scanmode != CIJSC_SCANMODE_ADF_D_L ) ? CNMS_FALSE : CNMS_TRUE ;
@@ -308,10 +327,26 @@ static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
         double table_res_fact[] = {4.0, 2.0, 1.0, 0.5, 0.25};
 	param.XRes			= data->scan_res = table_res[data->scan_resolution];
 	param.YRes			= data->scan_res; // 300;
-	param.Left			= 0;
-	param.Top			= 0;
-	param.Right			= data->scan_w = (int) ((double)sourceSize[i].right / table_res_fact[data->scan_resolution]);
-	param.Bottom		= data->scan_h = (int) ((double)sourceSize[i].bottom / table_res_fact[data->scan_resolution]);
+	{
+		int full_width = (int)((double)sourceSize[i].right / table_res_fact[data->scan_resolution]);
+		int full_height = (int)((double)sourceSize[i].bottom / table_res_fact[data->scan_resolution]);
+		if (data->crop_enabled) {
+			param.Left = CLAMP((int)(data->crop_x * full_width), 0, full_width - 1);
+			param.Top = CLAMP((int)(data->crop_y * full_height), 0, full_height - 1);
+			param.Right = CLAMP(param.Left + (int)(data->crop_width * full_width),
+				param.Left + 1, full_width);
+			param.Bottom = CLAMP(param.Top + (int)(data->crop_height * full_height),
+				param.Top + 1, full_height);
+		}
+		else {
+			param.Left = 0;
+			param.Top = 0;
+			param.Right = full_width;
+			param.Bottom = full_height;
+		}
+		data->scan_w = param.Right - param.Left;
+		data->scan_h = param.Bottom - param.Top;
+	}
 	param.ScanMode		= ( data->scan_color == CIJSC_COLOR_COLOR ) ? 4 : 2;
 	param.ScanMethod	= ( data->scan_scanmode == CIJSC_SCANMODE_ADF_D_S ) ? CIJSC_SCANMODE_ADF_D_L : data->scan_scanmode;
 	param.opts.p1_0		= 0;
@@ -428,7 +463,11 @@ SCAN_START:
 		}
 		
 		/* append scanned-file data. */
-		ui_dialog_save_scan_add_file_list( data, root, &node );
+		if (ui_dialog_save_scan_add_file_list( data, root, &node ) != CNMS_NO_ERR) {
+			data->scan_result = CIJSC_SCANMAIN_SCAN_ERROR;
+			ui_dialog_save_scan_dispose_file(data, &node);
+			break;
+		}
 		
 		data->scanning_page++;
 		DBGMSG( "scan end(%d)...\n", data->scanning_page );
@@ -689,6 +728,3 @@ void CIJSC_UI_notify_hide( SGMP_Data *data )
 
 
 #endif	/* _SCANMAIN_C_ */
-
-
-

@@ -357,8 +357,7 @@
                 <property name="hexpand">1</property>
                 <property name="vexpand">1</property>
                 <property name="child">
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
+                  <object class="GtkOverlay">
                     <property name="halign">fill</property>
                     <property name="valign">fill</property>
                     <property name="margin-top">12</property>
@@ -374,7 +373,7 @@
                         <property name="visible">0</property>
                       </object>
                     </child>
-                    <child>
+                    <child type="overlay">
                       <object class="GtkLabel" id="preview_placeholder">
                         <property name="label" translatable="1">The last JPEG scan will appear here.</property>
                         <property name="wrap">1</property>
@@ -383,6 +382,14 @@
                         <property name="vexpand">1</property>
                         <property name="width-chars">34</property>
                         <style><class name="dim-label"/></style>
+                      </object>
+                    </child>
+                    <child type="overlay">
+                      <object class="GtkDrawingArea" id="preview_crop_area">
+                        <property name="hexpand">1</property>
+                        <property name="vexpand">1</property>
+                        <property name="can-target">1</property>
+                        <property name="tooltip-text" translatable="1">Drag to select the area for the next scan.</property>
                       </object>
                     </child>
                   </object>
@@ -465,41 +472,82 @@
                             </property>
                           </object>
                         </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="spacing">8</property>
-                            <property name="homogeneous">1</property>
-                            <child><object class="GtkButton" id="button_scanjpeg"><property name="label" translatable="1" comments="STR_CNMS_LS_001_06">Scan (JPEG)</property></object></child>
-                            <child><object class="GtkButton" id="button_scanpdf"><property name="label" translatable="1" comments="STR_CNMS_LS_001_07">Scan (PDF)</property></object></child>
-                          </object>
-                        </child>
                       </object>
                     </child>
                     <child type="tab">
                       <object class="GtkLabel"><property name="label" translatable="1">Basic Mode</property></object>
                     </child>
                     <child>
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">12</property>
-                        <property name="margin-top">24</property>
-                        <property name="margin-bottom">24</property>
-                        <property name="margin-start">24</property>
-                        <property name="margin-end">24</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="label" translatable="1">Advanced image adjustments and crop controls require backend support that is not available in ScanGear MP 2 yet.</property>
-                            <property name="wrap">1</property>
-                            <property name="justify">center</property>
-                            <property name="vexpand">1</property>
-                            <style><class name="dim-label"/></style>
+                      <object class="GtkScrolledWindow">
+                        <property name="hscrollbar-policy">never</property>
+                        <property name="child">
+                          <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">10</property>
+                            <property name="margin-top">12</property>
+                            <property name="margin-bottom">12</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <child>
+                              <object class="GtkFrame">
+                                <property name="label" translatable="1">Histogram</property>
+                                <property name="child">
+                                  <object class="GtkDrawingArea" id="histogram_area">
+                                    <property name="height-request">110</property>
+                                    <property name="hexpand">1</property>
+                                    <property name="margin-top">8</property>
+                                    <property name="margin-bottom">8</property>
+                                    <property name="margin-start">8</property>
+                                    <property name="margin-end">8</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkGrid">
+                                <property name="row-spacing">7</property>
+                                <property name="column-spacing">8</property>
+                                <child><object class="GtkLabel"><property name="label" translatable="1">Brightness</property><property name="halign">start</property><layout><property name="column">0</property><property name="row">0</property></layout></object></child>
+                                <child><object class="GtkScale" id="scale_brightness"><property name="hexpand">1</property><property name="digits">0</property><property name="adjustment"><object class="GtkAdjustment"><property name="lower">-100</property><property name="upper">100</property><property name="step-increment">1</property><property name="page-increment">10</property></object></property><layout><property name="column">1</property><property name="row">0</property></layout></object></child>
+                                <child><object class="GtkLabel"><property name="label" translatable="1">Contrast</property><property name="halign">start</property><layout><property name="column">0</property><property name="row">1</property></layout></object></child>
+                                <child><object class="GtkScale" id="scale_contrast"><property name="hexpand">1</property><property name="digits">0</property><property name="adjustment"><object class="GtkAdjustment"><property name="lower">-100</property><property name="upper">100</property><property name="step-increment">1</property><property name="page-increment">10</property></object></property><layout><property name="column">1</property><property name="row">1</property></layout></object></child>
+                                <child><object class="GtkLabel"><property name="label" translatable="1">Gamma</property><property name="halign">start</property><layout><property name="column">0</property><property name="row">2</property></layout></object></child>
+                                <child><object class="GtkScale" id="scale_gamma"><property name="hexpand">1</property><property name="digits">1</property><property name="value-pos">right</property><property name="adjustment"><object class="GtkAdjustment"><property name="lower">0.1</property><property name="upper">5</property><property name="value">1</property><property name="step-increment">0.1</property><property name="page-increment">0.5</property></object></property><layout><property name="column">1</property><property name="row">2</property></layout></object></child>
+                                <child><object class="GtkLabel"><property name="label" translatable="1">Black point</property><property name="halign">start</property><layout><property name="column">0</property><property name="row">3</property></layout></object></child>
+                                <child><object class="GtkScale" id="scale_black_point"><property name="hexpand">1</property><property name="digits">0</property><property name="adjustment"><object class="GtkAdjustment"><property name="lower">0</property><property name="upper">254</property><property name="step-increment">1</property><property name="page-increment">10</property></object></property><layout><property name="column">1</property><property name="row">3</property></layout></object></child>
+                                <child><object class="GtkLabel"><property name="label" translatable="1">White point</property><property name="halign">start</property><layout><property name="column">0</property><property name="row">4</property></layout></object></child>
+                                <child><object class="GtkScale" id="scale_white_point"><property name="hexpand">1</property><property name="digits">0</property><property name="adjustment"><object class="GtkAdjustment"><property name="lower">1</property><property name="upper">255</property><property name="value">255</property><property name="step-increment">1</property><property name="page-increment">10</property></object></property><layout><property name="column">1</property><property name="row">4</property></layout></object></child>
+                                <child><object class="GtkLabel"><property name="label" translatable="1">Tone curve</property><property name="halign">start</property><layout><property name="column">0</property><property name="row">5</property></layout></object></child>
+                                <child><object class="GtkComboBoxText" id="combobox_curve"><property name="active">0</property><items><item translatable="1">Linear</item><item translatable="1">S curve</item><item translatable="1">High key</item><item translatable="1">Low key</item><item translatable="1">Invert</item></items><layout><property name="column">1</property><property name="row">5</property></layout></object></child>
+                                <child><object class="GtkCheckButton" id="check_threshold"><property name="label" translatable="1">Threshold</property><layout><property name="column">0</property><property name="row">6</property></layout></object></child>
+                                <child><object class="GtkScale" id="scale_threshold"><property name="hexpand">1</property><property name="sensitive">0</property><property name="digits">0</property><property name="adjustment"><object class="GtkAdjustment"><property name="lower">0</property><property name="upper">255</property><property name="value">128</property><property name="step-increment">1</property><property name="page-increment">10</property></object></property><layout><property name="column">1</property><property name="row">6</property></layout></object></child>
+                              </object>
+                            </child>
+                            <child><object class="GtkCheckButton" id="check_unsharp"><property name="label" translatable="1">Unsharp mask</property></object></child>
+                            <child><object class="GtkCheckButton" id="check_descreen"><property name="label" translatable="1">Descreen</property></object></child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="spacing">8</property>
+                                <property name="homogeneous">1</property>
+                                <child><object class="GtkButton" id="button_reset_crop"><property name="label" translatable="1">Reset crop</property></object></child>
+                                <child><object class="GtkButton" id="button_reset_adjustments"><property name="label" translatable="1">Defaults</property></object></child>
+                              </object>
+                            </child>
                           </object>
-                        </child>
+                        </property>
                       </object>
                     </child>
                     <child type="tab">
                       <object class="GtkLabel"><property name="label" translatable="1">Advanced Mode</property></object>
                     </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">8</property>
+                    <property name="homogeneous">1</property>
+                    <child><object class="GtkButton" id="button_scanjpeg"><property name="label" translatable="1" comments="STR_CNMS_LS_001_06">Scan (JPEG)</property></object></child>
+                    <child><object class="GtkButton" id="button_scanpdf"><property name="label" translatable="1" comments="STR_CNMS_LS_001_07">Scan (PDF)</property></object></child>
                   </object>
                 </child>
                 <child>
