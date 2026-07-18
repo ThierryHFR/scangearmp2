@@ -58,6 +58,14 @@ static void settings_changed(GtkWidget *widget, SGMP_Data *data)
 	data->image_settings.threshold = (int)gtk_range_get_value(GTK_RANGE(data->scale_threshold));
 	data->image_settings.unsharp = gtk_check_button_get_active(GTK_CHECK_BUTTON(data->check_unsharp));
 	data->image_settings.descreen = gtk_check_button_get_active(GTK_CHECK_BUTTON(data->check_descreen));
+	data->image_settings.auto_tone = gtk_check_button_get_active(GTK_CHECK_BUTTON(data->check_auto_tone));
+	data->image_settings.color_balance = gtk_check_button_get_active(GTK_CHECK_BUTTON(data->check_color_balance));
+	data->image_settings.dust_reduction = gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_dust));
+	data->image_settings.fading_correction = gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_fading));
+	data->image_settings.grain_reduction = gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_grain));
+	data->image_settings.backlight_correction = gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_backlight));
+	data->image_settings.saturation = (int)gtk_range_get_value(GTK_RANGE(data->scale_saturation));
+	data->image_settings.scale_percent = (int)gtk_range_get_value(GTK_RANGE(data->scale_output));
 	gtk_widget_set_sensitive(data->scale_threshold, data->image_settings.threshold_enabled);
 	gtk_widget_queue_draw(data->histogram_area);
 }
@@ -76,6 +84,14 @@ static void reset_adjustments(GtkButton *button, SGMP_Data *data)
 	gtk_range_set_value(GTK_RANGE(data->scale_threshold), 128);
 	gtk_check_button_set_active(GTK_CHECK_BUTTON(data->check_unsharp), FALSE);
 	gtk_check_button_set_active(GTK_CHECK_BUTTON(data->check_descreen), FALSE);
+	gtk_check_button_set_active(GTK_CHECK_BUTTON(data->check_auto_tone), FALSE);
+	gtk_check_button_set_active(GTK_CHECK_BUTTON(data->check_color_balance), FALSE);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(data->combobox_dust), 0);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(data->combobox_fading), 0);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(data->combobox_grain), 0);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(data->combobox_backlight), 0);
+	gtk_range_set_value(GTK_RANGE(data->scale_saturation), 0);
+	gtk_range_set_value(GTK_RANGE(data->scale_output), 100);
 	settings_changed(NULL, data);
 }
 
@@ -221,7 +237,16 @@ void CIJSC_advanced_ui_init(SGMP_Data *data)
 	GtkGesture *drag;
 	GtkWidget *ranges[] = {
 		data->scale_brightness, data->scale_contrast, data->scale_gamma,
-		data->scale_black_point, data->scale_white_point, data->scale_threshold
+		data->scale_black_point, data->scale_white_point, data->scale_threshold,
+		data->scale_saturation, data->scale_output
+	};
+	GtkWidget *combos[] = {
+		data->combobox_curve, data->combobox_dust, data->combobox_fading,
+		data->combobox_grain, data->combobox_backlight
+	};
+	GtkWidget *checks[] = {
+		data->check_threshold, data->check_unsharp, data->check_descreen,
+		data->check_auto_tone, data->check_color_balance
 	};
 	size_t i;
 
@@ -242,10 +267,10 @@ void CIJSC_advanced_ui_init(SGMP_Data *data)
 
 	for (i = 0; i < G_N_ELEMENTS(ranges); i++)
 		g_signal_connect(ranges[i], "value-changed", G_CALLBACK(settings_changed), data);
-	g_signal_connect(data->combobox_curve, "changed", G_CALLBACK(settings_changed), data);
-	g_signal_connect(data->check_threshold, "toggled", G_CALLBACK(settings_changed), data);
-	g_signal_connect(data->check_unsharp, "toggled", G_CALLBACK(settings_changed), data);
-	g_signal_connect(data->check_descreen, "toggled", G_CALLBACK(settings_changed), data);
+	for (i = 0; i < G_N_ELEMENTS(combos); i++)
+		g_signal_connect(combos[i], "changed", G_CALLBACK(settings_changed), data);
+	for (i = 0; i < G_N_ELEMENTS(checks); i++)
+		g_signal_connect(checks[i], "toggled", G_CALLBACK(settings_changed), data);
 	g_signal_connect(data->button_reset_adjustments, "clicked", G_CALLBACK(reset_adjustments), data);
 	g_signal_connect(data->button_reset_crop, "clicked", G_CALLBACK(reset_crop), data);
 	reset_adjustments(NULL, data);

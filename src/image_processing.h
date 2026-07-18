@@ -22,6 +22,14 @@ typedef struct {
 	int threshold;
 	int unsharp;
 	int descreen;
+	int auto_tone;
+	int color_balance;
+	int dust_reduction;
+	int fading_correction;
+	int grain_reduction;
+	int backlight_correction;
+	int saturation;
+	int scale_percent;
 } CIJSC_ImageSettings;
 
 void CIJSC_image_settings_reset(CIJSC_ImageSettings *settings);

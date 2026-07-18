@@ -61,3 +61,18 @@ char *s = N_("Descreen");
 char *s = N_("Reset crop");
 char *s = N_("Defaults");
 char *s = N_("Advanced Mode");
+
+/* Software-emulated image corrections */
+char *s = N_("Software corrections");
+char *s = N_("Auto tone");
+char *s = N_("Automatic color balance");
+char *s = N_("Saturation");
+char *s = N_("Dust and scratches");
+char *s = N_("Off");
+char *s = N_("Low");
+char *s = N_("Medium");
+char *s = N_("High");
+char *s = N_("Fading correction");
+char *s = N_("Grain reduction");
+char *s = N_("Backlight correction");
+char *s = N_("Output scale (%)");

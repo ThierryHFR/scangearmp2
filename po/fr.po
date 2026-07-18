@@ -471,3 +471,43 @@ msgstr "Valeurs par défaut"
 
 msgid "Advanced Mode"
 msgstr "Mode avancé"
+
+# Software-emulated image corrections
+msgid "Software corrections"
+msgstr "Corrections logicielles"
+
+msgid "Auto tone"
+msgstr "Tonalité automatique"
+
+msgid "Automatic color balance"
+msgstr "Balance automatique des couleurs"
+
+msgid "Saturation"
+msgstr "Saturation"
+
+msgid "Dust and scratches"
+msgstr "Poussières et rayures"
+
+msgid "Off"
+msgstr "Désactivé"
+
+msgid "Low"
+msgstr "Faible"
+
+msgid "Medium"
+msgstr "Moyen"
+
+msgid "High"
+msgstr "Élevé"
+
+msgid "Fading correction"
+msgstr "Correction de la décoloration"
+
+msgid "Grain reduction"
+msgstr "Réduction du grain"
+
+msgid "Backlight correction"
+msgstr "Correction du contre-jour"
+
+msgid "Output scale (%)"
+msgstr "Échelle de sortie (%)"

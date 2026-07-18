@@ -38,6 +38,7 @@ void CIJSC_image_settings_reset(CIJSC_ImageSettings *settings)
 	settings->gamma = 1.0;
 	settings->white_point = 255;
 	settings->threshold = 128;
+	settings->scale_percent = 100;
 }
 
 void CIJSC_image_build_lut(const CIJSC_ImageSettings *settings,
@@ -104,6 +105,97 @@ static unsigned char *box_blur(const unsigned char *pixels, int width, int heigh
 	return blurred;
 }
 
+static void sort_nine(unsigned char values[9])
+{
+	int i;
+	for (i = 1; i < 9; i++) {
+		unsigned char value = values[i];
+		int position = i;
+		while (position > 0 && values[position - 1] > value) {
+			values[position] = values[position - 1];
+			position--;
+		}
+		values[position] = value;
+	}
+}
+
+static unsigned char *dust_filter(const unsigned char *pixels, int width,
+	int height, int strength)
+{
+	size_t size = (size_t)width * height * 3;
+	unsigned char *filtered = g_try_malloc(size);
+	int threshold[] = {256, 80, 50, 25};
+	int x, y, channel;
+	if (filtered == NULL)
+		return NULL;
+	memcpy(filtered, pixels, size);
+	for (y = 1; y < height - 1; y++) {
+		for (x = 1; x < width - 1; x++) {
+			for (channel = 0; channel < 3; channel++) {
+				unsigned char values[9];
+				int dx, dy, index = 0;
+				size_t offset = ((size_t)y * width + x) * 3 + channel;
+				for (dy = -1; dy <= 1; dy++)
+					for (dx = -1; dx <= 1; dx++)
+						values[index++] = pixels[((size_t)(y + dy) * width + x + dx) * 3 + channel];
+				sort_nine(values);
+				if (abs((int)pixels[offset] - values[4]) > threshold[CLAMP(strength, 1, 3)])
+					filtered[offset] = values[4];
+			}
+		}
+	}
+	return filtered;
+}
+
+static void auto_levels(const unsigned char *pixels, size_t pixel_count,
+	int *black, int *white)
+{
+	unsigned long histogram[256] = {0};
+	unsigned long tail = (unsigned long)MAX((size_t)1, pixel_count / 200);
+	unsigned long low_target = tail;
+	unsigned long high_target = (unsigned long)(pixel_count - tail + 1);
+	unsigned long total = 0;
+	int i;
+	for (i = 0; i < (int)pixel_count; i++) {
+		int luminance = (pixels[i * 3] * 299 + pixels[i * 3 + 1] * 587 +
+			pixels[i * 3 + 2] * 114) / 1000;
+		histogram[luminance]++;
+	}
+	*black = 0;
+	*white = 255;
+	for (i = 0; i < 256; i++) {
+		total += histogram[i];
+		if (total >= low_target) {
+			*black = i;
+			break;
+		}
+	}
+	total = 0;
+	for (i = 0; i < 256; i++) {
+		total += histogram[i];
+		if (total >= high_target) {
+			*white = i;
+			break;
+		}
+	}
+	if (*white <= *black + 8) {
+		*black = 0;
+		*white = 255;
+	}
+}
+
+static void calculate_histogram(const unsigned char *pixels, size_t pixel_count,
+	unsigned long histogram[256])
+{
+	size_t i;
+	memset(histogram, 0, sizeof(unsigned long) * 256);
+	for (i = 0; i < pixel_count; i++) {
+		int luminance = (pixels[i * 3] * 299 + pixels[i * 3 + 1] * 587 +
+			pixels[i * 3 + 2] * 114) / 1000;
+		histogram[luminance]++;
+	}
+}
+
 static int apply_adjustments(unsigned char *pixels, int width, int height,
 	const CIJSC_ImageSettings *settings, unsigned long histogram[256])
 {
@@ -111,24 +203,77 @@ static int apply_adjustments(unsigned char *pixels, int width, int height,
 	size_t i;
 	unsigned char lut[256];
 	unsigned char *blurred = NULL;
+	unsigned char *filtered = NULL;
+	CIJSC_ImageSettings effective = *settings;
+	double channel_gain[3] = {1.0, 1.0, 1.0};
+	int saturation = settings->saturation;
 
-	CIJSC_image_build_lut(settings, lut);
-	if (settings->descreen || settings->unsharp)
+	if (settings->auto_tone)
+		auto_levels(pixels, pixel_count, &effective.black_point, &effective.white_point);
+	if (settings->fading_correction) {
+		effective.contrast = CLAMP(effective.contrast + settings->fading_correction * 5, -100, 100);
+		saturation = CLAMP(saturation + settings->fading_correction * 15, -100, 100);
+	}
+	if (settings->dust_reduction) {
+		filtered = dust_filter(pixels, width, height, settings->dust_reduction);
+		if (filtered == NULL)
+			return -1;
+		memcpy(pixels, filtered, pixel_count * 3);
+		g_free(filtered);
+	}
+	if (settings->descreen || settings->grain_reduction) {
 		blurred = box_blur(pixels, width, height);
-	if ((settings->descreen || settings->unsharp) && blurred == NULL)
+		if (blurred == NULL)
+			return -1;
+		if (settings->descreen)
+			memcpy(pixels, blurred, pixel_count * 3);
+		else {
+			double amount = settings->grain_reduction / 4.0;
+			for (i = 0; i < pixel_count * 3; i++)
+				pixels[i] = (unsigned char)(pixels[i] * (1.0 - amount) + blurred[i] * amount + 0.5);
+		}
+		g_free(blurred);
+		blurred = NULL;
+	}
+	if (settings->color_balance || settings->fading_correction) {
+		double average[3] = {0.0, 0.0, 0.0};
+		double target;
+		int channel;
+		for (i = 0; i < pixel_count; i++)
+			for (channel = 0; channel < 3; channel++)
+				average[channel] += pixels[i * 3 + channel];
+		target = (average[0] + average[1] + average[2]) / 3.0;
+		for (channel = 0; channel < 3; channel++)
+			if (average[channel] > 0.0)
+				channel_gain[channel] = CLAMP(target / average[channel], 0.5, 2.0);
+	}
+	CIJSC_image_build_lut(&effective, lut);
+	if (settings->unsharp)
+		blurred = box_blur(pixels, width, height);
+	if (settings->unsharp && blurred == NULL)
 		return -1;
 
-	memset(histogram, 0, sizeof(unsigned long) * 256);
 	for (i = 0; i < pixel_count; i++) {
+		int original[3];
+		int luminance;
 		int channel;
+		for (channel = 0; channel < 3; channel++)
+			original[channel] = CLAMP((int)(pixels[i * 3 + channel] * channel_gain[channel] + 0.5), 0, 255);
+		luminance = (original[0] * 299 + original[1] * 587 + original[2] * 114) / 1000;
 		for (channel = 0; channel < 3; channel++) {
+			int source = original[channel];
 			int value;
-			size_t offset = i * 3 + channel;
-			int source = settings->descreen ? blurred[offset] : pixels[offset];
+			if (saturation != 0)
+				source = CLAMP(luminance + (source - luminance) * (100 + saturation) / 100, 0, 255);
+			if (settings->backlight_correction && luminance < 192) {
+				double shadow = (192 - luminance) / 192.0;
+				source = CLAMP(source + (int)((255 - source) * shadow *
+					settings->backlight_correction * 0.12), 0, 255);
+			}
 			if (settings->unsharp)
-				source = CLAMP(source + (pixels[offset] - blurred[offset]), 0, 255);
+				source = CLAMP(source + (pixels[i * 3 + channel] - blurred[i * 3 + channel]), 0, 255);
 			value = lut[source];
-			pixels[offset] = (unsigned char)value;
+			pixels[i * 3 + channel] = (unsigned char)value;
 		}
 		if (settings->threshold_enabled) {
 			int luminance = (pixels[i * 3] * 299 + pixels[i * 3 + 1] * 587 +
@@ -136,13 +281,9 @@ static int apply_adjustments(unsigned char *pixels, int width, int height,
 			unsigned char value = luminance >= settings->threshold ? 255 : 0;
 			pixels[i * 3] = pixels[i * 3 + 1] = pixels[i * 3 + 2] = value;
 		}
-		{
-			int luminance = (pixels[i * 3] * 299 + pixels[i * 3 + 1] * 587 +
-				pixels[i * 3 + 2] * 114) / 1000;
-			histogram[luminance]++;
-		}
 	}
 	g_free(blurred);
+	calculate_histogram(pixels, pixel_count, histogram);
 	return 0;
 }
 
@@ -151,7 +292,41 @@ static int adjustments_are_active(const CIJSC_ImageSettings *settings)
 	return settings->brightness != 0 || settings->contrast != 0 ||
 		fabs(settings->gamma - 1.0) > 0.0001 || settings->black_point != 0 ||
 		settings->white_point != 255 || settings->curve != CIJSC_CURVE_LINEAR ||
-		settings->threshold_enabled || settings->unsharp || settings->descreen;
+		settings->threshold_enabled || settings->unsharp || settings->descreen ||
+		settings->auto_tone || settings->color_balance || settings->dust_reduction ||
+		settings->fading_correction || settings->grain_reduction ||
+		settings->backlight_correction || settings->saturation != 0 ||
+		settings->scale_percent != 100;
+}
+
+static unsigned char *resize_bilinear(const unsigned char *pixels, int width,
+	int height, int output_width, int output_height)
+{
+	unsigned char *output = g_try_malloc((size_t)output_width * output_height * 3);
+	int x, y, channel;
+	if (output == NULL)
+		return NULL;
+	for (y = 0; y < output_height; y++) {
+		double source_y = output_height == 1 ? 0.0 : y * (height - 1.0) / (output_height - 1.0);
+		int y0 = (int)source_y;
+		int y1 = MIN(y0 + 1, height - 1);
+		double fy = source_y - y0;
+		for (x = 0; x < output_width; x++) {
+			double source_x = output_width == 1 ? 0.0 : x * (width - 1.0) / (output_width - 1.0);
+			int x0 = (int)source_x;
+			int x1 = MIN(x0 + 1, width - 1);
+			double fx = source_x - x0;
+			for (channel = 0; channel < 3; channel++) {
+				double top = pixels[((size_t)y0 * width + x0) * 3 + channel] * (1.0 - fx) +
+					pixels[((size_t)y0 * width + x1) * 3 + channel] * fx;
+				double bottom = pixels[((size_t)y1 * width + x0) * 3 + channel] * (1.0 - fx) +
+					pixels[((size_t)y1 * width + x1) * 3 + channel] * fx;
+				output[((size_t)y * output_width + x) * 3 + channel] =
+					(unsigned char)(top * (1.0 - fy) + bottom * fy + 0.5);
+			}
+		}
+	}
+	return output;
 }
 
 #if defined(__GNUC__)
@@ -202,6 +377,27 @@ int CIJSC_image_process_jpeg(const char *path,
 
 	if (apply_adjustments(pixels, *width, *height, settings, histogram) != 0)
 		goto cleanup;
+	if (settings->scale_percent != 100) {
+		long requested_width = (long)*width * settings->scale_percent / 100;
+		long requested_height = (long)*height * settings->scale_percent / 100;
+		int output_width;
+		int output_height;
+		if (requested_width < 1 || requested_height < 1 ||
+			requested_width > 32767 || requested_height > 32767 ||
+			(size_t)requested_width * requested_height > 100000000)
+			goto cleanup;
+		output_width = (int)requested_width;
+		output_height = (int)requested_height;
+		unsigned char *resized = resize_bilinear(pixels, *width, *height,
+			output_width, output_height);
+		if (resized == NULL)
+			goto cleanup;
+		g_free(pixels);
+		pixels = resized;
+		*width = output_width;
+		*height = output_height;
+		calculate_histogram(pixels, (size_t)*width * *height, histogram);
+	}
 	if (!adjustments_are_active(settings)) {
 		g_free(pixels);
 		return 0;

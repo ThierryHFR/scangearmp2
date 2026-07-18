@@ -130,6 +130,14 @@ typedef struct
 	GtkWidget	*check_threshold;
 	GtkWidget	*check_unsharp;
 	GtkWidget	*check_descreen;
+	GtkWidget	*check_auto_tone;
+	GtkWidget	*check_color_balance;
+	GtkWidget	*combobox_dust;
+	GtkWidget	*combobox_fading;
+	GtkWidget	*combobox_grain;
+	GtkWidget	*combobox_backlight;
+	GtkWidget	*scale_saturation;
+	GtkWidget	*scale_output;
 	GtkWidget	*combobox_curve;
 	GtkWidget	*button_reset_adjustments;
 	GtkWidget	*button_reset_crop;

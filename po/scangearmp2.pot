@@ -449,3 +449,43 @@ msgstr ""
 
 msgid "Advanced Mode"
 msgstr ""
+
+# Software-emulated image corrections
+msgid "Software corrections"
+msgstr ""
+
+msgid "Auto tone"
+msgstr ""
+
+msgid "Automatic color balance"
+msgstr ""
+
+msgid "Saturation"
+msgstr ""
+
+msgid "Dust and scratches"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "Low"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Fading correction"
+msgstr ""
+
+msgid "Grain reduction"
+msgstr ""
+
+msgid "Backlight correction"
+msgstr ""
+
+msgid "Output scale (%)"
+msgstr ""
