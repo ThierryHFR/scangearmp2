@@ -114,7 +114,10 @@ typedef struct
 	GtkWidget	*button_scanpdf;
 	GtkWidget	*button_version;
 	GtkWidget	*button_close;
+	GtkWidget	*button_clear_preview;
 	GtkWidget	*label_devname;
+	GtkWidget	*preview_picture;
+	GtkWidget	*preview_placeholder;
 
 	/* select device dialog */
 	GtkWidget	*dialog_select;

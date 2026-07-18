@@ -164,6 +164,17 @@ on_button_close_clicked(	GtkWidget	*widget,
 	gtk_main_quit();
 }
 
+G_MODULE_EXPORT void
+on_button_clear_preview_clicked(	GtkWidget	*widget,
+								SGMP_Data	*data )
+{
+	(void)widget;
+	gtk_picture_set_filename( GTK_PICTURE( data->preview_picture ), NULL );
+	gtk_widget_set_visible( data->preview_picture, FALSE );
+	gtk_widget_set_visible( data->preview_placeholder, TRUE );
+	gtk_widget_set_sensitive( data->button_clear_preview, FALSE );
+}
+
 
 /*
 	select device dialog
@@ -380,6 +391,5 @@ on_button_error_cancel_clicked(	GtkWidget	*widget,
 }
 
 #endif	/* _CALLBACKS_C_ */
-
 
 

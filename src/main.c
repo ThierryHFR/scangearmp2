@@ -112,7 +112,10 @@ int main(int argc, char **argv )
 	data->button_scanpdf = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_scanpdf" ) );
 	data->button_version = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_version" ) );
 	data->button_close = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_close" ) );
+	data->button_clear_preview = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_clear_preview" ) );
 	data->label_devname = GTK_WIDGET( gtk_builder_get_object( data->builder, "label_devname" ) );
+	data->preview_picture = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_picture" ) );
+	data->preview_placeholder = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_placeholder" ) );
 	
 	/* select device dialog */
 	data->dialog_select = GTK_WIDGET( gtk_builder_get_object( data->builder, "dialog_select" ) );
@@ -172,6 +175,7 @@ int main(int argc, char **argv )
 	CONNECT(data->button_scanpdf, "clicked", on_button_scanpdf_clicked);
 	CONNECT(data->button_version, "clicked", on_button_version_clicked);
 	CONNECT(data->button_close, "clicked", on_button_close_clicked);
+	CONNECT(data->button_clear_preview, "clicked", on_button_clear_preview_clicked);
 	CONNECT(data->dialog_select, "close-request", on_dialog_select_delete_event);
 	CONNECT(data->button_select_update, "clicked", on_button_select_update_clicked);
 	CONNECT(data->button_select_cancel, "clicked", on_button_select_cancel_clicked);

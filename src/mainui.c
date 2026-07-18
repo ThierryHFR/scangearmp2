@@ -331,6 +331,14 @@ static void ui_main_button_scan_main( SGMP_Data *data )
 	
 	/* scan and save scanned data. */
 	CIJSC_Scan_And_Save( data );
+	if( data->scan_format == CIJSC_FORMAT_JPEG &&
+		data->file_path[0] != '\0' &&
+		g_file_test( data->file_path, G_FILE_TEST_IS_REGULAR ) ) {
+		gtk_picture_set_filename( GTK_PICTURE( data->preview_picture ), data->file_path );
+		gtk_widget_set_visible( data->preview_placeholder, FALSE );
+		gtk_widget_set_visible( data->preview_picture, TRUE );
+		gtk_widget_set_sensitive( data->button_clear_preview, TRUE );
+	}
 	gtk_widget_set_sensitive( data->window_main, TRUE );
 }
 
@@ -439,6 +447,5 @@ void CIJSC_UI_main_button_scan_clicked( SGMP_Data *data, int format )
 
 
 #endif	/* _MAINUI_C_ */
-
 
 
