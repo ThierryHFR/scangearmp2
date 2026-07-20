@@ -94,6 +94,7 @@
 #ifndef SUPPORT_H_WO_GTK
 #include <gtk/gtk.h>
 #include "gtk_compat.h"
+#include "image_processing.h"
 typedef struct
 {
 	GtkBuilder	*builder;
@@ -114,7 +115,47 @@ typedef struct
 	GtkWidget	*button_scanpdf;
 	GtkWidget	*button_version;
 	GtkWidget	*button_close;
+	GtkWidget	*button_clear_preview;
 	GtkWidget	*label_devname;
+	GtkWidget	*preview_picture;
+	GtkWidget	*preview_placeholder;
+	GtkWidget	*preview_crop_area;
+	GtkWidget	*histogram_area;
+	GtkWidget	*scale_brightness;
+	GtkWidget	*scale_contrast;
+	GtkWidget	*scale_gamma;
+	GtkWidget	*scale_black_point;
+	GtkWidget	*scale_white_point;
+	GtkWidget	*scale_threshold;
+	GtkWidget	*check_threshold;
+	GtkWidget	*check_unsharp;
+	GtkWidget	*check_descreen;
+	GtkWidget	*check_auto_tone;
+	GtkWidget	*check_color_balance;
+	GtkWidget	*combobox_dust;
+	GtkWidget	*combobox_fading;
+	GtkWidget	*combobox_grain;
+	GtkWidget	*combobox_backlight;
+	GtkWidget	*scale_saturation;
+	GtkWidget	*scale_output;
+	GtkWidget	*combobox_curve;
+	GtkWidget	*button_reset_adjustments;
+	GtkWidget	*button_reset_crop;
+
+	CIJSC_ImageSettings image_settings;
+	unsigned long histogram[256];
+	gboolean histogram_valid;
+	double crop_x;
+	double crop_y;
+	double crop_width;
+	double crop_height;
+	double crop_drag_x;
+	double crop_drag_y;
+	gboolean crop_enabled;
+	double preview_source_x;
+	double preview_source_y;
+	double preview_source_width;
+	double preview_source_height;
 
 	/* select device dialog */
 	GtkWidget	*dialog_select;

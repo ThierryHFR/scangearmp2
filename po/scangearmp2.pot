@@ -367,3 +367,128 @@ msgstr ""
 #: ../src/cnmsstrings.h:166
 msgid "Scanner initialization is in progress. Scan after it is complete."
 msgstr ""
+
+# GTK4 classic ScanGear interface
+msgid "Clear Preview"
+msgstr ""
+
+msgid "Clear the last scanned image."
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "The last JPEG scan will appear here."
+msgstr ""
+
+msgid "Drag to select a scan area, or scan the full page."
+msgstr ""
+
+msgid "Drag to select the area for the next scan."
+msgstr ""
+
+msgid "Input Settings"
+msgstr ""
+
+msgid "Output Settings"
+msgstr ""
+
+msgid "Basic Mode"
+msgstr ""
+
+msgid "Histogram"
+msgstr ""
+
+msgid "Brightness"
+msgstr ""
+
+msgid "Contrast"
+msgstr ""
+
+msgid "Gamma"
+msgstr ""
+
+msgid "Black point"
+msgstr ""
+
+msgid "White point"
+msgstr ""
+
+msgid "Tone curve"
+msgstr ""
+
+msgid "Linear"
+msgstr ""
+
+msgid "S curve"
+msgstr ""
+
+msgid "High key"
+msgstr ""
+
+msgid "Low key"
+msgstr ""
+
+msgid "Invert"
+msgstr ""
+
+msgid "Threshold"
+msgstr ""
+
+msgid "Unsharp mask"
+msgstr ""
+
+msgid "Descreen"
+msgstr ""
+
+msgid "Reset crop"
+msgstr ""
+
+msgid "Defaults"
+msgstr ""
+
+msgid "Advanced Mode"
+msgstr ""
+
+# Software-emulated image corrections
+msgid "Software corrections"
+msgstr ""
+
+msgid "Auto tone"
+msgstr ""
+
+msgid "Automatic color balance"
+msgstr ""
+
+msgid "Saturation"
+msgstr ""
+
+msgid "Dust and scratches"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "Low"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Fading correction"
+msgstr ""
+
+msgid "Grain reduction"
+msgstr ""
+
+msgid "Backlight correction"
+msgstr ""
+
+msgid "Output scale (%)"
+msgstr ""

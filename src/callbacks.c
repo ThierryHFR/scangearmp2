@@ -40,6 +40,7 @@
 #include "selectdevice.h"
 #include "errordlg.h"
 #include "scanmain.h"
+#include "advanced_ui.h"
 
 /*
 	main window
@@ -90,7 +91,7 @@ on_combobox_resolution_changed(	GtkWidget	*widget,
 							SGMP_Data	*data )
 {
 	(void)widget;
-	(void)data;
+	CIJSC_UI_main_preview_geometry_update( data );
 #ifdef _SGMP_DEBUG_VERBOSE_
 	DBGMSG("->\n");
 #endif
@@ -112,7 +113,7 @@ on_combobox_size_changed(	GtkWidget	*widget,
 							SGMP_Data	*data )
 {
 	(void)widget;
-	(void)data;
+	CIJSC_UI_main_preview_geometry_update( data );
 #ifdef _SGMP_DEBUG_VERBOSE_
 	DBGMSG("->\n");
 #endif
@@ -162,6 +163,23 @@ on_button_close_clicked(	GtkWidget	*widget,
 	DBGMSG("->\n");
 	
 	gtk_main_quit();
+}
+
+G_MODULE_EXPORT void
+on_button_clear_preview_clicked(	GtkWidget	*widget,
+								SGMP_Data	*data )
+{
+	(void)widget;
+	gtk_picture_set_filename( GTK_PICTURE( data->preview_picture ), NULL );
+	gtk_widget_set_visible( data->preview_picture, FALSE );
+	gtk_widget_set_visible( data->preview_placeholder, TRUE );
+	gtk_widget_set_sensitive( data->button_clear_preview, FALSE );
+	data->histogram_valid = FALSE;
+	data->crop_enabled = FALSE;
+	data->preview_source_x = data->preview_source_y = 0.0;
+	data->preview_source_width = data->preview_source_height = 1.0;
+	CIJSC_UI_main_preview_geometry_update( data );
+	CIJSC_advanced_ui_image_updated( data );
 }
 
 
@@ -380,6 +398,3 @@ on_button_error_cancel_clicked(	GtkWidget	*widget,
 }
 
 #endif	/* _CALLBACKS_C_ */
-
-
-

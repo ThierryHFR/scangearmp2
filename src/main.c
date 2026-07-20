@@ -47,6 +47,7 @@
 #include "selectdevice.h"
 #include "keep_setting.h"
 #include "errordlg.h"
+#include "advanced_ui.h"
 
 #define WAIT_SECOND				{usleep(1000000);}
 
@@ -112,7 +113,32 @@ int main(int argc, char **argv )
 	data->button_scanpdf = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_scanpdf" ) );
 	data->button_version = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_version" ) );
 	data->button_close = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_close" ) );
+	data->button_clear_preview = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_clear_preview" ) );
 	data->label_devname = GTK_WIDGET( gtk_builder_get_object( data->builder, "label_devname" ) );
+	data->preview_picture = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_picture" ) );
+	data->preview_placeholder = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_placeholder" ) );
+	data->preview_crop_area = GTK_WIDGET( gtk_builder_get_object( data->builder, "preview_crop_area" ) );
+	data->histogram_area = GTK_WIDGET( gtk_builder_get_object( data->builder, "histogram_area" ) );
+	data->scale_brightness = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_brightness" ) );
+	data->scale_contrast = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_contrast" ) );
+	data->scale_gamma = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_gamma" ) );
+	data->scale_black_point = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_black_point" ) );
+	data->scale_white_point = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_white_point" ) );
+	data->scale_threshold = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_threshold" ) );
+	data->check_threshold = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_threshold" ) );
+	data->check_unsharp = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_unsharp" ) );
+	data->check_descreen = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_descreen" ) );
+	data->check_auto_tone = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_auto_tone" ) );
+	data->check_color_balance = GTK_WIDGET( gtk_builder_get_object( data->builder, "check_color_balance" ) );
+	data->combobox_dust = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_dust" ) );
+	data->combobox_fading = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_fading" ) );
+	data->combobox_grain = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_grain" ) );
+	data->combobox_backlight = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_backlight" ) );
+	data->scale_saturation = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_saturation" ) );
+	data->scale_output = GTK_WIDGET( gtk_builder_get_object( data->builder, "scale_output" ) );
+	data->combobox_curve = GTK_WIDGET( gtk_builder_get_object( data->builder, "combobox_curve" ) );
+	data->button_reset_adjustments = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_reset_adjustments" ) );
+	data->button_reset_crop = GTK_WIDGET( gtk_builder_get_object( data->builder, "button_reset_crop" ) );
 	
 	/* select device dialog */
 	data->dialog_select = GTK_WIDGET( gtk_builder_get_object( data->builder, "dialog_select" ) );
@@ -172,6 +198,7 @@ int main(int argc, char **argv )
 	CONNECT(data->button_scanpdf, "clicked", on_button_scanpdf_clicked);
 	CONNECT(data->button_version, "clicked", on_button_version_clicked);
 	CONNECT(data->button_close, "clicked", on_button_close_clicked);
+	CONNECT(data->button_clear_preview, "clicked", on_button_clear_preview_clicked);
 	CONNECT(data->dialog_select, "close-request", on_dialog_select_delete_event);
 	CONNECT(data->button_select_update, "clicked", on_button_select_update_clicked);
 	CONNECT(data->button_select_cancel, "clicked", on_button_select_cancel_clicked);
@@ -189,6 +216,7 @@ int main(int argc, char **argv )
 	CONNECT(data->button_error_ok, "clicked", on_button_error_ok_clicked);
 	CONNECT(data->button_error_cancel, "clicked", on_button_error_cancel_clicked);
 #undef CONNECT
+	CIJSC_advanced_ui_init( data );
 	
 	/* set version and year */
 	{

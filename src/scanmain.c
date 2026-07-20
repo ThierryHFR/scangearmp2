@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
+#include <glib/gstdio.h>
 
 #include "support.h"
 #include "callbacks.h"
@@ -48,6 +49,8 @@
 #include "jpeg2pdf.h"
 
 #include "progressbar.h"
+#include "image_processing.h"
+#include "scan_geometry.h"
 
 enum{
 	CIJSC_SCANMAIN_GO_NEXT = 0,
@@ -62,30 +65,6 @@ enum{
 };
 
 #define	JPEGSCANBUFSIZE	(0x4000)	/* 16k */
-
-typedef struct {
-	int			id;
-	int			right;
-	int			bottom;
-} CIJSC_SIZE_TABLE;
-
-/* for 300dpi */
-static const CIJSC_SIZE_TABLE sourceSize[] = {
-	{ CIJSC_SIZE_CARD,		1074,  649 },		// Card
-	{ CIJSC_SIZE_L_L,		1500, 1051 },		// L Landscape
-	{ CIJSC_SIZE_L_P,		1051, 1500 },		// L Portrait
-	{ CIJSC_SIZE_4X6_L,		1800, 1200 },		// 4"x6" Landscape
-	{ CIJSC_SIZE_4X6_P,		1200, 1800 },		// 4"x6" Portrait
-	{ CIJSC_SIZE_HAGAKI_L,	1748, 1181 },		// Hagaki Landscape
-	{ CIJSC_SIZE_HAGAKI_P,	1181, 1748 },		// Hagaki Portrait
-	{ CIJSC_SIZE_2L_L,		2102, 1500 },		// 2L Landscape
-	{ CIJSC_SIZE_2L_P,		1500, 2102 },		// 2L Portrait
-	{ CIJSC_SIZE_A5,		1748, 2480 },		// A5
-	{ CIJSC_SIZE_B5,		2149, 3035 },		// B5
-	{ CIJSC_SIZE_A4,		2480, 3507 },		// A4
-	{ CIJSC_SIZE_LETTER,	2550, 3300 },		// Letter
-	{ CIJSC_SIZE_STATEMENT,	1650, 2550 },		// Statement
-};
 
 static void ui_dialog_save_gtk_main_iteration(void)
 {
@@ -255,6 +234,23 @@ static int ui_dialog_save_scan_add_file_list( SGMP_Data *data, LPCNMS_ROOT root,
 	
 	FileControlCloseFile( (*pnode)->fd );
 	(*pnode)->fd = CNMS_FILE_ERR;
+	{
+		int processed_width = 0, processed_height = 0;
+		GStatBuf status;
+		if (CIJSC_image_process_jpeg((const char *)(*pnode)->file_path,
+			&data->image_settings, data->histogram,
+			&processed_width, &processed_height) != 0) {
+			DBGMSG("Unable to apply image adjustments to [%s].\n", (*pnode)->file_path);
+			set_module_error();
+			FileControlDeleteFile((*pnode)->file_path, CNMS_FILE_ERR);
+			goto EXIT;
+		}
+		data->histogram_valid = TRUE;
+		data->scan_w = processed_width;
+		data->scan_h = processed_height;
+		if (g_stat((const char *)(*pnode)->file_path, &status) == 0)
+			(*pnode)->file_size = (int)status.st_size;
+	}
 	
 	(*pnode)->page = data->scanning_page;
 	(*pnode)->rotate = ( ( data->scanning_page % 2 ) || data->scan_scanmode != CIJSC_SCANMODE_ADF_D_L ) ? CNMS_FALSE : CNMS_TRUE ;
@@ -285,7 +281,6 @@ static void ui_dialog_save_scan_dispose_file_list( SGMP_Data *data, LPCNMS_ROOT 
 static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 {
 	CANON_ScanParam		param;
-	int					i;
 	int					status;
 	unsigned char				*buf = NULL;
 	int					errCode;
@@ -295,23 +290,34 @@ static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 	LPCNMS_NODE			node = CNMSNULL;
 	
 	memset( &param, 0, sizeof(param) );
-	for ( i = 0; i < (int)(sizeof( sourceSize ) / sizeof( CIJSC_SIZE_TABLE )) ; i++ ) {
-		if ( sourceSize[i].id == data->scan_size ) {
-			break;
-		}
-	}
-	if ( i == (int)( sizeof( sourceSize ) / sizeof( CIJSC_SIZE_TABLE ) ) ) {
+	if (CIJSC_scan_geometry(data->scan_size, data->scan_resolution,
+		&data->scan_w, &data->scan_h) != 0) {
 		set_module_error();
 		goto EXIT_ERR;
 	}
         int table_res[] = {75, 150, 300, 600, 1200};
-        double table_res_fact[] = {4.0, 2.0, 1.0, 0.5, 0.25};
 	param.XRes			= data->scan_res = table_res[data->scan_resolution];
 	param.YRes			= data->scan_res; // 300;
-	param.Left			= 0;
-	param.Top			= 0;
-	param.Right			= data->scan_w = (int) ((double)sourceSize[i].right / table_res_fact[data->scan_resolution]);
-	param.Bottom		= data->scan_h = (int) ((double)sourceSize[i].bottom / table_res_fact[data->scan_resolution]);
+	{
+		int full_width = data->scan_w;
+		int full_height = data->scan_h;
+		if (data->crop_enabled) {
+			param.Left = CLAMP((int)(data->crop_x * full_width), 0, full_width - 1);
+			param.Top = CLAMP((int)(data->crop_y * full_height), 0, full_height - 1);
+			param.Right = CLAMP(param.Left + (int)(data->crop_width * full_width),
+				param.Left + 1, full_width);
+			param.Bottom = CLAMP(param.Top + (int)(data->crop_height * full_height),
+				param.Top + 1, full_height);
+		}
+		else {
+			param.Left = 0;
+			param.Top = 0;
+			param.Right = full_width;
+			param.Bottom = full_height;
+		}
+		data->scan_w = param.Right - param.Left;
+		data->scan_h = param.Bottom - param.Top;
+	}
 	param.ScanMode		= ( data->scan_color == CIJSC_COLOR_COLOR ) ? 4 : 2;
 	param.ScanMethod	= ( data->scan_scanmode == CIJSC_SCANMODE_ADF_D_S ) ? CIJSC_SCANMODE_ADF_D_L : data->scan_scanmode;
 	param.opts.p1_0		= 0;
@@ -385,11 +391,13 @@ SCAN_START:
 		if( data->scanning_page == 1 ) {
 			CIJSC_UI_progress_enable_cancel_button( data );
 		}
-		i = 0;
+#ifdef _SGMP_DEBUG_VERBOSE_
+		int read_count = 0;
+#endif
 		/* read scanned page data. */
 		while( 1 ) {
 #ifdef _SGMP_DEBUG_VERBOSE_
-			DBGMSG("CIJSC_read(%d)->\n",i++);
+			DBGMSG("CIJSC_read(%d)->\n", read_count++);
 #endif
 			readBytes = JPEGSCANBUFSIZE;
 			/* check cancel. */
@@ -428,7 +436,11 @@ SCAN_START:
 		}
 		
 		/* append scanned-file data. */
-		ui_dialog_save_scan_add_file_list( data, root, &node );
+		if (ui_dialog_save_scan_add_file_list( data, root, &node ) != CNMS_NO_ERR) {
+			data->scan_result = CIJSC_SCANMAIN_SCAN_ERROR;
+			ui_dialog_save_scan_dispose_file(data, &node);
+			break;
+		}
 		
 		data->scanning_page++;
 		DBGMSG( "scan end(%d)...\n", data->scanning_page );
@@ -689,6 +701,3 @@ void CIJSC_UI_notify_hide( SGMP_Data *data )
 
 
 #endif	/* _SCANMAIN_C_ */
-
-
-

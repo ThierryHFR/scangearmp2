@@ -42,6 +42,8 @@
 
 #include "mainui.h"
 #include "scanmain.h"
+#include "advanced_ui.h"
+#include "scan_geometry.h"
 
 typedef struct {
 	const int		id;
@@ -316,8 +318,33 @@ static void ui_main_combobox_set_default_size_new( SGMP_Data *data )
 	}
 }
 
+void CIJSC_UI_main_preview_geometry_update( SGMP_Data *data )
+{
+	CIJSC_MAINUI_ITEM_TABLE *size_table;
+	int size_id;
+	int resolution_index;
+	if (data->ignore_combobox_changed ||
+		gtk_widget_get_visible(data->preview_picture) ||
+		gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_scanmode)) < 0 ||
+		gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_size)) < 0 ||
+		gtk_combo_box_get_active(GTK_COMBO_BOX(data->combobox_resolution)) < 0)
+		return;
+	size_table = get_size_table(data);
+	size_id = ui_main_combobox_get_id(data, data->combobox_size, size_table);
+	resolution_index = ui_main_combobox_get_id(data, data->combobox_resolution,
+		resolution_table);
+	if (CIJSC_scan_geometry(size_id, resolution_index,
+		&data->scan_w, &data->scan_h) == 0)
+		gtk_widget_queue_draw(data->preview_crop_area);
+}
+
 static void ui_main_button_scan_main( SGMP_Data *data )
 {
+	double selected_x = data->crop_x;
+	double selected_y = data->crop_y;
+	double selected_width = data->crop_width;
+	double selected_height = data->crop_height;
+	gboolean had_crop = data->crop_enabled;
 	DBGMSG("->\n");
 	gtk_widget_set_sensitive( data->window_main, FALSE );
 	/* set scan parameters. */
@@ -331,6 +358,27 @@ static void ui_main_button_scan_main( SGMP_Data *data )
 	
 	/* scan and save scanned data. */
 	CIJSC_Scan_And_Save( data );
+	if( data->scan_format == CIJSC_FORMAT_JPEG &&
+		data->file_path[0] != '\0' &&
+		g_file_test( data->file_path, G_FILE_TEST_IS_REGULAR ) ) {
+		gtk_picture_set_filename( GTK_PICTURE( data->preview_picture ), data->file_path );
+		gtk_widget_set_visible( data->preview_placeholder, FALSE );
+		gtk_widget_set_visible( data->preview_picture, TRUE );
+		gtk_widget_set_sensitive( data->button_clear_preview, TRUE );
+		if (had_crop) {
+			data->preview_source_x = selected_x;
+			data->preview_source_y = selected_y;
+			data->preview_source_width = selected_width;
+			data->preview_source_height = selected_height;
+		}
+		else {
+			data->preview_source_x = data->preview_source_y = 0.0;
+			data->preview_source_width = data->preview_source_height = 1.0;
+		}
+		data->crop_enabled = FALSE;
+	}
+	if (data->histogram_valid)
+		CIJSC_advanced_ui_image_updated( data );
 	gtk_widget_set_sensitive( data->window_main, TRUE );
 }
 
@@ -364,6 +412,7 @@ void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev )
 	/* save current scanmode. */
 	data->prev_scanmode = ui_main_combobox_get_id( data, data->combobox_scanmode, (CIJSC_MAINUI_ITEM_TABLE *)scanmode_table );
 	data->ignore_combobox_changed = FALSE;
+	CIJSC_UI_main_preview_geometry_update( data );
 	
 	/* show main ui. */
 	gtk_widget_show( data->window_main );
@@ -424,6 +473,7 @@ void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data )
 		}
 		/* update prev_scanmode. */
 		data->prev_scanmode = current_scanmode;
+		CIJSC_UI_main_preview_geometry_update( data );
 	}
 }
 
@@ -439,6 +489,3 @@ void CIJSC_UI_main_button_scan_clicked( SGMP_Data *data, int format )
 
 
 #endif	/* _MAINUI_C_ */
-
-
-

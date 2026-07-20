@@ -32,3 +32,48 @@ char *s = N_("Select Source:");
 char *s = N_("Update Scanner List");
 /* STR_CNMS_LS_001_09 */
 char *s = N_("Version");
+
+/* GTK4 classic ScanGear interface */
+char *s = N_("Clear Preview");
+char *s = N_("Clear the last scanned image.");
+char *s = N_("About");
+char *s = N_("Preview");
+char *s = N_("The last JPEG scan will appear here.");
+char *s = N_("Drag to select a scan area, or scan the full page.");
+char *s = N_("Drag to select the area for the next scan.");
+char *s = N_("Input Settings");
+char *s = N_("Output Settings");
+char *s = N_("Basic Mode");
+char *s = N_("Histogram");
+char *s = N_("Brightness");
+char *s = N_("Contrast");
+char *s = N_("Gamma");
+char *s = N_("Black point");
+char *s = N_("White point");
+char *s = N_("Tone curve");
+char *s = N_("Linear");
+char *s = N_("S curve");
+char *s = N_("High key");
+char *s = N_("Low key");
+char *s = N_("Invert");
+char *s = N_("Threshold");
+char *s = N_("Unsharp mask");
+char *s = N_("Descreen");
+char *s = N_("Reset crop");
+char *s = N_("Defaults");
+char *s = N_("Advanced Mode");
+
+/* Software-emulated image corrections */
+char *s = N_("Software corrections");
+char *s = N_("Auto tone");
+char *s = N_("Automatic color balance");
+char *s = N_("Saturation");
+char *s = N_("Dust and scratches");
+char *s = N_("Off");
+char *s = N_("Low");
+char *s = N_("Medium");
+char *s = N_("High");
+char *s = N_("Fading correction");
+char *s = N_("Grain reduction");
+char *s = N_("Backlight correction");
+char *s = N_("Output scale (%)");

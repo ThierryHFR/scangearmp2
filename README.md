@@ -303,9 +303,9 @@ git checkout debian
 ```
 apt update
 apt install debhelper libglib2.0-dev libgtk-4-dev libusb-1.0-0-dev libtool-bin libjpeg-dev intltool libsane-dev
-cp -a scangearmp2 scangearmp2-4.80
-rm -rf scangearmp2-4.80/.git scangearmp2-4.80/debian/
-tar cJvf scangearmp2_4.80.orig.tar.xz scangearmp2-80
+cp -a scangearmp2 scangearmp2-4.90
+rm -rf scangearmp2-4.90/.git scangearmp2-4.90/debian/
+tar cJvf scangearmp2_4.90.orig.tar.xz scangearmp2-4.90
 ```
 ###### Build Sources :
 ```
@@ -315,7 +315,7 @@ dpkg-buildpackage -us -uc ##
 
 ###### Install :
 ```
-apt install ../scangearmp2_4.80-1_amd64.deb
+apt install ../scangearmp2_4.90-2_amd64.deb
 ```
 ## For redhat systems : <font color="red">This is no longer current</font>
 
@@ -330,17 +330,17 @@ yum install rpm-build
 ```
 ###### Get sources :
 ```
-wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.80/scangearmp2.spec
-wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.80/scangearmp2_4.80.tar.xz
-tar xvf scangearmp2_4.80-1.tar.xz
-tar czvf scangearmp2_4.80.orig.tar.gz scangearmp2
-mv scangearmp2_4.80a.orig.tar.gz ~/rpmbuild/SOURCES/
+wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.90/scangearmp2.spec
+wget https://github.com/ThierryHFR/scangearmp2/releases/download/4.90/scangearmp2_4.90.tar.xz
+tar xvf scangearmp2_4.90-1.tar.xz
+tar czvf scangearmp2_4.90.orig.tar.gz scangearmp2
+mv scangearmp2_4.90.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 Or, from git repository
 ```
-git archive --format=tar --prefix=scangearmp2-4.80/ HEAD |gzip >scangearmp2_4.80.orig.tar.gz
-mv scangearmp2_4.80.orig.tar.gz ~/rpmbuild/SOURCES/
+git archive --format=tar --prefix=scangearmp2-4.90/ HEAD |gzip >scangearmp2_4.90.orig.tar.gz
+mv scangearmp2_4.90.orig.tar.gz ~/rpmbuild/SOURCES/
 ```
 
 ###### Build Sources :
@@ -352,7 +352,7 @@ rpmbuild -ba scangearmp2.spec
 ```
 ###### Install :
 ```
-rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.80-1.x86_64.rpm
+rpm -i ~/rpmbuild/RPMS/x86_64/scangearmp2-4.90-1.x86_64.rpm
 ```
 
 ###### Firewall :

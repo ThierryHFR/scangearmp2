@@ -81,6 +81,10 @@ G_MODULE_EXPORT void
 on_button_close_clicked(	GtkWidget	*widget,
 							SGMP_Data	*data );
 
+G_MODULE_EXPORT void
+on_button_clear_preview_clicked(	GtkWidget	*widget,
+								SGMP_Data	*data );
+
 
 /*
 	select device dialog
