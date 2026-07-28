@@ -338,17 +338,17 @@ void CIJSC_UI_main_preview_geometry_update( SGMP_Data *data )
 		gtk_widget_queue_draw(data->preview_crop_area);
 }
 
-static gboolean ui_main_preview_set_file(SGMP_Data *data)
+gboolean CIJSC_UI_main_preview_set_file(SGMP_Data *data, const char *path)
 {
 	GError *error = NULL;
 	GdkPixbuf *preview;
 	int preview_width = MIN(data->scan_w, 1600);
 	int preview_height = MIN(data->scan_h, 1600);
 
-	preview = gdk_pixbuf_new_from_file_at_scale(data->file_path,
+	preview = gdk_pixbuf_new_from_file_at_scale(path,
 		preview_width, preview_height, TRUE, &error);
 	if (preview == NULL) {
-		DBGMSG("Unable to load scan preview [%s]: %s\n", data->file_path,
+		DBGMSG("Unable to load scan preview [%s]: %s\n", path,
 			error != NULL ? error->message : "unknown error");
 		g_clear_error(&error);
 		return FALSE;
@@ -365,6 +365,7 @@ static void ui_main_button_scan_main( SGMP_Data *data )
 	double selected_width = data->crop_width;
 	double selected_height = data->crop_height;
 	gboolean had_crop = data->crop_enabled;
+	gboolean preview_ready = FALSE;
 	DBGMSG("->\n");
 	gtk_widget_set_sensitive( data->window_main, FALSE );
 	/* set scan parameters. */
@@ -378,10 +379,15 @@ static void ui_main_button_scan_main( SGMP_Data *data )
 	
 	/* scan and save scanned data. */
 	CIJSC_Scan_And_Save( data );
-	if( data->scan_format == CIJSC_FORMAT_JPEG &&
-		data->file_path[0] != '\0' &&
-		g_file_test( data->file_path, G_FILE_TEST_IS_REGULAR ) &&
-		ui_main_preview_set_file(data) ) {
+	if (data->file_path[0] != '\0' &&
+		g_file_test(data->file_path, G_FILE_TEST_IS_REGULAR)) {
+		if (data->scan_format == CIJSC_FORMAT_JPEG)
+			preview_ready = CIJSC_UI_main_preview_set_file(data, data->file_path);
+		else if (data->scan_format == CIJSC_FORMAT_PDF)
+			preview_ready =
+				gtk_picture_get_paintable(GTK_PICTURE(data->preview_picture)) != NULL;
+	}
+	if (preview_ready) {
 		gtk_widget_set_visible( data->preview_placeholder, FALSE );
 		gtk_widget_set_visible( data->preview_picture, TRUE );
 		gtk_widget_set_sensitive( data->button_clear_preview, TRUE );
