@@ -492,8 +492,6 @@ CMT_Status CIJSC_init( void *cnnl_callback )
                 char *tmp = NULL;
                 char *ip_str = NULL;
                 char *mac_str = NULL;
-                manual_len = 0;
-                manual_nic = NULL;
                 /* Set Network device list */
                 // while ( ( len = cmt_conf_file_read_line( line, sizeof(line), fp ) ) >= 0 ) {
 		while ( fgets (line, 1024, fp) != NULL) {
@@ -517,10 +515,17 @@ CMT_Status CIJSC_init( void *cnnl_callback )
                                     DBGMSG ("Mac Adress Device [%s].\n", mac_str);
 				 }
                             }
-                            if (manual_nic == NULL)
-                                manual_nic = (CNNLNICINFO*) calloc(1, sizeof(CNNLNICINFO));
-                            else
-                                manual_nic = (CNNLNICINFO*) realloc(manual_nic, sizeof(CNNLNICINFO) * (manual_len + 1));
+                            CNNLNICINFO *new_manual_nic = (CNNLNICINFO*) realloc(
+                                manual_nic, sizeof(CNNLNICINFO) * (manual_len + 1));
+                            if (new_manual_nic == NULL) {
+                                 fclose(fp);
+                                 free(manual_nic);
+                                 manual_nic = NULL;
+                                 manual_len = 0;
+                                 cmt_libusb_exit();
+                                 return CMT_STATUS_NO_MEM;
+                            }
+                            manual_nic = new_manual_nic;
                             manual_nic[manual_len] = info;
                             manual_len += 1;
                         }
@@ -633,6 +638,9 @@ void CIJSC_exit(void)
 		free( devlist );
 	}
 	devlist = NULL;
+	free(manual_nic);
+	manual_nic = NULL;
+	manual_len = 0;
 
 	num_devices = 0;
 	cmt_libusb_exit();
