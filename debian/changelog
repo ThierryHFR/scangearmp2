@@ -1,10 +1,5 @@
 scangearmp2 (4.93-1) UNRELEASED; urgency=medium
 
-  * Port the application and Debian build dependencies to GTK4.
-  * Rework the GTK4 interface to match the classic ScanGear layout.
-  * Add crop selection and advanced image adjustment controls.
-  * Emulate image options that are not provided by the scanner driver.
-  * Detect scanner resolution capabilities dynamically.
   * Reduce memory usage when processing and previewing high-resolution scans.
   * Process unmodified JPEG scans row by row without rewriting the source file.
   * Release scan buffers, temporary files, file descriptors, and PDF resources
@@ -14,9 +9,19 @@ scangearmp2 (4.93-1) UNRELEASED; urgency=medium
   * Add overflow and allocation-failure checks to JPEG decompression.
   * Release manual network-device allocations during reinitialization and exit.
   * Allow tests to override the SANE configuration path.
-  * Add regression coverage for repeated image-processing cycles.
 
  -- Thierry HUCHARD <thierry@substantiel.fr>  Tue, 28 Jul 2026 10:00:00 +0200
+
+scangearmp2 (4.91-1) UNRELEASED; urgency=medium
+
+  * Port the application and Debian build dependencies to GTK4.
+  * Rework the GTK4 interface to match the classic ScanGear layout.
+  * Add crop selection and advanced image adjustment controls.
+  * Emulate image options that are not provided by the scanner driver.
+  * Detect scanner resolution capabilities dynamically.
+
+ -- Thierry HUCHARD <thierry@substantiel.fr>  Tue, 14 Jul 2026 10:00:00 +0200
+
 
 scangearmp2 (4.90-1) UNRELEASED; urgency=medium
 
