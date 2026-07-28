@@ -181,11 +181,81 @@ static void test_jpeg_threshold_and_histogram(void)
 	g_free(path);
 }
 
+static void test_jpeg_without_adjustments_is_not_rewritten(void)
+{
+	CIJSC_ImageSettings settings;
+	unsigned long histogram[256];
+	unsigned char pixels[] = {
+		10, 10, 10, 240, 240, 240,
+		80, 80, 80, 160, 160, 160
+	};
+	char *path = NULL;
+	char *before = NULL;
+	char *after = NULL;
+	gsize before_size = 0;
+	gsize after_size = 0;
+	unsigned long total = 0;
+	int width = 0;
+	int height = 0;
+	int i;
+	int fd = g_file_open_tmp("scangearmp2-image-XXXXXX", &path, NULL);
+
+	assert(fd >= 0);
+	close(fd);
+	create_jpeg(path, pixels, 2, 2);
+	assert(g_file_get_contents(path, &before, &before_size, NULL));
+	CIJSC_image_settings_reset(&settings);
+	assert(CIJSC_image_process_jpeg(path, &settings, histogram, &width, &height) == 0);
+	assert(width == 2);
+	assert(height == 2);
+	for (i = 0; i < 256; i++)
+		total += histogram[i];
+	assert(total == 4);
+	assert(g_file_get_contents(path, &after, &after_size, NULL));
+	assert(before_size == after_size);
+	assert(memcmp(before, after, before_size) == 0);
+	g_free(before);
+	g_free(after);
+	g_unlink(path);
+	g_free(path);
+}
+
+static void test_repeated_processing_cycles(void)
+{
+	CIJSC_ImageSettings settings;
+	unsigned long histogram[256];
+	char *path = NULL;
+	int fd = g_file_open_tmp("scangearmp2-image-XXXXXX", &path, NULL);
+	int cycle;
+
+	assert(fd >= 0);
+	close(fd);
+	for (cycle = 0; cycle < 100; cycle++) {
+		int width = 0;
+		int height = 0;
+
+		create_test_jpeg(path);
+		CIJSC_image_settings_reset(&settings);
+		if (cycle % 2 != 0) {
+			settings.threshold_enabled = 1;
+			settings.threshold = 128;
+		}
+		assert(CIJSC_image_process_jpeg(path, &settings, histogram,
+			&width, &height) == 0);
+		assert(width == 2);
+		assert(height == 1);
+	}
+	g_unlink(path);
+	g_free(path);
+}
+
 int main(void)
 {
 	test_identity_curve();
 	test_levels_and_invert();
 	test_brightness_and_contrast();
 	test_jpeg_threshold_and_histogram();
+	test_jpeg_without_adjustments_is_not_rewritten();
+	test_repeated_processing_cycles();
 	return 0;
 }

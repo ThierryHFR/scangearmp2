@@ -166,6 +166,7 @@ static int ui_dialog_save_scan_create_file( SGMP_Data *data, LPCNMS_NODE *pnode 
 	CNMSInt32		ret = CNMS_ERR;
 	CNMSFd			fd = CNMS_FILE_ERR;
 	CNMSByte		file_path[ PATH_MAX ];
+	const CNMSByte	*created_path = CNMSNULL;
 	
 	if( pnode == CNMSNULL ) {
 		DBGMSG( "[CnmsScanFlowMakeDstFile]pnode is CNMSNULL.\n" );
@@ -179,6 +180,7 @@ static int ui_dialog_save_scan_create_file( SGMP_Data *data, LPCNMS_NODE *pnode 
 			DBGMSG( "Error is occured in FileControlOpenFile.\n" );
 			goto	EXIT;
 		}
+		created_path = data->file_path;
 		if( ( *pnode = CnmsNewNode( data->file_path ) ) == CNMSNULL ) {
 			DBGMSG( "Error is occured in CnmsNewNode.\n" );
 			goto 	EXIT;
@@ -189,17 +191,21 @@ static int ui_dialog_save_scan_create_file( SGMP_Data *data, LPCNMS_NODE *pnode 
 			DBGMSG( "Error is occured in FileControlMakeTempFile.\n" );
 			goto	EXIT;
 		}
+		created_path = file_path;
 		if( ( *pnode = CnmsNewNode( file_path ) ) == CNMSNULL ) {
 			DBGMSG( "Error is occured in CnmsNewNode.\n" );
 			goto 	EXIT;
 		}
 	}
 	(*pnode)->fd = fd;
+	fd = CNMS_FILE_ERR;
 	DBGMSG( " created file [%s]\n", (*pnode)->file_path );
 	
 	ret = CNMS_NO_ERR;
 
 EXIT:
+	if (fd != CNMS_FILE_ERR)
+		FileControlDeleteFile((CNMSLPSTR)created_path, fd);
 	return ret;
 }
 
@@ -264,18 +270,21 @@ EXIT:
 	return ret;
 }
 
-static void ui_dialog_save_scan_dispose_file_list( SGMP_Data *data, LPCNMS_ROOT root )
+static void ui_dialog_save_scan_dispose_file_list( SGMP_Data *data, LPCNMS_ROOT *proot )
 {
 	LPCNMS_NODE		node;
-	
-	while( CnmsDisposeRoot( &root ) > 0 ) {
-		node = root->head;
+
+	if (proot == CNMSNULL || *proot == CNMSNULL)
+		return;
+	while ((*proot)->head != CNMSNULL) {
+		node = (*proot)->head;
 		DBGMSG( "delete file in list [%s] size = %d\n", node->file_path, node->file_size );
 		if( data->scan_format == CIJSC_FORMAT_PDF ) {
 			FileControlDeleteFile( node->file_path, CNMS_FILE_ERR );
 		}
-		CnmsDisposeQueue( root, CNMS_NODE_HEAD );
+		CnmsDisposeQueue(*proot, CNMS_NODE_HEAD);
 	}
+	CnmsDisposeRoot(proot);
 }
 
 static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
@@ -386,6 +395,11 @@ SCAN_START:
 			buf = NULL;
 		}
 		buf = (unsigned char *)malloc( JPEGSCANBUFSIZE );
+		if (buf == NULL) {
+			set_module_error();
+			data->scan_result = CIJSC_SCANMAIN_SCAN_ERROR;
+			goto ERROR_BACKEND;
+		}
 		readBytes = JPEGSCANBUFSIZE;
 		
 		if( data->scanning_page == 1 ) {
@@ -494,7 +508,7 @@ ERROR_BACKEND:
 static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 {
 	CNMSFd			fd = CNMS_FILE_ERR;
-	CNMSVoid		*p;
+	CNMSVoid		*p = CNMSNULL;
 	int				result = CNMS_ERR;
 	
 	DBGMSG("->\n");
@@ -536,11 +550,12 @@ static int ui_dialog_save_create_pdf( SGMP_Data *data, LPCNMS_ROOT root )
 		}
 		/* dispose page data. */
 		DBGMSG( "delete file in list [%s]\n", root->head->file_path );
+		FileControlDeleteFile(root->head->file_path, CNMS_FILE_ERR);
 		CnmsDisposeQueue( root, CNMS_NODE_HEAD );
 	}
 	if ( ( result = CnmsPDF_EndDoc( p ) ) != CNMS_NO_ERR ) {
 		DBGMSG( "CnmsPDF_Open : error\n\n" );
-		goto EXIT_ERR;
+		goto EXIT_CNMS_PDF_CLOSE;
 	}
 	result = CNMS_NO_ERR;
 	
@@ -569,12 +584,13 @@ static void ui_dialog_save_show_notify( SGMP_Data *data )
 	gtk_main();
 }
 
-static int ui_dialog_save_save_result( SGMP_Data *data, LPCNMS_ROOT root )
+static int ui_dialog_save_save_result( SGMP_Data *data, LPCNMS_ROOT *proot )
 {
 	int				result;
+	LPCNMS_ROOT			root = *proot;
 	
 	if( data->scan_format == CIJSC_FORMAT_JPEG ) {
-		ui_dialog_save_scan_dispose_file_list( data, root );
+		ui_dialog_save_scan_dispose_file_list( data, proot );
 		gtk_main_quit();	/* exit loop : CIJSC_Scan_And_Save() */
 		if( data->scan_result == CIJSC_SCANMAIN_SCAN_FINISHED ) {
 			ui_dialog_save_show_notify( data );
@@ -584,7 +600,7 @@ static int ui_dialog_save_save_result( SGMP_Data *data, LPCNMS_ROOT root )
 		/* jpg -> pdf */
 		result = ui_dialog_save_create_pdf( data, root );
 		
-		ui_dialog_save_scan_dispose_file_list( data, root );
+		ui_dialog_save_scan_dispose_file_list( data, proot );
 		gtk_main_quit();	/* exit loop : CIJSC_Scan_And_Save() */
 		
 		if( result == CNMS_NO_ERR ) {
@@ -676,7 +692,7 @@ void CIJSC_UI_save_button_save_clicked( SGMP_Data *data )
 		CIJSC_UI_error_show( data, NULL );
 	}
 	/* save */
-	ui_dialog_save_save_result( data, root );
+	ui_dialog_save_save_result( data, &root );
 }
 
 void CIJSC_UI_save_button_cancel_clicked( SGMP_Data *data )

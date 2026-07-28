@@ -476,6 +476,7 @@ _ERROR:
 CMT_Status CIJSC_init( void *cnnl_callback )
 {
 	CMT_Status status = CMT_STATUS_GOOD;
+	const char *sane_config_file = getenv( "SCANGEARMP2_SANE_CONFIG" );
 
 	FILE *fp = NULL;
 	CANON_Device	*first_usb = NULL, *first_net = NULL, *first_net2 = NULL, *tmp_dev;
@@ -486,14 +487,17 @@ CMT_Status CIJSC_init( void *cnnl_callback )
 	/* initialize libUSB */
 	cmt_libusb_init();
 
-	fp = cmt_conf_file_open( SANE_CONFIG_FILE );
+	free(manual_nic);
+	manual_nic = NULL;
+	manual_len = 0;
+	if( sane_config_file == NULL || sane_config_file[0] == '\0' )
+		sane_config_file = SANE_CONFIG_FILE;
+	fp = cmt_conf_file_open( sane_config_file );
         if ( fp ) {
                 char line[1024] = { 0 }; // char*)calloc(1, sizeof(1024)); //[PATH_MAX];
                 char *tmp = NULL;
                 char *ip_str = NULL;
                 char *mac_str = NULL;
-                manual_len = 0;
-                manual_nic = NULL;
                 /* Set Network device list */
                 // while ( ( len = cmt_conf_file_read_line( line, sizeof(line), fp ) ) >= 0 ) {
 		while ( fgets (line, 1024, fp) != NULL) {
@@ -505,6 +509,7 @@ CMT_Status CIJSC_init( void *cnnl_callback )
                             }
                             DBGMSG ("IP Adress Device [%s].\n", ip_str);
                             CNNLNICINFO info;
+                            memset( &info, 0, sizeof(info) );
                             if (!cmt_convert_ipadress_to_array(ip_str, &info)) {
                                  continue;
                             }
@@ -517,10 +522,17 @@ CMT_Status CIJSC_init( void *cnnl_callback )
                                     DBGMSG ("Mac Adress Device [%s].\n", mac_str);
 				 }
                             }
-                            if (manual_nic == NULL)
-                                manual_nic = (CNNLNICINFO*) calloc(1, sizeof(CNNLNICINFO));
-                            else
-                                manual_nic = (CNNLNICINFO*) realloc(manual_nic, sizeof(CNNLNICINFO) * (manual_len + 1));
+                            CNNLNICINFO *new_manual_nic = (CNNLNICINFO*) realloc(
+                                manual_nic, sizeof(CNNLNICINFO) * (manual_len + 1));
+                            if (new_manual_nic == NULL) {
+                                 fclose(fp);
+                                 free(manual_nic);
+                                 manual_nic = NULL;
+                                 manual_len = 0;
+                                 cmt_libusb_exit();
+                                 return CMT_STATUS_NO_MEM;
+                            }
+                            manual_nic = new_manual_nic;
                             manual_nic[manual_len] = info;
                             manual_len += 1;
                         }
@@ -633,6 +645,9 @@ void CIJSC_exit(void)
 		free( devlist );
 	}
 	devlist = NULL;
+	free(manual_nic);
+	manual_nic = NULL;
+	manual_len = 0;
 
 	num_devices = 0;
 	cmt_libusb_exit();

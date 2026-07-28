@@ -338,6 +338,26 @@ void CIJSC_UI_main_preview_geometry_update( SGMP_Data *data )
 		gtk_widget_queue_draw(data->preview_crop_area);
 }
 
+static gboolean ui_main_preview_set_file(SGMP_Data *data)
+{
+	GError *error = NULL;
+	GdkPixbuf *preview;
+	int preview_width = MIN(data->scan_w, 1600);
+	int preview_height = MIN(data->scan_h, 1600);
+
+	preview = gdk_pixbuf_new_from_file_at_scale(data->file_path,
+		preview_width, preview_height, TRUE, &error);
+	if (preview == NULL) {
+		DBGMSG("Unable to load scan preview [%s]: %s\n", data->file_path,
+			error != NULL ? error->message : "unknown error");
+		g_clear_error(&error);
+		return FALSE;
+	}
+	gtk_picture_set_pixbuf(GTK_PICTURE(data->preview_picture), preview);
+	g_object_unref(preview);
+	return TRUE;
+}
+
 static void ui_main_button_scan_main( SGMP_Data *data )
 {
 	double selected_x = data->crop_x;
@@ -360,8 +380,8 @@ static void ui_main_button_scan_main( SGMP_Data *data )
 	CIJSC_Scan_And_Save( data );
 	if( data->scan_format == CIJSC_FORMAT_JPEG &&
 		data->file_path[0] != '\0' &&
-		g_file_test( data->file_path, G_FILE_TEST_IS_REGULAR ) ) {
-		gtk_picture_set_filename( GTK_PICTURE( data->preview_picture ), data->file_path );
+		g_file_test( data->file_path, G_FILE_TEST_IS_REGULAR ) &&
+		ui_main_preview_set_file(data) ) {
 		gtk_widget_set_visible( data->preview_placeholder, FALSE );
 		gtk_widget_set_visible( data->preview_picture, TRUE );
 		gtk_widget_set_sensitive( data->button_clear_preview, TRUE );

@@ -198,7 +198,7 @@ CNMSInt32 CnmsPDF_Open( CNMSVoid **ppw, CNMSFd fd )
 		DBGMSG( " Initialize parameter is error!\n" );
 		goto	EXIT;
 	}
-	else if ( ( p = (CNMSPdfWork *)CnmsGetMem( sizeof(CNMSPdfPage) ) ) == CNMSNULL ) {
+	else if ( ( p = (CNMSPdfWork *)CnmsGetMem( sizeof(CNMSPdfWork) ) ) == CNMSNULL ) {
 		DBGMSG( " Can't get work memory!\n" );
 		goto	EXIT;
 	}
