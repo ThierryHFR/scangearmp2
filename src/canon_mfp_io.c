@@ -486,6 +486,9 @@ CMT_Status CIJSC_init( void *cnnl_callback )
 	/* initialize libUSB */
 	cmt_libusb_init();
 
+	free(manual_nic);
+	manual_nic = NULL;
+	manual_len = 0;
 	fp = cmt_conf_file_open( SANE_CONFIG_FILE );
         if ( fp ) {
                 char line[1024] = { 0 }; // char*)calloc(1, sizeof(1024)); //[PATH_MAX];
