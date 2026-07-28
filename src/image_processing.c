@@ -363,6 +363,37 @@ int CIJSC_image_process_jpeg(const char *path,
 	jpeg_start_decompress(&input);
 	*width = (int)input.output_width;
 	*height = (int)input.output_height;
+	if (!adjustments_are_active(settings)) {
+		size_t row_size;
+
+		if (input.output_width > G_MAXSIZE / input.output_components)
+			goto cleanup_input;
+		row_size = (size_t)input.output_width * input.output_components;
+		pixels = g_try_malloc(row_size);
+		if (pixels == NULL)
+			goto cleanup_input;
+		memset(histogram, 0, sizeof(unsigned long) * 256);
+		while (input.output_scanline < input.output_height) {
+			JSAMPROW row = pixels;
+			size_t x;
+
+			jpeg_read_scanlines(&input, &row, 1);
+			for (x = 0; x < input.output_width; x++) {
+				int luminance = (pixels[x * 3] * 299 +
+					pixels[x * 3 + 1] * 587 +
+					pixels[x * 3 + 2] * 114) / 1000;
+				histogram[luminance]++;
+			}
+		}
+		jpeg_finish_decompress(&input);
+		jpeg_destroy_decompress(&input);
+		fclose(source);
+		g_free(pixels);
+		return 0;
+	}
+	if ((size_t)*width > G_MAXSIZE / (size_t)*height ||
+		(size_t)*width * (size_t)*height > G_MAXSIZE / 3)
+		goto cleanup_input;
 	pixels = g_try_malloc((size_t)*width * *height * 3);
 	if (pixels == NULL)
 		goto cleanup_input;
@@ -397,10 +428,6 @@ int CIJSC_image_process_jpeg(const char *path,
 		*width = output_width;
 		*height = output_height;
 		calculate_histogram(pixels, (size_t)*width * *height, histogram);
-	}
-	if (!adjustments_are_active(settings)) {
-		g_free(pixels);
-		return 0;
 	}
 	temporary = g_strdup_printf("%s.XXXXXX", path);
 	temporary_fd = g_mkstemp(temporary);
