@@ -38,10 +38,10 @@
 void CIJSC_UI_main_show( SGMP_Data	*data, CANON_Device const *dev );
 void CIJSC_UI_main_combobox_scanmode_changed( SGMP_Data	*data );
 void CIJSC_UI_main_preview_geometry_update( SGMP_Data *data );
+gboolean CIJSC_UI_main_preview_set_file( SGMP_Data *data, const char *path );
 void CIJSC_UI_main_button_scan_clicked( SGMP_Data	*data, int format );
 
 
 #endif	/* _MAINUI_H_ */
-
 
 

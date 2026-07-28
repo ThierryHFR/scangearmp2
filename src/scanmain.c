@@ -50,6 +50,7 @@
 
 #include "progressbar.h"
 #include "image_processing.h"
+#include "mainui.h"
 #include "scan_geometry.h"
 
 enum{
@@ -254,6 +255,10 @@ static int ui_dialog_save_scan_add_file_list( SGMP_Data *data, LPCNMS_ROOT root,
 		data->histogram_valid = TRUE;
 		data->scan_w = processed_width;
 		data->scan_h = processed_height;
+		if (data->scan_format == CIJSC_FORMAT_PDF &&
+			data->scanning_page == 1)
+			CIJSC_UI_main_preview_set_file(data,
+				(const char *)(*pnode)->file_path);
 		if (g_stat((const char *)(*pnode)->file_path, &status) == 0)
 			(*pnode)->file_size = (int)status.st_size;
 	}
@@ -342,6 +347,8 @@ static int ui_dialog_save_scan_start( SGMP_Data *data, LPCNMS_ROOT root )
 	data->scan_result	= CIJSC_SCANMAIN_SCAN_FINISHED;
 	data->scanning_page = 1;
 	data->last_error_quit = CIJSC_ERROR_DLG_QUIT_FALSE;
+	if (data->scan_format == CIJSC_FORMAT_PDF)
+		gtk_picture_set_paintable(GTK_PICTURE(data->preview_picture), NULL);
 	
 	while(1){
 		DBGMSG( "scan start(%d) ->\n", data->scanning_page );

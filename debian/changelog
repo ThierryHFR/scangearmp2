@@ -9,6 +9,7 @@ scangearmp2 (4.93-1) UNRELEASED; urgency=medium
   * Add overflow and allocation-failure checks to JPEG decompression.
   * Release manual network-device allocations during reinitialization and exit.
   * Allow tests to override the SANE configuration path.
+  * Display a preview of the first scanned page when saving as PDF.
 
  -- Thierry HUCHARD <thierry@substantiel.fr>  Tue, 28 Jul 2026 10:00:00 +0200
 
