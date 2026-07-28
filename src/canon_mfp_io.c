@@ -476,6 +476,7 @@ _ERROR:
 CMT_Status CIJSC_init( void *cnnl_callback )
 {
 	CMT_Status status = CMT_STATUS_GOOD;
+	const char *sane_config_file = getenv( "SCANGEARMP2_SANE_CONFIG" );
 
 	FILE *fp = NULL;
 	CANON_Device	*first_usb = NULL, *first_net = NULL, *first_net2 = NULL, *tmp_dev;
@@ -489,7 +490,9 @@ CMT_Status CIJSC_init( void *cnnl_callback )
 	free(manual_nic);
 	manual_nic = NULL;
 	manual_len = 0;
-	fp = cmt_conf_file_open( SANE_CONFIG_FILE );
+	if( sane_config_file == NULL || sane_config_file[0] == '\0' )
+		sane_config_file = SANE_CONFIG_FILE;
+	fp = cmt_conf_file_open( sane_config_file );
         if ( fp ) {
                 char line[1024] = { 0 }; // char*)calloc(1, sizeof(1024)); //[PATH_MAX];
                 char *tmp = NULL;
@@ -506,6 +509,7 @@ CMT_Status CIJSC_init( void *cnnl_callback )
                             }
                             DBGMSG ("IP Adress Device [%s].\n", ip_str);
                             CNNLNICINFO info;
+                            memset( &info, 0, sizeof(info) );
                             if (!cmt_convert_ipadress_to_array(ip_str, &info)) {
                                  continue;
                             }
