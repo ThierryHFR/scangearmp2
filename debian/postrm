@@ -1,4 +1,5 @@
 #!/bin/sh
 
-# remove sgmp_setting files
-rm -f /var/tmp/canon_sgmp2_setting*.*
+# Per-user scanner settings live in XDG_CONFIG_HOME and are intentionally
+# preserved when the package is removed.
+exit 0
