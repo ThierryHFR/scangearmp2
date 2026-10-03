@@ -1,0 +1,80 @@
+name: Build and package
+
+on:
+  push:
+    branches: [master, main]
+    tags: ['*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: amd64
+            runner: ubuntu-24.04
+            platform: linux/amd64
+            image: debian:bookworm
+          - name: arm64
+            runner: ubuntu-24.04-arm
+            platform: linux/arm64
+            image: debian:bookworm
+          - name: i386
+            runner: ubuntu-24.04
+            platform: linux/386
+            image: debian:bookworm
+          - name: mips64el
+            runner: ubuntu-24.04
+            platform: linux/mips64le
+            image: mips64le/debian:bookworm
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Enable emulation for non-amd64 architectures
+        if: matrix.name == 'mips64el'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: mips64le
+
+      - name: Build, run tests, and create Debian package
+        env:
+          TARGET_PLATFORM: ${{ matrix.platform }}
+          TARGET_ARCH: ${{ matrix.name }}
+          BUILD_IMAGE: ${{ matrix.image }}
+        run: |
+          docker run --rm \
+            --platform "$TARGET_PLATFORM" \
+            -e TARGET_ARCH \
+            -v "$GITHUB_WORKSPACE:/src" \
+            -w /src \
+            "$BUILD_IMAGE" \
+            bash -euc '
+              export DEBIAN_FRONTEND=noninteractive
+              apt-get update
+              apt-get install -y --no-install-recommends \
+                build-essential debhelper autotools-dev \
+                libglib2.0-dev libgtk-4-dev libusb-1.0-0-dev \
+                libtool libjpeg-dev autoconf gawk automake cmake \
+                intltool libsane-dev gettext dpkg-dev
+              mkdir -p dist
+              dpkg-buildpackage -us -uc -b -j2
+              find .. -maxdepth 1 -type f -name "*.deb" -exec cp {} dist/ \;
+              test -n "$(find dist -maxdepth 1 -type f -name "*.deb" -print -quit)"
+            '
+
+      - name: Upload Debian package
+        uses: actions/upload-artifact@v4
+        with:
+          name: scangearmp2-${{ matrix.name }}
+          path: dist/*.deb
+          if-no-files-found: error
+          retention-days: 14
