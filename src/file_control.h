@@ -42,7 +42,6 @@ enum{
 enum{
 	FILECONTROL_OPEN_TYPE_READ = 0,
 	FILECONTROL_OPEN_TYPE_NEW,
-	FILECONTROL_OPEN_TYPE_NEW_ALL,	/* for setting file */
 	FILECONTROL_OPEN_TYPE_MAX,
 };
 
@@ -56,6 +55,7 @@ enum{
 CNMSInt32 FileControlGetStatus( CNMSLPSTR lpPath, CNMSInt32 pathLen );
 CNMSFd    FileControlMakeTempFile( CNMSLPSTR lpPath, CNMSInt32 pathLen );
 CNMSFd    FileControlOpenFile( CNMSInt32 type, CNMSLPSTR lpPath );
+CNMSFd    FileControlOpenSettingCommonFile( CNMSLPSTR lpPath );
 CNMSVoid  FileControlCloseFile( CNMSFd fd );
 CNMSVoid  FileControlDeleteFile( CNMSLPSTR lpPath, CNMSFd fd );
 

@@ -1,5 +1,9 @@
 scangearmp2 (4.93-1) UNRELEASED; urgency=medium
 
+  * Store scanner settings in a private per-user XDG configuration directory
+    and write updates atomically.
+  * Reject unsafe settings files and stop removing shared files from /var/tmp
+    when the package is removed.
   * Reduce memory usage when processing and previewing high-resolution scans.
   * Process unmodified JPEG scans row by row without rewriting the source file.
   * Release scan buffers, temporary files, file descriptors, and PDF resources

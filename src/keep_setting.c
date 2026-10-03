@@ -31,8 +31,13 @@
 #endif
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "support.h"
 
@@ -62,6 +67,9 @@ static CNMSVoid DebugKeepSettingComp( CNMSVoid );
 
 static CNMSInt32 SubWriteSettingCommonFile( CNMSFd fd );
 static CNMSInt32 SubReadSettingCommonFile( CNMSFd fd );
+static CNMSInt32 GetConfigFilePath( char *path, size_t size );
+static CNMSInt32 EnsureDirectory( const char *path );
+static CNMSInt32 WriteSettingAtomic( CNMSVoid );
 
 
 CNMSInt32 KeepSettingCommonOpen( CNMSVoid )
@@ -79,7 +87,9 @@ CNMSInt32 KeepSettingCommonOpen( CNMSVoid )
 	}
 	
 	/* init */
-	snprintf( lpCommonSetting->file_path, PATH_MAX, "/var/tmp/canon_sgmp2_setting.ini" );	/* Ver.2.20 */
+	if( GetConfigFilePath( lpCommonSetting->file_path, PATH_MAX ) != CNMS_NO_ERR ){
+		goto EXIT;
+	}
 	if( ( ldata = CnmsStrLen( lpCommonSetting->file_path ) ) <= 0 ){
 		DBGMSG( "[KeepSettingCommonOpen]Error is occured in CnmsStrLen.\n" );
 		goto	EXIT;
@@ -100,8 +110,8 @@ CNMSInt32 KeepSettingCommonOpen( CNMSVoid )
 	}
 	else if( ( ldata == FILECONTROL_STATUS_WRITE_OK ) || ( ldata == FILECONTROL_STATUS_WRITE_NG ) ){
 		/* read setting from file */
-		if( ( keepFd = FileControlOpenFile( FILECONTROL_OPEN_TYPE_READ, lpCommonSetting->file_path ) ) == CNMS_FILE_ERR ){
-			DBGMSG( "[KeepSettingCommonOpen]Error is occured in FileControlOpenFile.\n" );
+		if( ( keepFd = FileControlOpenSettingCommonFile( lpCommonSetting->file_path ) ) == CNMS_FILE_ERR ){
+			DBGMSG( "[KeepSettingCommonOpen]Error is occured opening setting file.\n" );
 			goto	EXIT;
 		}
 		else if( ( ldata = SubReadSettingCommonFile( keepFd ) ) != CNMS_NO_ERR ){
@@ -195,8 +205,7 @@ CNMSInt32 KeepSettingCommonSetString(
 		CNMSInt32		id,
 		CNMSLPSTR		str )
 {
-	CNMSInt32		ret = CNMS_ERR, ldata;
-	CNMSFd			keepFd = CNMS_FILE_ERR;
+	CNMSInt32		ret = CNMS_ERR;
 
 	if( ( id < 0 ) || ( KEEPSETTING_COMMON_ID_MAX <= id ) || ( lpCommonSetting == CNMSNULL ) ){
 		DBGMSG( "[KeepSettingCommonSetString]Parameter is error.\n" );
@@ -207,18 +216,12 @@ CNMSInt32 KeepSettingCommonSetString(
 		goto	EXIT;
 	}
 		
-	if( ( keepFd = FileControlOpenFile( FILECONTROL_OPEN_TYPE_NEW_ALL, lpCommonSetting->file_path ) ) == CNMS_FILE_ERR ){
-		goto	EXIT;
-	}
-	if( ( ldata = SubWriteSettingCommonFile( keepFd ) ) != CNMS_NO_ERR ){
+	if( WriteSettingAtomic() != CNMS_NO_ERR ){
 		goto	EXIT;
 	}
 
 	ret = CNMS_NO_ERR;
 EXIT:
-	if( keepFd != CNMS_FILE_ERR ){
-		FileControlCloseFile( keepFd );
-	}
 #ifdef	__CNMS_DEBUG_KEEP_SETTING__
 	DBGMSG( "[KeepSettingCommonSetString(str:%s)]=%d.\n", str, ret );
 #endif
@@ -254,6 +257,90 @@ EXIT:
 	return	ret;
 }
 
+/* Create missing path components. Existing components must be directories. */
+static CNMSInt32 EnsureDirectory( const char *path )
+{
+	char current[PATH_MAX];
+	size_t i, len = strlen( path );
+	struct stat st;
+
+	if( len == 0 || len >= sizeof( current ) || path[0] != '/' ) return CNMS_ERR;
+	memcpy( current, path, len + 1 );
+	for( i = 1; i <= len; i++ ){
+		if( current[i] != '/' && current[i] != '\0' ) continue;
+		{
+			char saved = current[i];
+			current[i] = '\0';
+			if( mkdir( current, 0700 ) != 0 && errno != EEXIST ) return CNMS_ERR;
+			if( lstat( current, &st ) != 0 || !S_ISDIR( st.st_mode ) ) return CNMS_ERR;
+			current[i] = saved;
+		}
+	}
+	return CNMS_NO_ERR;
+}
+
+static CNMSInt32 GetConfigFilePath( char *path, size_t size )
+{
+	const char *base = getenv( "XDG_CONFIG_HOME" );
+	const char *home = getenv( "HOME" );
+	char dir[PATH_MAX];
+	struct stat st;
+	int n;
+
+	if( base == NULL || base[0] == '\0' ){
+		if( home == NULL || home[0] != '/' ) return CNMS_ERR;
+		n = snprintf( dir, sizeof( dir ), "%s/.config/scangearmp2", home );
+	}
+	else{
+		if( base[0] != '/' ) return CNMS_ERR;
+		n = snprintf( dir, sizeof( dir ), "%s/scangearmp2", base );
+	}
+	if( n < 0 || (size_t)n >= sizeof( dir ) || EnsureDirectory( dir ) != CNMS_NO_ERR ) return CNMS_ERR;
+	if( lstat( dir, &st ) != 0 || !S_ISDIR( st.st_mode ) || st.st_uid != geteuid() || ( st.st_mode & 0077 ) != 0 ) return CNMS_ERR;
+	n = snprintf( path, size, "%s/config", dir );
+	if( n < 0 || (size_t)n >= size ) return CNMS_ERR;
+	if( lstat( path, &st ) == 0 ){
+		if( !S_ISREG( st.st_mode ) || st.st_uid != geteuid() || ( st.st_mode & 0077 ) != 0 ) return CNMS_ERR;
+	}
+	else if( errno != ENOENT ) return CNMS_ERR;
+	return CNMS_NO_ERR;
+}
+
+static CNMSInt32 WriteSettingAtomic( CNMSVoid )
+{
+	char tmp[PATH_MAX];
+	char dir[PATH_MAX];
+	char *slash;
+	int fd, dirfd, n, ret = CNMS_ERR;
+	n = snprintf( tmp, sizeof( tmp ), "%s.XXXXXX", lpCommonSetting->file_path );
+	if( n < 0 || (size_t)n >= sizeof( tmp ) ) return CNMS_ERR;
+	fd = mkstemp( tmp );
+	if( fd < 0 ) return CNMS_ERR;
+	if( fchmod( fd, S_IRUSR | S_IWUSR ) == 0 && SubWriteSettingCommonFile( fd ) == CNMS_NO_ERR && fsync( fd ) == 0 ){
+		if( close( fd ) == 0 ){
+			fd = -1;
+			if( rename( tmp, lpCommonSetting->file_path ) == 0 ) ret = CNMS_NO_ERR;
+		}
+	}
+	if( fd >= 0 ) close( fd );
+	if( ret != CNMS_NO_ERR ) unlink( tmp );
+	else{
+		n = snprintf( dir, sizeof( dir ), "%s", lpCommonSetting->file_path );
+		if( n >= 0 && (size_t)n < sizeof( dir ) ){
+			slash = strrchr( dir, '/' );
+			if( slash != NULL ){
+				*slash = '\0';
+				dirfd = open( dir, O_RDONLY | O_DIRECTORY | O_CLOEXEC );
+				if( dirfd >= 0 ){
+					(void)fsync( dirfd );
+					close( dirfd );
+				}
+			}
+		}
+	}
+	return ret;
+}
+
 
 
 #ifdef	__CNMS_DEBUG_KEEP_SETTING__
@@ -274,4 +361,3 @@ EXIT:
 #endif
 
 #endif	/* _KEEP_SETTING_C_ */
-
