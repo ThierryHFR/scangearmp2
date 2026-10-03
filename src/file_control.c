@@ -169,12 +169,10 @@ CNMSFd FileControlOpenFile(
 		CNMSLPSTR		lpPath )
 {
 	CNMSFd			retFd = CNMS_FILE_ERR;
-	int				flags[ FILECONTROL_OPEN_TYPE_MAX ] = {	O_RDONLY,
-															O_WRONLY | O_CREAT | O_TRUNC,
-															O_WRONLY | O_CREAT | O_TRUNC };
-	mode_t			mode[ FILECONTROL_OPEN_TYPE_MAX ] = {	S_IRUSR,
-															S_IRUSR | S_IWUSR,
-															S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH };
+	const int		flags[ FILECONTROL_OPEN_TYPE_MAX ] = {	O_RDONLY,
+																		O_WRONLY | O_CREAT | O_TRUNC };
+	const mode_t	mode[ FILECONTROL_OPEN_TYPE_MAX ] = {	S_IRUSR,
+																	S_IRUSR | S_IWUSR };
 
 	if( ( lpPath == CNMSNULL ) || ( type < 0 ) || ( FILECONTROL_OPEN_TYPE_MAX <= type ) ){
 		DBGMSG( "[FileControlOpenFile]Parameter is error.\n" );
@@ -194,6 +192,29 @@ EXIT:
 	DBGMSG( "[FileControlOpenFile(lpPath:%s)]=%d.\n", lpPath, retFd );
 #endif
 	return	retFd;
+}
+
+CNMSFd FileControlOpenSettingCommonFile( CNMSLPSTR lpPath )
+{
+	CNMSFd fd;
+	struct stat st;
+
+	if( lpPath == CNMSNULL ){
+		return CNMS_FILE_ERR;
+	}
+
+	fd = open( lpPath, O_RDONLY | O_NOFOLLOW | O_CLOEXEC );
+	if( fd == CNMS_FILE_ERR ){
+		set_errno();
+		return CNMS_FILE_ERR;
+	}
+	if( fstat( fd, &st ) != 0 || !S_ISREG( st.st_mode ) || st.st_uid != geteuid() || ( st.st_mode & 0077 ) != 0 ){
+		close( fd );
+		errno = EACCES;
+		set_errno();
+		return CNMS_FILE_ERR;
+	}
+	return fd;
 }
 
 
